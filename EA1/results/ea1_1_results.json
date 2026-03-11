@@ -1,0 +1,326 @@
+{
+  "experiment_id": "EA1.1",
+  "parameters": {
+    "global_seed": 42,
+    "n_random_opinions": 1000,
+    "scalar_bin_tolerance": 1e-06,
+    "sweep_targets": [
+      0.1,
+      0.3,
+      0.5,
+      0.7,
+      0.9
+    ],
+    "n_per_sweep_target": 100,
+    "decision_thresholds": {
+      "T1_accept_reject": 0.5,
+      "T2_uncertainty": 0.3,
+      "T3_conflict": 0.2
+    }
+  },
+  "metrics": {
+    "canonical_states": {
+      "n_states": 4,
+      "all_same_projected_probability": true,
+      "scalar_unique_T1_decisions": 1,
+      "sl_unique_T2_decisions": 2,
+      "sl_unique_T3_decisions": 2,
+      "scalar_cannot_distinguish": true,
+      "sl_distinguishes_via_T2": true,
+      "sl_distinguishes_via_T3": true
+    },
+    "information_loss": {
+      "A_strong_balanced": {
+        "H_bdu_bits": 1.3689955935892815,
+        "H_scalar_bits": 1.0,
+        "loss_bits": 0.36899559358928147
+      },
+      "B_total_ignorance": {
+        "H_bdu_bits": 0.0,
+        "H_scalar_bits": 1.0,
+        "loss_bits": -1.0
+      },
+      "C_moderate_belief": {
+        "H_bdu_bits": 1.295461844238322,
+        "H_scalar_bits": 1.0,
+        "loss_bits": 0.2954618442383219
+      },
+      "D_dogmatic_coinflip": {
+        "H_bdu_bits": 1.0,
+        "H_scalar_bits": 1.0,
+        "loss_bits": 0.0
+      }
+    },
+    "collision_analysis": {
+      "n_opinions": 1000,
+      "n_scalar_bins": 999,
+      "collision_rate": 0.002,
+      "max_collision_size": 2,
+      "T2_divergence_rate": 0.0,
+      "T3_divergence_rate": 0.0
+    },
+    "total_wall_time_seconds": 11.5971
+  },
+  "timestamp": "2026-03-11T12:38:36.120426+00:00",
+  "raw_data": {
+    "canonical_decisions": {
+      "A_strong_balanced": {
+        "projected_probability": 0.5,
+        "uncertainty": 0.1,
+        "conflict": 0.9,
+        "opinion_bdu": [
+          0.45,
+          0.45,
+          0.1
+        ],
+        "base_rate": 0.5,
+        "T1_scalar": "accept",
+        "T1_sl": "accept",
+        "T2_scalar": "no_uncertainty_signal",
+        "T2_sl": "sufficient_data",
+        "T3_scalar": "no_conflict_signal",
+        "T3_sl": "flag_for_review"
+      },
+      "B_total_ignorance": {
+        "projected_probability": 0.5,
+        "uncertainty": 1.0,
+        "conflict": 0.0,
+        "opinion_bdu": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "base_rate": 0.5,
+        "T1_scalar": "accept",
+        "T1_sl": "accept",
+        "T2_scalar": "no_uncertainty_signal",
+        "T2_sl": "request_more_data",
+        "T3_scalar": "no_conflict_signal",
+        "T3_sl": "auto_process"
+      },
+      "C_moderate_belief": {
+        "projected_probability": 0.5,
+        "uncertainty": 0.6,
+        "conflict": 0.20000000000000007,
+        "opinion_bdu": [
+          0.3,
+          0.1,
+          0.6
+        ],
+        "base_rate": 0.3333333333333333,
+        "T1_scalar": "accept",
+        "T1_sl": "accept",
+        "T2_scalar": "no_uncertainty_signal",
+        "T2_sl": "request_more_data",
+        "T3_scalar": "no_conflict_signal",
+        "T3_sl": "flag_for_review"
+      },
+      "D_dogmatic_coinflip": {
+        "projected_probability": 0.5,
+        "uncertainty": 0.0,
+        "conflict": 1.0,
+        "opinion_bdu": [
+          0.5,
+          0.5,
+          0.0
+        ],
+        "base_rate": 0.5,
+        "T1_scalar": "accept",
+        "T1_sl": "accept",
+        "T2_scalar": "no_uncertainty_signal",
+        "T2_sl": "sufficient_data",
+        "T3_scalar": "no_conflict_signal",
+        "T3_sl": "flag_for_review"
+      }
+    },
+    "information_analysis": {
+      "A_strong_balanced": {
+        "H_bdu": 1.3689955935892815,
+        "H_scalar": 1.0,
+        "information_loss_bits": 0.36899559358928147,
+        "projected_probability": 0.5
+      },
+      "B_total_ignorance": {
+        "H_bdu": 0.0,
+        "H_scalar": 1.0,
+        "information_loss_bits": -1.0,
+        "projected_probability": 0.5
+      },
+      "C_moderate_belief": {
+        "H_bdu": 1.295461844238322,
+        "H_scalar": 1.0,
+        "information_loss_bits": 0.2954618442383219,
+        "projected_probability": 0.5
+      },
+      "D_dogmatic_coinflip": {
+        "H_bdu": 1.0,
+        "H_scalar": 1.0,
+        "information_loss_bits": 0.0,
+        "projected_probability": 0.5
+      }
+    },
+    "collision_analysis": {
+      "n_opinions": 1000,
+      "n_scalar_bins": 999,
+      "n_colliding_bins": 1,
+      "n_colliding_opinions": 2,
+      "max_collision_size": 2,
+      "collision_rate": 0.002,
+      "largest_bin": {
+        "projected_probability": 0.4326111049839838,
+        "n_opinions": 2,
+        "uncertainty_range": 0.08658062060430434,
+        "mean_l2_distance_bdu": 0.10656925594012516,
+        "max_l2_distance_bdu": 0.10656925594012516,
+        "min_l2_distance_bdu": 0.10656925594012516
+      },
+      "entropy_spread_in_collision_bins": {
+        "mean": 0.2870100686332817,
+        "max": 0.2870100686332817
+      },
+      "T2_decision_divergence": {
+        "bins_with_different_decisions": 0,
+        "total_collision_bins": 1,
+        "divergence_rate": 0.0
+      },
+      "T3_decision_divergence": {
+        "bins_with_different_decisions": 0,
+        "total_collision_bins": 1,
+        "divergence_rate": 0.0
+      }
+    },
+    "sweep_analysis": {
+      "P=0.10": {
+        "n_found": 100,
+        "attempts": 16204,
+        "uncertainty": {
+          "min": 0.005446740539172075,
+          "max": 0.938305425126429,
+          "mean": 0.2629295427957589,
+          "std": 0.225435380855935
+        },
+        "conflict": {
+          "min": 0.0018561325385991756,
+          "max": 0.20811986787179834,
+          "mean": 0.1144418835213105,
+          "std": 0.057594056640171164
+        },
+        "H_bdu": {
+          "min": 0.38271903747200675,
+          "max": 1.3462253998238944,
+          "mean": 0.9108027475824914,
+          "std": 0.2518688890789337
+        },
+        "T2_request_more_data_fraction": 0.33,
+        "T3_flag_for_review_fraction": 0.02
+      },
+      "P=0.30": {
+        "n_found": 100,
+        "attempts": 7944,
+        "uncertainty": {
+          "min": 0.0066915802814824,
+          "max": 0.9694901721001222,
+          "mean": 0.36729563155225087,
+          "std": 0.23764226459746496
+        },
+        "conflict": {
+          "min": 0.00015177692521195496,
+          "max": 0.5961918234641952,
+          "mean": 0.3443827270526454,
+          "std": 0.17811873839798442
+        },
+        "H_bdu": {
+          "min": 0.20680953339892455,
+          "max": 1.571068984830171,
+          "mean": 1.25784314204799,
+          "std": 0.236700556463337
+        },
+        "T2_request_more_data_fraction": 0.56,
+        "T3_flag_for_review_fraction": 0.75
+      },
+      "P=0.50": {
+        "n_found": 100,
+        "attempts": 8141,
+        "uncertainty": {
+          "min": 0.030749963717023297,
+          "max": 0.8463422309255122,
+          "mean": 0.3485120042139841,
+          "std": 0.21880403598664042
+        },
+        "conflict": {
+          "min": 0.0014425483666598016,
+          "max": 0.9624300601914312,
+          "mean": 0.5080243244535538,
+          "std": 0.2875527699276224
+        },
+        "H_bdu": {
+          "min": 0.7330745799888463,
+          "max": 1.5816094912115255,
+          "mean": 1.3671302020630438,
+          "std": 0.17763063670116333
+        },
+        "T2_request_more_data_fraction": 0.58,
+        "T3_flag_for_review_fraction": 0.81
+      },
+      "P=0.70": {
+        "n_found": 100,
+        "attempts": 6721,
+        "uncertainty": {
+          "min": 0.007613017608018307,
+          "max": 0.8996809706883965,
+          "mean": 0.35684836953338617,
+          "std": 0.23584177169374912
+        },
+        "conflict": {
+          "min": 0.007176905702841907,
+          "max": 0.6091157963467737,
+          "mean": 0.32355663386187833,
+          "std": 0.18173708522434867
+        },
+        "H_bdu": {
+          "min": 0.556537824797882,
+          "max": 1.569972064772828,
+          "mean": 1.2461489882214363,
+          "std": 0.2126844614268192
+        },
+        "T2_request_more_data_fraction": 0.51,
+        "T3_flag_for_review_fraction": 0.7
+      },
+      "P=0.90": {
+        "n_found": 100,
+        "attempts": 14154,
+        "uncertainty": {
+          "min": 0.0010466511896312538,
+          "max": 0.9560944932130679,
+          "mean": 0.26800094046275164,
+          "std": 0.2600029587250147
+        },
+        "conflict": {
+          "min": 0.0009722660145142781,
+          "max": 0.2055597003996885,
+          "mean": 0.11064751084374132,
+          "std": 0.05834816687136186
+        },
+        "H_bdu": {
+          "min": 0.2888986774314306,
+          "max": 1.328385687974872,
+          "mean": 0.8500187359519306,
+          "std": 0.25216723140498565
+        },
+        "T2_request_more_data_fraction": 0.34,
+        "T3_flag_for_review_fraction": 0.01
+      }
+    }
+  },
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.0",
+    "numpy_version": "2.0.2",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": "EA1.1: Scalar Collapse Demonstration. Shows that 4 epistemically distinct opinion states, all with P(omega)=0.5, produce identical scalar decisions but divergent SL decisions. Quantifies information loss in bits and collision rate across 1000 random opinions."
+}

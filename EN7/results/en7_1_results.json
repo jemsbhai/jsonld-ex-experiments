@@ -1,0 +1,931 @@
+{
+  "experiment_id": "EN7.1",
+  "parameters": {
+    "global_seed": 42,
+    "n_examples_per_property": 10000,
+    "float_tolerance": 1e-09,
+    "validity_tolerance": 1e-09,
+    "hypothesis_derandomize": true,
+    "hypothesis_phases": [
+      "explicit",
+      "generate"
+    ]
+  },
+  "metrics": {
+    "n_properties_tested": 11,
+    "n_pass": 10,
+    "n_counterexamples_expected": 1,
+    "n_fail": 0,
+    "total_examples_tested": 340004,
+    "total_wall_time_seconds": 234.5449,
+    "all_expected_outcomes_met": true
+  },
+  "timestamp": "2026-03-11T04:44:05.905784+00:00",
+  "raw_data": {
+    "property_results": [
+      {
+        "property_id": "P1",
+        "property_name": "Opinion Validity Invariant",
+        "description": "For all operators: output satisfies b+d+u=1 and all components in [0,1]",
+        "expected_outcome": "PASS",
+        "actual_outcome": "PASS",
+        "n_examples_tested": 140000,
+        "wall_time_seconds": 107.5755,
+        "max_deviation": null,
+        "mean_deviation": null,
+        "std_deviation": null,
+        "counterexamples": null,
+        "sub_properties": {
+          "cumulative_fuse_2ary": "PASS",
+          "cumulative_fuse_3ary": "PASS",
+          "averaging_fuse_2ary": "PASS",
+          "averaging_fuse_3ary": "PASS",
+          "trust_discount": "PASS",
+          "deduce": "PASS",
+          "decay_exponential": "PASS",
+          "decay_linear": "PASS",
+          "decay_step": "PASS",
+          "robust_fuse": "PASS",
+          "from_confidence": "PASS",
+          "from_evidence": "PASS",
+          "conflict_metric_range": "PASS",
+          "pairwise_conflict_range": "PASS"
+        },
+        "notes": "Tested 14 sub-operators, 140000 total examples"
+      },
+      {
+        "property_id": "P2",
+        "property_name": "Fusion Commutativity",
+        "description": "cumulative_fuse(a,b) == cumulative_fuse(b,a) for all opinions a,b",
+        "expected_outcome": "PASS",
+        "actual_outcome": "PASS",
+        "n_examples_tested": 20000,
+        "wall_time_seconds": 14.7602,
+        "max_deviation": 0.0,
+        "mean_deviation": 0.0,
+        "std_deviation": 0.0,
+        "counterexamples": null,
+        "sub_properties": {
+          "cumulative_fuse": "PASS",
+          "averaging_fuse": "PASS"
+        },
+        "notes": "Cumulative fusion: max_dev=0.00e+00, Averaging fusion: max_dev=0.00e+00"
+      },
+      {
+        "property_id": "P3",
+        "property_name": "Fusion Associativity (Equal Base Rates)",
+        "description": "(a fuse b) fuse c == a fuse (b fuse c) when all base_rates equal",
+        "expected_outcome": "PASS",
+        "actual_outcome": "PASS",
+        "n_examples_tested": 70004,
+        "wall_time_seconds": 54.6519,
+        "max_deviation": 4.440892098500626e-16,
+        "mean_deviation": 6.116509889016438e-17,
+        "std_deviation": 7.421357062907567e-17,
+        "counterexamples": [
+          {
+            "a": {
+              "b": 0.7,
+              "d": 0.3,
+              "u": 0.0
+            },
+            "b": {
+              "b": 0.6,
+              "d": 0.4,
+              "u": 0.0
+            },
+            "c": {
+              "b": 1.0,
+              "d": 0.0,
+              "u": 0.0
+            },
+            "left": {
+              "b": 0.825,
+              "d": 0.175,
+              "u": 0.0
+            },
+            "right": {
+              "b": 0.75,
+              "d": 0.25,
+              "u": 0.0
+            },
+            "max_deviation": 0.07500000000000001
+          },
+          {
+            "a": {
+              "b": 0.3,
+              "d": 0.7,
+              "u": 0.0
+            },
+            "b": {
+              "b": 0.8,
+              "d": 0.2,
+              "u": 0.0
+            },
+            "c": {
+              "b": 0.5,
+              "d": 0.5,
+              "u": 0.0
+            },
+            "left": {
+              "b": 0.525,
+              "d": 0.475,
+              "u": 0.0
+            },
+            "right": {
+              "b": 0.475,
+              "d": 0.5249999999999999,
+              "u": 0.0
+            },
+            "max_deviation": 0.050000000000000044
+          },
+          {
+            "a": {
+              "b": 1.0,
+              "d": 0.0,
+              "u": 0.0
+            },
+            "b": {
+              "b": 0.0,
+              "d": 1.0,
+              "u": 0.0
+            },
+            "c": {
+              "b": 0.5,
+              "d": 0.5,
+              "u": 0.0
+            },
+            "left": {
+              "b": 0.5,
+              "d": 0.5,
+              "u": 0.0
+            },
+            "right": {
+              "b": 0.625,
+              "d": 0.375,
+              "u": 0.0
+            },
+            "max_deviation": 0.125
+          }
+        ],
+        "sub_properties": {
+          "non_dogmatic_br=0.0": "PASS",
+          "non_dogmatic_br=0.1": "PASS",
+          "non_dogmatic_br=0.25": "PASS",
+          "non_dogmatic_br=0.5": "PASS",
+          "non_dogmatic_br=0.75": "PASS",
+          "non_dogmatic_br=0.9": "PASS",
+          "non_dogmatic_br=1.0": "PASS",
+          "dogmatic_non_associativity_documented": "CONFIRMED: 3/4 dogmatic triples violate associativity"
+        },
+        "notes": "Tested 7 fixed base rates with non-dogmatic opinions, 70000 total non-dogmatic examples. BDU max_dev=4.44e-16. FINDING: Associativity holds for non-dogmatic opinions (standard kappa formula) but fails for dogmatic opinions (equal-weight averaging fallback). Dogmatic violations: 3/4, max_dev=0.1250. This is mathematically inherent: simple averaging is not associative."
+      },
+      {
+        "property_id": "P4",
+        "property_name": "Fusion Non-Associativity (Different Base Rates)",
+        "description": "Document counterexamples where associativity fails; characterize source",
+        "expected_outcome": "COUNTEREXAMPLES",
+        "actual_outcome": "COUNTEREXAMPLES_FOUND",
+        "n_examples_tested": 10000,
+        "wall_time_seconds": 6.6421,
+        "max_deviation": 0.25000000000000006,
+        "mean_deviation": 0.06131568740806343,
+        "std_deviation": 0.07242169243524353,
+        "counterexamples": [
+          {
+            "a": {
+              "b": 0.1289784534388241,
+              "d": 0.39693318855904935,
+              "u": 0.47408835800212656,
+              "a": 0.1859080274669043
+            },
+            "b": {
+              "b": 0.4305925067909847,
+              "d": 0.20846455021515053,
+              "u": 0.36094294299386476,
+              "a": 0.06582150146277234
+            },
+            "c": {
+              "b": 0.18515560234507691,
+              "d": 0.2593348922828246,
+              "u": 0.5555095053720985,
+              "a": 0.35446949571052927
+            },
+            "left_base_rate": 0.2401671300876838,
+            "right_base_rate": 0.19802676302677755,
+            "full_deviation": 0.042140367060906264,
+            "bdu_deviation": 1.1102230246251565e-16,
+            "base_rate_deviation": 0.042140367060906264,
+            "involves_dogmatic_pair": false
+          },
+          {
+            "a": {
+              "b": 0.21090150134489077,
+              "d": 0.5503927279222964,
+              "u": 0.23870577073281285,
+              "a": 0.24625868281475666
+            },
+            "b": {
+              "b": 0.1408608785398722,
+              "d": 0.005070666655313305,
+              "u": 0.8540684548048145,
+              "a": 0.05826042726483262
+            },
+            "c": {
+              "b": 0.0,
+              "d": 0.3333333333333333,
+              "u": 0.6666666666666667,
+              "a": 1e-12
+            },
+            "left_base_rate": 0.07612977752039732,
+            "right_base_rate": 0.13769444822383647,
+            "full_deviation": 0.061564670703439156,
+            "bdu_deviation": 2.7755575615628914e-17,
+            "base_rate_deviation": 0.061564670703439156,
+            "involves_dogmatic_pair": false
+          },
+          {
+            "a": {
+              "b": 0.6202091549876497,
+              "d": 0.08932521777125935,
+              "u": 0.29046562724109093,
+              "a": 0.7431039367286659
+            },
+            "b": {
+              "b": 0.0,
+              "d": 0.19924602040614842,
+              "u": 0.8007539795938516,
+              "a": 0.6900305076446959
+            },
+            "c": {
+              "b": 3.142591435865631e-228,
+              "d": 0.4024779946280913,
+              "u": 0.5975220053719087,
+              "a": 0.8907386276815383
+            },
+            "left_base_rate": 0.8036529249341096,
+            "right_base_rate": 0.7667442521958916,
+            "full_deviation": 0.03690867273821796,
+            "bdu_deviation": 5.551115123125783e-17,
+            "base_rate_deviation": 0.03690867273821796,
+            "involves_dogmatic_pair": false
+          },
+          {
+            "a": {
+              "b": 0.20917082909627666,
+              "d": 0.3809517701887524,
+              "u": 0.4098774007149709,
+              "a": 0.6118204919469435
+            },
+            "b": {
+              "b": 0.1452767738272596,
+              "d": 0.7547232261727405,
+              "u": 0.09999999999999998,
+              "a": 0.23644348053415293
+            },
+            "c": {
+              "b": 1e-12,
+              "d": 0.5174581261025342,
+              "u": 0.48254187389646586,
+              "a": 0.41848614251061245
+            },
+            "left_base_rate": 0.42130906437558036,
+            "right_base_rate": 0.46964265173466313,
+            "full_deviation": 0.048333587359082775,
+            "bdu_deviation": 1.1102230246251565e-16,
+            "base_rate_deviation": 0.048333587359082775,
+            "involves_dogmatic_pair": false
+          },
+          {
+            "a": {
+              "b": 0.6412301198898193,
+              "d": 0.35876988011018063,
+              "u": 1.1102230246251565e-16,
+              "a": 0.48214283265303537
+            },
+            "b": {
+              "b": 1.175494351e-38,
+              "d": 0.3088003468203531,
+              "u": 0.6911996531796469,
+              "a": 0.37666464412020584
+            },
+            "c": {
+              "b": 0.16508244305446287,
+              "d": 0.5874976612435736,
+              "u": 0.24741989570196354,
+              "a": 0.6140962381599323
+            },
+            "left_base_rate": 0.5217499882732765,
+            "right_base_rate": 0.4887616368965522,
+            "full_deviation": 0.032988351376724234,
+            "bdu_deviation": 5.551115123125783e-17,
+            "base_rate_deviation": 0.032988351376724234,
+            "involves_dogmatic_pair": false
+          },
+          {
+            "a": {
+              "b": 0.16508244305446287,
+              "d": 0.834917556945537,
+              "u": 1.1102230246251565e-16,
+              "a": 0.48214283265303537
+            },
+            "b": {
+              "b": 1.175494351e-38,
+              "d": 0.3088003468203531,
+              "u": 0.6911996531796469,
+              "a": 0.37666464412020584
+            },
+            "c": {
+              "b": 0.16508244305446287,
+              "d": 0.5874976612435736,
+              "u": 0.24741989570196354,
+              "a": 0.6140962381599323
+            },
+            "left_base_rate": 0.5217499882732765,
+            "right_base_rate": 0.4887616368965522,
+            "full_deviation": 0.032988351376724234,
+            "bdu_deviation": 2.220446049250313e-16,
+            "base_rate_deviation": 0.032988351376724234,
+            "involves_dogmatic_pair": false
+          },
+          {
+            "a": {
+              "b": 0.7722737578912611,
+              "d": 0.09383578052292663,
+              "u": 0.1338904615858123,
+              "a": 0.08920587660960068
+            },
+            "b": {
+              "b": 0.5975575182834075,
+              "d": 0.2824424817165925,
+              "u": 0.12,
+              "a": 7.524916583073422e-27
+            },
+            "c": {
+              "b": 2.225073858507203e-309,
+              "d": 2.8484354308253783e-103,
+              "u": 1.0,
+              "a": 0.27574806287499226
+            },
+            "left_base_rate": 0.1601755005898963,
+            "right_base_rate": 0.11353995402354841,
+            "full_deviation": 0.046635546566347885,
+            "bdu_deviation": 0.0,
+            "base_rate_deviation": 0.046635546566347885,
+            "involves_dogmatic_pair": false
+          },
+          {
+            "a": {
+              "b": 0.7722737578912611,
+              "d": 0.09383578052292663,
+              "u": 0.1338904615858123,
+              "a": 0.08920587660960068
+            },
+            "b": {
+              "b": 2.225073858507203e-309,
+              "d": 2.8484354308253783e-103,
+              "u": 1.0,
+              "a": 0.27574806287499226
+            },
+            "c": {
+              "b": 2.225073858507203e-309,
+              "d": 2.8484354308253783e-103,
+              "u": 1.0,
+              "a": 0.27574806287499226
+            },
+            "left_base_rate": 0.22911251630864438,
+            "right_base_rate": 0.18247696974229646,
+            "full_deviation": 0.04663554656634791,
+            "bdu_deviation": 0.0,
+            "base_rate_deviation": 0.04663554656634791,
+            "involves_dogmatic_pair": false
+          },
+          {
+            "a": {
+              "b": 0.7722737578912611,
+              "d": 0.09383578052292663,
+              "u": 0.1338904615858123,
+              "a": 0.08920587660960068
+            },
+            "b": {
+              "b": 2.225073858507203e-309,
+              "d": 2.8484354308253783e-103,
+              "u": 1.0,
+              "a": 2.225073858507203e-309
+            },
+            "c": {
+              "b": 2.225073858507203e-309,
+              "d": 2.8484354308253783e-103,
+              "u": 1.0,
+              "a": 0.27574806287499226
+            },
+            "left_base_rate": 0.1601755005898963,
+            "right_base_rate": 0.11353995402354841,
+            "full_deviation": 0.046635546566347885,
+            "bdu_deviation": 0.0,
+            "base_rate_deviation": 0.046635546566347885,
+            "involves_dogmatic_pair": false
+          },
+          {
+            "a": {
+              "b": 0.7722737578912611,
+              "d": 0.09383578052292663,
+              "u": 0.1338904615858123,
+              "a": 0.08920587660960068
+            },
+            "b": {
+              "b": 0.7722737578912611,
+              "d": 0.09383578052292663,
+              "u": 0.1338904615858123,
+              "a": 0.08920587660960068
+            },
+            "c": {
+              "b": 2.225073858507203e-309,
+              "d": 2.8484354308253783e-103,
+              "u": 1.0,
+              "a": 0.27574806287499226
+            },
+            "left_base_rate": 0.18247696974229646,
+            "right_base_rate": 0.13584142317594858,
+            "full_deviation": 0.046635546566347885,
+            "bdu_deviation": 0.0,
+            "base_rate_deviation": 0.046635546566347885,
+            "involves_dogmatic_pair": false
+          },
+          {
+            "type": "bdu_violation",
+            "a": {
+              "b": 1.0,
+              "d": 0.0,
+              "u": 0.0,
+              "a": 0.95
+            },
+            "b": {
+              "b": 0.2928460612195681,
+              "d": 0.707153938780432,
+              "u": 0.0,
+              "a": 0.95
+            },
+            "c": {
+              "b": 0.2928460612195681,
+              "d": 0.707153938780432,
+              "u": 0.0,
+              "a": 0.95
+            },
+            "left_bdu": {
+              "b": 0.469634545914676,
+              "d": 0.530365454085324,
+              "u": 0.0
+            },
+            "right_bdu": {
+              "b": 0.646423030609784,
+              "d": 0.353576969390216,
+              "u": 0.0
+            },
+            "bdu_deviation": 0.176788484695108,
+            "involves_dogmatic_pair": true
+          },
+          {
+            "type": "bdu_violation",
+            "a": {
+              "b": 0.24636996738726863,
+              "d": 0.7536300326127314,
+              "u": 0.0,
+              "a": 1.0
+            },
+            "b": {
+              "b": 1.0,
+              "d": 0.0,
+              "u": 0.0,
+              "a": 0.645341635967985
+            },
+            "c": {
+              "b": 1.0,
+              "d": 0.0,
+              "u": 0.0,
+              "a": 0.645341635967985
+            },
+            "left_bdu": {
+              "b": 0.8115924918468171,
+              "d": 0.18840750815318286,
+              "u": 0.0
+            },
+            "right_bdu": {
+              "b": 0.6231849836936343,
+              "d": 0.3768150163063657,
+              "u": 0.0
+            },
+            "bdu_deviation": 0.18840750815318286,
+            "involves_dogmatic_pair": true
+          },
+          {
+            "type": "bdu_violation",
+            "a": {
+              "b": 0.12,
+              "d": 0.88,
+              "u": 0.0,
+              "a": 0.3333333333333333
+            },
+            "b": {
+              "b": 0.12,
+              "d": 0.88,
+              "u": 0.0,
+              "a": 0.3333333333333333
+            },
+            "c": {
+              "b": 0.7753560011317373,
+              "d": 0.2246439988682627,
+              "u": 0.0,
+              "a": 1.1708942239712375e-308
+            },
+            "left_bdu": {
+              "b": 0.44767800056586865,
+              "d": 0.5523219994341313,
+              "u": 0.0
+            },
+            "right_bdu": {
+              "b": 0.2838390002829343,
+              "d": 0.7161609997170657,
+              "u": 0.0
+            },
+            "bdu_deviation": 0.1638390002829344,
+            "involves_dogmatic_pair": true
+          },
+          {
+            "type": "bdu_violation",
+            "a": {
+              "b": 0.06287228681449132,
+              "d": 0.9371277131855087,
+              "u": 0.0,
+              "a": 4.140189322765013e-142
+            },
+            "b": {
+              "b": 0.06287228681449132,
+              "d": 0.9371277131855087,
+              "u": 0.0,
+              "a": 1.0
+            },
+            "c": {
+              "b": 1.0,
+              "d": 0.0,
+              "u": 0.0,
+              "a": 4.140189322765013e-142
+            },
+            "left_bdu": {
+              "b": 0.5314361434072457,
+              "d": 0.46856385659275435,
+              "u": 0.0
+            },
+            "right_bdu": {
+              "b": 0.2971542151108685,
+              "d": 0.7028457848891315,
+              "u": 0.0
+            },
+            "bdu_deviation": 0.23428192829637717,
+            "involves_dogmatic_pair": true
+          },
+          {
+            "type": "bdu_violation",
+            "a": {
+              "b": 0.06287228681449132,
+              "d": 0.9371277131855087,
+              "u": 0.0,
+              "a": 4.140189322765013e-142
+            },
+            "b": {
+              "b": 0.06287228681449132,
+              "d": 0.9371277131855087,
+              "u": 0.0,
+              "a": 4.140189322765013e-142
+            },
+            "c": {
+              "b": 1.0,
+              "d": 0.0,
+              "u": 0.0,
+              "a": 4.140189322765013e-142
+            },
+            "left_bdu": {
+              "b": 0.5314361434072457,
+              "d": 0.46856385659275435,
+              "u": 0.0
+            },
+            "right_bdu": {
+              "b": 0.2971542151108685,
+              "d": 0.7028457848891315,
+              "u": 0.0
+            },
+            "bdu_deviation": 0.23428192829637717,
+            "involves_dogmatic_pair": true
+          },
+          {
+            "type": "bdu_violation",
+            "a": {
+              "b": 0.6411554701822052,
+              "d": 0.3588445298177948,
+              "u": 0.0,
+              "a": 0.026305208737563042
+            },
+            "b": {
+              "b": 1.0,
+              "d": 0.0,
+              "u": 0.0,
+              "a": 0.026305208737563042
+            },
+            "c": {
+              "b": 1.0,
+              "d": 0.0,
+              "u": 0.0,
+              "a": 0.026305208737563042
+            },
+            "left_bdu": {
+              "b": 0.9102888675455513,
+              "d": 0.0897111324544487,
+              "u": 0.0
+            },
+            "right_bdu": {
+              "b": 0.8205777350911025,
+              "d": 0.1794222649088974,
+              "u": 0.0
+            },
+            "bdu_deviation": 0.08971113245444873,
+            "involves_dogmatic_pair": true
+          },
+          {
+            "type": "bdu_violation",
+            "a": {
+              "b": 1.0,
+              "d": 0.0,
+              "u": 0.0,
+              "a": 0.85
+            },
+            "b": {
+              "b": 1.0,
+              "d": 0.0,
+              "u": 0.0,
+              "a": 0.85
+            },
+            "c": {
+              "b": 0.0485722461289171,
+              "d": 0.9514277538710829,
+              "u": 0.0,
+              "a": 0.85
+            },
+            "left_bdu": {
+              "b": 0.5242861230644585,
+              "d": 0.47571387693554146,
+              "u": 0.0
+            },
+            "right_bdu": {
+              "b": 0.7621430615322293,
+              "d": 0.23785693846777073,
+              "u": 0.0
+            },
+            "bdu_deviation": 0.23785693846777078,
+            "involves_dogmatic_pair": true
+          },
+          {
+            "type": "bdu_violation",
+            "a": {
+              "b": 0.8705838635501701,
+              "d": 0.12941613644982985,
+              "u": 0.0,
+              "a": 0.03679023187675368
+            },
+            "b": {
+              "b": 0.8705838635501701,
+              "d": 0.12941613644982985,
+              "u": 0.0,
+              "a": 0.03679023187675368
+            },
+            "c": {
+              "b": 1.0,
+              "d": 0.0,
+              "u": 0.0,
+              "a": 0.03679023187675368
+            },
+            "left_bdu": {
+              "b": 0.9352919317750851,
+              "d": 0.06470806822491493,
+              "u": 0.0
+            },
+            "right_bdu": {
+              "b": 0.9029378976626277,
+              "d": 0.09706210233737239,
+              "u": 0.0
+            },
+            "bdu_deviation": 0.032354034112457464,
+            "involves_dogmatic_pair": true
+          },
+          {
+            "type": "bdu_violation",
+            "a": {
+              "b": 0.3666325819466963,
+              "d": 0.6333674180533038,
+              "u": 0.0,
+              "a": 3.2997746126048023e-139
+            },
+            "b": {
+              "b": 0.8421246402613236,
+              "d": 0.1578753597386764,
+              "u": 0.0,
+              "a": 0.21677144300280943
+            },
+            "c": {
+              "b": 0.8421246402613236,
+              "d": 0.1578753597386764,
+              "u": 0.0,
+              "a": 0.21677144300280943
+            },
+            "left_bdu": {
+              "b": 0.7232516256826668,
+              "d": 0.27674837431733323,
+              "u": 0.0
+            },
+            "right_bdu": {
+              "b": 0.6043786111040099,
+              "d": 0.3956213888959901,
+              "u": 0.0
+            },
+            "bdu_deviation": 0.11887301457865684,
+            "involves_dogmatic_pair": true
+          },
+          {
+            "type": "bdu_violation",
+            "a": {
+              "b": 0.2879170190352767,
+              "d": 0.7120829809647233,
+              "u": 0.0,
+              "a": 0.2879170190352767
+            },
+            "b": {
+              "b": 0.7062041643237594,
+              "d": 0.29379583567624057,
+              "u": 0.0,
+              "a": 0.2879170190352767
+            },
+            "c": {
+              "b": 0.7062041643237594,
+              "d": 0.29379583567624057,
+              "u": 0.0,
+              "a": 0.2879170190352767
+            },
+            "left_bdu": {
+              "b": 0.6016323780016388,
+              "d": 0.39836762199836123,
+              "u": 0.0
+            },
+            "right_bdu": {
+              "b": 0.4970605916795181,
+              "d": 0.5029394083204819,
+              "u": 0.0
+            },
+            "bdu_deviation": 0.10457178632212072,
+            "involves_dogmatic_pair": true
+          }
+        ],
+        "sub_properties": {
+          "n_full_violations": 6243,
+          "n_bdu_violations": 26,
+          "n_bdu_violations_from_dogmatic_path": 26,
+          "n_bdu_violations_from_nondogmatic_path": 0,
+          "n_involves_dogmatic_pair": 230,
+          "bdu_violations_all_from_dogmatic_fallback": true,
+          "max_bdu_deviation": 0.25,
+          "mean_bdu_deviation": 0.000389247887071091,
+          "max_base_rate_deviation": 0.25000000000000006,
+          "mean_base_rate_deviation": 0.061021261981627856
+        },
+        "notes": "Full associativity violations: 6243/10000. BDU-only violations: 26/10000. Of BDU violations: 26 from dogmatic fallback, 0 from non-dogmatic path. BDU violations ALL from dogmatic fallback: CONFIRMED. FINDING: Non-associativity has two sources: (1) base-rate averaging (always, when base rates differ), (2) dogmatic fallback branch discontinuity (rare, when both opinions in a pair have u=0)."
+      },
+      {
+        "property_id": "P5",
+        "property_name": "Vacuous Opinion as Fusion Identity",
+        "description": "cumulative_fuse(a, vacuous) == a when base_rates match",
+        "expected_outcome": "PASS",
+        "actual_outcome": "PASS",
+        "n_examples_tested": 20000,
+        "wall_time_seconds": 9.6005,
+        "max_deviation": 1.1102230246251565e-16,
+        "mean_deviation": 1.5890067039947553e-17,
+        "std_deviation": 3.760080261576618e-17,
+        "counterexamples": null,
+        "sub_properties": {
+          "matching_base_rate_full_identity": "PASS",
+          "mismatched_base_rate_bdu_preserved": "PASS"
+        },
+        "notes": "Match: max_dev=1.11e-16. Mismatch BDU: max_dev=1.11e-16."
+      },
+      {
+        "property_id": "P6",
+        "property_name": "Trust Discount with Full Trust = Identity",
+        "description": "trust_discount((1,0,0,a), opinion) == opinion for all opinions",
+        "expected_outcome": "PASS",
+        "actual_outcome": "PASS",
+        "n_examples_tested": 10000,
+        "wall_time_seconds": 5.0366,
+        "max_deviation": 0.0,
+        "mean_deviation": 0.0,
+        "std_deviation": 0.0,
+        "counterexamples": null,
+        "sub_properties": null,
+        "notes": null
+      },
+      {
+        "property_id": "P7",
+        "property_name": "Trust Discount with Vacuous Trust = Vacuous",
+        "description": "trust_discount((0,0,1,a), opinion) == (0,0,1,opinion.base_rate)",
+        "expected_outcome": "PASS",
+        "actual_outcome": "PASS",
+        "n_examples_tested": 10000,
+        "wall_time_seconds": 4.8867,
+        "max_deviation": 0.0,
+        "mean_deviation": 0.0,
+        "std_deviation": 0.0,
+        "counterexamples": null,
+        "sub_properties": null,
+        "notes": null
+      },
+      {
+        "property_id": "P8",
+        "property_name": "Deduction Factorization (Component-wise LTP)",
+        "description": "c_Y = P(X)*c_{Y|X} + (1-P(X))*c_{Y|~X} for c in {b,d,u}",
+        "expected_outcome": "PASS",
+        "actual_outcome": "PASS",
+        "n_examples_tested": 10000,
+        "wall_time_seconds": 6.4891,
+        "max_deviation": 3.3306690738754696e-16,
+        "mean_deviation": 1.5712652946361653e-17,
+        "std_deviation": 3.380002780482145e-17,
+        "counterexamples": null,
+        "sub_properties": {
+          "belief_max_dev": 2.220446049250313e-16,
+          "disbelief_max_dev": 2.220446049250313e-16,
+          "uncertainty_max_dev": 3.3306690738754696e-16
+        },
+        "notes": "Component-wise LTP: c_Y = P(X)*c_{Y|X} + (1-P(X))*c_{Y|~X} verified for c in {b, d, u}. This confirms the deduction factorization finding: SL deduction depends on the parent only through its projected probability P(X)."
+      },
+      {
+        "property_id": "P9",
+        "property_name": "Decay Monotonicity",
+        "description": "t1 < t2 => uncertainty(decay(op,t1)) <= uncertainty(decay(op,t2))",
+        "expected_outcome": "PASS",
+        "actual_outcome": "PASS",
+        "n_examples_tested": 20000,
+        "wall_time_seconds": 11.5172,
+        "max_deviation": 0.0,
+        "mean_deviation": 0.0,
+        "std_deviation": 0.0,
+        "counterexamples": null,
+        "sub_properties": {
+          "exponential_decay": "PASS",
+          "linear_decay": "PASS"
+        },
+        "notes": null
+      },
+      {
+        "property_id": "P10",
+        "property_name": "Decay Convergence to Vacuous",
+        "description": "As elapsed -> infinity, opinion -> vacuous for exp and linear decay",
+        "expected_outcome": "PASS",
+        "actual_outcome": "PASS",
+        "n_examples_tested": 20000,
+        "wall_time_seconds": 9.0129,
+        "max_deviation": 7.888609052210118e-31,
+        "mean_deviation": 1.8540865435491482e-31,
+        "std_deviation": 2.4571068428937416e-31,
+        "counterexamples": null,
+        "sub_properties": {
+          "exponential_to_vacuous": "PASS",
+          "linear_to_vacuous": "PASS"
+        },
+        "notes": null
+      },
+      {
+        "property_id": "P11",
+        "property_name": "Projected Probability Consistency",
+        "description": "P(omega) = b + a*u for all valid opinions, result in [0,1]",
+        "expected_outcome": "PASS",
+        "actual_outcome": "PASS",
+        "n_examples_tested": 10000,
+        "wall_time_seconds": 4.3614,
+        "max_deviation": 0.0,
+        "mean_deviation": 0.0,
+        "std_deviation": 0.0,
+        "counterexamples": null,
+        "sub_properties": null,
+        "notes": null
+      }
+    ]
+  },
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.0",
+    "numpy_version": "2.0.2",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": "EN7.1: Property-based verification of jsonld-ex confidence algebra using Hypothesis framework. 11 properties verified with 10000 random opinions per property. All expected outcomes MET."
+}

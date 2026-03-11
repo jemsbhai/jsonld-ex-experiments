@@ -1,0 +1,5163 @@
+{
+  "experiment_id": "EN1.2b",
+  "parameters": {
+    "global_seed": 42,
+    "n_seeds": 20,
+    "seeds": [
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61
+    ],
+    "n_timesteps": 1000,
+    "batch_sizes": [
+      5,
+      10,
+      25,
+      50
+    ],
+    "n_bootstrap": 1000,
+    "ema_alphas": [
+      0.01,
+      0.05,
+      0.1
+    ],
+    "sl_half_lives": [
+      25,
+      50,
+      100,
+      200,
+      400
+    ],
+    "bayesian_forgetting_factor": 0.99,
+    "drift_scenarios": [
+      "sudden",
+      "gradual",
+      "recurring"
+    ],
+    "n_methods": 10,
+    "method_keys": [
+      "bayesian_beta",
+      "ema_0.01",
+      "ema_0.05",
+      "ema_0.1",
+      "adwin",
+      "sl_25",
+      "sl_50",
+      "sl_100",
+      "sl_200",
+      "sl_400"
+    ],
+    "total_runs": 2400
+  },
+  "metrics": {
+    "total_wall_time_seconds": 44.9841,
+    "analysis": {
+      "per_batch_size": {
+        "5": {
+          "per_scenario": {
+            "sudden": {
+              "bayesian_beta": {
+                "mean_mae": 0.06621,
+                "std_mae": 0.00327,
+                "ci_95": [
+                  0.06485,
+                  0.06777
+                ],
+                "mean_kl": 0.039354,
+                "mean_ttd": 67.8
+              },
+              "ema_0.01": {
+                "mean_mae": 0.0894,
+                "std_mae": 0.00317,
+                "ci_95": [
+                  0.08808,
+                  0.09079
+                ],
+                "mean_kl": 0.048901,
+                "mean_ttd": 67.8
+              },
+              "ema_0.05": {
+                "mean_mae": 0.03659,
+                "std_mae": 0.00252,
+                "ci_95": [
+                  0.03551,
+                  0.03766
+                ],
+                "mean_kl": 0.011842,
+                "mean_ttd": 13.8
+              },
+              "ema_0.1": {
+                "mean_mae": 0.03897,
+                "std_mae": 0.00227,
+                "ci_95": [
+                  0.03797,
+                  0.03989
+                ],
+                "mean_kl": 0.009576,
+                "mean_ttd": 6.2
+              },
+              "adwin": {
+                "mean_mae": 0.0634,
+                "std_mae": 0.04351,
+                "ci_95": [
+                  0.04602,
+                  0.08364
+                ],
+                "mean_kl": 0.036366,
+                "mean_ttd": 51.4
+              },
+              "sl_25": {
+                "mean_mae": 0.05316,
+                "std_mae": 0.00231,
+                "ci_95": [
+                  0.05215,
+                  0.05412
+                ],
+                "mean_kl": 0.013062,
+                "mean_ttd": 2.1
+              },
+              "sl_50": {
+                "mean_mae": 0.04597,
+                "std_mae": 0.00229,
+                "ci_95": [
+                  0.04493,
+                  0.04693
+                ],
+                "mean_kl": 0.010432,
+                "mean_ttd": 3.2
+              },
+              "sl_100": {
+                "mean_mae": 0.04038,
+                "std_mae": 0.00223,
+                "ci_95": [
+                  0.03943,
+                  0.04136
+                ],
+                "mean_kl": 0.008939,
+                "mean_ttd": 4.8
+              },
+              "sl_200": {
+                "mean_mae": 0.03642,
+                "std_mae": 0.00218,
+                "ci_95": [
+                  0.0355,
+                  0.03735
+                ],
+                "mean_kl": 0.008484,
+                "mean_ttd": 7.0
+              },
+              "sl_400": {
+                "mean_mae": 0.03396,
+                "std_mae": 0.00224,
+                "ci_95": [
+                  0.03307,
+                  0.03492
+                ],
+                "mean_kl": 0.009032,
+                "mean_ttd": 10.2
+              },
+              "_ranking": [
+                "sl_400",
+                "sl_200",
+                "ema_0.05",
+                "ema_0.1",
+                "sl_100",
+                "sl_50",
+                "sl_25",
+                "adwin",
+                "bayesian_beta",
+                "ema_0.01"
+              ],
+              "_best_sl": "sl_400",
+              "_pairwise": {
+                "bayesian_beta": {
+                  "sl_mean_mae": 0.03395794728149016,
+                  "baseline_mean_mae": 0.06621206490154678,
+                  "improvement_abs": 0.03225411762005662,
+                  "improvement_pct": 48.71335408133923,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 11.650475525588403,
+                  "effect_size_label": "large"
+                },
+                "ema_0.01": {
+                  "sl_mean_mae": 0.03395794728149016,
+                  "baseline_mean_mae": 0.08939502102203233,
+                  "improvement_abs": 0.055437073740542166,
+                  "improvement_pct": 62.01360333801939,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 24.021118996090163,
+                  "effect_size_label": "large"
+                },
+                "ema_0.05": {
+                  "sl_mean_mae": 0.03395794728149016,
+                  "baseline_mean_mae": 0.036586914390446236,
+                  "improvement_abs": 0.002628967108956076,
+                  "improvement_pct": 7.18553929118047,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 2.3755538082092693,
+                  "effect_size_label": "large"
+                },
+                "ema_0.1": {
+                  "sl_mean_mae": 0.03395794728149016,
+                  "baseline_mean_mae": 0.038973482793573024,
+                  "improvement_abs": 0.005015535512082864,
+                  "improvement_pct": 12.869097531386025,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 4.009258668600011,
+                  "effect_size_label": "large"
+                },
+                "adwin": {
+                  "sl_mean_mae": 0.03395794728149016,
+                  "baseline_mean_mae": 0.06339513118679459,
+                  "improvement_abs": 0.029437183905304427,
+                  "improvement_pct": 46.43445538201881,
+                  "wilcoxon_stat": 22.0,
+                  "wilcoxon_p": 0.0010166168212890625,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 0.6741481564624051,
+                  "effect_size_label": "medium"
+                }
+              }
+            },
+            "gradual": {
+              "bayesian_beta": {
+                "mean_mae": 0.06081,
+                "std_mae": 0.00376,
+                "ci_95": [
+                  0.05916,
+                  0.06254
+                ],
+                "mean_kl": 0.012503
+              },
+              "ema_0.01": {
+                "mean_mae": 0.08,
+                "std_mae": 0.00348,
+                "ci_95": [
+                  0.07843,
+                  0.08141
+                ],
+                "mean_kl": 0.021294
+              },
+              "ema_0.05": {
+                "mean_mae": 0.03067,
+                "std_mae": 0.00347,
+                "ci_95": [
+                  0.02913,
+                  0.032
+                ],
+                "mean_kl": 0.004754
+              },
+              "ema_0.1": {
+                "mean_mae": 0.03759,
+                "std_mae": 0.00301,
+                "ci_95": [
+                  0.03621,
+                  0.03877
+                ],
+                "mean_kl": 0.006267
+              },
+              "adwin": {
+                "mean_mae": 0.10396,
+                "std_mae": 0.01487,
+                "ci_95": [
+                  0.09802,
+                  0.11067
+                ],
+                "mean_kl": 0.039277
+              },
+              "sl_25": {
+                "mean_mae": 0.05456,
+                "std_mae": 0.00264,
+                "ci_95": [
+                  0.05335,
+                  0.05573
+                ],
+                "mean_kl": 0.01191
+              },
+              "sl_50": {
+                "mean_mae": 0.04637,
+                "std_mae": 0.00276,
+                "ci_95": [
+                  0.04506,
+                  0.04753
+                ],
+                "mean_kl": 0.008709
+              },
+              "sl_100": {
+                "mean_mae": 0.03938,
+                "std_mae": 0.00277,
+                "ci_95": [
+                  0.03811,
+                  0.04057
+                ],
+                "mean_kl": 0.006353
+              },
+              "sl_200": {
+                "mean_mae": 0.03355,
+                "std_mae": 0.00276,
+                "ci_95": [
+                  0.0323,
+                  0.03467
+                ],
+                "mean_kl": 0.004662
+              },
+              "sl_400": {
+                "mean_mae": 0.02901,
+                "std_mae": 0.00278,
+                "ci_95": [
+                  0.02773,
+                  0.03012
+                ],
+                "mean_kl": 0.003522
+              },
+              "_ranking": [
+                "sl_400",
+                "ema_0.05",
+                "sl_200",
+                "ema_0.1",
+                "sl_100",
+                "sl_50",
+                "sl_25",
+                "bayesian_beta",
+                "ema_0.01",
+                "adwin"
+              ],
+              "_best_sl": "sl_400",
+              "_pairwise": {
+                "bayesian_beta": {
+                  "sl_mean_mae": 0.029008736170240572,
+                  "baseline_mean_mae": 0.06081049928101998,
+                  "improvement_abs": 0.03180176311077941,
+                  "improvement_pct": 52.29650058259807,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 8.149481914979003,
+                  "effect_size_label": "large"
+                },
+                "ema_0.01": {
+                  "sl_mean_mae": 0.029008736170240572,
+                  "baseline_mean_mae": 0.0799961342589185,
+                  "improvement_abs": 0.05098739808867792,
+                  "improvement_pct": 63.73732751091471,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 19.370766557433587,
+                  "effect_size_label": "large"
+                },
+                "ema_0.05": {
+                  "sl_mean_mae": 0.029008736170240572,
+                  "baseline_mean_mae": 0.03067494336003901,
+                  "improvement_abs": 0.0016662071897984368,
+                  "improvement_pct": 5.431818309301413,
+                  "wilcoxon_stat": 1.0,
+                  "wilcoxon_p": 3.814697265625e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 1.3867704839631652,
+                  "effect_size_label": "large"
+                },
+                "ema_0.1": {
+                  "sl_mean_mae": 0.029008736170240572,
+                  "baseline_mean_mae": 0.03758710103999131,
+                  "improvement_abs": 0.008578364869750735,
+                  "improvement_pct": 22.822629658572676,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 7.785664251876546,
+                  "effect_size_label": "large"
+                },
+                "adwin": {
+                  "sl_mean_mae": 0.029008736170240572,
+                  "baseline_mean_mae": 0.10395944474899037,
+                  "improvement_abs": 0.0749507085787498,
+                  "improvement_pct": 72.09610320612809,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 4.935503056154785,
+                  "effect_size_label": "large"
+                }
+              }
+            },
+            "recurring": {
+              "bayesian_beta": {
+                "mean_mae": 0.25432,
+                "std_mae": 0.00197,
+                "ci_95": [
+                  0.25352,
+                  0.25519
+                ],
+                "mean_kl": 0.167505,
+                "mean_ttd": 38.5
+              },
+              "ema_0.01": {
+                "mean_mae": 0.26948,
+                "std_mae": 0.00121,
+                "ci_95": [
+                  0.26894,
+                  0.26994
+                ],
+                "mean_kl": 0.171922,
+                "mean_ttd": 38.5
+              },
+              "ema_0.05": {
+                "mean_mae": 0.1137,
+                "std_mae": 0.0032,
+                "ci_95": [
+                  0.1123,
+                  0.11507
+                ],
+                "mean_kl": 0.069243,
+                "mean_ttd": 13.1
+              },
+              "ema_0.1": {
+                "mean_mae": 0.07314,
+                "std_mae": 0.00253,
+                "ci_95": [
+                  0.07206,
+                  0.07422
+                ],
+                "mean_kl": 0.03619,
+                "mean_ttd": 6.1
+              },
+              "adwin": {
+                "mean_mae": 0.18225,
+                "std_mae": 0.01722,
+                "ci_95": [
+                  0.17484,
+                  0.18983
+                ],
+                "mean_kl": 0.116952,
+                "mean_ttd": 20.0
+              },
+              "sl_25": {
+                "mean_mae": 0.06448,
+                "std_mae": 0.00242,
+                "ci_95": [
+                  0.06348,
+                  0.06544
+                ],
+                "mean_kl": 0.02171,
+                "mean_ttd": 2.2
+              },
+              "sl_50": {
+                "mean_mae": 0.06365,
+                "std_mae": 0.00247,
+                "ci_95": [
+                  0.06254,
+                  0.06469
+                ],
+                "mean_kl": 0.023874,
+                "mean_ttd": 3.2
+              },
+              "sl_100": {
+                "mean_mae": 0.06727,
+                "std_mae": 0.00258,
+                "ci_95": [
+                  0.06612,
+                  0.0684
+                ],
+                "mean_kl": 0.029264,
+                "mean_ttd": 4.7
+              },
+              "sl_200": {
+                "mean_mae": 0.0766,
+                "std_mae": 0.00284,
+                "ci_95": [
+                  0.07535,
+                  0.07781
+                ],
+                "mean_kl": 0.038612,
+                "mean_ttd": 6.8
+              },
+              "sl_400": {
+                "mean_mae": 0.09336,
+                "std_mae": 0.00321,
+                "ci_95": [
+                  0.09196,
+                  0.09473
+                ],
+                "mean_kl": 0.053001,
+                "mean_ttd": 10.0
+              },
+              "_ranking": [
+                "sl_50",
+                "sl_25",
+                "sl_100",
+                "ema_0.1",
+                "sl_200",
+                "sl_400",
+                "ema_0.05",
+                "adwin",
+                "bayesian_beta",
+                "ema_0.01"
+              ],
+              "_best_sl": "sl_50",
+              "_pairwise": {
+                "bayesian_beta": {
+                  "sl_mean_mae": 0.06364773653690095,
+                  "baseline_mean_mae": 0.25432449568903115,
+                  "improvement_abs": 0.1906767591521302,
+                  "improvement_pct": 74.97380802251757,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 73.37507503216618,
+                  "effect_size_label": "large"
+                },
+                "ema_0.01": {
+                  "sl_mean_mae": 0.06364773653690095,
+                  "baseline_mean_mae": 0.26947985974943933,
+                  "improvement_abs": 0.20583212321253838,
+                  "improvement_pct": 76.38126404100099,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 105.53650484895425,
+                  "effect_size_label": "large"
+                },
+                "ema_0.05": {
+                  "sl_mean_mae": 0.06364773653690095,
+                  "baseline_mean_mae": 0.11369955584113686,
+                  "improvement_abs": 0.05005181930423591,
+                  "improvement_pct": 44.02112122071017,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 27.180376226773163,
+                  "effect_size_label": "large"
+                },
+                "ema_0.1": {
+                  "sl_mean_mae": 0.06364773653690095,
+                  "baseline_mean_mae": 0.07314314435438249,
+                  "improvement_abs": 0.009495407817481538,
+                  "improvement_pct": 12.98195189897193,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 5.689455851647125,
+                  "effect_size_label": "large"
+                },
+                "adwin": {
+                  "sl_mean_mae": 0.06364773653690095,
+                  "baseline_mean_mae": 0.182254741078284,
+                  "improvement_abs": 0.11860700454138304,
+                  "improvement_pct": 65.07759624779126,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 6.76406603649963,
+                  "effect_size_label": "large"
+                }
+              }
+            }
+          },
+          "cross_scenario": {
+            "avg_mae": {
+              "sl_200": 0.04886,
+              "sl_100": 0.04901,
+              "ema_0.1": 0.0499,
+              "sl_50": 0.052,
+              "sl_400": 0.05211,
+              "sl_25": 0.0574,
+              "ema_0.05": 0.06032,
+              "adwin": 0.11654,
+              "bayesian_beta": 0.12711,
+              "ema_0.01": 0.14629
+            },
+            "ranking": [
+              "sl_200",
+              "sl_100",
+              "ema_0.1",
+              "sl_50",
+              "sl_400",
+              "sl_25",
+              "ema_0.05",
+              "adwin",
+              "bayesian_beta",
+              "ema_0.01"
+            ],
+            "best_sl": "sl_200",
+            "best_baseline": "ema_0.1",
+            "sl_vs_baseline": {
+              "sl_avg_mae": 0.04886,
+              "baseline_avg_mae": 0.0499,
+              "improvement_abs": 0.00104,
+              "improvement_pct": 2.08,
+              "sl_wins": true
+            },
+            "worst_case_mae": {
+              "sl_50": 0.06365,
+              "sl_25": 0.06448,
+              "sl_100": 0.06727,
+              "ema_0.1": 0.07314,
+              "sl_200": 0.0766,
+              "sl_400": 0.09336,
+              "ema_0.05": 0.1137,
+              "adwin": 0.18225,
+              "bayesian_beta": 0.25432,
+              "ema_0.01": 0.26948
+            },
+            "robustness_ranking": [
+              "sl_50",
+              "sl_25",
+              "sl_100",
+              "ema_0.1",
+              "sl_200",
+              "sl_400",
+              "ema_0.05",
+              "adwin",
+              "bayesian_beta",
+              "ema_0.01"
+            ],
+            "robustness_sl_vs_baseline": {
+              "sl_worst_mae": 0.06365,
+              "baseline_worst_mae": 0.07314,
+              "improvement_abs": 0.00949,
+              "improvement_pct": 12.98,
+              "sl_wins": true,
+              "best_sl": "sl_50",
+              "best_baseline": "ema_0.1"
+            }
+          }
+        },
+        "10": {
+          "per_scenario": {
+            "sudden": {
+              "bayesian_beta": {
+                "mean_mae": 0.06346,
+                "std_mae": 0.00236,
+                "ci_95": [
+                  0.0625,
+                  0.0645
+                ],
+                "mean_kl": 0.039181,
+                "mean_ttd": 68.7
+              },
+              "ema_0.01": {
+                "mean_mae": 0.08891,
+                "std_mae": 0.00269,
+                "ci_95": [
+                  0.08778,
+                  0.09007
+                ],
+                "mean_kl": 0.049087,
+                "mean_ttd": 68.7
+              },
+              "ema_0.05": {
+                "mean_mae": 0.03027,
+                "std_mae": 0.00151,
+                "ci_95": [
+                  0.02968,
+                  0.03091
+                ],
+                "mean_kl": 0.010382,
+                "mean_ttd": 12.9
+              },
+              "ema_0.1": {
+                "mean_mae": 0.02919,
+                "std_mae": 0.00131,
+                "ci_95": [
+                  0.02865,
+                  0.02975
+                ],
+                "mean_kl": 0.006769,
+                "mean_ttd": 6.2
+              },
+              "adwin": {
+                "mean_mae": 0.03264,
+                "std_mae": 0.0214,
+                "ci_95": [
+                  0.02414,
+                  0.04174
+                ],
+                "mean_kl": 0.013393,
+                "mean_ttd": 15.2
+              },
+              "sl_25": {
+                "mean_mae": 0.04346,
+                "std_mae": 0.00171,
+                "ci_95": [
+                  0.04271,
+                  0.04419
+                ],
+                "mean_kl": 0.009098,
+                "mean_ttd": 1.4
+              },
+              "sl_50": {
+                "mean_mae": 0.03749,
+                "std_mae": 0.0016,
+                "ci_95": [
+                  0.03677,
+                  0.03819
+                ],
+                "mean_kl": 0.007208,
+                "mean_ttd": 2.2
+              },
+              "sl_100": {
+                "mean_mae": 0.03275,
+                "std_mae": 0.00149,
+                "ci_95": [
+                  0.03209,
+                  0.03341
+                ],
+                "mean_kl": 0.006115,
+                "mean_ttd": 3.1
+              },
+              "sl_200": {
+                "mean_mae": 0.0292,
+                "std_mae": 0.00136,
+                "ci_95": [
+                  0.02861,
+                  0.02981
+                ],
+                "mean_kl": 0.005749,
+                "mean_ttd": 4.7
+              },
+              "sl_400": {
+                "mean_mae": 0.0269,
+                "std_mae": 0.00125,
+                "ci_95": [
+                  0.02634,
+                  0.02742
+                ],
+                "mean_kl": 0.006096,
+                "mean_ttd": 6.8
+              },
+              "_ranking": [
+                "sl_400",
+                "ema_0.1",
+                "sl_200",
+                "ema_0.05",
+                "adwin",
+                "sl_100",
+                "sl_50",
+                "sl_25",
+                "bayesian_beta",
+                "ema_0.01"
+              ],
+              "_best_sl": "sl_400",
+              "_pairwise": {
+                "bayesian_beta": {
+                  "sl_mean_mae": 0.02689568759176279,
+                  "baseline_mean_mae": 0.06345973736344399,
+                  "improvement_abs": 0.03656404977168119,
+                  "improvement_pct": 57.617713672959404,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 18.275894144740345,
+                  "effect_size_label": "large"
+                },
+                "ema_0.01": {
+                  "sl_mean_mae": 0.02689568759176279,
+                  "baseline_mean_mae": 0.08891118104342852,
+                  "improvement_abs": 0.062015493451665724,
+                  "improvement_pct": 69.74993777371415,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 26.77717910000419,
+                  "effect_size_label": "large"
+                },
+                "ema_0.05": {
+                  "sl_mean_mae": 0.02689568759176279,
+                  "baseline_mean_mae": 0.030273414954074578,
+                  "improvement_abs": 0.0033777273623117887,
+                  "improvement_pct": 11.157404499743006,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 3.4283559945354445,
+                  "effect_size_label": "large"
+                },
+                "ema_0.1": {
+                  "sl_mean_mae": 0.02689568759176279,
+                  "baseline_mean_mae": 0.029185878819641038,
+                  "improvement_abs": 0.002290191227878248,
+                  "improvement_pct": 7.846915427939873,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 3.5969871869095047,
+                  "effect_size_label": "large"
+                },
+                "adwin": {
+                  "sl_mean_mae": 0.02689568759176279,
+                  "baseline_mean_mae": 0.032638286349970534,
+                  "improvement_abs": 0.005742598758207745,
+                  "improvement_pct": 17.594669942629903,
+                  "wilcoxon_stat": 102.0,
+                  "wilcoxon_p": 0.9272785186767578,
+                  "significant_005": false,
+                  "significant_001": false,
+                  "cohens_d": 0.2703919526313533,
+                  "effect_size_label": "small"
+                }
+              }
+            },
+            "gradual": {
+              "bayesian_beta": {
+                "mean_mae": 0.06018,
+                "std_mae": 0.00378,
+                "ci_95": [
+                  0.05861,
+                  0.06172
+                ],
+                "mean_kl": 0.012663
+              },
+              "ema_0.01": {
+                "mean_mae": 0.08124,
+                "std_mae": 0.00384,
+                "ci_95": [
+                  0.07967,
+                  0.08292
+                ],
+                "mean_kl": 0.021827
+              },
+              "ema_0.05": {
+                "mean_mae": 0.02533,
+                "std_mae": 0.00274,
+                "ci_95": [
+                  0.02425,
+                  0.02657
+                ],
+                "mean_kl": 0.003605
+              },
+              "ema_0.1": {
+                "mean_mae": 0.02735,
+                "std_mae": 0.00154,
+                "ci_95": [
+                  0.02666,
+                  0.028
+                ],
+                "mean_kl": 0.003548
+              },
+              "adwin": {
+                "mean_mae": 0.08339,
+                "std_mae": 0.00635,
+                "ci_95": [
+                  0.08076,
+                  0.08595
+                ],
+                "mean_kl": 0.024003
+              },
+              "sl_25": {
+                "mean_mae": 0.04561,
+                "std_mae": 0.00173,
+                "ci_95": [
+                  0.04482,
+                  0.04638
+                ],
+                "mean_kl": 0.008523
+              },
+              "sl_50": {
+                "mean_mae": 0.03879,
+                "std_mae": 0.00161,
+                "ci_95": [
+                  0.03805,
+                  0.03951
+                ],
+                "mean_kl": 0.00619
+              },
+              "sl_100": {
+                "mean_mae": 0.03299,
+                "std_mae": 0.00155,
+                "ci_95": [
+                  0.03229,
+                  0.03364
+                ],
+                "mean_kl": 0.00448
+              },
+              "sl_200": {
+                "mean_mae": 0.02812,
+                "std_mae": 0.00155,
+                "ci_95": [
+                  0.02742,
+                  0.0288
+                ],
+                "mean_kl": 0.003262
+              },
+              "sl_400": {
+                "mean_mae": 0.02426,
+                "std_mae": 0.00176,
+                "ci_95": [
+                  0.02349,
+                  0.02503
+                ],
+                "mean_kl": 0.002439
+              },
+              "_ranking": [
+                "sl_400",
+                "ema_0.05",
+                "ema_0.1",
+                "sl_200",
+                "sl_100",
+                "sl_50",
+                "sl_25",
+                "bayesian_beta",
+                "ema_0.01",
+                "adwin"
+              ],
+              "_best_sl": "sl_400",
+              "_pairwise": {
+                "bayesian_beta": {
+                  "sl_mean_mae": 0.02426075453797551,
+                  "baseline_mean_mae": 0.06017658590004045,
+                  "improvement_abs": 0.03591583136206494,
+                  "improvement_pct": 59.68406287077313,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 12.455343232911314,
+                  "effect_size_label": "large"
+                },
+                "ema_0.01": {
+                  "sl_mean_mae": 0.02426075453797551,
+                  "baseline_mean_mae": 0.08124239604888571,
+                  "improvement_abs": 0.0569816415109102,
+                  "improvement_pct": 70.13781508440844,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 20.324851540353507,
+                  "effect_size_label": "large"
+                },
+                "ema_0.05": {
+                  "sl_mean_mae": 0.02426075453797551,
+                  "baseline_mean_mae": 0.025327401942842904,
+                  "improvement_abs": 0.0010666474048673935,
+                  "improvement_pct": 4.211436322108869,
+                  "wilcoxon_stat": 41.0,
+                  "wilcoxon_p": 0.01531219482421875,
+                  "significant_005": true,
+                  "significant_001": false,
+                  "cohens_d": 0.6512513327949233,
+                  "effect_size_label": "medium"
+                },
+                "ema_0.1": {
+                  "sl_mean_mae": 0.02426075453797551,
+                  "baseline_mean_mae": 0.027349562982808377,
+                  "improvement_abs": 0.003088808444832867,
+                  "improvement_pct": 11.293812799767428,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 4.90691681623625,
+                  "effect_size_label": "large"
+                },
+                "adwin": {
+                  "sl_mean_mae": 0.02426075453797551,
+                  "baseline_mean_mae": 0.08339381453311182,
+                  "improvement_abs": 0.05913305999513631,
+                  "improvement_pct": 70.90820863177726,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 9.876147509346723,
+                  "effect_size_label": "large"
+                }
+              }
+            },
+            "recurring": {
+              "bayesian_beta": {
+                "mean_mae": 0.25372,
+                "std_mae": 0.00158,
+                "ci_95": [
+                  0.25303,
+                  0.25443
+                ],
+                "mean_kl": 0.167177,
+                "mean_ttd": 38.5
+              },
+              "ema_0.01": {
+                "mean_mae": 0.26927,
+                "std_mae": 0.00122,
+                "ci_95": [
+                  0.26875,
+                  0.26984
+                ],
+                "mean_kl": 0.171651,
+                "mean_ttd": 38.5
+              },
+              "ema_0.05": {
+                "mean_mae": 0.11047,
+                "std_mae": 0.0029,
+                "ci_95": [
+                  0.10922,
+                  0.11179
+                ],
+                "mean_kl": 0.067841,
+                "mean_ttd": 13.0
+              },
+              "ema_0.1": {
+                "mean_mae": 0.06567,
+                "std_mae": 0.00169,
+                "ci_95": [
+                  0.06493,
+                  0.06639
+                ],
+                "mean_kl": 0.033359,
+                "mean_ttd": 6.1
+              },
+              "adwin": {
+                "mean_mae": 0.12464,
+                "std_mae": 0.0174,
+                "ci_95": [
+                  0.11794,
+                  0.1327
+                ],
+                "mean_kl": 0.071106,
+                "mean_ttd": 11.2
+              },
+              "sl_25": {
+                "mean_mae": 0.05129,
+                "std_mae": 0.00164,
+                "ci_95": [
+                  0.05061,
+                  0.05201
+                ],
+                "mean_kl": 0.014465,
+                "mean_ttd": 1.3
+              },
+              "sl_50": {
+                "mean_mae": 0.04991,
+                "std_mae": 0.00157,
+                "ci_95": [
+                  0.04927,
+                  0.05061
+                ],
+                "mean_kl": 0.015886,
+                "mean_ttd": 2.1
+              },
+              "sl_100": {
+                "mean_mae": 0.05183,
+                "std_mae": 0.00151,
+                "ci_95": [
+                  0.05119,
+                  0.05251
+                ],
+                "mean_kl": 0.019617,
+                "mean_ttd": 3.2
+              },
+              "sl_200": {
+                "mean_mae": 0.05786,
+                "std_mae": 0.00157,
+                "ci_95": [
+                  0.0572,
+                  0.05854
+                ],
+                "mean_kl": 0.026187,
+                "mean_ttd": 4.7
+              },
+              "sl_400": {
+                "mean_mae": 0.06925,
+                "std_mae": 0.00191,
+                "ci_95": [
+                  0.06842,
+                  0.07009
+                ],
+                "mean_kl": 0.036421,
+                "mean_ttd": 6.9
+              },
+              "_ranking": [
+                "sl_50",
+                "sl_25",
+                "sl_100",
+                "sl_200",
+                "ema_0.1",
+                "sl_400",
+                "ema_0.05",
+                "adwin",
+                "bayesian_beta",
+                "ema_0.01"
+              ],
+              "_best_sl": "sl_50",
+              "_pairwise": {
+                "bayesian_beta": {
+                  "sl_mean_mae": 0.049913824812594564,
+                  "baseline_mean_mae": 0.2537150353893668,
+                  "improvement_abs": 0.20380121057677222,
+                  "improvement_pct": 80.32681636861066,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 99.1478322020106,
+                  "effect_size_label": "large"
+                },
+                "ema_0.01": {
+                  "sl_mean_mae": 0.049913824812594564,
+                  "baseline_mean_mae": 0.269268821023143,
+                  "improvement_abs": 0.2193549962105484,
+                  "improvement_pct": 81.46319925829638,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 139.66921099358194,
+                  "effect_size_label": "large"
+                },
+                "ema_0.05": {
+                  "sl_mean_mae": 0.049913824812594564,
+                  "baseline_mean_mae": 0.11046678345458635,
+                  "improvement_abs": 0.06055295864199179,
+                  "improvement_pct": 54.81553526620563,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 23.253663006516444,
+                  "effect_size_label": "large"
+                },
+                "ema_0.1": {
+                  "sl_mean_mae": 0.049913824812594564,
+                  "baseline_mean_mae": 0.06567484970516575,
+                  "improvement_abs": 0.01576102489257119,
+                  "improvement_pct": 23.998570173098518,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 12.495116219190754,
+                  "effect_size_label": "large"
+                },
+                "adwin": {
+                  "sl_mean_mae": 0.049913824812594564,
+                  "baseline_mean_mae": 0.12463769923656745,
+                  "improvement_abs": 0.07472387442397288,
+                  "improvement_pct": 59.95286729590853,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 4.298095354851305,
+                  "effect_size_label": "large"
+                }
+              }
+            }
+          },
+          "cross_scenario": {
+            "avg_mae": {
+              "sl_200": 0.03839,
+              "sl_100": 0.03919,
+              "sl_400": 0.04014,
+              "ema_0.1": 0.04074,
+              "sl_50": 0.04206,
+              "sl_25": 0.04679,
+              "ema_0.05": 0.05536,
+              "adwin": 0.08022,
+              "bayesian_beta": 0.12579,
+              "ema_0.01": 0.14647
+            },
+            "ranking": [
+              "sl_200",
+              "sl_100",
+              "sl_400",
+              "ema_0.1",
+              "sl_50",
+              "sl_25",
+              "ema_0.05",
+              "adwin",
+              "bayesian_beta",
+              "ema_0.01"
+            ],
+            "best_sl": "sl_200",
+            "best_baseline": "ema_0.1",
+            "sl_vs_baseline": {
+              "sl_avg_mae": 0.03839,
+              "baseline_avg_mae": 0.04074,
+              "improvement_abs": 0.00235,
+              "improvement_pct": 5.77,
+              "sl_wins": true
+            },
+            "worst_case_mae": {
+              "sl_50": 0.04991,
+              "sl_25": 0.05129,
+              "sl_100": 0.05183,
+              "sl_200": 0.05786,
+              "ema_0.1": 0.06567,
+              "sl_400": 0.06925,
+              "ema_0.05": 0.11047,
+              "adwin": 0.12464,
+              "bayesian_beta": 0.25372,
+              "ema_0.01": 0.26927
+            },
+            "robustness_ranking": [
+              "sl_50",
+              "sl_25",
+              "sl_100",
+              "sl_200",
+              "ema_0.1",
+              "sl_400",
+              "ema_0.05",
+              "adwin",
+              "bayesian_beta",
+              "ema_0.01"
+            ],
+            "robustness_sl_vs_baseline": {
+              "sl_worst_mae": 0.04991,
+              "baseline_worst_mae": 0.06567,
+              "improvement_abs": 0.01576,
+              "improvement_pct": 24.0,
+              "sl_wins": true,
+              "best_sl": "sl_50",
+              "best_baseline": "ema_0.1"
+            }
+          }
+        },
+        "25": {
+          "per_scenario": {
+            "sudden": {
+              "bayesian_beta": {
+                "mean_mae": 0.06181,
+                "std_mae": 0.00181,
+                "ci_95": [
+                  0.06105,
+                  0.06264
+                ],
+                "mean_kl": 0.038488,
+                "mean_ttd": 67.3
+              },
+              "ema_0.01": {
+                "mean_mae": 0.08824,
+                "std_mae": 0.00163,
+                "ci_95": [
+                  0.08751,
+                  0.08892
+                ],
+                "mean_kl": 0.048604,
+                "mean_ttd": 67.3
+              },
+              "ema_0.05": {
+                "mean_mae": 0.02504,
+                "std_mae": 0.00137,
+                "ci_95": [
+                  0.0244,
+                  0.02561
+                ],
+                "mean_kl": 0.009406,
+                "mean_ttd": 12.8
+              },
+              "ema_0.1": {
+                "mean_mae": 0.02102,
+                "std_mae": 0.00122,
+                "ci_95": [
+                  0.02046,
+                  0.02153
+                ],
+                "mean_kl": 0.005108,
+                "mean_ttd": 6.0
+              },
+              "adwin": {
+                "mean_mae": 0.01252,
+                "std_mae": 0.00712,
+                "ci_95": [
+                  0.00974,
+                  0.01558
+                ],
+                "mean_kl": 0.003247,
+                "mean_ttd": 3.5
+              },
+              "sl_25": {
+                "mean_mae": 0.03428,
+                "std_mae": 0.00115,
+                "ci_95": [
+                  0.0338,
+                  0.03477
+                ],
+                "mean_kl": 0.005771,
+                "mean_ttd": 0.8
+              },
+              "sl_50": {
+                "mean_mae": 0.02957,
+                "std_mae": 0.0011,
+                "ci_95": [
+                  0.0291,
+                  0.03006
+                ],
+                "mean_kl": 0.004546,
+                "mean_ttd": 1.1
+              },
+              "sl_100": {
+                "mean_mae": 0.02563,
+                "std_mae": 0.00111,
+                "ci_95": [
+                  0.02515,
+                  0.02613
+                ],
+                "mean_kl": 0.003801,
+                "mean_ttd": 1.9
+              },
+              "sl_200": {
+                "mean_mae": 0.02251,
+                "std_mae": 0.00109,
+                "ci_95": [
+                  0.02206,
+                  0.023
+                ],
+                "mean_kl": 0.003509,
+                "mean_ttd": 3.0
+              },
+              "sl_400": {
+                "mean_mae": 0.02032,
+                "std_mae": 0.00108,
+                "ci_95": [
+                  0.01986,
+                  0.0208
+                ],
+                "mean_kl": 0.003664,
+                "mean_ttd": 4.2
+              },
+              "_ranking": [
+                "adwin",
+                "sl_400",
+                "ema_0.1",
+                "sl_200",
+                "ema_0.05",
+                "sl_100",
+                "sl_50",
+                "sl_25",
+                "bayesian_beta",
+                "ema_0.01"
+              ],
+              "_best_sl": "sl_400",
+              "_pairwise": {
+                "bayesian_beta": {
+                  "sl_mean_mae": 0.020315848132567132,
+                  "baseline_mean_mae": 0.06181409114184925,
+                  "improvement_abs": 0.04149824300928212,
+                  "improvement_pct": 67.13395318561444,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 26.667155728363625,
+                  "effect_size_label": "large"
+                },
+                "ema_0.01": {
+                  "sl_mean_mae": 0.020315848132567132,
+                  "baseline_mean_mae": 0.08824199384370064,
+                  "improvement_abs": 0.0679261457111335,
+                  "improvement_pct": 76.9771202489466,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 41.977782438883814,
+                  "effect_size_label": "large"
+                },
+                "ema_0.05": {
+                  "sl_mean_mae": 0.020315848132567132,
+                  "baseline_mean_mae": 0.02504259405172961,
+                  "improvement_abs": 0.00472674591916248,
+                  "improvement_pct": 18.874825464960242,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 5.180637012381219,
+                  "effect_size_label": "large"
+                },
+                "ema_0.1": {
+                  "sl_mean_mae": 0.020315848132567132,
+                  "baseline_mean_mae": 0.02101690130106264,
+                  "improvement_abs": 0.0007010531684955093,
+                  "improvement_pct": 3.3356637995919174,
+                  "wilcoxon_stat": 6.0,
+                  "wilcoxon_p": 2.6702880859375e-05,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 1.340185351618617,
+                  "effect_size_label": "large"
+                },
+                "adwin": {
+                  "sl_mean_mae": 0.020315848132567132,
+                  "baseline_mean_mae": 0.01252257792974562,
+                  "improvement_abs": -0.007793270202821511,
+                  "improvement_pct": -62.23375287854823,
+                  "wilcoxon_stat": 20.0,
+                  "wilcoxon_p": 0.0007076263427734375,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": -1.1590039640101162,
+                  "effect_size_label": "large"
+                }
+              }
+            },
+            "gradual": {
+              "bayesian_beta": {
+                "mean_mae": 0.06023,
+                "std_mae": 0.00317,
+                "ci_95": [
+                  0.0589,
+                  0.06165
+                ],
+                "mean_kl": 0.01273
+              },
+              "ema_0.01": {
+                "mean_mae": 0.08228,
+                "std_mae": 0.00244,
+                "ci_95": [
+                  0.08126,
+                  0.08341
+                ],
+                "mean_kl": 0.022084
+              },
+              "ema_0.05": {
+                "mean_mae": 0.02169,
+                "std_mae": 0.00212,
+                "ci_95": [
+                  0.02081,
+                  0.02268
+                ],
+                "mean_kl": 0.002978
+              },
+              "ema_0.1": {
+                "mean_mae": 0.01874,
+                "std_mae": 0.0012,
+                "ci_95": [
+                  0.01822,
+                  0.01925
+                ],
+                "mean_kl": 0.001996
+              },
+              "adwin": {
+                "mean_mae": 0.06033,
+                "std_mae": 0.00686,
+                "ci_95": [
+                  0.05728,
+                  0.06328
+                ],
+                "mean_kl": 0.01309
+              },
+              "sl_25": {
+                "mean_mae": 0.03583,
+                "std_mae": 0.00145,
+                "ci_95": [
+                  0.03523,
+                  0.03644
+                ],
+                "mean_kl": 0.005293
+              },
+              "sl_50": {
+                "mean_mae": 0.0305,
+                "std_mae": 0.00132,
+                "ci_95": [
+                  0.02992,
+                  0.03105
+                ],
+                "mean_kl": 0.003844
+              },
+              "sl_100": {
+                "mean_mae": 0.02583,
+                "std_mae": 0.00118,
+                "ci_95": [
+                  0.02532,
+                  0.02632
+                ],
+                "mean_kl": 0.002771
+              },
+              "sl_200": {
+                "mean_mae": 0.02191,
+                "std_mae": 0.00105,
+                "ci_95": [
+                  0.02147,
+                  0.02232
+                ],
+                "mean_kl": 0.002003
+              },
+              "sl_400": {
+                "mean_mae": 0.01882,
+                "std_mae": 0.00102,
+                "ci_95": [
+                  0.01838,
+                  0.01922
+                ],
+                "mean_kl": 0.001479
+              },
+              "_ranking": [
+                "ema_0.1",
+                "sl_400",
+                "ema_0.05",
+                "sl_200",
+                "sl_100",
+                "sl_50",
+                "sl_25",
+                "bayesian_beta",
+                "adwin",
+                "ema_0.01"
+              ],
+              "_best_sl": "sl_400",
+              "_pairwise": {
+                "bayesian_beta": {
+                  "sl_mean_mae": 0.018816564885728793,
+                  "baseline_mean_mae": 0.060225134249358415,
+                  "improvement_abs": 0.04140856936362962,
+                  "improvement_pct": 68.75629233499093,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 14.70718828769163,
+                  "effect_size_label": "large"
+                },
+                "ema_0.01": {
+                  "sl_mean_mae": 0.018816564885728793,
+                  "baseline_mean_mae": 0.08227743985633837,
+                  "improvement_abs": 0.06346087497060958,
+                  "improvement_pct": 77.13034712968256,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 29.049965869659076,
+                  "effect_size_label": "large"
+                },
+                "ema_0.05": {
+                  "sl_mean_mae": 0.018816564885728793,
+                  "baseline_mean_mae": 0.02169495317280357,
+                  "improvement_abs": 0.0028783882870747762,
+                  "improvement_pct": 13.26754782159694,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 1.6294187785622285,
+                  "effect_size_label": "large"
+                },
+                "ema_0.1": {
+                  "sl_mean_mae": 0.018816564885728793,
+                  "baseline_mean_mae": 0.018742637336202607,
+                  "improvement_abs": -7.392754952618638e-05,
+                  "improvement_pct": -0.39443514912061267,
+                  "wilcoxon_stat": 83.0,
+                  "wilcoxon_p": 0.4304332733154297,
+                  "significant_005": false,
+                  "significant_001": false,
+                  "cohens_d": -0.13308691928325608,
+                  "effect_size_label": "negligible"
+                },
+                "adwin": {
+                  "sl_mean_mae": 0.018816564885728793,
+                  "baseline_mean_mae": 0.060333380966552,
+                  "improvement_abs": 0.04151681608082321,
+                  "improvement_pct": 68.81234801649781,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 6.158136409774098,
+                  "effect_size_label": "large"
+                }
+              }
+            },
+            "recurring": {
+              "bayesian_beta": {
+                "mean_mae": 0.25235,
+                "std_mae": 0.00088,
+                "ci_95": [
+                  0.25201,
+                  0.25278
+                ],
+                "mean_kl": 0.166063,
+                "mean_ttd": 38.2
+              },
+              "ema_0.01": {
+                "mean_mae": 0.26887,
+                "std_mae": 0.00059,
+                "ci_95": [
+                  0.26862,
+                  0.26911
+                ],
+                "mean_kl": 0.170958,
+                "mean_ttd": 38.2
+              },
+              "ema_0.05": {
+                "mean_mae": 0.10776,
+                "std_mae": 0.0015,
+                "ci_95": [
+                  0.10711,
+                  0.10835
+                ],
+                "mean_kl": 0.066733,
+                "mean_ttd": 12.9
+              },
+              "ema_0.1": {
+                "mean_mae": 0.05938,
+                "std_mae": 0.00139,
+                "ci_95": [
+                  0.05879,
+                  0.05998
+                ],
+                "mean_kl": 0.031733,
+                "mean_ttd": 6.1
+              },
+              "adwin": {
+                "mean_mae": 0.08015,
+                "std_mae": 0.01762,
+                "ci_95": [
+                  0.0731,
+                  0.08765
+                ],
+                "mean_kl": 0.040142,
+                "mean_ttd": 6.2
+              },
+              "sl_25": {
+                "mean_mae": 0.03888,
+                "std_mae": 0.00114,
+                "ci_95": [
+                  0.0384,
+                  0.03938
+                ],
+                "mean_kl": 0.00851,
+                "mean_ttd": 0.7
+              },
+              "sl_50": {
+                "mean_mae": 0.03704,
+                "std_mae": 0.00106,
+                "ci_95": [
+                  0.03659,
+                  0.03749
+                ],
+                "mean_kl": 0.009257,
+                "mean_ttd": 1.1
+              },
+              "sl_100": {
+                "mean_mae": 0.03731,
+                "std_mae": 0.001,
+                "ci_95": [
+                  0.03689,
+                  0.03773
+                ],
+                "mean_kl": 0.011458,
+                "mean_ttd": 1.9
+              },
+              "sl_200": {
+                "mean_mae": 0.04033,
+                "std_mae": 0.00097,
+                "ci_95": [
+                  0.03993,
+                  0.04075
+                ],
+                "mean_kl": 0.015459,
+                "mean_ttd": 2.8
+              },
+              "sl_400": {
+                "mean_mae": 0.04691,
+                "std_mae": 0.00111,
+                "ci_95": [
+                  0.04645,
+                  0.04736
+                ],
+                "mean_kl": 0.021784,
+                "mean_ttd": 4.2
+              },
+              "_ranking": [
+                "sl_50",
+                "sl_100",
+                "sl_25",
+                "sl_200",
+                "sl_400",
+                "ema_0.1",
+                "adwin",
+                "ema_0.05",
+                "bayesian_beta",
+                "ema_0.01"
+              ],
+              "_best_sl": "sl_50",
+              "_pairwise": {
+                "bayesian_beta": {
+                  "sl_mean_mae": 0.037036045672850286,
+                  "baseline_mean_mae": 0.25235072199909836,
+                  "improvement_abs": 0.21531467632624807,
+                  "improvement_pct": 85.32358244135216,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 190.51528794046902,
+                  "effect_size_label": "large"
+                },
+                "ema_0.01": {
+                  "sl_mean_mae": 0.037036045672850286,
+                  "baseline_mean_mae": 0.26886849802619184,
+                  "improvement_abs": 0.23183245235334154,
+                  "improvement_pct": 86.22521941218922,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 245.27488148099124,
+                  "effect_size_label": "large"
+                },
+                "ema_0.05": {
+                  "sl_mean_mae": 0.037036045672850286,
+                  "baseline_mean_mae": 0.10776060079433658,
+                  "improvement_abs": 0.07072455512148629,
+                  "improvement_pct": 65.63118115540728,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 60.12506049403572,
+                  "effect_size_label": "large"
+                },
+                "ema_0.1": {
+                  "sl_mean_mae": 0.037036045672850286,
+                  "baseline_mean_mae": 0.05937772313270158,
+                  "improvement_abs": 0.022341677459851293,
+                  "improvement_pct": 37.62636268474039,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 18.204033559523953,
+                  "effect_size_label": "large"
+                },
+                "adwin": {
+                  "sl_mean_mae": 0.037036045672850286,
+                  "baseline_mean_mae": 0.080148152764731,
+                  "improvement_abs": 0.043112107091880715,
+                  "improvement_pct": 53.790518689099585,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 2.4687123396862605,
+                  "effect_size_label": "large"
+                }
+              }
+            }
+          },
+          "cross_scenario": {
+            "avg_mae": {
+              "sl_200": 0.02825,
+              "sl_400": 0.02868,
+              "sl_100": 0.02959,
+              "sl_50": 0.03237,
+              "ema_0.1": 0.03305,
+              "sl_25": 0.03633,
+              "adwin": 0.051,
+              "ema_0.05": 0.0515,
+              "bayesian_beta": 0.1248,
+              "ema_0.01": 0.14646
+            },
+            "ranking": [
+              "sl_200",
+              "sl_400",
+              "sl_100",
+              "sl_50",
+              "ema_0.1",
+              "sl_25",
+              "adwin",
+              "ema_0.05",
+              "bayesian_beta",
+              "ema_0.01"
+            ],
+            "best_sl": "sl_200",
+            "best_baseline": "ema_0.1",
+            "sl_vs_baseline": {
+              "sl_avg_mae": 0.02825,
+              "baseline_avg_mae": 0.03305,
+              "improvement_abs": 0.0048,
+              "improvement_pct": 14.52,
+              "sl_wins": true
+            },
+            "worst_case_mae": {
+              "sl_50": 0.03704,
+              "sl_100": 0.03731,
+              "sl_25": 0.03888,
+              "sl_200": 0.04033,
+              "sl_400": 0.04691,
+              "ema_0.1": 0.05938,
+              "adwin": 0.08015,
+              "ema_0.05": 0.10776,
+              "bayesian_beta": 0.25235,
+              "ema_0.01": 0.26887
+            },
+            "robustness_ranking": [
+              "sl_50",
+              "sl_100",
+              "sl_25",
+              "sl_200",
+              "sl_400",
+              "ema_0.1",
+              "adwin",
+              "ema_0.05",
+              "bayesian_beta",
+              "ema_0.01"
+            ],
+            "robustness_sl_vs_baseline": {
+              "sl_worst_mae": 0.03704,
+              "baseline_worst_mae": 0.05938,
+              "improvement_abs": 0.02234,
+              "improvement_pct": 37.62,
+              "sl_wins": true,
+              "best_sl": "sl_50",
+              "best_baseline": "ema_0.1"
+            }
+          }
+        },
+        "50": {
+          "per_scenario": {
+            "sudden": {
+              "bayesian_beta": {
+                "mean_mae": 0.06119,
+                "std_mae": 0.00116,
+                "ci_95": [
+                  0.0607,
+                  0.06167
+                ],
+                "mean_kl": 0.038971,
+                "mean_ttd": 68.5
+              },
+              "ema_0.01": {
+                "mean_mae": 0.08829,
+                "std_mae": 0.00146,
+                "ci_95": [
+                  0.08762,
+                  0.08891
+                ],
+                "mean_kl": 0.049116,
+                "mean_ttd": 68.5
+              },
+              "ema_0.05": {
+                "mean_mae": 0.02301,
+                "std_mae": 0.00063,
+                "ci_95": [
+                  0.02274,
+                  0.02327
+                ],
+                "mean_kl": 0.00953,
+                "mean_ttd": 13.1
+              },
+              "ema_0.1": {
+                "mean_mae": 0.01748,
+                "std_mae": 0.00062,
+                "ci_95": [
+                  0.01721,
+                  0.01773
+                ],
+                "mean_kl": 0.004736,
+                "mean_ttd": 6.0
+              },
+              "adwin": {
+                "mean_mae": 0.00977,
+                "std_mae": 0.01003,
+                "ci_95": [
+                  0.00642,
+                  0.01441
+                ],
+                "mean_kl": 0.002626,
+                "mean_ttd": 2.8
+              },
+              "sl_25": {
+                "mean_mae": 0.02823,
+                "std_mae": 0.00049,
+                "ci_95": [
+                  0.02803,
+                  0.02844
+                ],
+                "mean_kl": 0.003947,
+                "mean_ttd": 0.1
+              },
+              "sl_50": {
+                "mean_mae": 0.02448,
+                "std_mae": 0.00053,
+                "ci_95": [
+                  0.02424,
+                  0.0247
+                ],
+                "mean_kl": 0.003107,
+                "mean_ttd": 0.9
+              },
+              "sl_100": {
+                "mean_mae": 0.02122,
+                "std_mae": 0.00057,
+                "ci_95": [
+                  0.02096,
+                  0.02146
+                ],
+                "mean_kl": 0.00258,
+                "mean_ttd": 1.1
+              },
+              "sl_200": {
+                "mean_mae": 0.01862,
+                "std_mae": 0.00061,
+                "ci_95": [
+                  0.01837,
+                  0.01888
+                ],
+                "mean_kl": 0.002377,
+                "mean_ttd": 1.9
+              },
+              "sl_400": {
+                "mean_mae": 0.01673,
+                "std_mae": 0.00065,
+                "ci_95": [
+                  0.01645,
+                  0.01699
+                ],
+                "mean_kl": 0.002508,
+                "mean_ttd": 2.9
+              },
+              "_ranking": [
+                "adwin",
+                "sl_400",
+                "ema_0.1",
+                "sl_200",
+                "sl_100",
+                "ema_0.05",
+                "sl_50",
+                "sl_25",
+                "bayesian_beta",
+                "ema_0.01"
+              ],
+              "_best_sl": "sl_400",
+              "_pairwise": {
+                "bayesian_beta": {
+                  "sl_mean_mae": 0.016727076273802308,
+                  "baseline_mean_mae": 0.06118788508598979,
+                  "improvement_abs": 0.04446080881218748,
+                  "improvement_pct": 72.66276445035635,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 47.886521015135884,
+                  "effect_size_label": "large"
+                },
+                "ema_0.01": {
+                  "sl_mean_mae": 0.016727076273802308,
+                  "baseline_mean_mae": 0.08829306819899588,
+                  "improvement_abs": 0.07156599192519357,
+                  "improvement_pct": 81.05505152895735,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 56.37515580823982,
+                  "effect_size_label": "large"
+                },
+                "ema_0.05": {
+                  "sl_mean_mae": 0.016727076273802308,
+                  "baseline_mean_mae": 0.02300975926171846,
+                  "improvement_abs": 0.006282682987916153,
+                  "improvement_pct": 27.30442729302565,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 13.270286215560581,
+                  "effect_size_label": "large"
+                },
+                "ema_0.1": {
+                  "sl_mean_mae": 0.016727076273802308,
+                  "baseline_mean_mae": 0.017477817170439825,
+                  "improvement_abs": 0.0007507408966375174,
+                  "improvement_pct": 4.29539277883764,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 1.99230156612184,
+                  "effect_size_label": "large"
+                },
+                "adwin": {
+                  "sl_mean_mae": 0.016727076273802308,
+                  "baseline_mean_mae": 0.00977045575324689,
+                  "improvement_abs": -0.006956620520555418,
+                  "improvement_pct": -71.20057340460924,
+                  "wilcoxon_stat": 34.0,
+                  "wilcoxon_p": 0.006389617919921875,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": -0.6877971175308263,
+                  "effect_size_label": "medium"
+                }
+              }
+            },
+            "gradual": {
+              "bayesian_beta": {
+                "mean_mae": 0.05953,
+                "std_mae": 0.00187,
+                "ci_95": [
+                  0.05873,
+                  0.06031
+                ],
+                "mean_kl": 0.012555
+              },
+              "ema_0.01": {
+                "mean_mae": 0.08189,
+                "std_mae": 0.00167,
+                "ci_95": [
+                  0.08115,
+                  0.08261
+                ],
+                "mean_kl": 0.021953
+              },
+              "ema_0.05": {
+                "mean_mae": 0.02016,
+                "std_mae": 0.00145,
+                "ci_95": [
+                  0.0195,
+                  0.02073
+                ],
+                "mean_kl": 0.002768
+              },
+              "ema_0.1": {
+                "mean_mae": 0.01496,
+                "std_mae": 0.0009,
+                "ci_95": [
+                  0.01457,
+                  0.01533
+                ],
+                "mean_kl": 0.001531
+              },
+              "adwin": {
+                "mean_mae": 0.04466,
+                "std_mae": 0.00457,
+                "ci_95": [
+                  0.04269,
+                  0.04684
+                ],
+                "mean_kl": 0.007469
+              },
+              "sl_25": {
+                "mean_mae": 0.03015,
+                "std_mae": 0.00072,
+                "ci_95": [
+                  0.02983,
+                  0.03044
+                ],
+                "mean_kl": 0.003775
+              },
+              "sl_50": {
+                "mean_mae": 0.0259,
+                "std_mae": 0.00072,
+                "ci_95": [
+                  0.02559,
+                  0.0262
+                ],
+                "mean_kl": 0.002787
+              },
+              "sl_100": {
+                "mean_mae": 0.02208,
+                "std_mae": 0.00072,
+                "ci_95": [
+                  0.02177,
+                  0.02239
+                ],
+                "mean_kl": 0.002025
+              },
+              "sl_200": {
+                "mean_mae": 0.01878,
+                "std_mae": 0.0007,
+                "ci_95": [
+                  0.01848,
+                  0.01908
+                ],
+                "mean_kl": 0.001465
+              },
+              "sl_400": {
+                "mean_mae": 0.01604,
+                "std_mae": 0.00072,
+                "ci_95": [
+                  0.01573,
+                  0.01635
+                ],
+                "mean_kl": 0.001071
+              },
+              "_ranking": [
+                "ema_0.1",
+                "sl_400",
+                "sl_200",
+                "ema_0.05",
+                "sl_100",
+                "sl_50",
+                "sl_25",
+                "adwin",
+                "bayesian_beta",
+                "ema_0.01"
+              ],
+              "_best_sl": "sl_400",
+              "_pairwise": {
+                "bayesian_beta": {
+                  "sl_mean_mae": 0.01604429179442422,
+                  "baseline_mean_mae": 0.05952887517430931,
+                  "improvement_abs": 0.04348458337988509,
+                  "improvement_pct": 73.04788348940883,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 28.51741480827212,
+                  "effect_size_label": "large"
+                },
+                "ema_0.01": {
+                  "sl_mean_mae": 0.01604429179442422,
+                  "baseline_mean_mae": 0.08189085145447692,
+                  "improvement_abs": 0.06584655966005269,
+                  "improvement_pct": 80.40771159481321,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 58.389697750413134,
+                  "effect_size_label": "large"
+                },
+                "ema_0.05": {
+                  "sl_mean_mae": 0.01604429179442422,
+                  "baseline_mean_mae": 0.02016319311400947,
+                  "improvement_abs": 0.004118901319585252,
+                  "improvement_pct": 20.42782259880962,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 4.214114083736756,
+                  "effect_size_label": "large"
+                },
+                "ema_0.1": {
+                  "sl_mean_mae": 0.01604429179442422,
+                  "baseline_mean_mae": 0.014964371520409425,
+                  "improvement_abs": -0.001079920274014795,
+                  "improvement_pct": -7.216609615324818,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": -2.1540441599393163,
+                  "effect_size_label": "large"
+                },
+                "adwin": {
+                  "sl_mean_mae": 0.01604429179442422,
+                  "baseline_mean_mae": 0.04465794768774322,
+                  "improvement_abs": 0.028613655893319,
+                  "improvement_pct": 64.07293074323762,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 6.233187500418924,
+                  "effect_size_label": "large"
+                }
+              }
+            },
+            "recurring": {
+              "bayesian_beta": {
+                "mean_mae": 0.25242,
+                "std_mae": 0.00055,
+                "ci_95": [
+                  0.2522,
+                  0.25266
+                ],
+                "mean_kl": 0.16646,
+                "mean_ttd": 38.3
+              },
+              "ema_0.01": {
+                "mean_mae": 0.2693,
+                "std_mae": 0.00045,
+                "ci_95": [
+                  0.2691,
+                  0.26949
+                ],
+                "mean_kl": 0.171395,
+                "mean_ttd": 38.3
+              },
+              "ema_0.05": {
+                "mean_mae": 0.1077,
+                "std_mae": 0.00114,
+                "ci_95": [
+                  0.10723,
+                  0.10818
+                ],
+                "mean_kl": 0.06699,
+                "mean_ttd": 12.9
+              },
+              "ema_0.1": {
+                "mean_mae": 0.05689,
+                "std_mae": 0.00102,
+                "ci_95": [
+                  0.05642,
+                  0.0573
+                ],
+                "mean_kl": 0.031375,
+                "mean_ttd": 6.0
+              },
+              "adwin": {
+                "mean_mae": 0.05197,
+                "std_mae": 0.0183,
+                "ci_95": [
+                  0.04468,
+                  0.06024
+                ],
+                "mean_kl": 0.022466,
+                "mean_ttd": 3.6
+              },
+              "sl_25": {
+                "mean_mae": 0.0311,
+                "std_mae": 0.00051,
+                "ci_95": [
+                  0.03087,
+                  0.03131
+                ],
+                "mean_kl": 0.005422,
+                "mean_ttd": 0.1
+              },
+              "sl_50": {
+                "mean_mae": 0.02933,
+                "std_mae": 0.00057,
+                "ci_95": [
+                  0.02907,
+                  0.02957
+                ],
+                "mean_kl": 0.00585,
+                "mean_ttd": 0.8
+              },
+              "sl_100": {
+                "mean_mae": 0.02906,
+                "std_mae": 0.00064,
+                "ci_95": [
+                  0.02877,
+                  0.02933
+                ],
+                "mean_kl": 0.007298,
+                "mean_ttd": 1.0
+              },
+              "sl_200": {
+                "mean_mae": 0.0308,
+                "std_mae": 0.00074,
+                "ci_95": [
+                  0.03045,
+                  0.03109
+                ],
+                "mean_kl": 0.010045,
+                "mean_ttd": 1.9
+              },
+              "sl_400": {
+                "mean_mae": 0.03513,
+                "std_mae": 0.00083,
+                "ci_95": [
+                  0.03474,
+                  0.03545
+                ],
+                "mean_kl": 0.014477,
+                "mean_ttd": 2.9
+              },
+              "_ranking": [
+                "sl_100",
+                "sl_50",
+                "sl_200",
+                "sl_25",
+                "sl_400",
+                "adwin",
+                "ema_0.1",
+                "ema_0.05",
+                "bayesian_beta",
+                "ema_0.01"
+              ],
+              "_best_sl": "sl_100",
+              "_pairwise": {
+                "bayesian_beta": {
+                  "sl_mean_mae": 0.029064478182572934,
+                  "baseline_mean_mae": 0.25241909047433897,
+                  "improvement_abs": 0.22335461229176604,
+                  "improvement_pct": 88.48562597703852,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 263.14701881327613,
+                  "effect_size_label": "large"
+                },
+                "ema_0.01": {
+                  "sl_mean_mae": 0.029064478182572934,
+                  "baseline_mean_mae": 0.2692970581326991,
+                  "improvement_abs": 0.24023257995012617,
+                  "improvement_pct": 89.2072797288966,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 335.74270995333836,
+                  "effect_size_label": "large"
+                },
+                "ema_0.05": {
+                  "sl_mean_mae": 0.029064478182572934,
+                  "baseline_mean_mae": 0.10770003363214727,
+                  "improvement_abs": 0.07863555544957433,
+                  "improvement_pct": 73.01349200888502,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 79.5365144785686,
+                  "effect_size_label": "large"
+                },
+                "ema_0.1": {
+                  "sl_mean_mae": 0.029064478182572934,
+                  "baseline_mean_mae": 0.056885509360193744,
+                  "improvement_abs": 0.02782103117762081,
+                  "improvement_pct": 48.90706172895567,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 32.846485714042934,
+                  "effect_size_label": "large"
+                },
+                "adwin": {
+                  "sl_mean_mae": 0.029064478182572934,
+                  "baseline_mean_mae": 0.051974897823323596,
+                  "improvement_abs": 0.022910419640750662,
+                  "improvement_pct": 44.07977812410373,
+                  "wilcoxon_stat": 0.0,
+                  "wilcoxon_p": 1.9073486328125e-06,
+                  "significant_005": true,
+                  "significant_001": true,
+                  "cohens_d": 1.2560340242364196,
+                  "effect_size_label": "large"
+                }
+              }
+            }
+          },
+          "cross_scenario": {
+            "avg_mae": {
+              "sl_400": 0.02263,
+              "sl_200": 0.02273,
+              "sl_100": 0.02412,
+              "sl_50": 0.02657,
+              "ema_0.1": 0.02978,
+              "sl_25": 0.02983,
+              "adwin": 0.03547,
+              "ema_0.05": 0.05029,
+              "bayesian_beta": 0.12438,
+              "ema_0.01": 0.14649
+            },
+            "ranking": [
+              "sl_400",
+              "sl_200",
+              "sl_100",
+              "sl_50",
+              "ema_0.1",
+              "sl_25",
+              "adwin",
+              "ema_0.05",
+              "bayesian_beta",
+              "ema_0.01"
+            ],
+            "best_sl": "sl_400",
+            "best_baseline": "ema_0.1",
+            "sl_vs_baseline": {
+              "sl_avg_mae": 0.02263,
+              "baseline_avg_mae": 0.02978,
+              "improvement_abs": 0.00715,
+              "improvement_pct": 24.01,
+              "sl_wins": true
+            },
+            "worst_case_mae": {
+              "sl_100": 0.02906,
+              "sl_50": 0.02933,
+              "sl_200": 0.0308,
+              "sl_25": 0.0311,
+              "sl_400": 0.03513,
+              "adwin": 0.05197,
+              "ema_0.1": 0.05689,
+              "ema_0.05": 0.1077,
+              "bayesian_beta": 0.25242,
+              "ema_0.01": 0.2693
+            },
+            "robustness_ranking": [
+              "sl_100",
+              "sl_50",
+              "sl_200",
+              "sl_25",
+              "sl_400",
+              "adwin",
+              "ema_0.1",
+              "ema_0.05",
+              "bayesian_beta",
+              "ema_0.01"
+            ],
+            "robustness_sl_vs_baseline": {
+              "sl_worst_mae": 0.02906,
+              "baseline_worst_mae": 0.05197,
+              "improvement_abs": 0.02291,
+              "improvement_pct": 44.08,
+              "sl_wins": true,
+              "best_sl": "sl_100",
+              "best_baseline": "adwin"
+            }
+          }
+        }
+      },
+      "robustness": {},
+      "batch_size_effect": {
+        "5": {
+          "avg_mae_improvement_pct": 2.08,
+          "worst_case_improvement_pct": 12.98,
+          "best_sl": "sl_200",
+          "best_baseline": "ema_0.1"
+        },
+        "10": {
+          "avg_mae_improvement_pct": 5.77,
+          "worst_case_improvement_pct": 24.0,
+          "best_sl": "sl_200",
+          "best_baseline": "ema_0.1"
+        },
+        "25": {
+          "avg_mae_improvement_pct": 14.52,
+          "worst_case_improvement_pct": 37.62,
+          "best_sl": "sl_200",
+          "best_baseline": "ema_0.1"
+        },
+        "50": {
+          "avg_mae_improvement_pct": 24.01,
+          "worst_case_improvement_pct": 44.08,
+          "best_sl": "sl_400",
+          "best_baseline": "ema_0.1"
+        }
+      }
+    }
+  },
+  "timestamp": "2026-03-11T05:12:40.642343+00:00",
+  "raw_data": {
+    "mae_by_bs_scenario_method_seed": {
+      "5": {
+        "sudden": {
+          "bayesian_beta": [
+            0.06286194469474639,
+            0.06501703131797729,
+            0.06551520192177213,
+            0.06577404775523696,
+            0.06701010337101575,
+            0.06722428238735534,
+            0.06062508239552328,
+            0.06450830121987501,
+            0.06469907018426091,
+            0.07316247718829337,
+            0.06452663118830784,
+            0.06912997061277548,
+            0.07091763681965839,
+            0.0673190385931224,
+            0.06725013595449948,
+            0.06360747589968893,
+            0.062280789792600356,
+            0.06664560385026326,
+            0.07248682303936921,
+            0.06367964984459411
+          ],
+          "ema_0.01": [
+            0.08933645707900241,
+            0.09110657140775086,
+            0.09000709147683353,
+            0.08863550137844954,
+            0.08890141621115097,
+            0.09335849663451604,
+            0.08538566853098342,
+            0.08802887487056521,
+            0.09028987237800488,
+            0.09804956233890925,
+            0.09124592852327139,
+            0.08888136313397434,
+            0.08611747145648627,
+            0.08637116401117069,
+            0.09337935338533578,
+            0.0861185892576757,
+            0.08580297352006934,
+            0.09075300133626868,
+            0.09020741078921989,
+            0.085923652721008
+          ],
+          "ema_0.05": [
+            0.034738918921929325,
+            0.038984173586060364,
+            0.035180513787503344,
+            0.03841955165869176,
+            0.03483433362527059,
+            0.03460842638249614,
+            0.031988153350092266,
+            0.03787860300155977,
+            0.03612031759854287,
+            0.041291714654949345,
+            0.041257418194773764,
+            0.037545989994746336,
+            0.03583561218735727,
+            0.03619940280921125,
+            0.03777550272968065,
+            0.03451968644410778,
+            0.03222623739789379,
+            0.036118324532066495,
+            0.037337119618651896,
+            0.03887828733333963
+          ],
+          "ema_0.1": [
+            0.03786372708949078,
+            0.04050701422563909,
+            0.039281487849627976,
+            0.040063164819506086,
+            0.03829214075981184,
+            0.034811620684996096,
+            0.03636609358697112,
+            0.04000152755888373,
+            0.04002899858778778,
+            0.04246581263008103,
+            0.04259602441874681,
+            0.03851770765251222,
+            0.03884757085138419,
+            0.040400456821553424,
+            0.04041528805696148,
+            0.03634259014504986,
+            0.034081561678853435,
+            0.03820361536354189,
+            0.03908384577133585,
+            0.0412994073187258
+          ],
+          "adwin": [
+            0.0322366257753382,
+            0.048619010531817,
+            0.04411465596872246,
+            0.16567359420229405,
+            0.03873350922824892,
+            0.04576442238512987,
+            0.09607862482984983,
+            0.07540088671016204,
+            0.09360420796773042,
+            0.04801519319771751,
+            0.03384811939001653,
+            0.032691458209614575,
+            0.0832874436080367,
+            0.18028738214229395,
+            0.03151118316104027,
+            0.04026387564533908,
+            0.03358708214987284,
+            0.07805487444513397,
+            0.04514280765277575,
+            0.020987666534757785
+          ],
+          "sl_25": [
+            0.05327634716588624,
+            0.055463011023064855,
+            0.05408127528487634,
+            0.054033196344201714,
+            0.0534940643046219,
+            0.052804340555123244,
+            0.05432837733450681,
+            0.050506731080391,
+            0.05326973765679067,
+            0.058367094069477,
+            0.056452899083781094,
+            0.05014111800254799,
+            0.05139666036938358,
+            0.05311074239756083,
+            0.056299197644437374,
+            0.05016343349194546,
+            0.0497994221897446,
+            0.0531030452223767,
+            0.051513803165358314,
+            0.05154057492500668
+          ],
+          "sl_50": [
+            0.04554157463976961,
+            0.04791316535576567,
+            0.04698224368778855,
+            0.0469399954537432,
+            0.046590951144349586,
+            0.04467800928242575,
+            0.046449390700010744,
+            0.04375632187888418,
+            0.04632828743141572,
+            0.05144686069562346,
+            0.049205269059753566,
+            0.04357887719785935,
+            0.04432916303341873,
+            0.04612717707599122,
+            0.04903203567808247,
+            0.04298221332489414,
+            0.041883367272162596,
+            0.0457536732810435,
+            0.04489457426882361,
+            0.044897009481069276
+          ],
+          "sl_100": [
+            0.03904952558427871,
+            0.042320129090873196,
+            0.04120996182394129,
+            0.04150019242904732,
+            0.04097501243844913,
+            0.038530062408164804,
+            0.04031072636445326,
+            0.038772138564152264,
+            0.0406572439012321,
+            0.04590464434525213,
+            0.04360315988846121,
+            0.03881095287366122,
+            0.03919576935649221,
+            0.04081779390947074,
+            0.04303233915878064,
+            0.03761980822148294,
+            0.03589378482731485,
+            0.03996497078940245,
+            0.03976170540210776,
+            0.0397266222618721
+          ],
+          "sl_200": [
+            0.03449536167580943,
+            0.0384709158355744,
+            0.036770861232703324,
+            0.03749141457183567,
+            0.03683649626595905,
+            0.034386974158078024,
+            0.03525887745743312,
+            0.035725626014303104,
+            0.03626145580927746,
+            0.04206127289491095,
+            0.03976880635488035,
+            0.03540884211444863,
+            0.03554735190338695,
+            0.036671896739944386,
+            0.03864312146748205,
+            0.03398201214327082,
+            0.032098192664885686,
+            0.03569859226294623,
+            0.036493115507961894,
+            0.03637610681505359
+          ],
+          "sl_400": [
+            0.031355188837319824,
+            0.0361462072315379,
+            0.03354265070877663,
+            0.03485063222476566,
+            0.0343302873370664,
+            0.03221910199937966,
+            0.03158474685414325,
+            0.03396859527787205,
+            0.03330590375844049,
+            0.03985101627086294,
+            0.037545869632179985,
+            0.033700636522339164,
+            0.033296311648284456,
+            0.03374207260691112,
+            0.03587439920451883,
+            0.03217781493948714,
+            0.029773264058836013,
+            0.03304394025299544,
+            0.03475609725649942,
+            0.03409420900758687
+          ]
+        },
+        "gradual": {
+          "bayesian_beta": [
+            0.05702327020923799,
+            0.055672493204673115,
+            0.0616238636603382,
+            0.061221567038993806,
+            0.06080886933898635,
+            0.061928770641451705,
+            0.060599748193687346,
+            0.06021216961645621,
+            0.05783746646018356,
+            0.0651554605815634,
+            0.06411525653971388,
+            0.06536978125791651,
+            0.06631636437806043,
+            0.06348733108330622,
+            0.05733390563998388,
+            0.055434350281730695,
+            0.056228016011322525,
+            0.06010373385397583,
+            0.06825340052115951,
+            0.05748416710765838
+          ],
+          "ema_0.01": [
+            0.07956717653007295,
+            0.077244834390388,
+            0.08268480767531394,
+            0.08150442855848178,
+            0.07802225800790717,
+            0.08346462715144798,
+            0.08014478163416254,
+            0.08007667551101727,
+            0.07868779090071726,
+            0.08634870929752524,
+            0.08674927779268296,
+            0.08132249498816412,
+            0.07688770932344176,
+            0.0780988427458703,
+            0.07922088989924234,
+            0.07284767329830052,
+            0.07506766336573197,
+            0.08007461410354642,
+            0.08381464309753771,
+            0.0780927869068178
+          ],
+          "ema_0.05": [
+            0.029427457668870297,
+            0.030783188560220543,
+            0.03050833405834549,
+            0.03417945269032199,
+            0.02789468112628566,
+            0.029593960899585957,
+            0.02720149342903498,
+            0.03228395075355231,
+            0.02919788432347921,
+            0.0351812993841374,
+            0.03842989745083692,
+            0.034294372561168164,
+            0.029372951550859634,
+            0.030693522902310963,
+            0.03083195248420997,
+            0.025583694882984436,
+            0.023396840455444653,
+            0.031209408883210867,
+            0.029215036241029058,
+            0.03421948689489168
+          ],
+          "ema_0.1": [
+            0.036219517956308504,
+            0.039560727093556,
+            0.038032411943385684,
+            0.04035559822324173,
+            0.03546773408956064,
+            0.03425239929450031,
+            0.034031047961460587,
+            0.038292504519393214,
+            0.03684165308473054,
+            0.041446895701532066,
+            0.041574482085224074,
+            0.0390597196304838,
+            0.03604108640608109,
+            0.039337207661109985,
+            0.038255206090586386,
+            0.0354359657197809,
+            0.030024687343695993,
+            0.040271100100899675,
+            0.03548902731952185,
+            0.04175304857477313
+          ],
+          "adwin": [
+            0.12128954844175709,
+            0.08419775211233974,
+            0.09498329573066312,
+            0.11523396938060523,
+            0.1061746486441209,
+            0.12627628626370938,
+            0.0991205366109618,
+            0.11144287782768163,
+            0.09899252844063935,
+            0.12200113942746117,
+            0.08753201891417295,
+            0.0962148394691263,
+            0.10635851117163622,
+            0.10027641678354862,
+            0.12249446820501553,
+            0.09329765789489637,
+            0.09005615331644128,
+            0.08938671734365153,
+            0.1308267319021016,
+            0.08303279709927745
+          ],
+          "sl_25": [
+            0.05565521566232982,
+            0.05854740935721236,
+            0.056349569554015815,
+            0.05561796552593977,
+            0.05414718634616952,
+            0.053698500329473146,
+            0.05325946430568525,
+            0.052139274208391075,
+            0.053706248062081845,
+            0.05878889724485881,
+            0.05696513268441981,
+            0.05198482778700223,
+            0.05094910555206757,
+            0.053666663436727526,
+            0.055328707699707595,
+            0.05371236266935733,
+            0.049746149073899223,
+            0.058347242867270194,
+            0.05119680194181867,
+            0.057374930061088736
+          ],
+          "sl_50": [
+            0.04656903142905239,
+            0.049469637295118676,
+            0.047933502891740136,
+            0.04762240658677834,
+            0.045472077448937755,
+            0.04521681937349193,
+            0.04469231083487402,
+            0.04451446871685331,
+            0.04566758506979647,
+            0.051470960953153316,
+            0.04885056462824208,
+            0.04480004976593976,
+            0.04262321839283215,
+            0.04620564343362633,
+            0.04714071048595389,
+            0.04525627060008564,
+            0.04047746851999722,
+            0.05043176917113126,
+            0.04335248666938926,
+            0.04966246389636095
+          ],
+          "sl_100": [
+            0.038797940458378644,
+            0.04180387771824564,
+            0.0403949028913763,
+            0.04083986964630661,
+            0.037909350077160626,
+            0.038303762940391145,
+            0.037499600695778214,
+            0.03817620955061913,
+            0.03853262006717911,
+            0.044964990700443,
+            0.042187759907423954,
+            0.038834336431877975,
+            0.03577126936797034,
+            0.03999610339977107,
+            0.040170456286911904,
+            0.03806079807095655,
+            0.03289653216326035,
+            0.04285922693320704,
+            0.03675257707423061,
+            0.04279026372971303
+          ],
+          "sl_200": [
+            0.03255236818278194,
+            0.03527604051708529,
+            0.0340173141788151,
+            0.03522976118501447,
+            0.031708553051731564,
+            0.032494705236915056,
+            0.03131288962018284,
+            0.033192330550557515,
+            0.03248322720734166,
+            0.039325148631030316,
+            0.037261068080827096,
+            0.03394332862225535,
+            0.03037557661408344,
+            0.03444492164214939,
+            0.034289441985383695,
+            0.03158939232222843,
+            0.02716143214071317,
+            0.03598904712821475,
+            0.0312916001458428,
+            0.037061000632042485
+          ],
+          "sl_400": [
+            0.027783299395613567,
+            0.029620353154266324,
+            0.02922844305387543,
+            0.030831800916053666,
+            0.027361378969356687,
+            0.02812225085668875,
+            0.026480802739353174,
+            0.029345199557666884,
+            0.027716477940634504,
+            0.03471106783531647,
+            0.03425617000355052,
+            0.030430623141283114,
+            0.0267426149498081,
+            0.029779225922909703,
+            0.029548171607963573,
+            0.026017427430501786,
+            0.022702830213892838,
+            0.030192874010759693,
+            0.027300055730988437,
+            0.032003655974328214
+          ]
+        },
+        "recurring": {
+          "bayesian_beta": [
+            0.25409987610684354,
+            0.252961203863009,
+            0.2547904738434142,
+            0.2511026105273338,
+            0.2574539671756535,
+            0.252846339950118,
+            0.25473937543730024,
+            0.25224627152712953,
+            0.2534417112569133,
+            0.2563470200923348,
+            0.25220316673728616,
+            0.2532339888695443,
+            0.2585501023858342,
+            0.25671674838125724,
+            0.2547982085396906,
+            0.2520195318551909,
+            0.2538436113800968,
+            0.2537669717444952,
+            0.256294835708943,
+            0.25503389839823526
+          ],
+          "ema_0.01": [
+            0.27050508249895505,
+            0.2687349552292958,
+            0.2702154340027247,
+            0.26768167747421406,
+            0.27029422416597987,
+            0.2691493888492332,
+            0.27007218811497247,
+            0.26738577238580125,
+            0.2685482644551029,
+            0.2718068516461017,
+            0.26893623719554216,
+            0.26918381877836167,
+            0.2703969477703624,
+            0.27037159386393006,
+            0.2699423067905976,
+            0.2668802353624566,
+            0.2691700877788814,
+            0.27002089730052453,
+            0.27052223271386516,
+            0.2697789986118855
+          ],
+          "ema_0.05": [
+            0.11207475349400454,
+            0.11264307295195028,
+            0.11335293692603063,
+            0.11205462749493313,
+            0.11528078510653082,
+            0.11451342842524138,
+            0.11635720024689714,
+            0.10727169777715474,
+            0.11118301495665006,
+            0.12038819940800836,
+            0.11541022474184778,
+            0.11251803294204264,
+            0.11765742201697742,
+            0.11639136777779491,
+            0.11606928796785132,
+            0.10783470443141081,
+            0.11055515567252747,
+            0.1126145710249096,
+            0.11625015996287565,
+            0.11357047349709871
+          ],
+          "ema_0.1": [
+            0.07264196039461544,
+            0.07150133131890525,
+            0.07325622310512225,
+            0.07142806976394143,
+            0.07315545071046335,
+            0.07041200200391019,
+            0.07354628758576989,
+            0.06948169875034488,
+            0.0733261045928067,
+            0.07845907960165106,
+            0.07445569975421992,
+            0.07303536368347727,
+            0.07608999916428451,
+            0.07712723077378965,
+            0.07531677133338169,
+            0.06891379165508878,
+            0.06917159590125052,
+            0.07331566259313348,
+            0.0743117626684309,
+            0.07391680173306289
+          ],
+          "adwin": [
+            0.17520296629250406,
+            0.17515651706623422,
+            0.19504633547033695,
+            0.17692951543751603,
+            0.18016181572406753,
+            0.17629697450769147,
+            0.16663262796907266,
+            0.18555582763159525,
+            0.210885718694488,
+            0.21297117495979545,
+            0.1565358900790567,
+            0.18388880463775983,
+            0.18633704441326687,
+            0.1874337418141147,
+            0.17232575009118448,
+            0.1914734545737227,
+            0.20739687829098674,
+            0.18735421241107594,
+            0.17650397409077873,
+            0.14100559741043178
+          ],
+          "sl_25": [
+            0.06460346078312557,
+            0.06545498482448693,
+            0.06525317270579532,
+            0.06544369004531285,
+            0.0650267974039803,
+            0.0651867960429046,
+            0.0661590176859987,
+            0.061200685531787966,
+            0.06348805503978422,
+            0.07013459729185659,
+            0.06772824110402545,
+            0.06167949986478495,
+            0.06398730423964556,
+            0.06463720239910219,
+            0.06753275595046779,
+            0.06092942141025356,
+            0.060649602300485286,
+            0.06480095362845364,
+            0.06331809942921914,
+            0.06231134030880987
+          ],
+          "sl_50": [
+            0.06357508505370396,
+            0.06403300757515612,
+            0.06454637156299353,
+            0.06426711697880222,
+            0.06444014110343828,
+            0.06346547740827478,
+            0.06503339970612039,
+            0.059693065155509116,
+            0.06273165413140952,
+            0.0696280557107543,
+            0.06666591829307612,
+            0.06174371384638185,
+            0.06362903099667794,
+            0.06477663805993272,
+            0.06638996446715706,
+            0.05982921901101793,
+            0.05917904672904498,
+            0.0642010158559985,
+            0.06317349694161543,
+            0.061953312150954495
+          ],
+          "sl_100": [
+            0.06642494679265172,
+            0.06706934893378583,
+            0.06766131067553667,
+            0.06682433506340961,
+            0.06838367797574639,
+            0.06680746631944652,
+            0.06898989646442646,
+            0.06267618623492392,
+            0.06590059733961386,
+            0.07358726727584088,
+            0.06982657490364923,
+            0.06606454367122314,
+            0.06825600387385979,
+            0.06939378096546711,
+            0.07007140080630132,
+            0.06321256619256493,
+            0.06290782619762403,
+            0.06777916283883852,
+            0.06743329010018288,
+            0.0661428205562506
+          ],
+          "sl_200": [
+            0.0752689091024431,
+            0.075433775934308,
+            0.07686980671004003,
+            0.07460451815303042,
+            0.07791242551429164,
+            0.07655100187426196,
+            0.07883649711848284,
+            0.07154338437869188,
+            0.07464800159023646,
+            0.0833928428775572,
+            0.07852802642953349,
+            0.07529107955281597,
+            0.07873029660501371,
+            0.07936697053507456,
+            0.0796965474958198,
+            0.07212238993359209,
+            0.07273346317444992,
+            0.07629916587174233,
+            0.07768183009077262,
+            0.07645935450517516
+          ],
+          "sl_400": [
+            0.09103312762761188,
+            0.09180125742414844,
+            0.09358816406742768,
+            0.09074773591917355,
+            0.09573367868221329,
+            0.09390001461898538,
+            0.09615332012649568,
+            0.0875810312499127,
+            0.09081808296729159,
+            0.10061176370174278,
+            0.09500925249231651,
+            0.09154949825810883,
+            0.09670324760742116,
+            0.09640724042159132,
+            0.09628278909614815,
+            0.08849431445494176,
+            0.09015095138757795,
+            0.0921165589805747,
+            0.09552451737995864,
+            0.09292014930416471
+          ]
+        }
+      },
+      "10": {
+        "sudden": {
+          "bayesian_beta": [
+            0.060363041728481656,
+            0.06801135388054183,
+            0.06417654862796338,
+            0.06474968128052097,
+            0.06079218669474012,
+            0.06196942861609527,
+            0.06289593331930392,
+            0.06415347096905018,
+            0.06685840382283818,
+            0.06089520113047034,
+            0.06244984011415179,
+            0.0627292337165947,
+            0.06351995265411417,
+            0.06323146496670541,
+            0.06126679701842727,
+            0.06381066787784684,
+            0.06533505660950932,
+            0.0630213161296376,
+            0.060420395477222714,
+            0.06854477263466444
+          ],
+          "ema_0.01": [
+            0.08725381564499923,
+            0.09431854889935934,
+            0.09124363862436606,
+            0.09091908249376937,
+            0.08600965231704302,
+            0.0892792141949832,
+            0.08979005674080404,
+            0.0874788555974341,
+            0.09403595251119502,
+            0.08792401435668257,
+            0.08972290825517702,
+            0.08715368432545637,
+            0.08545809817055476,
+            0.08658128820267962,
+            0.08839710431223612,
+            0.0888194342273959,
+            0.09144382788112693,
+            0.08986962853996915,
+            0.08354862891842087,
+            0.08897618665491747
+          ],
+          "ema_0.05": [
+            0.028374133301804886,
+            0.03285090647154054,
+            0.029267040993283793,
+            0.03084666482525113,
+            0.028003124523589128,
+            0.030618662746466553,
+            0.028161711044803056,
+            0.03186302300429952,
+            0.03144484185671928,
+            0.029750190190425883,
+            0.03168830492356106,
+            0.029840115160199274,
+            0.028353857815135483,
+            0.028843749967003278,
+            0.03225010183731652,
+            0.029320873457037537,
+            0.031097808491126498,
+            0.0307890198306867,
+            0.02990147278446315,
+            0.03220269585677828
+          ],
+          "ema_0.1": [
+            0.02658276968687914,
+            0.031472196963560545,
+            0.02760496948715213,
+            0.029413791066213148,
+            0.02767335607980506,
+            0.028784877263354564,
+            0.02771131849178049,
+            0.029995869969179762,
+            0.030450883944583753,
+            0.02901825747302008,
+            0.030898063886054424,
+            0.028807874429137507,
+            0.02890205090868693,
+            0.028533095015686318,
+            0.030909045770828442,
+            0.028244231983795245,
+            0.02870867400661784,
+            0.029176162099482403,
+            0.03000393416568736,
+            0.030826153701315535
+          ],
+          "adwin": [
+            0.012686353629023702,
+            0.03129622090449012,
+            0.05904167400288351,
+            0.0617284879987752,
+            0.013847440743941722,
+            0.02204189258078847,
+            0.021696891124900225,
+            0.07740055937755928,
+            0.020931763441035034,
+            0.07226240720452265,
+            0.021923132210524096,
+            0.016172172998326108,
+            0.018132410051653627,
+            0.03887938015356576,
+            0.01660903566247535,
+            0.018916143293850916,
+            0.028567975426326712,
+            0.018079129784292467,
+            0.01886218584471906,
+            0.06369047056575662
+          ],
+          "sl_25": [
+            0.03979384749401883,
+            0.04736988942874382,
+            0.04407325475607217,
+            0.043679898659643855,
+            0.04331261444847864,
+            0.043248983710501294,
+            0.0429355334080593,
+            0.04148392107702688,
+            0.045989052148493144,
+            0.04500887788809797,
+            0.04462873084299341,
+            0.04102619224185765,
+            0.04314081560397285,
+            0.04302738747068645,
+            0.045227774043332995,
+            0.0420124080854835,
+            0.04312128272456433,
+            0.04358830877278923,
+            0.04359950810407307,
+            0.04295953788028237
+          ],
+          "sl_50": [
+            0.033747388162896255,
+            0.04110373017754344,
+            0.037627085170224235,
+            0.03766951400918478,
+            0.037250903176993304,
+            0.0372049783812796,
+            0.03706979085561376,
+            0.03588424815922727,
+            0.03972071679342795,
+            0.038978515206490524,
+            0.03855044754066356,
+            0.03542913895416809,
+            0.037033869532419335,
+            0.037035320480651376,
+            0.039398159445777674,
+            0.03621283169759061,
+            0.037151222232289366,
+            0.03755659718156892,
+            0.03781601988479963,
+            0.03735365909561166
+          ],
+          "sl_100": [
+            0.029090415483661963,
+            0.03622761455716143,
+            0.03245728720691094,
+            0.0328384989217313,
+            0.03217712386727347,
+            0.03225586610454769,
+            0.032490837562802764,
+            0.03164487745431867,
+            0.03472289158759047,
+            0.033988278075705536,
+            0.0338382647524612,
+            0.030893029335757008,
+            0.03228818712653761,
+            0.03231224283669087,
+            0.034566621855316164,
+            0.031851112855823975,
+            0.03263124157192701,
+            0.03268144074993709,
+            0.033113096623132755,
+            0.03296603728181934
+          ],
+          "sl_200": [
+            0.025634102463219233,
+            0.032335354547647036,
+            0.02872537134259904,
+            0.029236449901671978,
+            0.028397387534559698,
+            0.028548474867558068,
+            0.028844029082195667,
+            0.02862836083767688,
+            0.031001616589941938,
+            0.029943428935437943,
+            0.030364505820452786,
+            0.027687260225075817,
+            0.02870160878925804,
+            0.02878492779239545,
+            0.030734587315839338,
+            0.028652731988481683,
+            0.029281823418514954,
+            0.029231721902766288,
+            0.02963076774476557,
+            0.02964599238364931
+          ],
+          "sl_400": [
+            0.02344274628635528,
+            0.029611621011033585,
+            0.02625704419594432,
+            0.026811816141449462,
+            0.026127306264755953,
+            0.026244622753969292,
+            0.02608583253253224,
+            0.026797406436660755,
+            0.02849032275642395,
+            0.02744433173847766,
+            0.028147662958996914,
+            0.02594387696606362,
+            0.026282510888025187,
+            0.026429553123353558,
+            0.028005968162584535,
+            0.02650445060005169,
+            0.02724405313213887,
+            0.027227052644586035,
+            0.027237978979898776,
+            0.027577594261954146
+          ]
+        },
+        "gradual": {
+          "bayesian_beta": [
+            0.05580033484810772,
+            0.06520330796188567,
+            0.0624822539938412,
+            0.06238022827949146,
+            0.05835284787002508,
+            0.05647511841652306,
+            0.06105953908012338,
+            0.06506730423580871,
+            0.062386962494815124,
+            0.05580661116941514,
+            0.05754442599593114,
+            0.05718538536083844,
+            0.0600414633906246,
+            0.061860028261671085,
+            0.05285700406139014,
+            0.059724631618928055,
+            0.06453379520544948,
+            0.05963239405790833,
+            0.05763879259613255,
+            0.06749928910189829
+          ],
+          "ema_0.01": [
+            0.0784034106180183,
+            0.08790089948091129,
+            0.08421347327336683,
+            0.083304370354162,
+            0.07913969161844932,
+            0.07924927126154152,
+            0.08304037917996764,
+            0.08587354047625358,
+            0.08465453460844524,
+            0.07769925142137589,
+            0.07993992802997683,
+            0.07655748838519684,
+            0.07704788546742956,
+            0.0809027266247756,
+            0.07556960260050095,
+            0.08088426346980955,
+            0.08595009376604974,
+            0.08159701987151805,
+            0.07592828269206225,
+            0.08699180777790318
+          ],
+          "ema_0.05": [
+            0.023904904668223294,
+            0.030972128131688738,
+            0.026807439580399432,
+            0.026330901294313685,
+            0.02275576055631806,
+            0.02436568226586823,
+            0.0233688661187589,
+            0.029974305149140016,
+            0.025810333360518852,
+            0.02127253844526499,
+            0.024006076162358794,
+            0.02292911149573736,
+            0.022501505433769782,
+            0.025987917495854454,
+            0.025069799967171954,
+            0.02522549873247211,
+            0.029196120377665048,
+            0.024967786057368904,
+            0.022062577040496783,
+            0.029038786523468692
+          ],
+          "ema_0.1": [
+            0.02568827580427196,
+            0.03010717100758071,
+            0.028213437245498373,
+            0.02659219743506388,
+            0.026328281576109162,
+            0.026747908924084983,
+            0.02521838503189013,
+            0.02929292834675597,
+            0.028324672809555855,
+            0.02476047194139395,
+            0.026361818751041988,
+            0.026813078038016063,
+            0.026302129668044988,
+            0.02824804791798001,
+            0.028439162995100527,
+            0.02749659892403871,
+            0.028156831304230256,
+            0.02904694621881928,
+            0.02544532961029219,
+            0.02940758610639862
+          ],
+          "adwin": [
+            0.0805221732847612,
+            0.08818919752810207,
+            0.09196645790608522,
+            0.08792947777256847,
+            0.06910271610027205,
+            0.0804495386008277,
+            0.08756336802641729,
+            0.0869989684986139,
+            0.08701941920757328,
+            0.08431474151135677,
+            0.0817654766830498,
+            0.08249264389714003,
+            0.08836996346304284,
+            0.0728555064904425,
+            0.0767369236149806,
+            0.08858549307549071,
+            0.08640071755064094,
+            0.08872038872605459,
+            0.07199144798742774,
+            0.08590167073738846
+          ],
+          "sl_25": [
+            0.04378091697884068,
+            0.04932594069621152,
+            0.04752513337385424,
+            0.04371391677349893,
+            0.046805857234649695,
+            0.04451797223222426,
+            0.045202962187561355,
+            0.04377973739103643,
+            0.04813074244350038,
+            0.044741512911518004,
+            0.04550211382640841,
+            0.043799316333926155,
+            0.043855923832509344,
+            0.04637777705312848,
+            0.047597380342519896,
+            0.04610254691644754,
+            0.045106363130535974,
+            0.04670903422947653,
+            0.04317294244501907,
+            0.046525832562903414
+          ],
+          "sl_50": [
+            0.03674585668431298,
+            0.042015037268882297,
+            0.040914046255314765,
+            0.03696987110081643,
+            0.03988393332933049,
+            0.03778310216392489,
+            0.0381168186056689,
+            0.03729900744879947,
+            0.040779014580330626,
+            0.03795475362563671,
+            0.038295781373624424,
+            0.0374508305783855,
+            0.03729029419954011,
+            0.039615188200111076,
+            0.04053703865059238,
+            0.039600388100114604,
+            0.03813414929628374,
+            0.040042508639192474,
+            0.0364694122546949,
+            0.03996922990963508
+          ],
+          "sl_100": [
+            0.03066713435882783,
+            0.035937630353978095,
+            0.035056406767667726,
+            0.0311024876046921,
+            0.03379128966583018,
+            0.0320041327606549,
+            0.03218604185247878,
+            0.032276063814757394,
+            0.03471239257462088,
+            0.03195344472482534,
+            0.03211232612645415,
+            0.03176069210826575,
+            0.031718604293529115,
+            0.03387075860283991,
+            0.03441304362826577,
+            0.03396446627724971,
+            0.032574890437718725,
+            0.03450068255173454,
+            0.030818839361328756,
+            0.034386962872251785
+          ],
+          "sl_200": [
+            0.025619209583769353,
+            0.03115481571283754,
+            0.029895295987188993,
+            0.026297920796372762,
+            0.028456832739678736,
+            0.0271448815435012,
+            0.0271410193427176,
+            0.028439241555108342,
+            0.02968627010655039,
+            0.026545861643029193,
+            0.026988343505369362,
+            0.027065353321591098,
+            0.026905344251595215,
+            0.029127981745656232,
+            0.028998873362579017,
+            0.02909184971199792,
+            0.028423693258320077,
+            0.02988945591028792,
+            0.025958933138286375,
+            0.02961680562425105
+          ],
+          "sl_400": [
+            0.021574241590813916,
+            0.02798440595385744,
+            0.02573879464939909,
+            0.022740743964556914,
+            0.02421020756194725,
+            0.02313749443247874,
+            0.022940794793668125,
+            0.025742833769776388,
+            0.025552238264799174,
+            0.02178147059943309,
+            0.022975058716775878,
+            0.02320246577546851,
+            0.02306247860218485,
+            0.02529152104607849,
+            0.0244916198240833,
+            0.025085579888765794,
+            0.02577137353264157,
+            0.025934631279232127,
+            0.02183748386673431,
+            0.026159652646815253
+          ]
+        },
+        "recurring": {
+          "bayesian_beta": [
+            0.25184552825914075,
+            0.25223731530304355,
+            0.252552620834565,
+            0.25412663772341887,
+            0.2530953419203352,
+            0.2545086100971744,
+            0.2561443769561717,
+            0.25206891785414287,
+            0.2534285182037268,
+            0.2541556019276743,
+            0.2529869943960032,
+            0.2545690591375695,
+            0.2561713581244021,
+            0.2559438674959517,
+            0.2519898405367727,
+            0.25496402386464795,
+            0.2551434380727951,
+            0.25280526977380097,
+            0.2549167063049675,
+            0.2506466810010331
+          ],
+          "ema_0.01": [
+            0.26831759267740407,
+            0.26854718275430695,
+            0.26905433506228177,
+            0.2704364058156771,
+            0.26741253759467754,
+            0.27093239165180477,
+            0.27182227776545764,
+            0.26786545364528885,
+            0.26959198336810425,
+            0.2705134330826155,
+            0.26993937661670875,
+            0.26915171439616675,
+            0.26791817430312814,
+            0.26969540518566865,
+            0.2685292495267138,
+            0.26965302598084107,
+            0.27058907603763704,
+            0.26891003336582886,
+            0.26923813782166117,
+            0.267258633810887
+          ],
+          "ema_0.05": [
+            0.10729891496488535,
+            0.10979786695518261,
+            0.11006277251349206,
+            0.11363052706908246,
+            0.1062088642288753,
+            0.11408341714298183,
+            0.11496441873014217,
+            0.10655707421191032,
+            0.1118371661423918,
+            0.11344529884092765,
+            0.11192851088690531,
+            0.10974609340829036,
+            0.10834167776217359,
+            0.11103055825163503,
+            0.10758188358928587,
+            0.11073841836478951,
+            0.11521013474553067,
+            0.11165958945635389,
+            0.10917988634329553,
+            0.10603259548359582
+          ],
+          "ema_0.1": [
+            0.06271885603125787,
+            0.0655481210245988,
+            0.0636639224684662,
+            0.06621619420590093,
+            0.06273664427641021,
+            0.0676142939596941,
+            0.06815126673851432,
+            0.06338833995177817,
+            0.06707540494802813,
+            0.06852292310447647,
+            0.06761465253109898,
+            0.06519596957503654,
+            0.06623043890150045,
+            0.06589262641454229,
+            0.06575489465137457,
+            0.06559154309872817,
+            0.06664596641912075,
+            0.06493050559876215,
+            0.06558286147327974,
+            0.06442156873074636
+          ],
+          "adwin": [
+            0.12016805296611463,
+            0.11527315189423756,
+            0.11543011382193413,
+            0.12501308545425888,
+            0.11539097031406646,
+            0.12183834823098968,
+            0.12917428512134513,
+            0.1281651839590898,
+            0.12336810640119564,
+            0.1599551235855161,
+            0.09999475593271619,
+            0.12906553019635073,
+            0.14719321884416808,
+            0.11018062254049298,
+            0.09662176934880914,
+            0.141432315561178,
+            0.16322118719812262,
+            0.11070224205143041,
+            0.11526505402955385,
+            0.12530086727977885
+          ],
+          "sl_25": [
+            0.04818963127277279,
+            0.054867684241871696,
+            0.050875333457963336,
+            0.05153862051934838,
+            0.05054606084766263,
+            0.05198605534185602,
+            0.05149827637747238,
+            0.04864073823115306,
+            0.05328811168587383,
+            0.053238052914622636,
+            0.05185904016935211,
+            0.04877592060561013,
+            0.051448940538439174,
+            0.05005403687172259,
+            0.052655011085281915,
+            0.05064848405320952,
+            0.051488856657323105,
+            0.051431115446532984,
+            0.052325868103600785,
+            0.05042137738675632
+          ],
+          "sl_50": [
+            0.04686188250059786,
+            0.05293400123973051,
+            0.04879622402767764,
+            0.049978969565398504,
+            0.04887047377400144,
+            0.05092644533501486,
+            0.05051853631907493,
+            0.047415015208092826,
+            0.05142407210671289,
+            0.052167932810773136,
+            0.050550801064762736,
+            0.047851821076582736,
+            0.0499900728333311,
+            0.04873345648013544,
+            0.051504935799491204,
+            0.04958191094874963,
+            0.05035397910717805,
+            0.0496749377263582,
+            0.05102817835155189,
+            0.04911284997667569
+          ],
+          "sl_100": [
+            0.048953385370950585,
+            0.053954132583775086,
+            0.05052679060062813,
+            0.05148066876649604,
+            0.050139369507881726,
+            0.053253985468724056,
+            0.05305660037043274,
+            0.04966680195699457,
+            0.053121570917241664,
+            0.05435231022969941,
+            0.05267738599526362,
+            0.04988320570162876,
+            0.05203769819726874,
+            0.051006702955461974,
+            0.05335691618981849,
+            0.05175406096352322,
+            0.05264266326925663,
+            0.051118087214943896,
+            0.052552075674236205,
+            0.051126731966002585
+          ],
+          "sl_200": [
+            0.054635967098249194,
+            0.05890283377655686,
+            0.056807895552160106,
+            0.057601639015288995,
+            0.055930006503740345,
+            0.05942186464124728,
+            0.06001213943921636,
+            0.055607613454162395,
+            0.05924571526811736,
+            0.06061383454775899,
+            0.05902354394763556,
+            0.05605262150753082,
+            0.05818796258313928,
+            0.05779898603207129,
+            0.05858842484011565,
+            0.057935846647245395,
+            0.05910684893428395,
+            0.05710515921090493,
+            0.05796926314404776,
+            0.05673680677516022
+          ],
+          "sl_400": [
+            0.06545079160864024,
+            0.06892041614467079,
+            0.06820418989146396,
+            0.07006384520117477,
+            0.0672270256948319,
+            0.07113539901278342,
+            0.07237443999429242,
+            0.06626415283406259,
+            0.07089375437010756,
+            0.07230765531616101,
+            0.07052740551948193,
+            0.06799522615900871,
+            0.06922155826497955,
+            0.07009754756068783,
+            0.06804202151790012,
+            0.06934815581030192,
+            0.07160487367841845,
+            0.06904405473983281,
+            0.06888092066730604,
+            0.06733568339322313
+          ]
+        }
+      },
+      "25": {
+        "sudden": {
+          "bayesian_beta": [
+            0.06210678595570154,
+            0.0626756837304191,
+            0.06169708697836064,
+            0.05938401097731281,
+            0.062386763933985366,
+            0.062209572032876644,
+            0.061913521974054336,
+            0.06015046523455383,
+            0.06013414378792891,
+            0.06044101544110157,
+            0.06282243394346462,
+            0.06140738340826675,
+            0.06130814871598967,
+            0.060986277829050674,
+            0.06481485774244881,
+            0.0606308842410158,
+            0.06066648046839308,
+            0.06000040216202482,
+            0.06349580284438928,
+            0.06705010143564652
+          ],
+          "ema_0.01": [
+            0.08888522112496142,
+            0.0904970508531545,
+            0.0896212679790977,
+            0.08739218457811157,
+            0.08707819399486538,
+            0.0884854184472441,
+            0.09017978585815126,
+            0.08459480661617222,
+            0.08836460186398108,
+            0.08812028779594397,
+            0.09063550421852748,
+            0.08639405031534708,
+            0.08473838344742146,
+            0.08779658565523761,
+            0.08949150234051637,
+            0.088066854534807,
+            0.08882019812839427,
+            0.08832945641921203,
+            0.08842715113225892,
+            0.08892137157060714
+          ],
+          "ema_0.05": [
+            0.025241853939717663,
+            0.027389846319402136,
+            0.024382657516539345,
+            0.023884273141782906,
+            0.025135389098986674,
+            0.024859930298893787,
+            0.02465099805283724,
+            0.025489608031705527,
+            0.024214912176778347,
+            0.0260675213283279,
+            0.026742309148498823,
+            0.024869363370770708,
+            0.02174005657052239,
+            0.023584006475350968,
+            0.02650126389015759,
+            0.023477890834986262,
+            0.02498787978953655,
+            0.02486102792909546,
+            0.02531674907712185,
+            0.027454344043580155
+          ],
+          "ema_0.1": [
+            0.020796829924060185,
+            0.02263626035086493,
+            0.020722563264410385,
+            0.01991499628763743,
+            0.020835807656525915,
+            0.02038652297672113,
+            0.020695264367719558,
+            0.02171434123173602,
+            0.020355176809310906,
+            0.02296304117095248,
+            0.022808513719639736,
+            0.02151810441251144,
+            0.01901619594930206,
+            0.0194105796158793,
+            0.02185631783519225,
+            0.019224567928660168,
+            0.0209709025017316,
+            0.020002096241440236,
+            0.021471070910048268,
+            0.023038872866908762
+          ],
+          "adwin": [
+            0.012303701241532261,
+            0.009508846093427567,
+            0.01661923002519531,
+            0.005655041833360238,
+            0.007763709689877862,
+            0.007082746501065049,
+            0.01159057685677269,
+            0.009170955124357458,
+            0.006047350064690477,
+            0.008283393551297796,
+            0.03456859767006005,
+            0.012748552332846655,
+            0.009376197691865222,
+            0.007324296109309121,
+            0.02383874374007701,
+            0.011163614663183073,
+            0.020351740744199532,
+            0.006675874750214008,
+            0.013828652627612008,
+            0.016549737283968996
+          ],
+          "sl_25": [
+            0.03340466261093256,
+            0.03457627871610218,
+            0.035552213397541964,
+            0.03283263604618566,
+            0.03268842313386342,
+            0.032806093496068625,
+            0.03570578523567571,
+            0.032968418307649405,
+            0.034826368727161175,
+            0.03641276932404075,
+            0.03425263766620782,
+            0.03477524822674539,
+            0.033924635032844166,
+            0.03390356882035116,
+            0.03544910667678629,
+            0.033823456052913654,
+            0.034954950025886986,
+            0.03258419213184791,
+            0.034553802324163246,
+            0.03554384800964291
+          ],
+          "sl_50": [
+            0.029009955226822034,
+            0.030124484641169926,
+            0.030258253887074354,
+            0.028315999005022904,
+            0.028099248212293988,
+            0.0280653364125792,
+            0.03077655796150254,
+            0.028492597738227623,
+            0.02980294468921526,
+            0.031964236692631307,
+            0.02985620809395845,
+            0.029996965084716106,
+            0.02913168008611661,
+            0.029058618629181805,
+            0.0308008277304176,
+            0.02894822449706687,
+            0.030021098408120853,
+            0.02796502138981226,
+            0.029799454880764853,
+            0.030938903725250717
+          ],
+          "sl_100": [
+            0.02508560846334739,
+            0.026541970071377922,
+            0.02594005973971281,
+            0.024418761303291712,
+            0.024252651097430473,
+            0.02419848682947324,
+            0.02644791200632625,
+            0.02477879728392579,
+            0.025498105364628584,
+            0.028238121708380925,
+            0.026215987001624634,
+            0.02600125528760502,
+            0.025081801162200136,
+            0.025007105109318133,
+            0.026913999517717065,
+            0.024856629109596254,
+            0.025909295567116682,
+            0.024017125545419453,
+            0.02604383394317429,
+            0.027074450099788188
+          ],
+          "sl_200": [
+            0.02193793297009284,
+            0.023705858407849098,
+            0.02243069985964109,
+            0.02131920357215679,
+            0.021602146968183158,
+            0.02115300739751653,
+            0.022910467442757834,
+            0.022012091740552273,
+            0.022140636551910037,
+            0.02520511015203329,
+            0.023352272155782974,
+            0.022886458336869864,
+            0.021853302583927516,
+            0.021716765496641487,
+            0.0236500462379928,
+            0.021651499597514515,
+            0.022633733542549352,
+            0.02102125858334589,
+            0.022999394650685068,
+            0.024085979203388393
+          ],
+          "sl_400": [
+            0.019709653608699224,
+            0.021765572465531947,
+            0.02000111648894375,
+            0.01916808324327247,
+            0.019941236739481963,
+            0.01890369830558777,
+            0.020549041949906036,
+            0.020154951411207135,
+            0.019683788506985326,
+            0.022736968266904974,
+            0.02134975387672638,
+            0.02085032770634453,
+            0.019456952874824657,
+            0.019260460431792616,
+            0.021160408280883322,
+            0.019337736404582466,
+            0.020342376477951306,
+            0.019009468946557348,
+            0.02095616714628895,
+            0.021979199518870528
+          ]
+        },
+        "gradual": {
+          "bayesian_beta": [
+            0.06261037231704894,
+            0.05981723013956882,
+            0.05963034431168501,
+            0.05722039951913676,
+            0.06056367047045977,
+            0.05980540222972804,
+            0.060569677415436486,
+            0.05913066275136827,
+            0.05865694118932713,
+            0.05563052814673301,
+            0.05659063189756255,
+            0.06146549816327067,
+            0.06359037467405218,
+            0.0613261354133341,
+            0.06622970601224948,
+            0.060159341252124285,
+            0.05761256345693839,
+            0.05589382509906503,
+            0.05992909762570612,
+            0.06807028290237309
+          ],
+          "ema_0.01": [
+            0.08515031630698122,
+            0.08228855134628912,
+            0.08249424550827313,
+            0.07993987481565959,
+            0.08237217024848431,
+            0.08244412033484684,
+            0.08338840498470398,
+            0.07988856723899906,
+            0.08140417694766862,
+            0.07871998839727813,
+            0.07971416496464573,
+            0.08288750478625832,
+            0.08376125654309506,
+            0.08270584675393099,
+            0.08855904639957157,
+            0.08220387943819955,
+            0.08064420667549664,
+            0.07917872698118111,
+            0.08138176570806115,
+            0.08642198274714351
+          ],
+          "ema_0.05": [
+            0.023554476745066652,
+            0.02167064003832348,
+            0.020945311180314403,
+            0.020722800466615125,
+            0.02225672423139738,
+            0.02226927780742525,
+            0.021763722954781406,
+            0.020189596809398816,
+            0.021181657481312618,
+            0.020662488945052956,
+            0.019074131174354803,
+            0.02197463350446866,
+            0.021384572074790803,
+            0.023047251149735395,
+            0.02651468924475803,
+            0.021529182549720836,
+            0.018179067514399534,
+            0.019136759245491318,
+            0.021188106397417396,
+            0.026653973941246537
+          ],
+          "ema_0.1": [
+            0.01971728469946111,
+            0.018835037914377396,
+            0.018628945918077754,
+            0.01845717677552981,
+            0.01809715440323161,
+            0.018920761884732813,
+            0.018090996576478648,
+            0.01906563081768107,
+            0.018016060430596604,
+            0.019475324961392565,
+            0.01850512264927411,
+            0.019797559286620497,
+            0.018134276264290636,
+            0.01867306727895046,
+            0.021047520928534104,
+            0.01856875311651949,
+            0.016650773602079533,
+            0.01598109356224085,
+            0.01914354943342682,
+            0.02104665622055618
+          ],
+          "adwin": [
+            0.06751559278568751,
+            0.058863368688529934,
+            0.04898842822052226,
+            0.05277362378468489,
+            0.06330834768569088,
+            0.05649169263222376,
+            0.06590161652405999,
+            0.05074182140182974,
+            0.05236617754593983,
+            0.05880604667389625,
+            0.05898646214603277,
+            0.06291386346626808,
+            0.05594591981187102,
+            0.06999474776892145,
+            0.06779453357409884,
+            0.06773872943452824,
+            0.06209362859226478,
+            0.05720315266330305,
+            0.05494291797601032,
+            0.07329694795467634
+          ],
+          "sl_25": [
+            0.034422443883905536,
+            0.0360819241869228,
+            0.03804931056325027,
+            0.03596915267475123,
+            0.03318402210270585,
+            0.036044467915597435,
+            0.03695513539676763,
+            0.035887667440858,
+            0.03618607134279974,
+            0.03919355555852986,
+            0.03615842149637263,
+            0.03634189346298238,
+            0.036136492881011534,
+            0.034237003583596555,
+            0.03598160566797385,
+            0.03467002869044927,
+            0.03571541754406876,
+            0.03297548492686771,
+            0.03602813180612074,
+            0.03645136401302455
+          ],
+          "sl_50": [
+            0.0296142836039175,
+            0.030853263818274537,
+            0.03241585329288093,
+            0.030652145169981153,
+            0.028109051037664628,
+            0.030369474804856602,
+            0.031290243932152566,
+            0.030533915033370284,
+            0.030529279134564675,
+            0.03367803638879847,
+            0.030887107797857367,
+            0.031100865780053496,
+            0.03084550271326645,
+            0.0291361968744416,
+            0.03065493758643025,
+            0.029476394456888714,
+            0.0301391662321282,
+            0.027711227311802183,
+            0.030799216719115605,
+            0.03112086309831558
+          ],
+          "sl_100": [
+            0.025333570910357914,
+            0.02625149948436917,
+            0.027315031872396076,
+            0.025879272212746815,
+            0.023861339028539163,
+            0.025467890451967366,
+            0.02627170367452037,
+            0.025932770937552967,
+            0.025523114422986354,
+            0.028605497908078738,
+            0.026279654674429723,
+            0.02667628170171613,
+            0.026182685414064735,
+            0.02472171632236694,
+            0.026285495280422688,
+            0.025052321649801416,
+            0.0252086003223494,
+            0.02308247419906877,
+            0.0262368825687687,
+            0.026511402080735633
+          ],
+          "sl_200": [
+            0.02167651583292824,
+            0.022334116687876396,
+            0.022861767792993162,
+            0.021895960736211702,
+            0.02052933030825715,
+            0.021444885170271606,
+            0.022051073402490226,
+            0.022116821240032735,
+            0.02134598583368322,
+            0.024139390285458088,
+            0.02223955800748612,
+            0.022899819035782705,
+            0.022119228960549166,
+            0.021118740632667856,
+            0.022840303717692096,
+            0.021419328992185762,
+            0.020950691738753517,
+            0.019116296373735197,
+            0.022363161231161683,
+            0.022715655120093728
+          ],
+          "sl_400": [
+            0.018916525215651726,
+            0.01907302457870802,
+            0.019278671970671128,
+            0.018609068074422235,
+            0.018028003792148882,
+            0.018389526323162052,
+            0.018635610108293107,
+            0.0189146463869224,
+            0.018017641860392095,
+            0.020420774120297136,
+            0.01874736467483391,
+            0.01986957563465972,
+            0.019032128937704656,
+            0.018513513001331767,
+            0.020331271957393895,
+            0.01860097969504352,
+            0.017489688481634964,
+            0.015977809538689165,
+            0.019486528328135057,
+            0.0199989450344804
+          ]
+        },
+        "recurring": {
+          "bayesian_beta": [
+            0.2514517712846059,
+            0.25204516318448195,
+            0.2519365588927531,
+            0.25291221006242504,
+            0.2512457283399829,
+            0.2511173916487164,
+            0.2512062097842486,
+            0.25301277981156967,
+            0.2515887651474201,
+            0.2522315777642428,
+            0.2521838858850819,
+            0.25380567593478787,
+            0.25443446809748443,
+            0.2525153909168566,
+            0.2530083719762858,
+            0.2518041470875357,
+            0.25258046970180476,
+            0.25199512069883256,
+            0.2532202854371043,
+            0.2527184683257478
+          ],
+          "ema_0.01": [
+            0.268579907762114,
+            0.26867148290097453,
+            0.2688551285663416,
+            0.2695407995769991,
+            0.26770600988301685,
+            0.26789665765352977,
+            0.26832256127582366,
+            0.2694530271460949,
+            0.2685858582103444,
+            0.2689835764667347,
+            0.2693017862626131,
+            0.26967165962915113,
+            0.26925319861160757,
+            0.268370945286819,
+            0.26994237647331226,
+            0.26835516530612785,
+            0.2694009966177537,
+            0.26889301652227027,
+            0.26860646343615097,
+            0.26897934293605735
+          ],
+          "ema_0.05": [
+            0.10843749676644555,
+            0.10918915125861174,
+            0.10789062717697562,
+            0.10775603016912261,
+            0.10427460889279132,
+            0.10447617868786713,
+            0.10803548984657374,
+            0.10840098894287777,
+            0.10729818038408245,
+            0.10748144785903196,
+            0.10864043798117332,
+            0.10978915150155522,
+            0.10774700978663808,
+            0.10684902547611239,
+            0.10999142957752434,
+            0.1064681845823821,
+            0.10905757993883836,
+            0.1075802317513334,
+            0.10683958671043768,
+            0.10900917859635671
+          ],
+          "ema_0.1": [
+            0.05830460478810004,
+            0.05990208065650125,
+            0.05891295505243336,
+            0.05919836139340767,
+            0.058351075843739456,
+            0.05691861208075218,
+            0.058431894544731355,
+            0.06087967957289135,
+            0.058440090574664795,
+            0.058951327206180563,
+            0.06108023717252807,
+            0.06194960012006393,
+            0.0589329532853458,
+            0.058093576472950784,
+            0.06195946331857298,
+            0.05748040912102495,
+            0.05978646927075752,
+            0.05962004262711467,
+            0.05963999526041268,
+            0.06072103429185802
+          ],
+          "adwin": [
+            0.06563225253701144,
+            0.12061084366489969,
+            0.08216589672821652,
+            0.09786580471607838,
+            0.06988533244540021,
+            0.06573738861889115,
+            0.07311383257062429,
+            0.10435852886893,
+            0.06905036027579967,
+            0.08899063446789836,
+            0.08833781806866202,
+            0.10797498863398508,
+            0.06412834385043496,
+            0.09838890331075485,
+            0.05810101007534887,
+            0.07169316493138825,
+            0.06448618851109149,
+            0.07287044077674869,
+            0.06334643831119331,
+            0.0762248839312629
+          ],
+          "sl_25": [
+            0.03743809121371988,
+            0.03937109970804065,
+            0.039649878489645574,
+            0.03774053925123786,
+            0.03737689314771462,
+            0.03713053394940719,
+            0.040514907468856894,
+            0.03807708477543375,
+            0.03949744912641257,
+            0.041007108770015045,
+            0.03860149249645481,
+            0.040008265593117744,
+            0.038517679402316804,
+            0.03863741470358635,
+            0.040195860573774014,
+            0.038048066425479914,
+            0.03949079774898785,
+            0.03744000694964254,
+            0.03938876370279271,
+            0.03951288077184307
+          ],
+          "sl_50": [
+            0.03565326645873491,
+            0.037721893259203144,
+            0.037258477357328935,
+            0.03614537425725791,
+            0.03563778383025536,
+            0.03516483463053793,
+            0.038527482954797694,
+            0.03665869353177745,
+            0.03709439806936379,
+            0.0389193148493023,
+            0.03692948434477706,
+            0.03819897224267852,
+            0.03683646717640628,
+            0.03668329432429587,
+            0.03853531629916434,
+            0.03626892200304989,
+            0.03748452246040712,
+            0.03583911845476659,
+            0.0374862774441442,
+            0.0376770195087563
+          ],
+          "sl_100": [
+            0.03584179872352399,
+            0.038006321733291305,
+            0.037088031272614015,
+            0.03662226264885091,
+            0.0361087736856288,
+            0.03532658402916302,
+            0.038437499137950366,
+            0.03739200680139508,
+            0.03676084938153449,
+            0.038837346681986615,
+            0.037581786471956924,
+            0.038492374664220154,
+            0.037360284612757096,
+            0.036816701375686545,
+            0.039048063824638074,
+            0.036656075227719694,
+            0.03761273948966661,
+            0.036518337796892564,
+            0.0378677671899755,
+            0.03776687733256927
+          ],
+          "sl_200": [
+            0.03892871055634308,
+            0.04087436256433595,
+            0.03995353156235122,
+            0.039704345055954104,
+            0.03968320030252748,
+            0.03800069825293211,
+            0.04075674711792523,
+            0.040788254300654796,
+            0.039449502619017605,
+            0.04148519025172128,
+            0.04085324886279384,
+            0.041625450077753104,
+            0.04067891007581423,
+            0.039820679384944324,
+            0.042165294564973525,
+            0.03975004255887006,
+            0.04034684483431252,
+            0.04004447492779471,
+            0.04080200099115052,
+            0.040814133686102434
+          ],
+          "sl_400": [
+            0.04566892936038299,
+            0.047362855662963325,
+            0.046330509011210795,
+            0.04630868542711359,
+            0.04644122515602574,
+            0.0441281007522259,
+            0.046760541046360966,
+            0.047802598257411004,
+            0.0459592053687488,
+            0.047152688082480194,
+            0.04766884985541992,
+            0.04882014520838438,
+            0.04738358221465939,
+            0.04627783870099604,
+            0.04904780917687752,
+            0.04601136130293845,
+            0.046923882561222645,
+            0.04702458356156127,
+            0.04744893991828981,
+            0.04768987754501908
+          ]
+        }
+      },
+      "50": {
+        "sudden": {
+          "bayesian_beta": [
+            0.05903155262132108,
+            0.0612625062913467,
+            0.06167960328828019,
+            0.061764851555240106,
+            0.061218038733748294,
+            0.062119468895831614,
+            0.062067541057541226,
+            0.06136510595601106,
+            0.05866985500515197,
+            0.0619360645368825,
+            0.06206460661285242,
+            0.0602092528975143,
+            0.06090670867332668,
+            0.06023236196647921,
+            0.06156202736095184,
+            0.0610903311232043,
+            0.0595952629860832,
+            0.06106812871198345,
+            0.06290125406536669,
+            0.0630131793806792
+          ],
+          "ema_0.01": [
+            0.08719494390975419,
+            0.08908780594118534,
+            0.08963545563320077,
+            0.08992946584745598,
+            0.08648990265616255,
+            0.08757269082640312,
+            0.09089997515231255,
+            0.0864653904895028,
+            0.08708568001339674,
+            0.08876977288766741,
+            0.08912648197649505,
+            0.0876059303270935,
+            0.08504192462272334,
+            0.08790866986459983,
+            0.08815069455218524,
+            0.08952539429097715,
+            0.08726394362422656,
+            0.08941650418338673,
+            0.0900019469345202,
+            0.08868879024666851
+          ],
+          "ema_0.05": [
+            0.02157529098251661,
+            0.022700055534827207,
+            0.023110247487848824,
+            0.02319410313904205,
+            0.023152103691564067,
+            0.022143890232513647,
+            0.02351951470892643,
+            0.022752939236268473,
+            0.022590898996159146,
+            0.023627181293334704,
+            0.023379301280339906,
+            0.023186317633161247,
+            0.022083568407296677,
+            0.022900638716012077,
+            0.023481749185298134,
+            0.022929499997013204,
+            0.023936751023739204,
+            0.022363724985653873,
+            0.02378507896195541,
+            0.023782329740898327
+          ],
+          "ema_0.1": [
+            0.016839560263432158,
+            0.017242321820099615,
+            0.01731206977734437,
+            0.01711151440083681,
+            0.017741959961971594,
+            0.01711177931982521,
+            0.017828219588820665,
+            0.01734192401331701,
+            0.01703996241731293,
+            0.01830681928209558,
+            0.018145078859030876,
+            0.01783982176181073,
+            0.01622713780152978,
+            0.016804327186619453,
+            0.01809325740314171,
+            0.0172381933773395,
+            0.01769178692204039,
+            0.016877177214530806,
+            0.017958618453053528,
+            0.018804813584643837
+          ],
+          "adwin": [
+            0.003951742726055925,
+            0.005723391581043747,
+            0.011465487428692734,
+            0.0463327640359335,
+            0.005555508060308468,
+            0.0052836240249119265,
+            0.011423876525787005,
+            0.02725865042243345,
+            0.005102377219387427,
+            0.005304438784746347,
+            0.007899290073118573,
+            0.00541959291781598,
+            0.006893354038107364,
+            0.004530618168954734,
+            0.007446617417104484,
+            0.006783546737271282,
+            0.005324105947621444,
+            0.0035237183243568638,
+            0.010921121526829362,
+            0.009265289104457178
+          ],
+          "sl_25": [
+            0.027912651985571933,
+            0.028655739794934576,
+            0.028299593275029167,
+            0.02802621694683737,
+            0.02741556612121661,
+            0.027669418778442378,
+            0.029056049192445997,
+            0.027790573066232747,
+            0.028025783773217454,
+            0.028882637914495978,
+            0.028363016205278976,
+            0.028663402467581207,
+            0.027703431445365204,
+            0.028453919754980742,
+            0.028872087060309127,
+            0.02849412274396547,
+            0.027391938182266103,
+            0.028359867474887255,
+            0.028082257260142112,
+            0.028536780322522888
+          ],
+          "sl_50": [
+            0.02429985063514262,
+            0.024686903314469325,
+            0.02435067273338326,
+            0.024265858421064684,
+            0.023736160401507073,
+            0.023844045196082894,
+            0.025175058096988598,
+            0.023979757947543683,
+            0.02404274836679878,
+            0.025301550840330377,
+            0.024920584930269985,
+            0.02489743803870096,
+            0.023750024197433817,
+            0.024895309174719545,
+            0.025192089099234493,
+            0.02456764159606317,
+            0.023630775131100925,
+            0.024656251723728886,
+            0.024439948152127404,
+            0.02494324612069495
+          ],
+          "sl_100": [
+            0.020894477601321456,
+            0.021133299281802336,
+            0.02103408834151569,
+            0.02101916506616026,
+            0.020684388701806684,
+            0.020458837399200097,
+            0.021807790685440018,
+            0.020686724162806633,
+            0.020562086699632713,
+            0.02227035632314739,
+            0.021839820367966858,
+            0.021573429045621036,
+            0.02042388646143485,
+            0.02159693906082733,
+            0.021940330371184074,
+            0.021219375857830448,
+            0.02047463032691299,
+            0.021434081096086806,
+            0.021438899494701475,
+            0.021941221727816294
+          ],
+          "sl_200": [
+            0.018059476118095996,
+            0.01827140665896223,
+            0.01839559711759413,
+            0.018339910981520078,
+            0.01830650244776008,
+            0.01781302211342263,
+            0.019107935809631625,
+            0.01813378317246751,
+            0.0178464788272669,
+            0.019802439558489614,
+            0.019371840950209707,
+            0.018997692385628005,
+            0.01785248709983134,
+            0.018752370760943635,
+            0.019244350390854797,
+            0.01855545257686328,
+            0.018045294126264353,
+            0.018813630733898884,
+            0.019195831728655667,
+            0.019529924203729353
+          ],
+          "sl_400": [
+            0.01598608682046406,
+            0.016310103162640376,
+            0.016511499918450294,
+            0.016373269191650514,
+            0.016532001063903495,
+            0.015891630453168562,
+            0.01722287864232708,
+            0.016205713687814375,
+            0.015832391942295628,
+            0.017876189594282183,
+            0.017508942587200562,
+            0.017311476304258073,
+            0.016056859275028514,
+            0.016609036991683365,
+            0.01723629357204387,
+            0.01660099745223489,
+            0.016344777828731817,
+            0.016777473126915625,
+            0.017588366932318217,
+            0.01776553692863466
+          ]
+        },
+        "gradual": {
+          "bayesian_beta": [
+            0.05516163300384042,
+            0.06080408226975912,
+            0.05854106574756744,
+            0.05861769495831509,
+            0.05919588968195696,
+            0.0608090386979659,
+            0.05876517495456962,
+            0.05940734300731243,
+            0.058127309953431634,
+            0.05959747166198095,
+            0.06161359703458841,
+            0.06007768080530703,
+            0.06164285322944723,
+            0.05651999992753807,
+            0.060833040777069185,
+            0.0589279570613034,
+            0.05718837930826797,
+            0.06059978848855294,
+            0.06234387839252018,
+            0.06180362452489249
+          ],
+          "ema_0.01": [
+            0.077692209628104,
+            0.08375360912462508,
+            0.0815763458482539,
+            0.08183819094448382,
+            0.08085117763919925,
+            0.0830077626391965,
+            0.08210877816658063,
+            0.08066329004822154,
+            0.081309281046586,
+            0.08268637360539957,
+            0.08462798080698915,
+            0.08182868842547193,
+            0.0822133862256967,
+            0.07911936220472209,
+            0.08214094812493163,
+            0.08194866840348122,
+            0.08037932407991846,
+            0.08401983623024037,
+            0.08405537876326236,
+            0.08199643713417436
+          ],
+          "ema_0.05": [
+            0.015781636635673328,
+            0.021262549440631086,
+            0.01960868430216698,
+            0.019543950767861473,
+            0.019827967606043533,
+            0.02047560763460256,
+            0.019685356294602243,
+            0.019347963988550303,
+            0.020543152312756746,
+            0.02074372096425917,
+            0.021718819383047844,
+            0.021068207809951268,
+            0.020815679603365222,
+            0.018190253830587595,
+            0.02084182450735951,
+            0.01887758677119257,
+            0.0198576994356575,
+            0.02156251863667471,
+            0.022182362012419923,
+            0.021328320342785794
+          ],
+          "ema_0.1": [
+            0.012770053645107369,
+            0.01583605756803929,
+            0.014654920444597447,
+            0.014556953809411468,
+            0.014769619762526805,
+            0.015280134940852744,
+            0.014456515773297767,
+            0.01442036220030986,
+            0.015285861665854565,
+            0.015369883438265326,
+            0.016239343273494314,
+            0.015339226347943604,
+            0.014555745583302783,
+            0.013278808404998638,
+            0.01529740152481416,
+            0.014337487747739396,
+            0.014792624659339082,
+            0.016020560286038495,
+            0.016130115224152253,
+            0.01589575410810316
+          ],
+          "adwin": [
+            0.0460788497026053,
+            0.04384722698595027,
+            0.04136780466354067,
+            0.051832342420555066,
+            0.03990161205607125,
+            0.04390703471139927,
+            0.05118005865530582,
+            0.04445513492870833,
+            0.042266065269558534,
+            0.04222071948013519,
+            0.04634088339796184,
+            0.045401971694940924,
+            0.045635249958078494,
+            0.03959754868116909,
+            0.0449132652428683,
+            0.034826947398357955,
+            0.042056056955411404,
+            0.04529224430493622,
+            0.05543949926302527,
+            0.04659843798428523
+          ],
+          "sl_25": [
+            0.029067205501289013,
+            0.03047831220828391,
+            0.029665536297363154,
+            0.029966697767860522,
+            0.03009686640783145,
+            0.030797762724681828,
+            0.030476314944460448,
+            0.02918476591837493,
+            0.030031701395229503,
+            0.030489219283117364,
+            0.031376327353777336,
+            0.02975058603303593,
+            0.03001671681097026,
+            0.03024179925057957,
+            0.030503434217333616,
+            0.030926906229099847,
+            0.02969788491243726,
+            0.031691873305115234,
+            0.029246766402401744,
+            0.029267239876372385
+          ],
+          "sl_50": [
+            0.02478283532014994,
+            0.026031618424745565,
+            0.025551406848291842,
+            0.025699160376456618,
+            0.025524300359647433,
+            0.02666585548586744,
+            0.026015176982821728,
+            0.024910935518407073,
+            0.02578549010101902,
+            0.026422789397117757,
+            0.027284149852491547,
+            0.025650077749223635,
+            0.025480726756680474,
+            0.026113919432231833,
+            0.026089873037239215,
+            0.026478958293407077,
+            0.02563492451036698,
+            0.02752722278519525,
+            0.025143321762367315,
+            0.025132123706332485
+          ],
+          "sl_100": [
+            0.02079376015454404,
+            0.022035804150682705,
+            0.021870572576718268,
+            0.021860231275398524,
+            0.021631976844709307,
+            0.022841904630478225,
+            0.021972382775168636,
+            0.021077383871340602,
+            0.02202261170126804,
+            0.02272169686158474,
+            0.023529281390655025,
+            0.02194331352339412,
+            0.021513449423178677,
+            0.02222059133558836,
+            0.022199023757150618,
+            0.022622575569996067,
+            0.021972661922965497,
+            0.02365610903421897,
+            0.021617667309419105,
+            0.02149457449321895
+          ],
+          "sl_200": [
+            0.017246906149965793,
+            0.01870020728371581,
+            0.018597163923123123,
+            0.018494294965597204,
+            0.01840191700860217,
+            0.019454494226718667,
+            0.018519491472094866,
+            0.01775595262906963,
+            0.018872354983584513,
+            0.01941603219708657,
+            0.020191489302868456,
+            0.01876795358030559,
+            0.01820417982607908,
+            0.018628865145000555,
+            0.01882638010411108,
+            0.01927414920144264,
+            0.018804278183094162,
+            0.020206388004345696,
+            0.018820707703779745,
+            0.018509899512110135
+          ],
+          "sl_400": [
+            0.01427855161340524,
+            0.016031109225996546,
+            0.015835355398167474,
+            0.01568334349456799,
+            0.015778131041777974,
+            0.016517475823020558,
+            0.015669687257748255,
+            0.014992009056634543,
+            0.016179558319339853,
+            0.016570504406371894,
+            0.017452310586495063,
+            0.016270015505581135,
+            0.01569241441783375,
+            0.01547830920394391,
+            0.016017236705509207,
+            0.016305266878661996,
+            0.016055224233439556,
+            0.017347097162484587,
+            0.01667871551216385,
+            0.01605352004534101
+          ]
+        },
+        "recurring": {
+          "bayesian_beta": [
+            0.25273810074748093,
+            0.2530952126147863,
+            0.2525393636724459,
+            0.25251272363562843,
+            0.2521569311330017,
+            0.2520360355695069,
+            0.25245641272489516,
+            0.25328946329391566,
+            0.2516286164608943,
+            0.251817694307436,
+            0.2522233854952537,
+            0.2527027813850636,
+            0.25263484075655834,
+            0.2524688371567346,
+            0.25185130074071205,
+            0.25309032150814254,
+            0.25228130212005084,
+            0.25121843206948635,
+            0.25234432591678263,
+            0.2532957281780043
+          ],
+          "ema_0.01": [
+            0.26997191463744197,
+            0.2698320789403493,
+            0.2697393777028018,
+            0.26955713072156673,
+            0.2691601640079433,
+            0.2690123535522414,
+            0.26966734501537715,
+            0.269714342090837,
+            0.2687665745090841,
+            0.26902726460779197,
+            0.26951191492508836,
+            0.269506114850336,
+            0.2686723689434122,
+            0.26896959084209743,
+            0.26898196743051783,
+            0.2700450210363191,
+            0.2693338599874047,
+            0.2685752015344748,
+            0.2688909986771523,
+            0.2690055786417456
+          ],
+          "ema_0.05": [
+            0.10874672354275004,
+            0.10875864264195163,
+            0.10923603976012224,
+            0.10832519588806158,
+            0.10629191313857868,
+            0.10609572204330547,
+            0.10952588527601072,
+            0.10709980518156746,
+            0.10622926408009865,
+            0.10703223721073185,
+            0.1084269821698517,
+            0.10874112032822161,
+            0.10616938717035593,
+            0.10658255535695256,
+            0.10748400142842605,
+            0.10889051234596019,
+            0.10739219572139987,
+            0.10665416924792791,
+            0.10754765422030862,
+            0.10877066589036247
+          ],
+          "ema_0.1": [
+            0.058423393144727054,
+            0.05744640268784477,
+            0.057843274296248366,
+            0.05680134627385654,
+            0.056319963612888144,
+            0.05613911345056604,
+            0.05747977860807288,
+            0.057941909681729416,
+            0.055274533053143685,
+            0.057473488042128394,
+            0.057896110874302666,
+            0.05715884516167243,
+            0.05448679585798055,
+            0.0558541692349671,
+            0.05678941543419678,
+            0.05768693978364068,
+            0.05683022551998522,
+            0.055652606405272184,
+            0.056471936128380626,
+            0.05773993995227167
+          ],
+          "adwin": [
+            0.03689355329883044,
+            0.04226396603362648,
+            0.06683730778813067,
+            0.056247630174393694,
+            0.03337190080813733,
+            0.05531272518628089,
+            0.052616653782492695,
+            0.084695533350134,
+            0.03261955489818767,
+            0.05952510786446679,
+            0.054769581793500784,
+            0.06452051857693732,
+            0.03103253766069446,
+            0.042467756820726,
+            0.03086616695674423,
+            0.04401049644523846,
+            0.10350375605818848,
+            0.04297019586702759,
+            0.051478285416705086,
+            0.053494727686028726
+          ],
+          "sl_25": [
+            0.030887214708483046,
+            0.03161309482015083,
+            0.03122055291649506,
+            0.03058064035550462,
+            0.030523922963851268,
+            0.030315595893742043,
+            0.03213788960270845,
+            0.031050339563345557,
+            0.03074140511237247,
+            0.03147679591989647,
+            0.03148950310151875,
+            0.03185287353052873,
+            0.0302749150150487,
+            0.031176997708819498,
+            0.03143538920332584,
+            0.031183636973759154,
+            0.030384912391597543,
+            0.03123045577868953,
+            0.031021845404337455,
+            0.03134562367028681
+          ],
+          "sl_50": [
+            0.029437331908164305,
+            0.029566444254971045,
+            0.029431681835763335,
+            0.028677360834647597,
+            0.028818655017997734,
+            0.028512396314474046,
+            0.030240507704693848,
+            0.029295131845149185,
+            0.02870279603944266,
+            0.02972806606585014,
+            0.030108079737137552,
+            0.03011909032986132,
+            0.028221468866047476,
+            0.029496776742006625,
+            0.029554956943585828,
+            0.029127675900616504,
+            0.028714995300709163,
+            0.02981905709587928,
+            0.02925578181323253,
+            0.02976484334279773
+          ],
+          "sl_100": [
+            0.02922197110295677,
+            0.028797613928118915,
+            0.029206217416820036,
+            0.028615342371127936,
+            0.028772448698463734,
+            0.02820532233285725,
+            0.029704916415725657,
+            0.028984293697771512,
+            0.028078012614530475,
+            0.029688993081031328,
+            0.03006700706433186,
+            0.029807962287300677,
+            0.02775815622989781,
+            0.029216355549254204,
+            0.029206644409634174,
+            0.028829960336821957,
+            0.028462337864866613,
+            0.02983415578775182,
+            0.029082036484106673,
+            0.029749815978089254
+          ],
+          "sl_200": [
+            0.030939717755307263,
+            0.03007621044594926,
+            0.031043678109883895,
+            0.03047429756653233,
+            0.030505169246553325,
+            0.030035492596334246,
+            0.03116546924749813,
+            0.030739838883036205,
+            0.029457158032828046,
+            0.03154951598198584,
+            0.032031006970364005,
+            0.031564516038292606,
+            0.029221783438039786,
+            0.030798742786279375,
+            0.030915122848321624,
+            0.030682907014743376,
+            0.030252457847713694,
+            0.03175296753467121,
+            0.031170033788146912,
+            0.03162110153806199
+          ],
+          "sl_400": [
+            0.03535045576766179,
+            0.03447093004976873,
+            0.03558587579332351,
+            0.034814008084155156,
+            0.03464320666854745,
+            0.03434598740663453,
+            0.03539693493833933,
+            0.03528632414366546,
+            0.03327924896709524,
+            0.0358061997150684,
+            0.03645114762287405,
+            0.036190578679629964,
+            0.033395552237626275,
+            0.03484196023441431,
+            0.03519674503101798,
+            0.035197280474424254,
+            0.03481934926679397,
+            0.03588775466104829,
+            0.03574049702899373,
+            0.03582472994381552
+          ]
+        }
+      }
+    }
+  },
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.0",
+    "numpy_version": "2.0.2",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": "EN1.2b: Extended temporal regime adaptation. 20 seeds x 4 batch sizes x 3 scenarios x 10 methods = 2400 total runs. Includes Wilcoxon signed-rank tests and Cohen's d effect sizes."
+}
