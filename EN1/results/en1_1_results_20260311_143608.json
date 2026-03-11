@@ -1,0 +1,322 @@
+{
+  "experiment_id": "EN1.1",
+  "parameters": {
+    "global_seed": 42,
+    "models": [
+      "spacy",
+      "flair",
+      "stanza",
+      "huggingface"
+    ],
+    "dataset": "CoNLL-2003",
+    "dev_sentences": 3250,
+    "test_sentences": 3453,
+    "n_bootstrap": 1000,
+    "temperatures": {
+      "spacy": 1.4986013774852953,
+      "flair": 0.8405632704282081,
+      "stanza": 1.1645013112798364,
+      "huggingface": 1.6148206001584793
+    },
+    "model_weights": {
+      "spacy": 0.15805232877196726,
+      "flair": 0.3215717941672716,
+      "stanza": 0.1978377066972462,
+      "huggingface": 0.3225381703635149
+    },
+    "conflict_thresholds_F": [
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5
+    ]
+  },
+  "metrics": {
+    "individual_models_test": {
+      "spacy": {
+        "entity_f1": 0.46272130916272836,
+        "entity_precision": 0.3845702896001876,
+        "entity_recall": 0.5807365439093485,
+        "token_accuracy": 0.8016797674168192,
+        "token_f1_micro": 0.48057665328237625,
+        "n_tokens": 46435,
+        "entity_f1_ci": {
+          "lower": 0.44765991787428683,
+          "mean": 0.4628051957764761,
+          "upper": 0.47853413709526565
+        }
+      },
+      "flair": {
+        "entity_f1": 0.9248033931253865,
+        "entity_precision": 0.923090492150291,
+        "entity_recall": 0.9265226628895185,
+        "token_accuracy": 0.9853989447614946,
+        "token_f1_micro": 0.9337833691316355,
+        "n_tokens": 46435,
+        "entity_f1_ci": {
+          "lower": 0.9176067985037326,
+          "mean": 0.9248865981491639,
+          "upper": 0.9320015155508697
+        }
+      },
+      "stanza": {
+        "entity_f1": 0.5238482384823848,
+        "entity_precision": 0.4242756804214223,
+        "entity_recall": 0.6844900849858357,
+        "token_accuracy": 0.826919349628513,
+        "token_f1_micro": 0.5663366336633663,
+        "n_tokens": 46435,
+        "entity_f1_ci": {
+          "lower": 0.51021436520468,
+          "mean": 0.5238263432653087,
+          "upper": 0.5383473018438005
+        }
+      },
+      "huggingface": {
+        "entity_f1": 0.9128791208791208,
+        "entity_precision": 0.9065828531517374,
+        "entity_recall": 0.9192634560906515,
+        "token_accuracy": 0.9825347259610208,
+        "token_f1_micro": 0.9244417252982563,
+        "n_tokens": 46435,
+        "entity_f1_ci": {
+          "lower": 0.9044540939006741,
+          "mean": 0.9128858440419074,
+          "upper": 0.9209758580394617
+        }
+      }
+    },
+    "fusion_strategies": {
+      "A_majority_vote": {
+        "entity_f1": 0.7087666034155597,
+        "entity_precision": 0.6203002524246047,
+        "entity_recall": 0.8266643059490085,
+        "token_accuracy": 0.9041240443630882,
+        "token_f1_micro": 0.7348601047231185,
+        "n_tokens": 46435,
+        "entity_f1_ci": {
+          "lower": 0.6980011395802467,
+          "mean": 0.7088674990058975,
+          "upper": 0.7201840830747485
+        }
+      },
+      "B_scalar_weighted": {
+        "entity_f1": 0.9413118527042578,
+        "entity_precision": 0.9412285360240751,
+        "entity_recall": 0.9413951841359773,
+        "token_accuracy": 0.9883493054807796,
+        "token_f1_micro": 0.9499753573188763,
+        "n_tokens": 46435,
+        "entity_f1_ci": {
+          "lower": 0.9348984125971227,
+          "mean": 0.9414148266487421,
+          "upper": 0.9479412330052096
+        }
+      },
+      "C_max_confidence": {
+        "entity_f1": 0.9290436315557513,
+        "entity_precision": 0.925048271019835,
+        "entity_recall": 0.9330736543909348,
+        "token_accuracy": 0.9862172929902013,
+        "token_f1_micro": 0.9376683810923341,
+        "n_tokens": 46435,
+        "entity_f1_ci": {
+          "lower": 0.921978565609394,
+          "mean": 0.9291990278914002,
+          "upper": 0.9358627726896356
+        }
+      },
+      "D_stacking": {
+        "entity_f1": 0.937494474405446,
+        "entity_precision": 0.9362528695037966,
+        "entity_recall": 0.9387393767705382,
+        "token_accuracy": 0.9881339506837514,
+        "token_f1_micro": 0.948605896473195,
+        "n_tokens": 46435,
+        "entity_f1_ci": {
+          "lower": 0.9304391980123801,
+          "mean": 0.9375872127182109,
+          "upper": 0.9441341025187305
+        }
+      },
+      "E_sl_fuse": {
+        "entity_f1": 0.9409882687522219,
+        "entity_precision": 0.9446823697359029,
+        "entity_recall": 0.9373229461756374,
+        "token_accuracy": 0.9877032410896953,
+        "token_f1_micro": 0.9483568075117371,
+        "n_tokens": 46435,
+        "entity_f1_ci": {
+          "lower": 0.9344934383544795,
+          "mean": 0.9411613711522251,
+          "upper": 0.9476567647273062
+        }
+      },
+      "F_sl_abstain": {
+        "ct=0.1": {
+          "entity_f1": 0.708893445735551,
+          "entity_precision": 0.6206942412554861,
+          "entity_recall": 0.8263101983002833,
+          "token_accuracy": 0.9040594379239798,
+          "token_f1_micro": 0.7349314706037996,
+          "n_tokens": 46435,
+          "abstention_rate": 0.0002153547970281038,
+          "n_abstained": 10,
+          "non_abstained_entity_f1": 0.7091724295159207,
+          "non_abstained_entity_precision": 0.6206437882415536,
+          "entity_f1_ci": {
+            "lower": 0.698201043154475,
+            "mean": 0.7090055809962662,
+            "upper": 0.7203985218703729
+          },
+          "conflict_threshold": 0.1
+        },
+        "ct=0.2": {
+          "entity_f1": 0.708893445735551,
+          "entity_precision": 0.6206942412554861,
+          "entity_recall": 0.8263101983002833,
+          "token_accuracy": 0.9040594379239798,
+          "token_f1_micro": 0.7349314706037996,
+          "n_tokens": 46435,
+          "abstention_rate": 0.0002153547970281038,
+          "n_abstained": 10,
+          "non_abstained_entity_f1": 0.7091724295159207,
+          "non_abstained_entity_precision": 0.6206437882415536,
+          "entity_f1_ci": {
+            "lower": 0.698201043154475,
+            "mean": 0.7090055809962662,
+            "upper": 0.7203985218703729
+          },
+          "conflict_threshold": 0.2
+        },
+        "ct=0.3": {
+          "entity_f1": 0.708893445735551,
+          "entity_precision": 0.6206942412554861,
+          "entity_recall": 0.8263101983002833,
+          "token_accuracy": 0.9040594379239798,
+          "token_f1_micro": 0.7349314706037996,
+          "n_tokens": 46435,
+          "abstention_rate": 0.0002153547970281038,
+          "n_abstained": 10,
+          "non_abstained_entity_f1": 0.7091724295159207,
+          "non_abstained_entity_precision": 0.6206437882415536,
+          "entity_f1_ci": {
+            "lower": 0.698201043154475,
+            "mean": 0.7090055809962662,
+            "upper": 0.7203985218703729
+          },
+          "conflict_threshold": 0.3
+        },
+        "ct=0.4": {
+          "entity_f1": 0.708893445735551,
+          "entity_precision": 0.6206942412554861,
+          "entity_recall": 0.8263101983002833,
+          "token_accuracy": 0.9040594379239798,
+          "token_f1_micro": 0.7349314706037996,
+          "n_tokens": 46435,
+          "abstention_rate": 0.0002153547970281038,
+          "n_abstained": 10,
+          "non_abstained_entity_f1": 0.7091724295159207,
+          "non_abstained_entity_precision": 0.6206437882415536,
+          "entity_f1_ci": {
+            "lower": 0.698201043154475,
+            "mean": 0.7090055809962662,
+            "upper": 0.7203985218703729
+          },
+          "conflict_threshold": 0.4
+        },
+        "ct=0.5": {
+          "entity_f1": 0.708893445735551,
+          "entity_precision": 0.6206942412554861,
+          "entity_recall": 0.8263101983002833,
+          "token_accuracy": 0.9040594379239798,
+          "token_f1_micro": 0.7349314706037996,
+          "n_tokens": 46435,
+          "abstention_rate": 0.0002153547970281038,
+          "n_abstained": 10,
+          "non_abstained_entity_f1": 0.7091724295159207,
+          "non_abstained_entity_precision": 0.6206437882415536,
+          "entity_f1_ci": {
+            "lower": 0.698201043154475,
+            "mean": 0.7090055809962662,
+            "upper": 0.7203985218703729
+          },
+          "conflict_threshold": 0.5
+        }
+      },
+      "G_sl_trust": {
+        "entity_f1": 0.9405597512216792,
+        "entity_precision": 0.9439985732120564,
+        "entity_recall": 0.9371458923512748,
+        "token_accuracy": 0.9877032410896953,
+        "token_f1_micro": 0.9481225296442688,
+        "n_tokens": 46435,
+        "entity_f1_ci": {
+          "lower": 0.9339087557228093,
+          "mean": 0.9407068441570131,
+          "upper": 0.9473308873199155
+        }
+      }
+    },
+    "dev_metrics": {
+      "spacy": {
+        "entity_f1": 0.46624542733621543,
+        "token_accuracy": 0.8065106498968109
+      },
+      "flair": {
+        "entity_f1": 0.9486185983827493,
+        "token_accuracy": 0.9918032786885246
+      },
+      "stanza": {
+        "entity_f1": 0.5836100411741266,
+        "token_accuracy": 0.8540944667263736
+      },
+      "huggingface": {
+        "entity_f1": 0.9514693534844668,
+        "token_accuracy": 0.9915696429266773
+      }
+    },
+    "total_wall_time_seconds": 1026.33
+  },
+  "timestamp": "2026-03-11T14:36:08.752150+00:00",
+  "raw_data": {
+    "model_trust_opinions": {
+      "spacy": {
+        "b": 0.4196208846025939,
+        "d": 0.2668772863318923,
+        "u": 0.31350182906551377,
+        "a": 0.5
+      },
+      "flair": {
+        "b": 0.8537567385444744,
+        "d": 0.025690700808625344,
+        "u": 0.12055256064690023,
+        "a": 0.5
+      },
+      "stanza": {
+        "b": 0.525249037056714,
+        "d": 0.2081949794129367,
+        "u": 0.2665559835303493,
+        "a": 0.5
+      },
+      "huggingface": {
+        "b": 0.8563224181360202,
+        "d": 0.02426532325776659,
+        "u": 0.11941225860621324,
+        "a": 0.5
+      }
+    }
+  },
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.0",
+    "numpy_version": "2.4.3",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": "EN1.1: Multi-source NER fusion on CoNLL-2003 with 4 diverse models (spaCy, Flair, Stanza, HuggingFace) and 7 fusion strategies (A-G). Temperature-calibrated on dev set. Bootstrap 95% CIs (n=1000). Strategy F demonstrates SL conflict-aware abstention with threshold sweep."
+}
