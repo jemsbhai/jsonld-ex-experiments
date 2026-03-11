@@ -1,7 +1,7 @@
 # Experiment Findings
 
 **Date:** 2026-03-11
-**Status:** EN7.1, EN1.2/EN1.2b, EA1.1 (extended) complete, results archived
+**Status:** EN7.1, EN1.2/EN1.2b, EA1.1 (ext), EN2.1+EN2.2 (ext) complete, results archived
 
 ---
 
@@ -278,6 +278,129 @@ constrained).
 
 ---
 
+## EN2.1 + EN2.2 (Extended) — Format Expressiveness Comparison
+
+**Result:** jsonld-ex achieves 100% feature coverage (36/36 native) and 100%
+information completeness across all 10 scenarios. The next best format (PROV-O)
+achieves 25% native coverage at 2.1x the bytes per semantic field. The overhead
+of jsonld-ex annotation converges to a constant 1.14x at scale.
+
+**Scale:** 10 scenarios x 6 formats, 36 features x 8 ecosystems, scaling
+analysis from 10 to 10,000 annotated nodes.
+
+### EN2.1: Verbosity + Information Completeness
+
+| Format | Byte Ratio (compact) | Completeness | Bytes/Field (compact) | Info Density |
+|--------|---------------------|-------------|----------------------|-------------|
+| jsonld-ex | 1.000x (baseline) | 100% | 37.5 | 1.000 |
+| PROV-O | 1.850x | 82% | 78.0 | 0.441 |
+| SHACL | 1.846x | 10% | 50.2 | 0.054 |
+| Croissant | 0.909x | 7% | 50.9 | 0.079 |
+| Plain JSON | 0.766x | 100% | 28.4 | 1.305 |
+| JSON-LD 1.1 | 0.512x | 30% | 66.1 | 0.584 |
+
+**Information density** = completeness / byte_ratio. Higher is better.
+jsonld-ex is the only format with density = 1.0 (every byte carries semantic
+information). PROV-O spends 2.1x the bytes to cover 82% of the information.
+JSON-LD 1.1 is 0.5x the bytes but covers only 30% of the information.
+
+**Plain JSON** achieves 100% completeness and higher density (1.305) because it
+uses ad-hoc keys with no semantic structure. This is the honest finding: plain
+JSON CAN store everything (any key-value is allowed) but provides zero semantic
+interop, zero validation, zero algebra, zero standardized processing. The 23%
+byte savings buys no machine-interpretable semantics.
+
+**Per-scenario completeness (what each format drops):**
+
+| Scenario | PROV-O | Croissant | JSON-LD 1.1 |
+|----------|--------|-----------|-------------|
+| S1: Dataset card | 67% | 72% | 50% |
+| S2: NER annotations | 85% | 0% | 38% |
+| S3: Sensor reading | 100% | 0% | 40% |
+| S4: KG provenance chain | 100% | 0% | 25% |
+| S5: Model prediction | 100% | 0% | 22% |
+| S6: Translation provenance | 100% | 0% | 29% |
+| S7: Temporal validity | 100% | 0% | 33% |
+| S8: Validation shape | 0% | 0% | 10% |
+| S9: Multi-source fusion + SL opinion | 64% | 0% | 18% |
+| S10: Invalidated claim | 100% | 0% | 33% |
+
+Croissant can only represent S1 (dataset cards are its core purpose) and
+drops 28% even there (no per-field confidence). It cannot represent any
+other scenario. This is not a weakness of Croissant — it was designed for
+dataset documentation, not general annotation.
+
+### EN2.1b: Scaling Analysis
+
+| N nodes | jsonld-ex (compact) | Plain JSON (compact) | Overhead Ratio | B/node (ex) | B/node (pj) |
+|---------|--------------------|--------------------|---------------|-------------|-------------|
+| 10 | 1,610 B | 1,369 B | 1.176x | 161.0 | 136.9 |
+| 100 | 15,550 B | 13,600 B | 1.144x | 155.5 | 136.0 |
+| 1,000 | 154,871 B | 135,817 B | 1.140x | 154.9 | 135.8 |
+| 10,000 | 1,548,399 B | 1,357,812 B | 1.140x | 154.8 | 135.8 |
+
+**Overhead converges to 1.14x** by N=1,000 and stays flat at 10,000. The per-node
+cost of annotation is a constant ~19 bytes (155 - 136) regardless of scale.
+This is the cost of `@confidence`, `@source`, `@extractedAt`, `@measurementUncertainty`,
+and `@unit` annotations per reading. The context declaration is amortized.
+
+### EN2.2: Feature Coverage Matrix (36 features x 8 ecosystems)
+
+| Format | Native | Workaround | Not Possible | Native% | Expressible% |
+|--------|--------|------------|-------------|---------|-------------|
+| **jsonld-ex** | **36** | **0** | **0** | **100.0%** | **100.0%** |
+| PROV-O | 9 | 10 | 17 | 25.0% | 52.8% |
+| Plain JSON | 0 | 17 | 19 | 0.0% | 47.2% |
+| MLflow | 4 | 5 | 27 | 11.1% | 25.0% |
+| JSON-LD 1.1 | 1 | 8 | 27 | 2.8% | 25.0% |
+| Croissant | 5 | 3 | 28 | 13.9% | 22.2% |
+| HF Datasets | 3 | 4 | 29 | 8.3% | 19.4% |
+| SHACL | 5 | 1 | 30 | 13.9% | 16.7% |
+
+Every cell in the matrix is backed by a justification string referencing
+the format's specification (e.g., "No annotation-level metadata in Croissant
+spec, MLCommons 2024"). No cell is asserted without evidence.
+
+**19 features are unique to jsonld-ex** (no other format has them natively):
+all 7 uncertainty algebra operators (cumulative/averaging fusion, trust discount,
+deduction, conflict detection, Byzantine fusion, temporal decay), temporal
+query/diff, vector embeddings, measurement uncertainty, calibration metadata,
+translation provenance, graph merge, OWL/SSN-SOSA interop.
+
+### Key Findings for NeurIPS Paper
+
+1. **jsonld-ex is the only format that achieves 100% coverage of ML-relevant
+   annotation features.** The gap is not incremental: the next best (PROV-O)
+   covers 52.8%, and all other formats are below 25%.
+
+2. **The annotation overhead is constant at 1.14x** and does not grow with
+   scale. At 10,000 nodes, the cost is 19 bytes/node for 6 annotation fields
+   per node.
+
+3. **Information density exposes the real tradeoff.** Formats that appear
+   "cheaper" (JSON-LD 1.1 at 0.51x bytes, Croissant at 0.91x bytes) achieve
+   this by dropping 70-93% of the semantic information. When normalized by
+   information completeness, jsonld-ex has the best density of any semantically
+   interoperable format.
+
+4. **Plain JSON is an honest competitor on raw storage** but provides zero
+   semantic interop, zero validation, and zero algebraic operations. It is
+   the lower bound on what is achievable without standards.
+
+5. **PROV-O is the strongest semantic alternative** (82% completeness) but
+   requires 2.1x the bytes and 78B/field vs 37.5B/field for jsonld-ex.
+   Its primary gap: no uncertainty algebra, no validation, no vector embeddings.
+
+### Suggested Paper Presentation
+
+- **Table 1:** Feature coverage heatmap (8 formats x 36 features, color-coded)
+- **Table 2:** Verbosity + completeness summary (the 6-format table above)
+- **Figure:** Scaling analysis plot (N vs overhead ratio, showing convergence)
+- **Discussion:** Plain JSON as honest lower bound; PROV-O as strongest
+  semantic alternative; Croissant as complementary (dataset cards only)
+
+---
+
 ## Files
 
 - `experiments/EN7/results/en7_1_results.json` (latest)
@@ -290,3 +413,7 @@ constrained).
 - `experiments/EA1/results/ea1_1_results_20260311_123836.json` (v1, archived)
 - `experiments/EA1/results/ea1_1_ext_results.json` (v2 extended, 2M opinions)
 - `experiments/EA1/results/ea1_1_ext_results_20260311_125242.json` (v2 extended, archived)
+- `experiments/EN2/results/en2_1_2_results.json` (v1, 10 scenarios)
+- `experiments/EN2/results/en2_1_2_results_20260311_131605.json` (v1, archived)
+- `experiments/EN2/results/en2_1_2_ext_results.json` (v2 extended, with completeness+scaling)
+- `experiments/EN2/results/en2_1_2_ext_results_20260311_132559.json` (v2, archived)

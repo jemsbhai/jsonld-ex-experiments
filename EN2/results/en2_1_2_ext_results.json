@@ -1,0 +1,2621 @@
+{
+  "experiment_id": "EN2.1+EN2.2-extended",
+  "parameters": {
+    "n_scenarios": 10,
+    "n_features": 36,
+    "formats_verbosity": [
+      "jsonld_ex",
+      "prov_o",
+      "shacl",
+      "croissant",
+      "plain_json",
+      "jsonld_11"
+    ],
+    "formats_coverage": [
+      "jsonld_ex",
+      "croissant",
+      "prov_o",
+      "shacl",
+      "jsonld_11",
+      "plain_json",
+      "hf_datasets",
+      "mlflow"
+    ],
+    "scaling_sizes": [
+      10,
+      100,
+      1000,
+      10000
+    ],
+    "byte_methods": [
+      "pretty (indent=2, sorted)",
+      "compact (no indent, sorted)"
+    ]
+  },
+  "metrics": {
+    "en2_1_aggregate": {
+      "jsonld_ex": {
+        "byte_ratio_pretty": {
+          "mean": 1.0,
+          "median": 1.0,
+          "n": 10
+        },
+        "byte_ratio_compact": {
+          "mean": 1.0,
+          "median": 1.0,
+          "n": 10
+        },
+        "completeness": {
+          "mean": 1.0,
+          "min": 1.0,
+          "max": 1.0
+        },
+        "bytes_per_field_pretty": {
+          "mean": 45.2
+        },
+        "bytes_per_field_compact": {
+          "mean": 37.5
+        }
+      },
+      "prov_o": {
+        "byte_ratio_pretty": {
+          "mean": 2.103,
+          "median": 2.235,
+          "n": 9
+        },
+        "byte_ratio_compact": {
+          "mean": 1.85,
+          "median": 1.843,
+          "n": 9
+        },
+        "completeness": {
+          "mean": 0.815,
+          "min": 0.0,
+          "max": 1.0
+        },
+        "bytes_per_field_pretty": {
+          "mean": 106.6
+        },
+        "bytes_per_field_compact": {
+          "mean": 78.0
+        }
+      },
+      "shacl": {
+        "byte_ratio_pretty": {
+          "mean": 1.714,
+          "median": 1.714,
+          "n": 1
+        },
+        "byte_ratio_compact": {
+          "mean": 1.846,
+          "median": 1.846,
+          "n": 1
+        },
+        "completeness": {
+          "mean": 0.1,
+          "min": 0.0,
+          "max": 1.0
+        },
+        "bytes_per_field_pretty": {
+          "mean": 63.4
+        },
+        "bytes_per_field_compact": {
+          "mean": 50.2
+        }
+      },
+      "croissant": {
+        "byte_ratio_pretty": {
+          "mean": 0.905,
+          "median": 0.905,
+          "n": 1
+        },
+        "byte_ratio_compact": {
+          "mean": 0.909,
+          "median": 0.909,
+          "n": 1
+        },
+        "completeness": {
+          "mean": 0.072,
+          "min": 0.0,
+          "max": 0.722
+        },
+        "bytes_per_field_pretty": {
+          "mean": 65.8
+        },
+        "bytes_per_field_compact": {
+          "mean": 50.9
+        }
+      },
+      "plain_json": {
+        "byte_ratio_pretty": {
+          "mean": 0.775,
+          "median": 0.77,
+          "n": 10
+        },
+        "byte_ratio_compact": {
+          "mean": 0.766,
+          "median": 0.723,
+          "n": 10
+        },
+        "completeness": {
+          "mean": 1.0,
+          "min": 1.0,
+          "max": 1.0
+        },
+        "bytes_per_field_pretty": {
+          "mean": 34.7
+        },
+        "bytes_per_field_compact": {
+          "mean": 28.4
+        }
+      },
+      "jsonld_11": {
+        "byte_ratio_pretty": {
+          "mean": 0.49,
+          "median": 0.508,
+          "n": 10
+        },
+        "byte_ratio_compact": {
+          "mean": 0.512,
+          "median": 0.495,
+          "n": 10
+        },
+        "completeness": {
+          "mean": 0.299,
+          "min": 0.1,
+          "max": 0.5
+        },
+        "bytes_per_field_pretty": {
+          "mean": 77.0
+        },
+        "bytes_per_field_compact": {
+          "mean": 66.1
+        }
+      }
+    },
+    "en2_1b_scaling": [
+      {
+        "n_nodes": 10,
+        "jsonld_ex_bytes_pretty": 2080,
+        "jsonld_ex_bytes_compact": 1610,
+        "plain_json_bytes_pretty": 1837,
+        "plain_json_bytes_compact": 1369,
+        "overhead_ratio_pretty": 1.1323,
+        "overhead_ratio_compact": 1.176,
+        "jsonld_ex_bytes_per_node_pretty": 208.0,
+        "jsonld_ex_bytes_per_node_compact": 161.0,
+        "plain_json_bytes_per_node_pretty": 183.7,
+        "plain_json_bytes_per_node_compact": 136.9
+      },
+      {
+        "n_nodes": 100,
+        "jsonld_ex_bytes_pretty": 20161,
+        "jsonld_ex_bytes_compact": 15551,
+        "plain_json_bytes_pretty": 18208,
+        "plain_json_bytes_compact": 13600,
+        "overhead_ratio_pretty": 1.1073,
+        "overhead_ratio_compact": 1.1435,
+        "jsonld_ex_bytes_per_node_pretty": 201.6,
+        "jsonld_ex_bytes_per_node_compact": 155.5,
+        "plain_json_bytes_per_node_pretty": 182.1,
+        "plain_json_bytes_per_node_compact": 136.0
+      },
+      {
+        "n_nodes": 1000,
+        "jsonld_ex_bytes_pretty": 200878,
+        "jsonld_ex_bytes_compact": 154868,
+        "plain_json_bytes_pretty": 181825,
+        "plain_json_bytes_compact": 135817,
+        "overhead_ratio_pretty": 1.1048,
+        "overhead_ratio_compact": 1.1403,
+        "jsonld_ex_bytes_per_node_pretty": 200.9,
+        "jsonld_ex_bytes_per_node_compact": 154.9,
+        "plain_json_bytes_per_node_pretty": 181.8,
+        "plain_json_bytes_per_node_compact": 135.8
+      },
+      {
+        "n_nodes": 10000,
+        "jsonld_ex_bytes_pretty": 2007962,
+        "jsonld_ex_bytes_compact": 1547952,
+        "plain_json_bytes_pretty": 1817909,
+        "plain_json_bytes_compact": 1357901,
+        "overhead_ratio_pretty": 1.1045,
+        "overhead_ratio_compact": 1.14,
+        "jsonld_ex_bytes_per_node_pretty": 200.8,
+        "jsonld_ex_bytes_per_node_compact": 154.8,
+        "plain_json_bytes_per_node_pretty": 181.8,
+        "plain_json_bytes_per_node_compact": 135.8
+      }
+    ],
+    "en2_2_coverage_summary": {
+      "jsonld_ex": {
+        "native": 36,
+        "workaround": 0,
+        "not_possible": 0,
+        "total": 36,
+        "native_pct": 100.0,
+        "expressible_pct": 100.0
+      },
+      "croissant": {
+        "native": 5,
+        "workaround": 3,
+        "not_possible": 28,
+        "total": 36,
+        "native_pct": 13.9,
+        "expressible_pct": 22.2
+      },
+      "prov_o": {
+        "native": 9,
+        "workaround": 10,
+        "not_possible": 17,
+        "total": 36,
+        "native_pct": 25.0,
+        "expressible_pct": 52.8
+      },
+      "shacl": {
+        "native": 5,
+        "workaround": 1,
+        "not_possible": 30,
+        "total": 36,
+        "native_pct": 13.9,
+        "expressible_pct": 16.7
+      },
+      "jsonld_11": {
+        "native": 1,
+        "workaround": 8,
+        "not_possible": 27,
+        "total": 36,
+        "native_pct": 2.8,
+        "expressible_pct": 25.0
+      },
+      "plain_json": {
+        "native": 0,
+        "workaround": 17,
+        "not_possible": 19,
+        "total": 36,
+        "native_pct": 0.0,
+        "expressible_pct": 47.2
+      },
+      "hf_datasets": {
+        "native": 3,
+        "workaround": 4,
+        "not_possible": 29,
+        "total": 36,
+        "native_pct": 8.3,
+        "expressible_pct": 19.4
+      },
+      "mlflow": {
+        "native": 4,
+        "workaround": 5,
+        "not_possible": 27,
+        "total": 36,
+        "native_pct": 11.1,
+        "expressible_pct": 25.0
+      }
+    },
+    "total_wall_time_seconds": 3.4827
+  },
+  "timestamp": "2026-03-11T13:25:59.272939+00:00",
+  "raw_data": {
+    "en2_1_scenarios": [
+      {
+        "id": "S1",
+        "name": "Dataset card with splits and per-field confidence",
+        "description": "ML dataset with file distributions, record schema, and per-field annotation quality metadata",
+        "n_semantic_fields": 18,
+        "jsonld_ex": {
+          "bytes_pretty": 946,
+          "bytes_compact": 728,
+          "fields_covered": 18,
+          "fields_total": 18,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 52.6,
+          "bytes_per_field_compact": 40.4
+        },
+        "prov_o": {
+          "bytes_pretty": 1157,
+          "bytes_compact": 919,
+          "fields_covered": 12,
+          "fields_total": 18,
+          "completeness": 0.6667,
+          "fields_lost": [
+            "field_ner_confidence",
+            "field_ner_name",
+            "field_ner_source",
+            "field_ner_type",
+            "field_token_name",
+            "field_token_type"
+          ],
+          "bytes_per_field_pretty": 96.4,
+          "bytes_per_field_compact": 76.6
+        },
+        "shacl": {
+          "bytes_pretty": null,
+          "bytes_compact": null,
+          "fields_covered": 0,
+          "fields_total": 18,
+          "completeness": 0.0,
+          "fields_lost": [
+            "dataset_name",
+            "dataset_name_confidence",
+            "dataset_name_source",
+            "dataset_name_timestamp",
+            "description",
+            "license",
+            "file_train_name",
+            "file_train_size",
+            "file_train_format",
+            "file_test_name",
+            "file_test_size",
+            "file_test_format",
+            "field_token_name",
+            "field_token_type",
+            "field_ner_name",
+            "field_ner_type",
+            "field_ner_confidence",
+            "field_ner_source"
+          ],
+          "bytes_per_field_pretty": null,
+          "bytes_per_field_compact": null
+        },
+        "croissant": {
+          "bytes_pretty": 856,
+          "bytes_compact": 662,
+          "fields_covered": 13,
+          "fields_total": 18,
+          "completeness": 0.7222,
+          "fields_lost": [
+            "dataset_name_confidence",
+            "dataset_name_source",
+            "dataset_name_timestamp",
+            "field_ner_confidence",
+            "field_ner_source"
+          ],
+          "bytes_per_field_pretty": 65.8,
+          "bytes_per_field_compact": 50.9
+        },
+        "plain_json": {
+          "bytes_pretty": 637,
+          "bytes_compact": 487,
+          "fields_covered": 18,
+          "fields_total": 18,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 35.4,
+          "bytes_per_field_compact": 27.1
+        },
+        "jsonld_11": {
+          "bytes_pretty": 589,
+          "bytes_compact": 495,
+          "fields_covered": 9,
+          "fields_total": 18,
+          "completeness": 0.5,
+          "fields_lost": [
+            "dataset_name_confidence",
+            "dataset_name_source",
+            "dataset_name_timestamp",
+            "field_ner_confidence",
+            "field_ner_name",
+            "field_ner_source",
+            "field_ner_type",
+            "field_token_name",
+            "field_token_type"
+          ],
+          "bytes_per_field_pretty": 65.4,
+          "bytes_per_field_compact": 55.0
+        }
+      },
+      {
+        "id": "S2",
+        "name": "NER annotations with per-token confidence",
+        "description": "NLP token annotations with per-token confidence, source, method",
+        "n_semantic_fields": 26,
+        "jsonld_ex": {
+          "bytes_pretty": 959,
+          "bytes_compact": 639,
+          "fields_covered": 26,
+          "fields_total": 26,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 36.9,
+          "bytes_per_field_compact": 24.6
+        },
+        "prov_o": {
+          "bytes_pretty": 1934,
+          "bytes_compact": 1428,
+          "fields_covered": 22,
+          "fields_total": 26,
+          "completeness": 0.8462,
+          "fields_lost": [
+            "tok0_method",
+            "tok1_method",
+            "tok2_method",
+            "tok3_method"
+          ],
+          "bytes_per_field_pretty": 87.9,
+          "bytes_per_field_compact": 64.9
+        },
+        "shacl": {
+          "bytes_pretty": null,
+          "bytes_compact": null,
+          "fields_covered": 0,
+          "fields_total": 26,
+          "completeness": 0.0,
+          "fields_lost": [
+            "tok0_text",
+            "tok0_confidence",
+            "tok0_source",
+            "tok0_method",
+            "tok1_text",
+            "tok1_confidence",
+            "tok1_source",
+            "tok1_method",
+            "tok2_text",
+            "tok2_confidence",
+            "tok2_source",
+            "tok2_method",
+            "tok3_text",
+            "tok3_confidence",
+            "tok3_source",
+            "tok3_method",
+            "ent0_text",
+            "ent0_label",
+            "ent0_label_conf",
+            "ent0_source",
+            "ent0_span",
+            "ent1_text",
+            "ent1_label",
+            "ent1_label_conf",
+            "ent1_source",
+            "ent1_span"
+          ],
+          "bytes_per_field_pretty": null,
+          "bytes_per_field_compact": null
+        },
+        "croissant": {
+          "bytes_pretty": null,
+          "bytes_compact": null,
+          "fields_covered": 0,
+          "fields_total": 26,
+          "completeness": 0.0,
+          "fields_lost": [
+            "tok0_text",
+            "tok0_confidence",
+            "tok0_source",
+            "tok0_method",
+            "tok1_text",
+            "tok1_confidence",
+            "tok1_source",
+            "tok1_method",
+            "tok2_text",
+            "tok2_confidence",
+            "tok2_source",
+            "tok2_method",
+            "tok3_text",
+            "tok3_confidence",
+            "tok3_source",
+            "tok3_method",
+            "ent0_text",
+            "ent0_label",
+            "ent0_label_conf",
+            "ent0_source",
+            "ent0_span",
+            "ent1_text",
+            "ent1_label",
+            "ent1_label_conf",
+            "ent1_source",
+            "ent1_span"
+          ],
+          "bytes_per_field_pretty": null,
+          "bytes_per_field_compact": null
+        },
+        "plain_json": {
+          "bytes_pretty": 830,
+          "bytes_compact": 552,
+          "fields_covered": 26,
+          "fields_total": 26,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 31.9,
+          "bytes_per_field_compact": 21.2
+        },
+        "jsonld_11": {
+          "bytes_pretty": 730,
+          "bytes_compact": 544,
+          "fields_covered": 10,
+          "fields_total": 26,
+          "completeness": 0.3846,
+          "fields_lost": [
+            "ent0_label_conf",
+            "ent0_source",
+            "ent1_label_conf",
+            "ent1_source",
+            "tok0_confidence",
+            "tok0_method",
+            "tok0_source",
+            "tok1_confidence",
+            "tok1_method",
+            "tok1_source",
+            "tok2_confidence",
+            "tok2_method",
+            "tok2_source",
+            "tok3_confidence",
+            "tok3_method",
+            "tok3_source"
+          ],
+          "bytes_per_field_pretty": 73.0,
+          "bytes_per_field_compact": 54.4
+        }
+      },
+      {
+        "id": "S3",
+        "name": "IoT sensor reading with uncertainty and calibration",
+        "description": "Sensor observation with measurement uncertainty, calibration provenance, confidence",
+        "n_semantic_fields": 10,
+        "jsonld_ex": {
+          "bytes_pretty": 402,
+          "bytes_compact": 356,
+          "fields_covered": 10,
+          "fields_total": 10,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 40.2,
+          "bytes_per_field_compact": 35.6
+        },
+        "prov_o": {
+          "bytes_pretty": 944,
+          "bytes_compact": 802,
+          "fields_covered": 10,
+          "fields_total": 10,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 94.4,
+          "bytes_per_field_compact": 80.2
+        },
+        "shacl": {
+          "bytes_pretty": null,
+          "bytes_compact": null,
+          "fields_covered": 0,
+          "fields_total": 10,
+          "completeness": 0.0,
+          "fields_lost": [
+            "obs_type",
+            "obs_property",
+            "obs_value",
+            "obs_confidence",
+            "obs_source",
+            "obs_uncertainty",
+            "obs_unit",
+            "obs_timestamp",
+            "cal_date",
+            "cal_method"
+          ],
+          "bytes_per_field_pretty": null,
+          "bytes_per_field_compact": null
+        },
+        "croissant": {
+          "bytes_pretty": null,
+          "bytes_compact": null,
+          "fields_covered": 0,
+          "fields_total": 10,
+          "completeness": 0.0,
+          "fields_lost": [
+            "obs_type",
+            "obs_property",
+            "obs_value",
+            "obs_confidence",
+            "obs_source",
+            "obs_uncertainty",
+            "obs_unit",
+            "obs_timestamp",
+            "cal_date",
+            "cal_method"
+          ],
+          "bytes_per_field_pretty": null,
+          "bytes_per_field_compact": null
+        },
+        "plain_json": {
+          "bytes_pretty": 286,
+          "bytes_compact": 254,
+          "fields_covered": 10,
+          "fields_total": 10,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 28.6,
+          "bytes_per_field_compact": 25.4
+        },
+        "jsonld_11": {
+          "bytes_pretty": 214,
+          "bytes_compact": 194,
+          "fields_covered": 4,
+          "fields_total": 10,
+          "completeness": 0.4,
+          "fields_lost": [
+            "cal_date",
+            "cal_method",
+            "obs_confidence",
+            "obs_source",
+            "obs_uncertainty",
+            "obs_unit"
+          ],
+          "bytes_per_field_pretty": 53.5,
+          "bytes_per_field_compact": 48.5
+        }
+      },
+      {
+        "id": "S4",
+        "name": "KG triple with multi-source provenance chain",
+        "description": "Knowledge graph assertion with confidence, multi-source derivation, human verification",
+        "n_semantic_fields": 8,
+        "jsonld_ex": {
+          "bytes_pretty": 356,
+          "bytes_compact": 300,
+          "fields_covered": 8,
+          "fields_total": 8,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 44.5,
+          "bytes_per_field_compact": 37.5
+        },
+        "prov_o": {
+          "bytes_pretty": 866,
+          "bytes_compact": 614,
+          "fields_covered": 8,
+          "fields_total": 8,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 108.2,
+          "bytes_per_field_compact": 76.8
+        },
+        "shacl": {
+          "bytes_pretty": null,
+          "bytes_compact": null,
+          "fields_covered": 0,
+          "fields_total": 8,
+          "completeness": 0.0,
+          "fields_lost": [
+            "person_name",
+            "birthplace_value",
+            "birthplace_confidence",
+            "birthplace_source",
+            "birthplace_timestamp",
+            "birthplace_derived_from_1",
+            "birthplace_derived_from_2",
+            "birthplace_human_verified"
+          ],
+          "bytes_per_field_pretty": null,
+          "bytes_per_field_compact": null
+        },
+        "croissant": {
+          "bytes_pretty": null,
+          "bytes_compact": null,
+          "fields_covered": 0,
+          "fields_total": 8,
+          "completeness": 0.0,
+          "fields_lost": [
+            "person_name",
+            "birthplace_value",
+            "birthplace_confidence",
+            "birthplace_source",
+            "birthplace_timestamp",
+            "birthplace_derived_from_1",
+            "birthplace_derived_from_2",
+            "birthplace_human_verified"
+          ],
+          "bytes_per_field_pretty": null,
+          "bytes_per_field_compact": null
+        },
+        "plain_json": {
+          "bytes_pretty": 307,
+          "bytes_compact": 255,
+          "fields_covered": 8,
+          "fields_total": 8,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 38.4,
+          "bytes_per_field_compact": 31.9
+        },
+        "jsonld_11": {
+          "bytes_pretty": 151,
+          "bytes_compact": 133,
+          "fields_covered": 2,
+          "fields_total": 8,
+          "completeness": 0.25,
+          "fields_lost": [
+            "birthplace_confidence",
+            "birthplace_derived_from_1",
+            "birthplace_derived_from_2",
+            "birthplace_human_verified",
+            "birthplace_source",
+            "birthplace_timestamp"
+          ],
+          "bytes_per_field_pretty": 75.5,
+          "bytes_per_field_compact": 66.5
+        }
+      },
+      {
+        "id": "S5",
+        "name": "Model prediction with multi-label confidence",
+        "description": "Classification output with per-label confidence and model provenance",
+        "n_semantic_fields": 9,
+        "jsonld_ex": {
+          "bytes_pretty": 414,
+          "bytes_compact": 362,
+          "fields_covered": 9,
+          "fields_total": 9,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 46.0,
+          "bytes_per_field_compact": 40.2
+        },
+        "prov_o": {
+          "bytes_pretty": 929,
+          "bytes_compact": 689,
+          "fields_covered": 9,
+          "fields_total": 9,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 103.2,
+          "bytes_per_field_compact": 76.6
+        },
+        "shacl": {
+          "bytes_pretty": null,
+          "bytes_compact": null,
+          "fields_covered": 0,
+          "fields_total": 9,
+          "completeness": 0.0,
+          "fields_lost": [
+            "input_file",
+            "label_primary",
+            "label_primary_confidence",
+            "label_primary_source",
+            "label_primary_method",
+            "label_primary_timestamp",
+            "label_secondary",
+            "label_secondary_confidence",
+            "label_secondary_source"
+          ],
+          "bytes_per_field_pretty": null,
+          "bytes_per_field_compact": null
+        },
+        "croissant": {
+          "bytes_pretty": null,
+          "bytes_compact": null,
+          "fields_covered": 0,
+          "fields_total": 9,
+          "completeness": 0.0,
+          "fields_lost": [
+            "input_file",
+            "label_primary",
+            "label_primary_confidence",
+            "label_primary_source",
+            "label_primary_method",
+            "label_primary_timestamp",
+            "label_secondary",
+            "label_secondary_confidence",
+            "label_secondary_source"
+          ],
+          "bytes_per_field_pretty": null,
+          "bytes_per_field_compact": null
+        },
+        "plain_json": {
+          "bytes_pretty": 343,
+          "bytes_compact": 265,
+          "fields_covered": 9,
+          "fields_total": 9,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 38.1,
+          "bytes_per_field_compact": 29.4
+        },
+        "jsonld_11": {
+          "bytes_pretty": 160,
+          "bytes_compact": 142,
+          "fields_covered": 2,
+          "fields_total": 9,
+          "completeness": 0.2222,
+          "fields_lost": [
+            "label_primary_confidence",
+            "label_primary_method",
+            "label_primary_source",
+            "label_primary_timestamp",
+            "label_secondary",
+            "label_secondary_confidence",
+            "label_secondary_source"
+          ],
+          "bytes_per_field_pretty": 80.0,
+          "bytes_per_field_compact": 71.0
+        }
+      },
+      {
+        "id": "S6",
+        "name": "Multilingual content with translation provenance",
+        "description": "Translated text with source language, model, confidence, and timestamp",
+        "n_semantic_fields": 7,
+        "jsonld_ex": {
+          "bytes_pretty": 366,
+          "bytes_compact": 318,
+          "fields_covered": 7,
+          "fields_total": 7,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 52.3,
+          "bytes_per_field_compact": 45.4
+        },
+        "prov_o": {
+          "bytes_pretty": 818,
+          "bytes_compact": 586,
+          "fields_covered": 7,
+          "fields_total": 7,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 116.9,
+          "bytes_per_field_compact": 83.7
+        },
+        "shacl": {
+          "bytes_pretty": null,
+          "bytes_compact": null,
+          "fields_covered": 0,
+          "fields_total": 7,
+          "completeness": 0.0,
+          "fields_lost": [
+            "title_en",
+            "title_ja",
+            "translated_from",
+            "translation_model",
+            "translation_confidence",
+            "translation_source",
+            "translation_timestamp"
+          ],
+          "bytes_per_field_pretty": null,
+          "bytes_per_field_compact": null
+        },
+        "croissant": {
+          "bytes_pretty": null,
+          "bytes_compact": null,
+          "fields_covered": 0,
+          "fields_total": 7,
+          "completeness": 0.0,
+          "fields_lost": [
+            "title_en",
+            "title_ja",
+            "translated_from",
+            "translation_model",
+            "translation_confidence",
+            "translation_source",
+            "translation_timestamp"
+          ],
+          "bytes_per_field_pretty": null,
+          "bytes_per_field_compact": null
+        },
+        "plain_json": {
+          "bytes_pretty": 313,
+          "bytes_compact": 263,
+          "fields_covered": 7,
+          "fields_total": 7,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 44.7,
+          "bytes_per_field_compact": 37.6
+        },
+        "jsonld_11": {
+          "bytes_pretty": 187,
+          "bytes_compact": 155,
+          "fields_covered": 2,
+          "fields_total": 7,
+          "completeness": 0.2857,
+          "fields_lost": [
+            "translated_from",
+            "translation_confidence",
+            "translation_model",
+            "translation_source",
+            "translation_timestamp"
+          ],
+          "bytes_per_field_pretty": 93.5,
+          "bytes_per_field_compact": 77.5
+        }
+      },
+      {
+        "id": "S7",
+        "name": "Temporal validity window on regulatory assertion",
+        "description": "Time-bounded assertion with validity period and confidence on status",
+        "n_semantic_fields": 6,
+        "jsonld_ex": {
+          "bytes_pretty": 297,
+          "bytes_compact": 267,
+          "fields_covered": 6,
+          "fields_total": 6,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 49.5,
+          "bytes_per_field_compact": 44.5
+        },
+        "prov_o": {
+          "bytes_pretty": 665,
+          "bytes_compact": 475,
+          "fields_covered": 6,
+          "fields_total": 6,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 110.8,
+          "bytes_per_field_compact": 79.2
+        },
+        "shacl": {
+          "bytes_pretty": null,
+          "bytes_compact": null,
+          "fields_covered": 0,
+          "fields_total": 6,
+          "completeness": 0.0,
+          "fields_lost": [
+            "regulation_name",
+            "status_value",
+            "status_confidence",
+            "status_source",
+            "valid_from",
+            "valid_until"
+          ],
+          "bytes_per_field_pretty": null,
+          "bytes_per_field_compact": null
+        },
+        "croissant": {
+          "bytes_pretty": null,
+          "bytes_compact": null,
+          "fields_covered": 0,
+          "fields_total": 6,
+          "completeness": 0.0,
+          "fields_lost": [
+            "regulation_name",
+            "status_value",
+            "status_confidence",
+            "status_source",
+            "valid_from",
+            "valid_until"
+          ],
+          "bytes_per_field_pretty": null,
+          "bytes_per_field_compact": null
+        },
+        "plain_json": {
+          "bytes_pretty": 193,
+          "bytes_compact": 179,
+          "fields_covered": 6,
+          "fields_total": 6,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 32.2,
+          "bytes_per_field_compact": 29.8
+        },
+        "jsonld_11": {
+          "bytes_pretty": 172,
+          "bytes_compact": 154,
+          "fields_covered": 2,
+          "fields_total": 6,
+          "completeness": 0.3333,
+          "fields_lost": [
+            "status_confidence",
+            "status_source",
+            "status_value",
+            "valid_until"
+          ],
+          "bytes_per_field_pretty": 86.0,
+          "bytes_per_field_compact": 77.0
+        }
+      },
+      {
+        "id": "S8",
+        "name": "Validation shape for Person entity",
+        "description": "Data validation constraints: types, required fields, ranges, patterns",
+        "n_semantic_fields": 10,
+        "jsonld_ex": {
+          "bytes_pretty": 370,
+          "bytes_compact": 272,
+          "fields_covered": 10,
+          "fields_total": 10,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 37.0,
+          "bytes_per_field_compact": 27.2
+        },
+        "prov_o": {
+          "bytes_pretty": null,
+          "bytes_compact": null,
+          "fields_covered": 0,
+          "fields_total": 10,
+          "completeness": 0.0,
+          "fields_lost": [
+            "target_type",
+            "name_required",
+            "name_type",
+            "name_minLength",
+            "email_required",
+            "email_type",
+            "email_pattern",
+            "age_type",
+            "age_min",
+            "age_max"
+          ],
+          "bytes_per_field_pretty": null,
+          "bytes_per_field_compact": null
+        },
+        "shacl": {
+          "bytes_pretty": 634,
+          "bytes_compact": 502,
+          "fields_covered": 10,
+          "fields_total": 10,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 63.4,
+          "bytes_per_field_compact": 50.2
+        },
+        "croissant": {
+          "bytes_pretty": null,
+          "bytes_compact": null,
+          "fields_covered": 0,
+          "fields_total": 10,
+          "completeness": 0.0,
+          "fields_lost": [
+            "target_type",
+            "name_required",
+            "name_type",
+            "name_minLength",
+            "email_required",
+            "email_type",
+            "email_pattern",
+            "age_type",
+            "age_min",
+            "age_max"
+          ],
+          "bytes_per_field_pretty": null,
+          "bytes_per_field_compact": null
+        },
+        "plain_json": {
+          "bytes_pretty": 350,
+          "bytes_compact": 254,
+          "fields_covered": 10,
+          "fields_total": 10,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 35.0,
+          "bytes_per_field_compact": 25.4
+        },
+        "jsonld_11": {
+          "bytes_pretty": 86,
+          "bytes_compact": 72,
+          "fields_covered": 1,
+          "fields_total": 10,
+          "completeness": 0.1,
+          "fields_lost": [
+            "age_max",
+            "age_min",
+            "age_type",
+            "email_pattern",
+            "email_required",
+            "email_type",
+            "name_minLength",
+            "name_required",
+            "name_type"
+          ],
+          "bytes_per_field_pretty": 86.0,
+          "bytes_per_field_compact": 72.0
+        }
+      },
+      {
+        "id": "S9",
+        "name": "Multi-source fused assertion with SL opinion",
+        "description": "Fused claim from 3 sources with full (b,d,u,a) opinion and fusion provenance",
+        "n_semantic_fields": 11,
+        "jsonld_ex": {
+          "bytes_pretty": 438,
+          "bytes_compact": 358,
+          "fields_covered": 11,
+          "fields_total": 11,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 39.8,
+          "bytes_per_field_compact": 32.5
+        },
+        "prov_o": {
+          "bytes_pretty": 877,
+          "bytes_compact": 565,
+          "fields_covered": 7,
+          "fields_total": 11,
+          "completeness": 0.6364,
+          "fields_lost": [
+            "opinion_base_rate",
+            "opinion_belief",
+            "opinion_disbelief",
+            "opinion_uncertainty"
+          ],
+          "bytes_per_field_pretty": 125.3,
+          "bytes_per_field_compact": 80.7
+        },
+        "shacl": {
+          "bytes_pretty": null,
+          "bytes_compact": null,
+          "fields_covered": 0,
+          "fields_total": 11,
+          "completeness": 0.0,
+          "fields_lost": [
+            "claim_subject",
+            "claim_value",
+            "claim_confidence",
+            "fusion_method",
+            "source_1",
+            "source_2",
+            "source_3",
+            "opinion_belief",
+            "opinion_disbelief",
+            "opinion_uncertainty",
+            "opinion_base_rate"
+          ],
+          "bytes_per_field_pretty": null,
+          "bytes_per_field_compact": null
+        },
+        "croissant": {
+          "bytes_pretty": null,
+          "bytes_compact": null,
+          "fields_covered": 0,
+          "fields_total": 11,
+          "completeness": 0.0,
+          "fields_lost": [
+            "claim_subject",
+            "claim_value",
+            "claim_confidence",
+            "fusion_method",
+            "source_1",
+            "source_2",
+            "source_3",
+            "opinion_belief",
+            "opinion_disbelief",
+            "opinion_uncertainty",
+            "opinion_base_rate"
+          ],
+          "bytes_per_field_pretty": null,
+          "bytes_per_field_compact": null
+        },
+        "plain_json": {
+          "bytes_pretty": 296,
+          "bytes_compact": 246,
+          "fields_covered": 11,
+          "fields_total": 11,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 26.9,
+          "bytes_per_field_compact": 22.4
+        },
+        "jsonld_11": {
+          "bytes_pretty": 153,
+          "bytes_compact": 135,
+          "fields_covered": 2,
+          "fields_total": 11,
+          "completeness": 0.1818,
+          "fields_lost": [
+            "claim_confidence",
+            "fusion_method",
+            "opinion_base_rate",
+            "opinion_belief",
+            "opinion_disbelief",
+            "opinion_uncertainty",
+            "source_1",
+            "source_2",
+            "source_3"
+          ],
+          "bytes_per_field_pretty": 76.5,
+          "bytes_per_field_compact": 67.5
+        }
+      },
+      {
+        "id": "S10",
+        "name": "Invalidated/retracted claim",
+        "description": "Retracted assertion with invalidation timestamp and reason",
+        "n_semantic_fields": 6,
+        "jsonld_ex": {
+          "bytes_pretty": 319,
+          "bytes_compact": 285,
+          "fields_covered": 6,
+          "fields_total": 6,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 53.2,
+          "bytes_per_field_compact": 47.5
+        },
+        "prov_o": {
+          "bytes_pretty": 698,
+          "bytes_compact": 498,
+          "fields_covered": 6,
+          "fields_total": 6,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 116.3,
+          "bytes_per_field_compact": 83.0
+        },
+        "shacl": {
+          "bytes_pretty": null,
+          "bytes_compact": null,
+          "fields_covered": 0,
+          "fields_total": 6,
+          "completeness": 0.0,
+          "fields_lost": [
+            "claim_subject",
+            "claim_value",
+            "claim_confidence",
+            "claim_source",
+            "invalidated_at",
+            "invalidation_reason"
+          ],
+          "bytes_per_field_pretty": null,
+          "bytes_per_field_compact": null
+        },
+        "croissant": {
+          "bytes_pretty": null,
+          "bytes_compact": null,
+          "fields_covered": 0,
+          "fields_total": 6,
+          "completeness": 0.0,
+          "fields_lost": [
+            "claim_subject",
+            "claim_value",
+            "claim_confidence",
+            "claim_source",
+            "invalidated_at",
+            "invalidation_reason"
+          ],
+          "bytes_per_field_pretty": null,
+          "bytes_per_field_compact": null
+        },
+        "plain_json": {
+          "bytes_pretty": 216,
+          "bytes_compact": 202,
+          "fields_covered": 6,
+          "fields_total": 6,
+          "completeness": 1.0,
+          "fields_lost": [],
+          "bytes_per_field_pretty": 36.0,
+          "bytes_per_field_compact": 33.7
+        },
+        "jsonld_11": {
+          "bytes_pretty": 161,
+          "bytes_compact": 143,
+          "fields_covered": 2,
+          "fields_total": 6,
+          "completeness": 0.3333,
+          "fields_lost": [
+            "claim_confidence",
+            "claim_source",
+            "invalidated_at",
+            "invalidation_reason"
+          ],
+          "bytes_per_field_pretty": 80.5,
+          "bytes_per_field_compact": 71.5
+        }
+      }
+    ],
+    "en2_2_matrix_justified": {
+      "jsonld_ex": {
+        "confidence": {
+          "level": "native",
+          "justification": "@confidence annotation field; annotate(confidence=...)"
+        },
+        "sl_opinion": {
+          "level": "native",
+          "justification": "@opinion dict with b/d/u/a; Opinion class in confidence_algebra"
+        },
+        "source": {
+          "level": "native",
+          "justification": "First-class @source or dedicated API function"
+        },
+        "extraction_time": {
+          "level": "native",
+          "justification": "First-class @extraction_time or dedicated API function"
+        },
+        "extraction_method": {
+          "level": "native",
+          "justification": "First-class @extraction_method or dedicated API function"
+        },
+        "human_verified": {
+          "level": "native",
+          "justification": "First-class @human_verified or dedicated API function"
+        },
+        "derivation_chain": {
+          "level": "native",
+          "justification": "First-class @derivation_chain or dedicated API function"
+        },
+        "delegation_chain": {
+          "level": "native",
+          "justification": "First-class @delegation_chain or dedicated API function"
+        },
+        "invalidation": {
+          "level": "native",
+          "justification": "First-class @invalidation or dedicated API function"
+        },
+        "validity_window": {
+          "level": "native",
+          "justification": "First-class @validity_window or dedicated API function"
+        },
+        "temporal_query": {
+          "level": "native",
+          "justification": "First-class @temporal_query or dedicated API function"
+        },
+        "temporal_diff": {
+          "level": "native",
+          "justification": "First-class @temporal_diff or dedicated API function"
+        },
+        "cumulative_fusion": {
+          "level": "native",
+          "justification": "cumulative_fuse() in confidence_algebra.py"
+        },
+        "averaging_fusion": {
+          "level": "native",
+          "justification": "First-class @averaging_fusion or dedicated API function"
+        },
+        "trust_discount": {
+          "level": "native",
+          "justification": "First-class @trust_discount or dedicated API function"
+        },
+        "deduction": {
+          "level": "native",
+          "justification": "First-class @deduction or dedicated API function"
+        },
+        "conflict_detection": {
+          "level": "native",
+          "justification": "First-class @conflict_detection or dedicated API function"
+        },
+        "byzantine_fusion": {
+          "level": "native",
+          "justification": "First-class @byzantine_fusion or dedicated API function"
+        },
+        "temporal_decay": {
+          "level": "native",
+          "justification": "First-class @temporal_decay or dedicated API function"
+        },
+        "schema_validation": {
+          "level": "native",
+          "justification": "@shape with @type/@required/@min/@max/@pattern; validate_node()"
+        },
+        "required_fields": {
+          "level": "native",
+          "justification": "First-class @required_fields or dedicated API function"
+        },
+        "cross_field": {
+          "level": "native",
+          "justification": "First-class @cross_field or dedicated API function"
+        },
+        "dataset_metadata": {
+          "level": "native",
+          "justification": "First-class @dataset_metadata or dedicated API function"
+        },
+        "file_distributions": {
+          "level": "native",
+          "justification": "First-class @file_distributions or dedicated API function"
+        },
+        "record_set": {
+          "level": "native",
+          "justification": "First-class @record_set or dedicated API function"
+        },
+        "rdf_compat": {
+          "level": "native",
+          "justification": "JSON-LD is an RDF serialization; to_rdf_star_ntriples()"
+        },
+        "prov_o_interop": {
+          "level": "native",
+          "justification": "First-class @prov_o_interop or dedicated API function"
+        },
+        "shacl_interop": {
+          "level": "native",
+          "justification": "First-class @shacl_interop or dedicated API function"
+        },
+        "owl_interop": {
+          "level": "native",
+          "justification": "First-class @owl_interop or dedicated API function"
+        },
+        "ssn_sosa": {
+          "level": "native",
+          "justification": "First-class @ssn_sosa or dedicated API function"
+        },
+        "croissant_interop": {
+          "level": "native",
+          "justification": "to_croissant()/from_croissant() in dataset.py"
+        },
+        "vector_embeddings": {
+          "level": "native",
+          "justification": "@vector container; validate_vector()/cosine_similarity()"
+        },
+        "measurement_uncertainty": {
+          "level": "native",
+          "justification": "First-class @measurement_uncertainty or dedicated API function"
+        },
+        "calibration": {
+          "level": "native",
+          "justification": "First-class @calibration or dedicated API function"
+        },
+        "translation_provenance": {
+          "level": "native",
+          "justification": "First-class @translation_provenance or dedicated API function"
+        },
+        "graph_merge": {
+          "level": "native",
+          "justification": "merge_graphs()/diff_graphs() in merge.py"
+        }
+      },
+      "croissant": {
+        "confidence": {
+          "level": "not_possible",
+          "justification": "No annotation-level metadata in Croissant spec (MLCommons 2024)"
+        },
+        "sl_opinion": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra in Croissant"
+        },
+        "source": {
+          "level": "workaround",
+          "justification": "sc:creator on Dataset, not per-field"
+        },
+        "extraction_time": {
+          "level": "not_possible",
+          "justification": "No per-assertion timestamp"
+        },
+        "extraction_method": {
+          "level": "not_possible",
+          "justification": "No method attribution"
+        },
+        "human_verified": {
+          "level": "not_possible",
+          "justification": "No verification flag"
+        },
+        "derivation_chain": {
+          "level": "not_possible",
+          "justification": "No derivation provenance"
+        },
+        "delegation_chain": {
+          "level": "not_possible",
+          "justification": "No delegation model"
+        },
+        "invalidation": {
+          "level": "not_possible",
+          "justification": "No invalidation/retraction concept"
+        },
+        "validity_window": {
+          "level": "not_possible",
+          "justification": "No temporal validity fields"
+        },
+        "temporal_query": {
+          "level": "not_possible",
+          "justification": "No temporal query mechanism"
+        },
+        "temporal_diff": {
+          "level": "not_possible",
+          "justification": "No temporal diff"
+        },
+        "cumulative_fusion": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra operators"
+        },
+        "averaging_fusion": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra operators"
+        },
+        "trust_discount": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra operators"
+        },
+        "deduction": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra operators"
+        },
+        "conflict_detection": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra operators"
+        },
+        "byzantine_fusion": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra operators"
+        },
+        "temporal_decay": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra operators"
+        },
+        "schema_validation": {
+          "level": "workaround",
+          "justification": "cr:Field has dataType but limited constraints"
+        },
+        "required_fields": {
+          "level": "workaround",
+          "justification": "Implicit via RecordSet structure"
+        },
+        "cross_field": {
+          "level": "not_possible",
+          "justification": "No cross-field constraint language"
+        },
+        "dataset_metadata": {
+          "level": "native",
+          "justification": "Core purpose: sc:Dataset with name, description, license"
+        },
+        "file_distributions": {
+          "level": "native",
+          "justification": "cr:FileObject/cr:FileSet are first-class"
+        },
+        "record_set": {
+          "level": "native",
+          "justification": "cr:RecordSet/cr:Field are first-class"
+        },
+        "rdf_compat": {
+          "level": "native",
+          "justification": "Built on schema.org + JSON-LD"
+        },
+        "prov_o_interop": {
+          "level": "not_possible",
+          "justification": "Not in scope"
+        },
+        "shacl_interop": {
+          "level": "not_possible",
+          "justification": "Not in scope"
+        },
+        "owl_interop": {
+          "level": "not_possible",
+          "justification": "Not in scope"
+        },
+        "ssn_sosa": {
+          "level": "not_possible",
+          "justification": "Not in scope"
+        },
+        "croissant_interop": {
+          "level": "native",
+          "justification": "Native"
+        },
+        "vector_embeddings": {
+          "level": "not_possible",
+          "justification": "No vector container type"
+        },
+        "measurement_uncertainty": {
+          "level": "not_possible",
+          "justification": "No measurement model"
+        },
+        "calibration": {
+          "level": "not_possible",
+          "justification": "No calibration metadata"
+        },
+        "translation_provenance": {
+          "level": "not_possible",
+          "justification": "No translation tracking"
+        },
+        "graph_merge": {
+          "level": "not_possible",
+          "justification": "No merge/diff operations"
+        }
+      },
+      "prov_o": {
+        "confidence": {
+          "level": "workaround",
+          "justification": "No native confidence; use prov:value + additionalProperty hack"
+        },
+        "sl_opinion": {
+          "level": "not_possible",
+          "justification": "No opinion algebra; would need custom ontology extension"
+        },
+        "source": {
+          "level": "native",
+          "justification": "prov:wasAttributedTo / prov:wasAssociatedWith"
+        },
+        "extraction_time": {
+          "level": "native",
+          "justification": "prov:endedAtTime / prov:generatedAtTime"
+        },
+        "extraction_method": {
+          "level": "native",
+          "justification": "prov:qualifiedAssociation with prov:hadRole"
+        },
+        "human_verified": {
+          "level": "workaround",
+          "justification": "prov:wasAttributedTo with role='human-verifier'"
+        },
+        "derivation_chain": {
+          "level": "native",
+          "justification": "prov:wasDerivedFrom (first-class)"
+        },
+        "delegation_chain": {
+          "level": "native",
+          "justification": "prov:actedOnBehalfOf (first-class)"
+        },
+        "invalidation": {
+          "level": "native",
+          "justification": "prov:wasInvalidatedBy (first-class)"
+        },
+        "validity_window": {
+          "level": "native",
+          "justification": "prov:generatedAtTime + prov:invalidatedAtTime"
+        },
+        "temporal_query": {
+          "level": "workaround",
+          "justification": "SPARQL query over prov timestamps; no built-in API"
+        },
+        "temporal_diff": {
+          "level": "not_possible",
+          "justification": "No diff mechanism"
+        },
+        "cumulative_fusion": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra; PROV tracks provenance not uncertainty"
+        },
+        "averaging_fusion": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra; PROV tracks provenance not uncertainty"
+        },
+        "trust_discount": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra; PROV tracks provenance not uncertainty"
+        },
+        "deduction": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra; PROV tracks provenance not uncertainty"
+        },
+        "conflict_detection": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra; PROV tracks provenance not uncertainty"
+        },
+        "byzantine_fusion": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra; PROV tracks provenance not uncertainty"
+        },
+        "temporal_decay": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra; PROV tracks provenance not uncertainty"
+        },
+        "schema_validation": {
+          "level": "not_possible",
+          "justification": "PROV is provenance, not validation"
+        },
+        "required_fields": {
+          "level": "not_possible",
+          "justification": "Not in scope"
+        },
+        "cross_field": {
+          "level": "not_possible",
+          "justification": "Not in scope"
+        },
+        "dataset_metadata": {
+          "level": "workaround",
+          "justification": "Use schema:Dataset alongside PROV"
+        },
+        "file_distributions": {
+          "level": "workaround",
+          "justification": "prov:Entity for files, verbose"
+        },
+        "record_set": {
+          "level": "not_possible",
+          "justification": "No record/field model"
+        },
+        "rdf_compat": {
+          "level": "native",
+          "justification": "PROV-O is an OWL ontology; fully RDF"
+        },
+        "prov_o_interop": {
+          "level": "native",
+          "justification": "It IS PROV-O"
+        },
+        "shacl_interop": {
+          "level": "not_possible",
+          "justification": "Different concerns"
+        },
+        "owl_interop": {
+          "level": "not_possible",
+          "justification": "Different concerns"
+        },
+        "ssn_sosa": {
+          "level": "workaround",
+          "justification": "Can combine PROV + SSN but requires manual graph construction"
+        },
+        "croissant_interop": {
+          "level": "not_possible",
+          "justification": "No Croissant mapping"
+        },
+        "vector_embeddings": {
+          "level": "not_possible",
+          "justification": "No vector type"
+        },
+        "measurement_uncertainty": {
+          "level": "workaround",
+          "justification": "Via SSN extension, not native PROV"
+        },
+        "calibration": {
+          "level": "workaround",
+          "justification": "Via qualified association pattern, verbose"
+        },
+        "translation_provenance": {
+          "level": "workaround",
+          "justification": "prov:wasDerivedFrom + role, verbose but expressible"
+        },
+        "graph_merge": {
+          "level": "workaround",
+          "justification": "RDF graph union, but no semantic merge logic"
+        }
+      },
+      "shacl": {
+        "confidence": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "sl_opinion": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "source": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "extraction_time": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "extraction_method": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "human_verified": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "derivation_chain": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "delegation_chain": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "invalidation": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "validity_window": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "temporal_query": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "temporal_diff": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "cumulative_fusion": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "averaging_fusion": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "trust_discount": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "deduction": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "conflict_detection": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "byzantine_fusion": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "temporal_decay": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "schema_validation": {
+          "level": "native",
+          "justification": "Core purpose of SHACL"
+        },
+        "required_fields": {
+          "level": "native",
+          "justification": "Core purpose of SHACL"
+        },
+        "cross_field": {
+          "level": "native",
+          "justification": "Core purpose of SHACL"
+        },
+        "dataset_metadata": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "file_distributions": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "record_set": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "rdf_compat": {
+          "level": "native",
+          "justification": "SHACL is RDF-based"
+        },
+        "prov_o_interop": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "shacl_interop": {
+          "level": "native",
+          "justification": "It IS SHACL"
+        },
+        "owl_interop": {
+          "level": "workaround",
+          "justification": "sh:class overlaps with OWL; partial mapping"
+        },
+        "ssn_sosa": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "croissant_interop": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "vector_embeddings": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "measurement_uncertainty": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "calibration": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "translation_provenance": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        },
+        "graph_merge": {
+          "level": "not_possible",
+          "justification": "SHACL is a constraint language, not a data annotation format"
+        }
+      },
+      "jsonld_11": {
+        "confidence": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "sl_opinion": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "source": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "extraction_time": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "extraction_method": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "human_verified": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "derivation_chain": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "delegation_chain": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "invalidation": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "validity_window": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "temporal_query": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "temporal_diff": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "cumulative_fusion": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "averaging_fusion": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "trust_discount": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "deduction": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "conflict_detection": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "byzantine_fusion": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "temporal_decay": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "schema_validation": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "required_fields": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "cross_field": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "dataset_metadata": {
+          "level": "workaround",
+          "justification": "Via schema.org vocabulary, no ML-specific fields"
+        },
+        "file_distributions": {
+          "level": "workaround",
+          "justification": "Via schema.org vocabulary, no ML-specific fields"
+        },
+        "record_set": {
+          "level": "workaround",
+          "justification": "Via schema.org vocabulary, no ML-specific fields"
+        },
+        "rdf_compat": {
+          "level": "native",
+          "justification": "JSON-LD is an RDF serialization format"
+        },
+        "prov_o_interop": {
+          "level": "workaround",
+          "justification": "Can embed any RDF vocabulary via @context, but no processing logic"
+        },
+        "shacl_interop": {
+          "level": "workaround",
+          "justification": "Can embed any RDF vocabulary via @context, but no processing logic"
+        },
+        "owl_interop": {
+          "level": "workaround",
+          "justification": "Can embed any RDF vocabulary via @context, but no processing logic"
+        },
+        "ssn_sosa": {
+          "level": "workaround",
+          "justification": "Can embed any RDF vocabulary via @context, but no processing logic"
+        },
+        "croissant_interop": {
+          "level": "workaround",
+          "justification": "Can embed any RDF vocabulary via @context, but no processing logic"
+        },
+        "vector_embeddings": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "measurement_uncertainty": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "calibration": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "translation_provenance": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        },
+        "graph_merge": {
+          "level": "not_possible",
+          "justification": "JSON-LD 1.1 has no extension mechanism for annotation metadata"
+        }
+      },
+      "plain_json": {
+        "confidence": {
+          "level": "workaround",
+          "justification": "Ad-hoc keys; no standard schema, no interop, no validation"
+        },
+        "sl_opinion": {
+          "level": "workaround",
+          "justification": "Ad-hoc keys; no standard schema, no interop, no validation"
+        },
+        "source": {
+          "level": "workaround",
+          "justification": "Ad-hoc keys; no standard schema, no interop, no validation"
+        },
+        "extraction_time": {
+          "level": "workaround",
+          "justification": "Ad-hoc keys; no standard schema, no interop, no validation"
+        },
+        "extraction_method": {
+          "level": "workaround",
+          "justification": "Ad-hoc keys; no standard schema, no interop, no validation"
+        },
+        "human_verified": {
+          "level": "workaround",
+          "justification": "Ad-hoc keys; no standard schema, no interop, no validation"
+        },
+        "derivation_chain": {
+          "level": "workaround",
+          "justification": "Ad-hoc keys; no standard schema, no interop, no validation"
+        },
+        "delegation_chain": {
+          "level": "workaround",
+          "justification": "Ad-hoc keys; no standard schema, no interop, no validation"
+        },
+        "invalidation": {
+          "level": "workaround",
+          "justification": "Ad-hoc keys; no standard schema, no interop, no validation"
+        },
+        "validity_window": {
+          "level": "workaround",
+          "justification": "Ad-hoc keys; no standard schema, no interop, no validation"
+        },
+        "temporal_query": {
+          "level": "not_possible",
+          "justification": "Requires computational logic not expressible in passive data format"
+        },
+        "temporal_diff": {
+          "level": "not_possible",
+          "justification": "Requires computational logic not expressible in passive data format"
+        },
+        "cumulative_fusion": {
+          "level": "not_possible",
+          "justification": "Requires computational logic not expressible in passive data format"
+        },
+        "averaging_fusion": {
+          "level": "not_possible",
+          "justification": "Requires computational logic not expressible in passive data format"
+        },
+        "trust_discount": {
+          "level": "not_possible",
+          "justification": "Requires computational logic not expressible in passive data format"
+        },
+        "deduction": {
+          "level": "not_possible",
+          "justification": "Requires computational logic not expressible in passive data format"
+        },
+        "conflict_detection": {
+          "level": "not_possible",
+          "justification": "Requires computational logic not expressible in passive data format"
+        },
+        "byzantine_fusion": {
+          "level": "not_possible",
+          "justification": "Requires computational logic not expressible in passive data format"
+        },
+        "temporal_decay": {
+          "level": "not_possible",
+          "justification": "Requires computational logic not expressible in passive data format"
+        },
+        "schema_validation": {
+          "level": "not_possible",
+          "justification": "Requires computational logic not expressible in passive data format"
+        },
+        "required_fields": {
+          "level": "not_possible",
+          "justification": "Requires computational logic not expressible in passive data format"
+        },
+        "cross_field": {
+          "level": "not_possible",
+          "justification": "Requires computational logic not expressible in passive data format"
+        },
+        "dataset_metadata": {
+          "level": "workaround",
+          "justification": "Ad-hoc structure; no standard, no semantic interop"
+        },
+        "file_distributions": {
+          "level": "workaround",
+          "justification": "Ad-hoc structure; no standard, no semantic interop"
+        },
+        "record_set": {
+          "level": "workaround",
+          "justification": "Ad-hoc structure; no standard, no semantic interop"
+        },
+        "rdf_compat": {
+          "level": "not_possible",
+          "justification": "Requires computational logic not expressible in passive data format"
+        },
+        "prov_o_interop": {
+          "level": "not_possible",
+          "justification": "Requires computational logic not expressible in passive data format"
+        },
+        "shacl_interop": {
+          "level": "not_possible",
+          "justification": "Requires computational logic not expressible in passive data format"
+        },
+        "owl_interop": {
+          "level": "not_possible",
+          "justification": "Requires computational logic not expressible in passive data format"
+        },
+        "ssn_sosa": {
+          "level": "not_possible",
+          "justification": "Requires computational logic not expressible in passive data format"
+        },
+        "croissant_interop": {
+          "level": "not_possible",
+          "justification": "Requires computational logic not expressible in passive data format"
+        },
+        "vector_embeddings": {
+          "level": "workaround",
+          "justification": "Ad-hoc keys; no standard schema, no interop, no validation"
+        },
+        "measurement_uncertainty": {
+          "level": "workaround",
+          "justification": "Ad-hoc keys; no standard schema, no interop, no validation"
+        },
+        "calibration": {
+          "level": "workaround",
+          "justification": "Ad-hoc keys; no standard schema, no interop, no validation"
+        },
+        "translation_provenance": {
+          "level": "workaround",
+          "justification": "Ad-hoc keys; no standard schema, no interop, no validation"
+        },
+        "graph_merge": {
+          "level": "not_possible",
+          "justification": "Requires computational logic not expressible in passive data format"
+        }
+      },
+      "hf_datasets": {
+        "confidence": {
+          "level": "not_possible",
+          "justification": "No per-sample annotation confidence in HF datasets"
+        },
+        "sl_opinion": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra"
+        },
+        "source": {
+          "level": "workaround",
+          "justification": "Dataset card metadata, not per-sample"
+        },
+        "extraction_time": {
+          "level": "not_possible",
+          "justification": "Not in HF datasets data model"
+        },
+        "extraction_method": {
+          "level": "not_possible",
+          "justification": "Not in HF datasets data model"
+        },
+        "human_verified": {
+          "level": "not_possible",
+          "justification": "Not in HF datasets data model"
+        },
+        "derivation_chain": {
+          "level": "not_possible",
+          "justification": "Not in HF datasets data model"
+        },
+        "delegation_chain": {
+          "level": "not_possible",
+          "justification": "Not in HF datasets data model"
+        },
+        "invalidation": {
+          "level": "not_possible",
+          "justification": "Not in HF datasets data model"
+        },
+        "validity_window": {
+          "level": "not_possible",
+          "justification": "No temporal model"
+        },
+        "temporal_query": {
+          "level": "not_possible",
+          "justification": "No temporal model"
+        },
+        "temporal_diff": {
+          "level": "not_possible",
+          "justification": "No temporal model"
+        },
+        "cumulative_fusion": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra"
+        },
+        "averaging_fusion": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra"
+        },
+        "trust_discount": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra"
+        },
+        "deduction": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra"
+        },
+        "conflict_detection": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra"
+        },
+        "byzantine_fusion": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra"
+        },
+        "temporal_decay": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra"
+        },
+        "schema_validation": {
+          "level": "workaround",
+          "justification": "Features class with dtype validation"
+        },
+        "required_fields": {
+          "level": "workaround",
+          "justification": "Features class enforces schema"
+        },
+        "cross_field": {
+          "level": "not_possible",
+          "justification": "No cross-field constraints"
+        },
+        "dataset_metadata": {
+          "level": "native",
+          "justification": "Dataset cards are first-class"
+        },
+        "file_distributions": {
+          "level": "native",
+          "justification": "Built-in data loading from multiple formats"
+        },
+        "record_set": {
+          "level": "native",
+          "justification": "Features class defines schema"
+        },
+        "rdf_compat": {
+          "level": "not_possible",
+          "justification": "No RDF/semantic web support"
+        },
+        "prov_o_interop": {
+          "level": "not_possible",
+          "justification": "No RDF/semantic web support"
+        },
+        "shacl_interop": {
+          "level": "not_possible",
+          "justification": "No RDF/semantic web support"
+        },
+        "owl_interop": {
+          "level": "not_possible",
+          "justification": "No RDF/semantic web support"
+        },
+        "ssn_sosa": {
+          "level": "not_possible",
+          "justification": "No RDF/semantic web support"
+        },
+        "croissant_interop": {
+          "level": "workaround",
+          "justification": "HF Hub exports Croissant cards (one-way)"
+        },
+        "vector_embeddings": {
+          "level": "not_possible",
+          "justification": "Not in data model"
+        },
+        "measurement_uncertainty": {
+          "level": "not_possible",
+          "justification": "Not in data model"
+        },
+        "calibration": {
+          "level": "not_possible",
+          "justification": "Not in data model"
+        },
+        "translation_provenance": {
+          "level": "not_possible",
+          "justification": "Not in data model"
+        },
+        "graph_merge": {
+          "level": "not_possible",
+          "justification": "Not in data model"
+        }
+      },
+      "mlflow": {
+        "confidence": {
+          "level": "workaround",
+          "justification": "Log as metric via mlflow.log_metric, not per-assertion"
+        },
+        "sl_opinion": {
+          "level": "not_possible",
+          "justification": "No opinion algebra"
+        },
+        "source": {
+          "level": "native",
+          "justification": "Run tracking with source URI is first-class"
+        },
+        "extraction_time": {
+          "level": "native",
+          "justification": "Run timestamps are automatic"
+        },
+        "extraction_method": {
+          "level": "native",
+          "justification": "Logged as run parameter/tag"
+        },
+        "human_verified": {
+          "level": "not_possible",
+          "justification": "No verification flag in model"
+        },
+        "derivation_chain": {
+          "level": "workaround",
+          "justification": "Parent run IDs, limited to experiment lineage"
+        },
+        "delegation_chain": {
+          "level": "not_possible",
+          "justification": "No delegation model"
+        },
+        "invalidation": {
+          "level": "not_possible",
+          "justification": "No invalidation concept"
+        },
+        "validity_window": {
+          "level": "not_possible",
+          "justification": "No temporal validity model"
+        },
+        "temporal_query": {
+          "level": "not_possible",
+          "justification": "No temporal validity model"
+        },
+        "temporal_diff": {
+          "level": "not_possible",
+          "justification": "No temporal validity model"
+        },
+        "cumulative_fusion": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra"
+        },
+        "averaging_fusion": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra"
+        },
+        "trust_discount": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra"
+        },
+        "deduction": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra"
+        },
+        "conflict_detection": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra"
+        },
+        "byzantine_fusion": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra"
+        },
+        "temporal_decay": {
+          "level": "not_possible",
+          "justification": "No uncertainty algebra"
+        },
+        "schema_validation": {
+          "level": "workaround",
+          "justification": "Model signatures validate input/output schemas"
+        },
+        "required_fields": {
+          "level": "not_possible",
+          "justification": "Not per-field"
+        },
+        "cross_field": {
+          "level": "not_possible",
+          "justification": "Not supported"
+        },
+        "dataset_metadata": {
+          "level": "native",
+          "justification": "mlflow.data.Dataset with name, source, schema"
+        },
+        "file_distributions": {
+          "level": "workaround",
+          "justification": "Artifacts can store files"
+        },
+        "record_set": {
+          "level": "workaround",
+          "justification": "Dataset schema via pandas schema inference"
+        },
+        "rdf_compat": {
+          "level": "not_possible",
+          "justification": "No semantic web support"
+        },
+        "prov_o_interop": {
+          "level": "not_possible",
+          "justification": "No semantic web support"
+        },
+        "shacl_interop": {
+          "level": "not_possible",
+          "justification": "No semantic web support"
+        },
+        "owl_interop": {
+          "level": "not_possible",
+          "justification": "No semantic web support"
+        },
+        "ssn_sosa": {
+          "level": "not_possible",
+          "justification": "No semantic web support"
+        },
+        "croissant_interop": {
+          "level": "not_possible",
+          "justification": "No semantic web support"
+        },
+        "vector_embeddings": {
+          "level": "not_possible",
+          "justification": "Not in data model"
+        },
+        "measurement_uncertainty": {
+          "level": "not_possible",
+          "justification": "Not in data model"
+        },
+        "calibration": {
+          "level": "not_possible",
+          "justification": "Not in data model"
+        },
+        "translation_provenance": {
+          "level": "not_possible",
+          "justification": "Not in data model"
+        },
+        "graph_merge": {
+          "level": "not_possible",
+          "justification": "Not in data model"
+        }
+      }
+    },
+    "en2_2_feature_list": [
+      {
+        "name": "Scalar confidence per assertion",
+        "key": "confidence"
+      },
+      {
+        "name": "SL opinion (b,d,u,a) per assertion",
+        "key": "sl_opinion"
+      },
+      {
+        "name": "Source attribution per assertion",
+        "key": "source"
+      },
+      {
+        "name": "Extraction timestamp per assertion",
+        "key": "extraction_time"
+      },
+      {
+        "name": "Extraction method per assertion",
+        "key": "extraction_method"
+      },
+      {
+        "name": "Human verification flag",
+        "key": "human_verified"
+      },
+      {
+        "name": "Derivation chain (derived_from)",
+        "key": "derivation_chain"
+      },
+      {
+        "name": "Delegation chain (delegated_by)",
+        "key": "delegation_chain"
+      },
+      {
+        "name": "Invalidation with reason",
+        "key": "invalidation"
+      },
+      {
+        "name": "Validity window (@validFrom/@validUntil)",
+        "key": "validity_window"
+      },
+      {
+        "name": "Point-in-time query",
+        "key": "temporal_query"
+      },
+      {
+        "name": "Temporal diff between snapshots",
+        "key": "temporal_diff"
+      },
+      {
+        "name": "Cumulative fusion of opinions",
+        "key": "cumulative_fusion"
+      },
+      {
+        "name": "Averaging fusion of opinions",
+        "key": "averaging_fusion"
+      },
+      {
+        "name": "Trust discount through provenance",
+        "key": "trust_discount"
+      },
+      {
+        "name": "Deduction (uncertain conditionals)",
+        "key": "deduction"
+      },
+      {
+        "name": "Conflict detection between sources",
+        "key": "conflict_detection"
+      },
+      {
+        "name": "Byzantine-resistant fusion",
+        "key": "byzantine_fusion"
+      },
+      {
+        "name": "Temporal decay of opinions",
+        "key": "temporal_decay"
+      },
+      {
+        "name": "Schema validation (type, range, pattern)",
+        "key": "schema_validation"
+      },
+      {
+        "name": "Required field constraints",
+        "key": "required_fields"
+      },
+      {
+        "name": "Cross-field constraints",
+        "key": "cross_field"
+      },
+      {
+        "name": "Dataset metadata (name, license, etc.)",
+        "key": "dataset_metadata"
+      },
+      {
+        "name": "File distribution descriptions",
+        "key": "file_distributions"
+      },
+      {
+        "name": "Record set / field definitions",
+        "key": "record_set"
+      },
+      {
+        "name": "RDF/Linked Data compatibility",
+        "key": "rdf_compat"
+      },
+      {
+        "name": "PROV-O export/import",
+        "key": "prov_o_interop"
+      },
+      {
+        "name": "SHACL export/import",
+        "key": "shacl_interop"
+      },
+      {
+        "name": "OWL class restriction export",
+        "key": "owl_interop"
+      },
+      {
+        "name": "SSN/SOSA sensor interop",
+        "key": "ssn_sosa"
+      },
+      {
+        "name": "Croissant import/export",
+        "key": "croissant_interop"
+      },
+      {
+        "name": "Vector embeddings (@vector)",
+        "key": "vector_embeddings"
+      },
+      {
+        "name": "Measurement uncertainty (IoT)",
+        "key": "measurement_uncertainty"
+      },
+      {
+        "name": "Calibration metadata",
+        "key": "calibration"
+      },
+      {
+        "name": "Translation provenance",
+        "key": "translation_provenance"
+      },
+      {
+        "name": "Multi-source graph merge",
+        "key": "graph_merge"
+      }
+    ]
+  },
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.0",
+    "numpy_version": "2.0.2",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": "EN2.1+EN2.2 Extended: 10 scenarios x 6 formats with information completeness scoring (semantic fields preserved), bytes-per-field normalization, compact+pretty serialization, scaling analysis ([10, 100, 1000, 10000]), and justified feature coverage matrix (36 features x 8 formats). Every coverage cell includes a justification string."
+}

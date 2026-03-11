@@ -1,0 +1,761 @@
+{
+  "experiment_id": "EN2.1+EN2.2",
+  "parameters": {
+    "n_scenarios": 10,
+    "n_features": 36,
+    "formats_compared_verbosity": [
+      "jsonld_ex",
+      "prov_o",
+      "shacl",
+      "croissant",
+      "plain_json",
+      "jsonld_11"
+    ],
+    "formats_compared_coverage": [
+      "jsonld_ex",
+      "croissant",
+      "prov_o",
+      "shacl",
+      "jsonld_11",
+      "plain_json",
+      "hf_datasets",
+      "mlflow"
+    ],
+    "byte_measurement": "json.dumps(indent=2, sort_keys=True).encode('utf-8')"
+  },
+  "metrics": {
+    "en2_1_aggregate_ratios": {
+      "prov_o": {
+        "mean": 2.2893333333333334,
+        "median": 2.312,
+        "min": 1.59,
+        "max": 2.705,
+        "n_scenarios": 9
+      },
+      "shacl": {
+        "mean": 1.714,
+        "median": 1.714,
+        "min": 1.714,
+        "max": 1.714,
+        "n_scenarios": 1
+      },
+      "croissant": {
+        "mean": 0.905,
+        "median": 0.905,
+        "min": 0.905,
+        "max": 0.905,
+        "n_scenarios": 1
+      },
+      "plain_json": {
+        "mean": 0.7651,
+        "median": 0.757,
+        "min": 0.564,
+        "max": 0.946,
+        "n_scenarios": 10
+      },
+      "jsonld_11": {
+        "mean": 0.4862,
+        "median": 0.486,
+        "min": 0.232,
+        "max": 0.761,
+        "n_scenarios": 10
+      }
+    },
+    "en2_2_coverage_summary": {
+      "jsonld_ex": {
+        "native": 36,
+        "workaround": 0,
+        "not_possible": 0,
+        "total": 36,
+        "native_pct": 100.0,
+        "expressible_pct": 100.0
+      },
+      "croissant": {
+        "native": 5,
+        "workaround": 3,
+        "not_possible": 28,
+        "total": 36,
+        "native_pct": 13.9,
+        "expressible_pct": 22.2
+      },
+      "prov_o": {
+        "native": 9,
+        "workaround": 10,
+        "not_possible": 17,
+        "total": 36,
+        "native_pct": 25.0,
+        "expressible_pct": 52.8
+      },
+      "shacl": {
+        "native": 5,
+        "workaround": 1,
+        "not_possible": 30,
+        "total": 36,
+        "native_pct": 13.9,
+        "expressible_pct": 16.7
+      },
+      "jsonld_11": {
+        "native": 1,
+        "workaround": 8,
+        "not_possible": 27,
+        "total": 36,
+        "native_pct": 2.8,
+        "expressible_pct": 25.0
+      },
+      "plain_json": {
+        "native": 0,
+        "workaround": 17,
+        "not_possible": 19,
+        "total": 36,
+        "native_pct": 0.0,
+        "expressible_pct": 47.2
+      },
+      "hf_datasets": {
+        "native": 3,
+        "workaround": 5,
+        "not_possible": 28,
+        "total": 36,
+        "native_pct": 8.3,
+        "expressible_pct": 22.2
+      },
+      "mlflow": {
+        "native": 4,
+        "workaround": 5,
+        "not_possible": 27,
+        "total": 36,
+        "native_pct": 11.1,
+        "expressible_pct": 25.0
+      }
+    },
+    "en2_2_n_features": 36,
+    "total_wall_time_seconds": 12.3194
+  },
+  "timestamp": "2026-03-11T13:16:05.605982+00:00",
+  "raw_data": {
+    "en2_1_scenario_bytes": [
+      {
+        "id": "S1",
+        "name": "Dataset card with splits",
+        "description": "ML dataset with file distributions, record schema, and per-field confidence",
+        "jsonld_ex_bytes": 946,
+        "prov_o_bytes": 1504,
+        "shacl_bytes": null,
+        "croissant_bytes": 856,
+        "plain_json_bytes": 641,
+        "jsonld_11_bytes": 589,
+        "prov_o_ratio": 1.59,
+        "shacl_ratio": null,
+        "croissant_ratio": 0.905,
+        "plain_json_ratio": 0.678,
+        "jsonld_11_ratio": 0.623
+      },
+      {
+        "id": "S2",
+        "name": "NER annotations with per-token confidence",
+        "description": "NLP token annotations with confidence scores and model attribution",
+        "jsonld_ex_bytes": 959,
+        "prov_o_bytes": 1752,
+        "shacl_bytes": null,
+        "croissant_bytes": null,
+        "plain_json_bytes": 830,
+        "jsonld_11_bytes": 730,
+        "prov_o_ratio": 1.827,
+        "shacl_ratio": null,
+        "croissant_ratio": null,
+        "plain_json_ratio": 0.865,
+        "jsonld_11_ratio": 0.761
+      },
+      {
+        "id": "S3",
+        "name": "Sensor reading with uncertainty and calibration",
+        "description": "IoT sensor observation with measurement uncertainty, calibration provenance",
+        "jsonld_ex_bytes": 446,
+        "prov_o_bytes": 1087,
+        "shacl_bytes": null,
+        "croissant_bytes": null,
+        "plain_json_bytes": 286,
+        "jsonld_11_bytes": 214,
+        "prov_o_ratio": 2.437,
+        "shacl_ratio": null,
+        "croissant_ratio": null,
+        "plain_json_ratio": 0.641,
+        "jsonld_11_ratio": 0.48
+      },
+      {
+        "id": "S4",
+        "name": "KG triple with provenance chain",
+        "description": "Knowledge graph assertion with multi-source derivation and human verification",
+        "jsonld_ex_bytes": 356,
+        "prov_o_bytes": 945,
+        "shacl_bytes": null,
+        "croissant_bytes": null,
+        "plain_json_bytes": 311,
+        "jsonld_11_bytes": 151,
+        "prov_o_ratio": 2.654,
+        "shacl_ratio": null,
+        "croissant_ratio": null,
+        "plain_json_ratio": 0.874,
+        "jsonld_11_ratio": 0.424
+      },
+      {
+        "id": "S5",
+        "name": "Model prediction with confidence",
+        "description": "Classification output with confidence scores and model provenance",
+        "jsonld_ex_bytes": 414,
+        "prov_o_bytes": 1120,
+        "shacl_bytes": null,
+        "croissant_bytes": null,
+        "plain_json_bytes": 343,
+        "jsonld_11_bytes": 160,
+        "prov_o_ratio": 2.705,
+        "shacl_ratio": null,
+        "croissant_ratio": null,
+        "plain_json_ratio": 0.829,
+        "jsonld_11_ratio": 0.386
+      },
+      {
+        "id": "S6",
+        "name": "Multi-language with translation provenance",
+        "description": "Multilingual content with source language, translation model, and confidence",
+        "jsonld_ex_bytes": 366,
+        "prov_o_bytes": 988,
+        "shacl_bytes": null,
+        "croissant_bytes": null,
+        "plain_json_bytes": 325,
+        "jsonld_11_bytes": 187,
+        "prov_o_ratio": 2.699,
+        "shacl_ratio": null,
+        "croissant_ratio": null,
+        "plain_json_ratio": 0.888,
+        "jsonld_11_ratio": 0.511
+      },
+      {
+        "id": "S7",
+        "name": "Temporal validity window",
+        "description": "Time-bounded assertion with validity period and status confidence",
+        "jsonld_ex_bytes": 307,
+        "prov_o_bytes": 682,
+        "shacl_bytes": null,
+        "croissant_bytes": null,
+        "plain_json_bytes": 173,
+        "jsonld_11_bytes": 182,
+        "prov_o_ratio": 2.221,
+        "shacl_ratio": null,
+        "croissant_ratio": null,
+        "plain_json_ratio": 0.564,
+        "jsonld_11_ratio": 0.593
+      },
+      {
+        "id": "S8",
+        "name": "Validation shape for Person entity",
+        "description": "Data validation constraints with type checking, required fields, ranges",
+        "jsonld_ex_bytes": 370,
+        "prov_o_bytes": null,
+        "shacl_bytes": 634,
+        "croissant_bytes": null,
+        "plain_json_bytes": 350,
+        "jsonld_11_bytes": 86,
+        "prov_o_ratio": null,
+        "shacl_ratio": 1.714,
+        "croissant_ratio": null,
+        "plain_json_ratio": 0.946,
+        "jsonld_11_ratio": 0.232
+      },
+      {
+        "id": "S9",
+        "name": "Multi-source fused assertion",
+        "description": "Fused claim from 3 sources with SL opinion and fusion method attribution",
+        "jsonld_ex_bytes": 445,
+        "prov_o_bytes": 1029,
+        "shacl_bytes": null,
+        "croissant_bytes": null,
+        "plain_json_bytes": 303,
+        "jsonld_11_bytes": 160,
+        "prov_o_ratio": 2.312,
+        "shacl_ratio": null,
+        "croissant_ratio": null,
+        "plain_json_ratio": 0.681,
+        "jsonld_11_ratio": 0.36
+      },
+      {
+        "id": "S10",
+        "name": "Invalidated/retracted claim",
+        "description": "Retracted assertion with invalidation timestamp and reason",
+        "jsonld_ex_bytes": 327,
+        "prov_o_bytes": 706,
+        "shacl_bytes": null,
+        "croissant_bytes": null,
+        "plain_json_bytes": 224,
+        "jsonld_11_bytes": 161,
+        "prov_o_ratio": 2.159,
+        "shacl_ratio": null,
+        "croissant_ratio": null,
+        "plain_json_ratio": 0.685,
+        "jsonld_11_ratio": 0.492
+      }
+    ],
+    "en2_2_feature_matrix": {
+      "jsonld_ex": {
+        "confidence": "native",
+        "sl_opinion": "native",
+        "source": "native",
+        "extraction_time": "native",
+        "extraction_method": "native",
+        "human_verified": "native",
+        "derivation_chain": "native",
+        "delegation_chain": "native",
+        "invalidation": "native",
+        "validity_window": "native",
+        "temporal_query": "native",
+        "temporal_diff": "native",
+        "cumulative_fusion": "native",
+        "averaging_fusion": "native",
+        "trust_discount": "native",
+        "deduction": "native",
+        "conflict_detection": "native",
+        "byzantine_fusion": "native",
+        "temporal_decay": "native",
+        "schema_validation": "native",
+        "required_fields": "native",
+        "cross_field": "native",
+        "dataset_metadata": "native",
+        "file_distributions": "native",
+        "record_set": "native",
+        "rdf_compat": "native",
+        "prov_o_interop": "native",
+        "shacl_interop": "native",
+        "owl_interop": "native",
+        "ssn_sosa": "native",
+        "croissant_interop": "native",
+        "vector_embeddings": "native",
+        "measurement_uncertainty": "native",
+        "calibration": "native",
+        "translation_provenance": "native",
+        "graph_merge": "native"
+      },
+      "croissant": {
+        "confidence": "not_possible",
+        "sl_opinion": "not_possible",
+        "source": "workaround",
+        "extraction_time": "not_possible",
+        "extraction_method": "not_possible",
+        "human_verified": "not_possible",
+        "derivation_chain": "not_possible",
+        "delegation_chain": "not_possible",
+        "invalidation": "not_possible",
+        "validity_window": "not_possible",
+        "temporal_query": "not_possible",
+        "temporal_diff": "not_possible",
+        "cumulative_fusion": "not_possible",
+        "averaging_fusion": "not_possible",
+        "trust_discount": "not_possible",
+        "deduction": "not_possible",
+        "conflict_detection": "not_possible",
+        "byzantine_fusion": "not_possible",
+        "temporal_decay": "not_possible",
+        "schema_validation": "workaround",
+        "required_fields": "workaround",
+        "cross_field": "not_possible",
+        "dataset_metadata": "native",
+        "file_distributions": "native",
+        "record_set": "native",
+        "rdf_compat": "native",
+        "prov_o_interop": "not_possible",
+        "shacl_interop": "not_possible",
+        "owl_interop": "not_possible",
+        "ssn_sosa": "not_possible",
+        "croissant_interop": "native",
+        "vector_embeddings": "not_possible",
+        "measurement_uncertainty": "not_possible",
+        "calibration": "not_possible",
+        "translation_provenance": "not_possible",
+        "graph_merge": "not_possible"
+      },
+      "prov_o": {
+        "confidence": "workaround",
+        "sl_opinion": "not_possible",
+        "source": "native",
+        "extraction_time": "native",
+        "extraction_method": "native",
+        "human_verified": "workaround",
+        "derivation_chain": "native",
+        "delegation_chain": "native",
+        "invalidation": "native",
+        "validity_window": "native",
+        "temporal_query": "workaround",
+        "temporal_diff": "not_possible",
+        "cumulative_fusion": "not_possible",
+        "averaging_fusion": "not_possible",
+        "trust_discount": "not_possible",
+        "deduction": "not_possible",
+        "conflict_detection": "not_possible",
+        "byzantine_fusion": "not_possible",
+        "temporal_decay": "not_possible",
+        "schema_validation": "not_possible",
+        "required_fields": "not_possible",
+        "cross_field": "not_possible",
+        "dataset_metadata": "workaround",
+        "file_distributions": "workaround",
+        "record_set": "not_possible",
+        "rdf_compat": "native",
+        "prov_o_interop": "native",
+        "shacl_interop": "not_possible",
+        "owl_interop": "not_possible",
+        "ssn_sosa": "workaround",
+        "croissant_interop": "not_possible",
+        "vector_embeddings": "not_possible",
+        "measurement_uncertainty": "workaround",
+        "calibration": "workaround",
+        "translation_provenance": "workaround",
+        "graph_merge": "workaround"
+      },
+      "shacl": {
+        "confidence": "not_possible",
+        "sl_opinion": "not_possible",
+        "source": "not_possible",
+        "extraction_time": "not_possible",
+        "extraction_method": "not_possible",
+        "human_verified": "not_possible",
+        "derivation_chain": "not_possible",
+        "delegation_chain": "not_possible",
+        "invalidation": "not_possible",
+        "validity_window": "not_possible",
+        "temporal_query": "not_possible",
+        "temporal_diff": "not_possible",
+        "cumulative_fusion": "not_possible",
+        "averaging_fusion": "not_possible",
+        "trust_discount": "not_possible",
+        "deduction": "not_possible",
+        "conflict_detection": "not_possible",
+        "byzantine_fusion": "not_possible",
+        "temporal_decay": "not_possible",
+        "schema_validation": "native",
+        "required_fields": "native",
+        "cross_field": "native",
+        "dataset_metadata": "not_possible",
+        "file_distributions": "not_possible",
+        "record_set": "not_possible",
+        "rdf_compat": "native",
+        "prov_o_interop": "not_possible",
+        "shacl_interop": "native",
+        "owl_interop": "workaround",
+        "ssn_sosa": "not_possible",
+        "croissant_interop": "not_possible",
+        "vector_embeddings": "not_possible",
+        "measurement_uncertainty": "not_possible",
+        "calibration": "not_possible",
+        "translation_provenance": "not_possible",
+        "graph_merge": "not_possible"
+      },
+      "jsonld_11": {
+        "confidence": "not_possible",
+        "sl_opinion": "not_possible",
+        "source": "not_possible",
+        "extraction_time": "not_possible",
+        "extraction_method": "not_possible",
+        "human_verified": "not_possible",
+        "derivation_chain": "not_possible",
+        "delegation_chain": "not_possible",
+        "invalidation": "not_possible",
+        "validity_window": "not_possible",
+        "temporal_query": "not_possible",
+        "temporal_diff": "not_possible",
+        "cumulative_fusion": "not_possible",
+        "averaging_fusion": "not_possible",
+        "trust_discount": "not_possible",
+        "deduction": "not_possible",
+        "conflict_detection": "not_possible",
+        "byzantine_fusion": "not_possible",
+        "temporal_decay": "not_possible",
+        "schema_validation": "not_possible",
+        "required_fields": "not_possible",
+        "cross_field": "not_possible",
+        "dataset_metadata": "workaround",
+        "file_distributions": "workaround",
+        "record_set": "workaround",
+        "rdf_compat": "native",
+        "prov_o_interop": "workaround",
+        "shacl_interop": "workaround",
+        "owl_interop": "workaround",
+        "ssn_sosa": "workaround",
+        "croissant_interop": "workaround",
+        "vector_embeddings": "not_possible",
+        "measurement_uncertainty": "not_possible",
+        "calibration": "not_possible",
+        "translation_provenance": "not_possible",
+        "graph_merge": "not_possible"
+      },
+      "plain_json": {
+        "confidence": "workaround",
+        "sl_opinion": "workaround",
+        "source": "workaround",
+        "extraction_time": "workaround",
+        "extraction_method": "workaround",
+        "human_verified": "workaround",
+        "derivation_chain": "workaround",
+        "delegation_chain": "workaround",
+        "invalidation": "workaround",
+        "validity_window": "workaround",
+        "temporal_query": "not_possible",
+        "temporal_diff": "not_possible",
+        "cumulative_fusion": "not_possible",
+        "averaging_fusion": "not_possible",
+        "trust_discount": "not_possible",
+        "deduction": "not_possible",
+        "conflict_detection": "not_possible",
+        "byzantine_fusion": "not_possible",
+        "temporal_decay": "not_possible",
+        "schema_validation": "not_possible",
+        "required_fields": "not_possible",
+        "cross_field": "not_possible",
+        "dataset_metadata": "workaround",
+        "file_distributions": "workaround",
+        "record_set": "workaround",
+        "rdf_compat": "not_possible",
+        "prov_o_interop": "not_possible",
+        "shacl_interop": "not_possible",
+        "owl_interop": "not_possible",
+        "ssn_sosa": "not_possible",
+        "croissant_interop": "not_possible",
+        "vector_embeddings": "workaround",
+        "measurement_uncertainty": "workaround",
+        "calibration": "workaround",
+        "translation_provenance": "workaround",
+        "graph_merge": "not_possible"
+      },
+      "hf_datasets": {
+        "confidence": "not_possible",
+        "sl_opinion": "not_possible",
+        "source": "workaround",
+        "extraction_time": "not_possible",
+        "extraction_method": "not_possible",
+        "human_verified": "not_possible",
+        "derivation_chain": "not_possible",
+        "delegation_chain": "not_possible",
+        "invalidation": "not_possible",
+        "validity_window": "not_possible",
+        "temporal_query": "not_possible",
+        "temporal_diff": "not_possible",
+        "cumulative_fusion": "not_possible",
+        "averaging_fusion": "not_possible",
+        "trust_discount": "not_possible",
+        "deduction": "not_possible",
+        "conflict_detection": "not_possible",
+        "byzantine_fusion": "not_possible",
+        "temporal_decay": "not_possible",
+        "schema_validation": "workaround",
+        "required_fields": "workaround",
+        "cross_field": "not_possible",
+        "dataset_metadata": "native",
+        "file_distributions": "native",
+        "record_set": "native",
+        "rdf_compat": "not_possible",
+        "prov_o_interop": "not_possible",
+        "shacl_interop": "not_possible",
+        "owl_interop": "not_possible",
+        "ssn_sosa": "not_possible",
+        "croissant_interop": "workaround",
+        "vector_embeddings": "workaround",
+        "measurement_uncertainty": "not_possible",
+        "calibration": "not_possible",
+        "translation_provenance": "not_possible",
+        "graph_merge": "not_possible"
+      },
+      "mlflow": {
+        "confidence": "workaround",
+        "sl_opinion": "not_possible",
+        "source": "native",
+        "extraction_time": "native",
+        "extraction_method": "native",
+        "human_verified": "not_possible",
+        "derivation_chain": "workaround",
+        "delegation_chain": "not_possible",
+        "invalidation": "not_possible",
+        "validity_window": "not_possible",
+        "temporal_query": "not_possible",
+        "temporal_diff": "not_possible",
+        "cumulative_fusion": "not_possible",
+        "averaging_fusion": "not_possible",
+        "trust_discount": "not_possible",
+        "deduction": "not_possible",
+        "conflict_detection": "not_possible",
+        "byzantine_fusion": "not_possible",
+        "temporal_decay": "not_possible",
+        "schema_validation": "workaround",
+        "required_fields": "not_possible",
+        "cross_field": "not_possible",
+        "dataset_metadata": "native",
+        "file_distributions": "workaround",
+        "record_set": "workaround",
+        "rdf_compat": "not_possible",
+        "prov_o_interop": "not_possible",
+        "shacl_interop": "not_possible",
+        "owl_interop": "not_possible",
+        "ssn_sosa": "not_possible",
+        "croissant_interop": "not_possible",
+        "vector_embeddings": "not_possible",
+        "measurement_uncertainty": "not_possible",
+        "calibration": "not_possible",
+        "translation_provenance": "not_possible",
+        "graph_merge": "not_possible"
+      }
+    },
+    "en2_2_feature_list": [
+      {
+        "name": "Scalar confidence per assertion",
+        "key": "confidence"
+      },
+      {
+        "name": "SL opinion (b,d,u,a) per assertion",
+        "key": "sl_opinion"
+      },
+      {
+        "name": "Source attribution per assertion",
+        "key": "source"
+      },
+      {
+        "name": "Extraction timestamp per assertion",
+        "key": "extraction_time"
+      },
+      {
+        "name": "Extraction method per assertion",
+        "key": "extraction_method"
+      },
+      {
+        "name": "Human verification flag",
+        "key": "human_verified"
+      },
+      {
+        "name": "Derivation chain (derived_from)",
+        "key": "derivation_chain"
+      },
+      {
+        "name": "Delegation chain (delegated_by)",
+        "key": "delegation_chain"
+      },
+      {
+        "name": "Invalidation with reason",
+        "key": "invalidation"
+      },
+      {
+        "name": "Validity window (@validFrom/@validUntil)",
+        "key": "validity_window"
+      },
+      {
+        "name": "Point-in-time query",
+        "key": "temporal_query"
+      },
+      {
+        "name": "Temporal diff between snapshots",
+        "key": "temporal_diff"
+      },
+      {
+        "name": "Cumulative fusion of opinions",
+        "key": "cumulative_fusion"
+      },
+      {
+        "name": "Averaging fusion of opinions",
+        "key": "averaging_fusion"
+      },
+      {
+        "name": "Trust discount through provenance",
+        "key": "trust_discount"
+      },
+      {
+        "name": "Deduction (uncertain conditionals)",
+        "key": "deduction"
+      },
+      {
+        "name": "Conflict detection between sources",
+        "key": "conflict_detection"
+      },
+      {
+        "name": "Byzantine-resistant fusion",
+        "key": "byzantine_fusion"
+      },
+      {
+        "name": "Temporal decay of opinions",
+        "key": "temporal_decay"
+      },
+      {
+        "name": "Schema validation (type, range, pattern)",
+        "key": "schema_validation"
+      },
+      {
+        "name": "Required field constraints",
+        "key": "required_fields"
+      },
+      {
+        "name": "Cross-field constraints",
+        "key": "cross_field"
+      },
+      {
+        "name": "Dataset metadata (name, license, etc.)",
+        "key": "dataset_metadata"
+      },
+      {
+        "name": "File distribution descriptions",
+        "key": "file_distributions"
+      },
+      {
+        "name": "Record set / field definitions",
+        "key": "record_set"
+      },
+      {
+        "name": "RDF/Linked Data compatibility",
+        "key": "rdf_compat"
+      },
+      {
+        "name": "PROV-O export/import",
+        "key": "prov_o_interop"
+      },
+      {
+        "name": "SHACL export/import",
+        "key": "shacl_interop"
+      },
+      {
+        "name": "OWL class restriction export",
+        "key": "owl_interop"
+      },
+      {
+        "name": "SSN/SOSA sensor interop",
+        "key": "ssn_sosa"
+      },
+      {
+        "name": "Croissant import/export",
+        "key": "croissant_interop"
+      },
+      {
+        "name": "Vector embeddings (@vector)",
+        "key": "vector_embeddings"
+      },
+      {
+        "name": "Measurement uncertainty (IoT)",
+        "key": "measurement_uncertainty"
+      },
+      {
+        "name": "Calibration metadata",
+        "key": "calibration"
+      },
+      {
+        "name": "Translation provenance",
+        "key": "translation_provenance"
+      },
+      {
+        "name": "Multi-source graph merge",
+        "key": "graph_merge"
+      }
+    ]
+  },
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.0",
+    "numpy_version": "2.0.2",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": "EN2.1: Verbosity comparison of 10 ML scenarios across 6 formats. EN2.2: Feature coverage matrix of 35 ML-relevant features across 8 format ecosystems. All representations constructed to be fair to alternatives — no strawmanning."
+}
