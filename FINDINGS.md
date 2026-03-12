@@ -1,7 +1,7 @@
 # Experiment Findings
 
 **Date:** 2026-03-11
-**Status:** EN7.1, EN1.2/EN1.2b, EA1.1 (ext), EN2.1+EN2.2 (ext), EN1.1/1.1b, EN3.1/3.1b (Tier 1+2), EN3.2-H3 (metadata-enriched prompting + ANSWERS-ONLY ablation) complete.
+**Status:** EN7.1, EN1.2/EN1.2b, EA1.1 (ext), EN2.1+EN2.2 (ext), EN1.1/1.1b, EN3.1/3.1b (Tier 1+2), EN3.2-H3 (metadata-enriched prompting + ANSWERS-ONLY ablation), EN3.2-H1 (calibrated selective answering) complete.
 
 ---
 
@@ -1135,3 +1135,120 @@ The full story across EN3.1/3.1b/3.2:
 - `experiments/EN3/results/en3_2_h3_ablation_results.json` (ablation run)
 - `experiments/EN3/checkpoints/en3_2_h3_full_pr{05,10,20,30}.json` (H3 per-poison-rate)
 - `experiments/EN3/checkpoints/en3_2_h3_ablation_pr{05,10,20,30}.json` (ablation per-poison-rate)
+
+---
+
+## EN3.2-H1 — Calibrated Selective Answering (Abstention)
+
+**Date:** 2026-03-12
+**Result:** NEUTRAL-TO-NEGATIVE — SL signals do not outperform the best scalar baseline (max_qa_score) for abstention. All CIs overlap. Consistent across 4 poison rates and 16 parameter sweep combinations.
+
+### Experimental Design
+
+**Hypothesis:** SL uncertainty enables better "know when you don't know" decisions.
+At any given coverage level, SL-informed selective answering achieves higher
+precision than scalar-threshold selective answering.
+
+**Data:** Reuses v1b retrieval checkpoints (500 questions × 4 poison rates) and
+H3 PLAIN condition correctness labels. Zero API calls — pure algebraic computation.
+
+**Signals evaluated (14 total):**
+
+Scalar (5): max_cosine, mean_cosine, max_qa_score, top1_qa_score, score_spread
+
+SL cosine-only (5): sl_fused_belief, sl_fused_uncertainty, sl_max_conflict,
+sl_composite (belief × (1 - conflict)), sl_qa_fused_u
+
+SL hybrid (4): sl_dual_fused_belief (fuse cosine + QA opinions),
+sl_dual_fused_u, sl_dual_max_conflict, sl_dual_composite
+
+Baselines (2): oracle (perfect signal), random (uniform)
+
+**Parameter sweep:** evidence_weight ∈ {5, 10, 20, 50} × prior_weight ∈ {1, 2, 5, 10} = 16 combos.
+
+**Evaluation:** Precision-coverage curves with 21 levels (0.50 to 1.00 in 2.5pp steps).
+AUC via trapezoidal rule. Bootstrap CIs (n=1000).
+
+### Results — Cross-Poison-Rate Summary (Best AUC per signal)
+
+| Signal                  | pr05   | pr10   | pr20   | pr30   |  Mean  | Norm. Lift |
+|------------------------|--------|--------|--------|--------|--------|------------|
+| oracle                 | 0.4264 | 0.4201 | 0.4273 | 0.4255 | 0.4249 | 1.000      |
+| **max_qa_score**       | 0.3598 | 0.3524 | 0.3606 | 0.3598 | 0.3582 | **0.415**  |
+| top1_qa_score          | 0.3508 | 0.3421 | 0.3522 | 0.3506 | 0.3489 | 0.334      |
+| sl_dual_fused_belief   | 0.3492 | 0.3428 | 0.3537 | 0.3550 | 0.3502 | 0.345      |
+| sl_dual_composite      | 0.3477 | 0.3412 | 0.3524 | 0.3531 | 0.3486 | 0.331      |
+| sl_dual_max_conflict   | 0.3486 | 0.3416 | 0.3466 | 0.3480 | 0.3462 | 0.310      |
+| sl_max_conflict        | 0.3347 | 0.3263 | 0.3349 | 0.3328 | 0.3322 | 0.187      |
+| max_cosine             | 0.3330 | 0.3242 | 0.3328 | 0.3301 | 0.3300 | 0.168      |
+| sl_fused_belief        | 0.3284 | 0.3201 | 0.3307 | 0.3288 | 0.3270 | 0.141      |
+| mean_cosine            | 0.3284 | 0.3201 | 0.3307 | 0.3288 | 0.3270 | 0.141      |
+| random                 | 0.3151 | 0.3021 | 0.3146 | 0.3116 | 0.3109 | 0.000      |
+
+*Normalized lift = (signal_AUC - random_AUC) / (oracle_AUC - random_AUC).*
+*Best parameter combo for all signals: ew=5, pw=1 or pw=10.*
+
+### Significance Check — Best Scalar vs Best SL
+
+max_qa_score vs sl_dual_fused_belief (best SL signal):
+
+| Poison | Scalar AUC | Scalar 95% CI       | SL AUC  | SL 95% CI           | Diff     |
+|--------|-----------|---------------------|---------|---------------------|----------|
+| 5%     | 0.3598    | [0.3375, 0.3808]    | 0.3492  | [0.3260, 0.3713]    | −0.0106  |
+| 10%    | 0.3524    | [0.3308, 0.3745]    | 0.3428  | [0.3196, 0.3645]    | −0.0096  |
+| 20%    | 0.3606    | [0.3394, 0.3810]    | 0.3537  | [0.3307, 0.3745]    | −0.0070  |
+| 30%    | 0.3598    | [0.3365, 0.3811]    | 0.3550  | [0.3307, 0.3762]    | −0.0048  |
+
+All CIs overlap. SL trails by 0.005–0.011 AUC consistently but not significantly.
+Note: the gap narrows as poison rate increases (from −0.011 at 5% to −0.005 at 30%),
+suggesting SL may provide marginal benefit in noisier settings, but the effect is
+not statistically significant at N=500.
+
+### Interpretation
+
+**1. QA extraction confidence dominates.**
+
+max_qa_score captures 41.5% of the oracle-random gap — the strongest single signal.
+If DistilBERT extracts a high-confidence answer from any passage, the LLM is likely
+to get it right. This is simple, powerful, and requires no SL machinery.
+
+**2. SL fusion of heterogeneous signals does not improve over the best scalar.**
+
+The dual signals (cosine + QA fused) outperform cosine-only SL signals, showing
+SL can successfully combine sources. But the combined signal still trails
+max_qa_score because the cosine component dilutes the dominant QA signal.
+
+**3. SL on a single signal type adds nothing.**
+
+sl_fused_belief ≈ mean_cosine (both AUC ≈ 0.327). When all opinions derive from
+one source (cosine scores), SL fusion is merely a nonlinear monotone transformation
+of the scalar. No new information is created.
+
+**4. Consistent with the broader EN3 pattern.**
+
+SL wins when fusing multiple INDEPENDENT sources of COMPARABLE quality (EN1.1:
+4 NER models). It doesn't add value when one signal dominates (max_qa_score)
+because fusion can only dilute the strongest signal with weaker ones. This is not
+a limitation of SL — it's a structural property of any fusion operator.
+
+### Key Claims for NeurIPS Paper
+
+1. **SL abstention signals do not significantly outperform max_qa_score for
+   selective answering in the SQuAD RAG setting.** Honest negative with
+   overlapping CIs at all poison rates.
+
+2. **The gap narrows with more noise (−0.011 at 5% → −0.005 at 30% poison),**
+   suggesting SL may provide marginal value in noisier multi-source settings,
+   but N=500 is insufficient to establish significance.
+
+3. **This is consistent with SL's theoretical value proposition:** SL excels at
+   fusing multiple independent sources (EN1.1), not at improving a single
+   dominant signal. When one extractor already provides a strong signal,
+   fusion has limited headroom.
+
+### Files
+
+- `experiments/EN3/en3_2_h1_core.py` (signal computation, precision-coverage, AUC — 51 tests)
+- `experiments/EN3/en3_2_h1_experiment.py` (experiment runner with parameter sweep)
+- `experiments/EN3/tests/test_en3_2_h1.py` (51 unit tests)
+- `experiments/EN3/results/en3_2_h1_full_results.json` (full run, 4 PR × 16 param combos)
