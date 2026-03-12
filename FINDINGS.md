@@ -1605,3 +1605,159 @@ wrong fusion level), SL provides no benefit over simpler scalar methods.
 Practitioners should check: "Do I have ≥2 genuinely independent sources
 of comparable quality?" If yes, SL fusion is well-motivated. If no, use
 the best single source.
+
+
+---
+
+## EN3.2-H1c v2 Ablation — Per-Difficulty, Model Subset, Param Sweep
+
+**Date:** 2026-03-12
+**Result:** Five ablation analyses strengthen the H1c v2 positive result
+with clear structural insights: SL advantage concentrates on medium-
+difficulty questions (+9.5 to +22.3pp over scalar), fewer high-quality
+models outperform more models with trust discount, and optimal parameters
+improve mean EM from 0.639 to 0.658.
+
+**Scale:** 500 questions × 4 poison rates × 7 model subsets × 16 parameter
+combos. Bootstrap 95% CIs (n=1000). McNemar's exact tests for 5 strategy pairs.
+
+### Ablation 1: Per-Difficulty Breakdown
+
+SL advantage over scalar_qa_weighted (Δ = sl_trust_discount − scalar_qa_weighted):
+
+| Poison | Easy (n) | Δ_easy | Medium (n) | Δ_medium | Hard (n) | Δ_hard |
+|--------|----------|--------|------------|----------|----------|--------|
+| pr05 | 353 | +1.4pp | 103 | **+22.3pp** | 44 | **+13.6pp** |
+| pr10 | 261 | +4.2pp | 177 | **+11.9pp** | 62 | +1.6pp |
+| pr20 | 156 | +1.3pp | 224 | **+9.8pp** | 120 | **+7.5pp** |
+| pr30 | 100 | +4.0pp | 211 | **+9.5pp** | 189 | +3.7pp |
+
+**Key finding:** SL's advantage is strongest on medium-difficulty questions
+(+9.5 to +22.3pp) where gold passage is present but poison contaminates
+the retrieved set. This is the regime where algebraic fusion over multiple
+extractors adds the most value — individual models partially succeed, and
+SL correctly integrates their evidence. On easy questions (gold top-3, no
+poison), all methods succeed and the gap is small. On hard questions, SL
+helps more than scalar (+1.6 to +13.6pp) but cannot overcome fundamentally
+poor retrieval.
+
+**Contrast with EN3.2-H3:** H3 showed SL metadata HURTS most on medium
+questions when used as LLM prompt metadata. Here, where SL makes the
+algebraic decision directly, it helps MOST on medium questions. This
+confirms the Cross-Experiment Synthesis finding: SL's value is in direct
+algebraic operation, not prompt metadata.
+
+### Ablation 2: Model Subset
+
+sl_trust_discount EM by model subset (cross-poison-rate mean):
+
+| Subset | Models | Mean EM | vs all_4 |
+|--------|--------|---------|----------|
+| top_2 | roberta + electra | **0.698** | **+5.9pp** |
+| drop_distilbert | roberta + electra + bert_tiny | 0.666 | +2.7pp |
+| drop_bert_tiny | distilbert + roberta + electra | 0.648 | +0.9pp |
+| all_4 | all 4 models | 0.639 | — |
+| drop_electra | distilbert + roberta + bert_tiny | 0.616 | −2.3pp |
+| drop_roberta | distilbert + electra + bert_tiny | 0.624 | −1.5pp |
+| diverse_pair | roberta + distilbert | 0.615 | −2.4pp |
+
+**Key finding 1: Fewer high-quality models > more models with trust discount.**
+
+top_2 (roberta + electra) achieves 0.698 mean EM — beating all_4 (0.639)
+by +5.9pp. Trust discount cannot fully compensate for weak models diluting
+evidence. The two strongest models without noise produce better fusion than
+four models with trust-adjusted noise.
+
+**Key finding 2: Roberta and electra are the critical models.**
+
+Dropping roberta (−1.5pp) or electra (−2.3pp) hurts. Dropping bert_tiny
+(+0.9pp) or distilbert (+2.7pp) helps. The model quality hierarchy is
+roberta > electra >> distilbert >> bert_tiny.
+
+**Key finding 3: sl_fusion on top_2 (0.688 mean) beats sl_trust_discount
+on all_4 (0.639 mean).**
+
+This is the strongest practical recommendation: select high-quality
+models and use vanilla SL fusion, rather than including weak models
+and relying on trust discount to compensate.
+
+**Honest assessment:** This finding somewhat undermines the trust discount
+narrative. Trust discount IS valuable when weak models are unavoidable
+(all_4: sl_trust_discount 0.639 > sl_fusion 0.603, consistently). But
+model selection is more impactful than trust weighting.
+
+### Ablation 3: Parameter Sweep
+
+Top 5 parameter combinations for sl_trust_discount (mean EM across PRs):
+
+| Combo | pr05 | pr10 | pr20 | pr30 | Mean |
+|-------|------|------|------|------|------|
+| ew=5, pw=10 | 0.682 | 0.668 | 0.652 | 0.630 | **0.658** |
+| ew=10, pw=10 | 0.672 | 0.662 | 0.644 | 0.624 | 0.651 |
+| ew=5, pw=5 | 0.672 | 0.662 | 0.644 | 0.624 | 0.651 |
+| ew=10, pw=5 | 0.668 | 0.656 | 0.640 | 0.622 | 0.647 |
+| ew=5, pw=2 | 0.668 | 0.656 | 0.640 | 0.622 | 0.647 |
+
+Default (ew=10, pw=2): 0.639 mean. Best (ew=5, pw=10): 0.658 mean (+1.9pp).
+
+**Key finding:** Lower evidence weight and higher prior weight consistently
+improve performance. Low ew preserves more uncertainty in individual opinions,
+preventing premature convergence. High pw gives the prior more influence,
+acting as regularization. The effect is moderate (+1.9pp) but consistent.
+
+**Sensitivity:** The range across all 16 combos is [0.634, 0.658] — only
+2.4pp total spread. SL fusion is robust to parameter choice. The worst
+combo (ew=50, pw=1) still achieves 0.634, only 0.5pp below the default.
+
+### Ablation 4: McNemar Contingency (Default Params)
+
+| Comparison | pr05 | pr10 | pr20 | pr30 |
+|-----------|------|------|------|------|
+| SL_TD vs scalar_qa (a/b) | 63/29 p=.0005 | 64/31 p=.0009 | 69/36 p=.0017 | 73/42 p=.0049 |
+| SL_TD vs sl_fusion (a/b) | 27/10 p=.008 | 31/11 p=.003 | 30/15 p=.036 | 30/12 p=.008 |
+| SL_TD vs single_rob (a/b) | 23/59 p=.0001 | 24/58 p=.0002 | 24/59 p=.0002 | 29/62 p=.0007 |
+
+**Key finding:** SL trust discount vs scalar_qa_weighted is statistically
+significant at all poison rates (p < 0.005). SL wins ~2:1 on discordant
+pairs consistently (63-73 SL-only vs 29-42 scalar-only). Trust discount
+over vanilla SL fusion is also significant (p < 0.04 at all rates).
+
+Single roberta significantly beats SL trust discount at all rates — honest
+negative confirming that when one model dominates, fusion cannot help.
+
+### Ablation 5: Precision-at-Coverage
+
+Precision-at-coverage curves computed for all 9 strategies across 4 poison
+rates. Full curves available in results JSON. Key observation: SL strategies
+produce better-calibrated confidence (higher precision at low coverage)
+than scalar strategies, consistent with EA1.1's calibration findings.
+
+### Key Claims for NeurIPS Paper (from ablation)
+
+1. **SL's advantage concentrates on medium-difficulty questions** (+9.5 to
+   +22.3pp over scalar), exactly the regime where multiple extractors
+   partially succeed and algebraic fusion adds the most value.
+
+2. **Model quality > model quantity for fusion.** Top-2 (roberta + electra)
+   at 0.698 EM beats all-4 with trust discount at 0.639 EM. Practitioners
+   should select high-quality sources rather than including weak ones.
+
+3. **SL fusion is parameter-robust.** The full 16-combo sweep spans only
+   2.4pp (0.634–0.658). Low evidence weight with moderate prior weight
+   is optimal (ew=5, pw=10: 0.658).
+
+4. **Statistical significance confirmed.** McNemar's exact test rejects
+   H0 for sl_trust_discount vs scalar_qa_weighted at all 4 poison rates
+   (p < 0.005), with SL winning ~2:1 on discordant pairs.
+
+5. **Honest finding: trust discount is less impactful than model selection.**
+   Trust discount adds +3.6pp (all_4: 0.603 → 0.639), but removing weak
+   models adds +5.9pp (all_4: 0.639 → top_2: 0.698). Both are valuable;
+   model selection is more valuable.
+
+### Files
+
+- `experiments/EN3/en3_2_h1c_v2_ablation_core.py` (30 tests)
+- `experiments/EN3/en3_2_h1c_v2_ablation.py` (experiment runner)
+- `experiments/EN3/tests/test_en3_2_h1c_v2_ablation.py` (30 tests)
+- `experiments/EN3/results/en3_2_h1c_v2_ablation_full_results.json`
