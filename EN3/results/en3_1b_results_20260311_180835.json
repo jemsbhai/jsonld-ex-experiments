@@ -1,0 +1,790 @@
+{
+  "experiment_id": "EN3.1b",
+  "parameters": {
+    "global_seed": 42,
+    "n_questions": 500,
+    "top_k": 10,
+    "evidence_weight": 10,
+    "prior_weight": 2,
+    "poison_rates": [
+      0.05,
+      0.1,
+      0.2,
+      0.3
+    ],
+    "scalar_thresholds": [
+      0.3,
+      0.4,
+      0.5,
+      0.6
+    ],
+    "embedding_model": "all-MiniLM-L6-v2",
+    "qa_model": "distilbert/distilbert-base-cased-distilled-squad",
+    "answer_similarity_threshold": 0.6,
+    "n_bootstrap": 1000
+  },
+  "metrics": {
+    "total_wall_time_seconds": 113.0794,
+    "tier1_summary": {
+      "pr05": {
+        "A_no_filter": 0.192,
+        "best_scalar": "B_scalar_0.50",
+        "best_scalar_pi": 0.076,
+        "C_majority_vote": 0.098,
+        "D_weighted_vote": 0.098,
+        "E_sl_fusion": 0.034,
+        "E2_sl_abstain": 0.034,
+        "sl_vs_majority": 0.064,
+        "sl_vs_weighted": 0.064,
+        "sl_vs_best_scalar": 0.042
+      },
+      "pr10": {
+        "A_no_filter": 0.398,
+        "best_scalar": "B_scalar_0.50",
+        "best_scalar_pi": 0.156,
+        "C_majority_vote": 0.202,
+        "D_weighted_vote": 0.202,
+        "E_sl_fusion": 0.082,
+        "E2_sl_abstain": 0.082,
+        "sl_vs_majority": 0.12,
+        "sl_vs_weighted": 0.12,
+        "sl_vs_best_scalar": 0.074
+      },
+      "pr20": {
+        "A_no_filter": 0.63,
+        "best_scalar": "B_scalar_0.50",
+        "best_scalar_pi": 0.292,
+        "C_majority_vote": 0.38,
+        "D_weighted_vote": 0.388,
+        "E_sl_fusion": 0.16,
+        "E2_sl_abstain": 0.16,
+        "sl_vs_majority": 0.22,
+        "sl_vs_weighted": 0.228,
+        "sl_vs_best_scalar": 0.132
+      },
+      "pr30": {
+        "A_no_filter": 0.77,
+        "best_scalar": "B_scalar_0.50",
+        "best_scalar_pi": 0.376,
+        "C_majority_vote": 0.448,
+        "D_weighted_vote": 0.446,
+        "E_sl_fusion": 0.208,
+        "E2_sl_abstain": 0.208,
+        "sl_vs_majority": 0.24,
+        "sl_vs_weighted": 0.238,
+        "sl_vs_best_scalar": 0.168
+      }
+    },
+    "tier1_full": {
+      "pr05": {
+        "A_no_filter": {
+          "poison_inclusion_rate": 0.192,
+          "poison_inclusion_ci": [
+            0.158,
+            0.228
+          ],
+          "gold_retention_rate": 0.946,
+          "gold_retention_ci": [
+            0.926,
+            0.966
+          ],
+          "abstention_rate": 0.0,
+          "abstention_ci": [
+            0.0,
+            0.0
+          ],
+          "mean_passages_kept": 10.0,
+          "n_questions": 500
+        },
+        "B_scalar_0.30": {
+          "poison_inclusion_rate": 0.176,
+          "poison_inclusion_ci": [
+            0.144,
+            0.212
+          ],
+          "gold_retention_rate": 0.934,
+          "gold_retention_ci": [
+            0.91,
+            0.956
+          ],
+          "abstention_rate": 0.004,
+          "abstention_ci": [
+            0.0,
+            0.01
+          ],
+          "mean_passages_kept": 8.94,
+          "n_questions": 500
+        },
+        "B_scalar_0.40": {
+          "poison_inclusion_rate": 0.13,
+          "poison_inclusion_ci": [
+            0.102,
+            0.16
+          ],
+          "gold_retention_rate": 0.886,
+          "gold_retention_ci": [
+            0.856,
+            0.9141
+          ],
+          "abstention_rate": 0.048,
+          "abstention_ci": [
+            0.03,
+            0.068
+          ],
+          "mean_passages_kept": 5.96,
+          "n_questions": 500
+        },
+        "B_scalar_0.50": {
+          "poison_inclusion_rate": 0.076,
+          "poison_inclusion_ci": [
+            0.054,
+            0.1
+          ],
+          "gold_retention_rate": 0.71,
+          "gold_retention_ci": [
+            0.668,
+            0.75
+          ],
+          "abstention_rate": 0.228,
+          "abstention_ci": [
+            0.19,
+            0.266
+          ],
+          "mean_passages_kept": 3.18,
+          "n_questions": 500
+        },
+        "B_scalar_0.60": {
+          "poison_inclusion_rate": 0.036,
+          "poison_inclusion_ci": [
+            0.022,
+            0.052
+          ],
+          "gold_retention_rate": 0.42,
+          "gold_retention_ci": [
+            0.376,
+            0.462
+          ],
+          "abstention_rate": 0.516,
+          "abstention_ci": [
+            0.47,
+            0.562
+          ],
+          "mean_passages_kept": 1.01,
+          "n_questions": 500
+        },
+        "C_majority_vote": {
+          "poison_inclusion_rate": 0.098,
+          "poison_inclusion_ci": [
+            0.072,
+            0.122
+          ],
+          "gold_retention_rate": 0.506,
+          "gold_retention_ci": [
+            0.464,
+            0.548
+          ],
+          "abstention_rate": 0.0,
+          "abstention_ci": [
+            0.0,
+            0.0
+          ],
+          "mean_passages_kept": 1.98,
+          "n_questions": 500
+        },
+        "D_weighted_vote": {
+          "poison_inclusion_rate": 0.098,
+          "poison_inclusion_ci": [
+            0.072,
+            0.124
+          ],
+          "gold_retention_rate": 0.518,
+          "gold_retention_ci": [
+            0.476,
+            0.56
+          ],
+          "abstention_rate": 0.0,
+          "abstention_ci": [
+            0.0,
+            0.0
+          ],
+          "mean_passages_kept": 1.97,
+          "n_questions": 500
+        },
+        "E_sl_fusion": {
+          "poison_inclusion_rate": 0.034,
+          "poison_inclusion_ci": [
+            0.02,
+            0.05
+          ],
+          "gold_retention_rate": 0.536,
+          "gold_retention_ci": [
+            0.496,
+            0.578
+          ],
+          "abstention_rate": 0.0,
+          "abstention_ci": [
+            0.0,
+            0.0
+          ],
+          "mean_passages_kept": 1.28,
+          "n_questions": 500
+        },
+        "E2_sl_abstain": {
+          "poison_inclusion_rate": 0.034,
+          "poison_inclusion_ci": [
+            0.02,
+            0.05
+          ],
+          "gold_retention_rate": 0.536,
+          "gold_retention_ci": [
+            0.496,
+            0.578
+          ],
+          "abstention_rate": 0.0,
+          "abstention_ci": [
+            0.0,
+            0.0
+          ],
+          "mean_passages_kept": 1.28,
+          "n_questions": 500
+        }
+      },
+      "pr10": {
+        "A_no_filter": {
+          "poison_inclusion_rate": 0.398,
+          "poison_inclusion_ci": [
+            0.3559,
+            0.44
+          ],
+          "gold_retention_rate": 0.944,
+          "gold_retention_ci": [
+            0.924,
+            0.962
+          ],
+          "abstention_rate": 0.0,
+          "abstention_ci": [
+            0.0,
+            0.0
+          ],
+          "mean_passages_kept": 10.0,
+          "n_questions": 500
+        },
+        "B_scalar_0.30": {
+          "poison_inclusion_rate": 0.372,
+          "poison_inclusion_ci": [
+            0.332,
+            0.414
+          ],
+          "gold_retention_rate": 0.934,
+          "gold_retention_ci": [
+            0.91,
+            0.956
+          ],
+          "abstention_rate": 0.002,
+          "abstention_ci": [
+            0.0,
+            0.006
+          ],
+          "mean_passages_kept": 8.99,
+          "n_questions": 500
+        },
+        "B_scalar_0.40": {
+          "poison_inclusion_rate": 0.264,
+          "poison_inclusion_ci": [
+            0.228,
+            0.306
+          ],
+          "gold_retention_rate": 0.886,
+          "gold_retention_ci": [
+            0.856,
+            0.9141
+          ],
+          "abstention_rate": 0.048,
+          "abstention_ci": [
+            0.03,
+            0.068
+          ],
+          "mean_passages_kept": 6.03,
+          "n_questions": 500
+        },
+        "B_scalar_0.50": {
+          "poison_inclusion_rate": 0.156,
+          "poison_inclusion_ci": [
+            0.124,
+            0.19
+          ],
+          "gold_retention_rate": 0.71,
+          "gold_retention_ci": [
+            0.668,
+            0.75
+          ],
+          "abstention_rate": 0.226,
+          "abstention_ci": [
+            0.188,
+            0.264
+          ],
+          "mean_passages_kept": 3.24,
+          "n_questions": 500
+        },
+        "B_scalar_0.60": {
+          "poison_inclusion_rate": 0.06,
+          "poison_inclusion_ci": [
+            0.042,
+            0.082
+          ],
+          "gold_retention_rate": 0.42,
+          "gold_retention_ci": [
+            0.376,
+            0.462
+          ],
+          "abstention_rate": 0.516,
+          "abstention_ci": [
+            0.47,
+            0.562
+          ],
+          "mean_passages_kept": 1.03,
+          "n_questions": 500
+        },
+        "C_majority_vote": {
+          "poison_inclusion_rate": 0.202,
+          "poison_inclusion_ci": [
+            0.17,
+            0.236
+          ],
+          "gold_retention_rate": 0.476,
+          "gold_retention_ci": [
+            0.434,
+            0.5201
+          ],
+          "abstention_rate": 0.0,
+          "abstention_ci": [
+            0.0,
+            0.0
+          ],
+          "mean_passages_kept": 2.03,
+          "n_questions": 500
+        },
+        "D_weighted_vote": {
+          "poison_inclusion_rate": 0.202,
+          "poison_inclusion_ci": [
+            0.17,
+            0.236
+          ],
+          "gold_retention_rate": 0.484,
+          "gold_retention_ci": [
+            0.44,
+            0.528
+          ],
+          "abstention_rate": 0.0,
+          "abstention_ci": [
+            0.0,
+            0.0
+          ],
+          "mean_passages_kept": 2.02,
+          "n_questions": 500
+        },
+        "E_sl_fusion": {
+          "poison_inclusion_rate": 0.082,
+          "poison_inclusion_ci": [
+            0.058,
+            0.108
+          ],
+          "gold_retention_rate": 0.512,
+          "gold_retention_ci": [
+            0.468,
+            0.554
+          ],
+          "abstention_rate": 0.0,
+          "abstention_ci": [
+            0.0,
+            0.0
+          ],
+          "mean_passages_kept": 1.32,
+          "n_questions": 500
+        },
+        "E2_sl_abstain": {
+          "poison_inclusion_rate": 0.082,
+          "poison_inclusion_ci": [
+            0.058,
+            0.108
+          ],
+          "gold_retention_rate": 0.512,
+          "gold_retention_ci": [
+            0.468,
+            0.554
+          ],
+          "abstention_rate": 0.0,
+          "abstention_ci": [
+            0.0,
+            0.0
+          ],
+          "mean_passages_kept": 1.32,
+          "n_questions": 500
+        }
+      },
+      "pr20": {
+        "A_no_filter": {
+          "poison_inclusion_rate": 0.63,
+          "poison_inclusion_ci": [
+            0.5879,
+            0.672
+          ],
+          "gold_retention_rate": 0.946,
+          "gold_retention_ci": [
+            0.926,
+            0.966
+          ],
+          "abstention_rate": 0.0,
+          "abstention_ci": [
+            0.0,
+            0.0
+          ],
+          "mean_passages_kept": 10.0,
+          "n_questions": 500
+        },
+        "B_scalar_0.30": {
+          "poison_inclusion_rate": 0.582,
+          "poison_inclusion_ci": [
+            0.54,
+            0.624
+          ],
+          "gold_retention_rate": 0.934,
+          "gold_retention_ci": [
+            0.91,
+            0.956
+          ],
+          "abstention_rate": 0.004,
+          "abstention_ci": [
+            0.0,
+            0.01
+          ],
+          "mean_passages_kept": 9.03,
+          "n_questions": 500
+        },
+        "B_scalar_0.40": {
+          "poison_inclusion_rate": 0.42,
+          "poison_inclusion_ci": [
+            0.374,
+            0.462
+          ],
+          "gold_retention_rate": 0.886,
+          "gold_retention_ci": [
+            0.856,
+            0.9141
+          ],
+          "abstention_rate": 0.044,
+          "abstention_ci": [
+            0.026,
+            0.062
+          ],
+          "mean_passages_kept": 6.12,
+          "n_questions": 500
+        },
+        "B_scalar_0.50": {
+          "poison_inclusion_rate": 0.292,
+          "poison_inclusion_ci": [
+            0.25,
+            0.33
+          ],
+          "gold_retention_rate": 0.71,
+          "gold_retention_ci": [
+            0.668,
+            0.75
+          ],
+          "abstention_rate": 0.224,
+          "abstention_ci": [
+            0.186,
+            0.262
+          ],
+          "mean_passages_kept": 3.36,
+          "n_questions": 500
+        },
+        "B_scalar_0.60": {
+          "poison_inclusion_rate": 0.172,
+          "poison_inclusion_ci": [
+            0.14,
+            0.206
+          ],
+          "gold_retention_rate": 0.42,
+          "gold_retention_ci": [
+            0.376,
+            0.462
+          ],
+          "abstention_rate": 0.51,
+          "abstention_ci": [
+            0.464,
+            0.556
+          ],
+          "mean_passages_kept": 1.17,
+          "n_questions": 500
+        },
+        "C_majority_vote": {
+          "poison_inclusion_rate": 0.38,
+          "poison_inclusion_ci": [
+            0.336,
+            0.42
+          ],
+          "gold_retention_rate": 0.438,
+          "gold_retention_ci": [
+            0.398,
+            0.482
+          ],
+          "abstention_rate": 0.0,
+          "abstention_ci": [
+            0.0,
+            0.0
+          ],
+          "mean_passages_kept": 2.18,
+          "n_questions": 500
+        },
+        "D_weighted_vote": {
+          "poison_inclusion_rate": 0.388,
+          "poison_inclusion_ci": [
+            0.3459,
+            0.428
+          ],
+          "gold_retention_rate": 0.44,
+          "gold_retention_ci": [
+            0.4,
+            0.482
+          ],
+          "abstention_rate": 0.0,
+          "abstention_ci": [
+            0.0,
+            0.0
+          ],
+          "mean_passages_kept": 2.17,
+          "n_questions": 500
+        },
+        "E_sl_fusion": {
+          "poison_inclusion_rate": 0.16,
+          "poison_inclusion_ci": [
+            0.128,
+            0.192
+          ],
+          "gold_retention_rate": 0.53,
+          "gold_retention_ci": [
+            0.4879,
+            0.572
+          ],
+          "abstention_rate": 0.0,
+          "abstention_ci": [
+            0.0,
+            0.0
+          ],
+          "mean_passages_kept": 1.36,
+          "n_questions": 500
+        },
+        "E2_sl_abstain": {
+          "poison_inclusion_rate": 0.16,
+          "poison_inclusion_ci": [
+            0.128,
+            0.192
+          ],
+          "gold_retention_rate": 0.53,
+          "gold_retention_ci": [
+            0.4879,
+            0.572
+          ],
+          "abstention_rate": 0.0,
+          "abstention_ci": [
+            0.0,
+            0.0
+          ],
+          "mean_passages_kept": 1.36,
+          "n_questions": 500
+        }
+      },
+      "pr30": {
+        "A_no_filter": {
+          "poison_inclusion_rate": 0.77,
+          "poison_inclusion_ci": [
+            0.734,
+            0.808
+          ],
+          "gold_retention_rate": 0.942,
+          "gold_retention_ci": [
+            0.92,
+            0.962
+          ],
+          "abstention_rate": 0.0,
+          "abstention_ci": [
+            0.0,
+            0.0
+          ],
+          "mean_passages_kept": 10.0,
+          "n_questions": 500
+        },
+        "B_scalar_0.30": {
+          "poison_inclusion_rate": 0.722,
+          "poison_inclusion_ci": [
+            0.684,
+            0.758
+          ],
+          "gold_retention_rate": 0.932,
+          "gold_retention_ci": [
+            0.908,
+            0.954
+          ],
+          "abstention_rate": 0.004,
+          "abstention_ci": [
+            0.0,
+            0.01
+          ],
+          "mean_passages_kept": 9.06,
+          "n_questions": 500
+        },
+        "B_scalar_0.40": {
+          "poison_inclusion_rate": 0.572,
+          "poison_inclusion_ci": [
+            0.528,
+            0.618
+          ],
+          "gold_retention_rate": 0.886,
+          "gold_retention_ci": [
+            0.856,
+            0.9141
+          ],
+          "abstention_rate": 0.046,
+          "abstention_ci": [
+            0.028,
+            0.066
+          ],
+          "mean_passages_kept": 6.26,
+          "n_questions": 500
+        },
+        "B_scalar_0.50": {
+          "poison_inclusion_rate": 0.376,
+          "poison_inclusion_ci": [
+            0.334,
+            0.418
+          ],
+          "gold_retention_rate": 0.71,
+          "gold_retention_ci": [
+            0.668,
+            0.75
+          ],
+          "abstention_rate": 0.226,
+          "abstention_ci": [
+            0.188,
+            0.264
+          ],
+          "mean_passages_kept": 3.48,
+          "n_questions": 500
+        },
+        "B_scalar_0.60": {
+          "poison_inclusion_rate": 0.19,
+          "poison_inclusion_ci": [
+            0.154,
+            0.224
+          ],
+          "gold_retention_rate": 0.42,
+          "gold_retention_ci": [
+            0.376,
+            0.462
+          ],
+          "abstention_rate": 0.51,
+          "abstention_ci": [
+            0.466,
+            0.558
+          ],
+          "mean_passages_kept": 1.18,
+          "n_questions": 500
+        },
+        "C_majority_vote": {
+          "poison_inclusion_rate": 0.448,
+          "poison_inclusion_ci": [
+            0.406,
+            0.492
+          ],
+          "gold_retention_rate": 0.408,
+          "gold_retention_ci": [
+            0.3659,
+            0.452
+          ],
+          "abstention_rate": 0.0,
+          "abstention_ci": [
+            0.0,
+            0.0
+          ],
+          "mean_passages_kept": 2.19,
+          "n_questions": 500
+        },
+        "D_weighted_vote": {
+          "poison_inclusion_rate": 0.446,
+          "poison_inclusion_ci": [
+            0.404,
+            0.488
+          ],
+          "gold_retention_rate": 0.416,
+          "gold_retention_ci": [
+            0.372,
+            0.462
+          ],
+          "abstention_rate": 0.0,
+          "abstention_ci": [
+            0.0,
+            0.0
+          ],
+          "mean_passages_kept": 2.18,
+          "n_questions": 500
+        },
+        "E_sl_fusion": {
+          "poison_inclusion_rate": 0.208,
+          "poison_inclusion_ci": [
+            0.1739,
+            0.246
+          ],
+          "gold_retention_rate": 0.52,
+          "gold_retention_ci": [
+            0.478,
+            0.562
+          ],
+          "abstention_rate": 0.0,
+          "abstention_ci": [
+            0.0,
+            0.0
+          ],
+          "mean_passages_kept": 1.37,
+          "n_questions": 500
+        },
+        "E2_sl_abstain": {
+          "poison_inclusion_rate": 0.208,
+          "poison_inclusion_ci": [
+            0.1739,
+            0.246
+          ],
+          "gold_retention_rate": 0.52,
+          "gold_retention_ci": [
+            0.478,
+            0.562
+          ],
+          "abstention_rate": 0.0,
+          "abstention_ci": [
+            0.0,
+            0.0
+          ],
+          "mean_passages_kept": 1.37,
+          "n_questions": 500
+        }
+      }
+    }
+  },
+  "timestamp": "2026-03-11T18:08:35.710502+00:00",
+  "raw_data": {
+    "n_base_passages": 1341,
+    "n_questions_selected": 500,
+    "v1_diagnosis": "EN3.1 v1 showed SL conflict on cosine-similarity opinions does not outperform scalar thresholding because poisoned passages have nearly identical cosine scores to gold (same topic, swapped answer). v1b redesigns to test answer-level conflict detection."
+  },
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.0",
+    "numpy_version": "2.4.3",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": "EN3.1b: Improved RAG pipeline with answer-agreement-based SL filtering. v1 showed relevance-based conflict detection fails; v1b uses extractive QA to detect factual conflict between passages. 6 methods: no-filter, scalar threshold, majority vote, weighted vote, SL fusion, SL fusion+abstention. Dataset: SQuAD 1.1 dev (500 questions). QA model: distilbert/distilbert-base-cased-distilled-squad."
+}

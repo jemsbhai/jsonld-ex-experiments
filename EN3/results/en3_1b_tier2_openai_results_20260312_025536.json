@@ -1,0 +1,279 @@
+{
+  "experiment_id": "EN3.1b-Tier2-openai",
+  "parameters": {
+    "global_seed": 42,
+    "n_questions": 500,
+    "top_k": 10,
+    "poison_rates": [
+      0.05,
+      0.1,
+      0.2,
+      0.3
+    ],
+    "provider": "openai",
+    "model": "gpt-4o-mini",
+    "temperature": 0.0,
+    "n_bootstrap": 1000,
+    "methods_evaluated": [
+      "A_no_filter",
+      "B_scalar_0.50",
+      "C_majority_vote",
+      "E_sl_fusion"
+    ],
+    "limited_mode": false,
+    "n_questions_per_poison_rate": 500
+  },
+  "metrics": {
+    "total_wall_time_seconds": 4608.6396,
+    "tier2_full": {
+      "pr05": {
+        "A_no_filter": {
+          "exact_match": 0.638,
+          "exact_match_ci": [
+            0.594,
+            0.68
+          ],
+          "token_f1": 0.805,
+          "token_f1_ci": [
+            0.773,
+            0.8326
+          ],
+          "abstention_rate": 0.0,
+          "n_questions": 500
+        },
+        "B_scalar_0.50": {
+          "exact_match": 0.51,
+          "exact_match_ci": [
+            0.466,
+            0.552
+          ],
+          "token_f1": 0.626,
+          "token_f1_ci": [
+            0.5859,
+            0.6622
+          ],
+          "abstention_rate": 0.228,
+          "n_questions": 500
+        },
+        "C_majority_vote": {
+          "exact_match": 0.382,
+          "exact_match_ci": [
+            0.342,
+            0.422
+          ],
+          "token_f1": 0.461,
+          "token_f1_ci": [
+            0.4195,
+            0.5002
+          ],
+          "abstention_rate": 0.0,
+          "n_questions": 500
+        },
+        "E_sl_fusion": {
+          "exact_match": 0.41,
+          "exact_match_ci": [
+            0.366,
+            0.456
+          ],
+          "token_f1": 0.5056,
+          "token_f1_ci": [
+            0.4644,
+            0.546
+          ],
+          "abstention_rate": 0.0,
+          "n_questions": 500
+        }
+      },
+      "pr10": {
+        "A_no_filter": {
+          "exact_match": 0.636,
+          "exact_match_ci": [
+            0.594,
+            0.676
+          ],
+          "token_f1": 0.8017,
+          "token_f1_ci": [
+            0.7686,
+            0.8313
+          ],
+          "abstention_rate": 0.0,
+          "n_questions": 500
+        },
+        "B_scalar_0.50": {
+          "exact_match": 0.51,
+          "exact_match_ci": [
+            0.462,
+            0.5501
+          ],
+          "token_f1": 0.6227,
+          "token_f1_ci": [
+            0.5806,
+            0.6593
+          ],
+          "abstention_rate": 0.226,
+          "n_questions": 500
+        },
+        "C_majority_vote": {
+          "exact_match": 0.342,
+          "exact_match_ci": [
+            0.3,
+            0.382
+          ],
+          "token_f1": 0.4234,
+          "token_f1_ci": [
+            0.3858,
+            0.4634
+          ],
+          "abstention_rate": 0.0,
+          "n_questions": 500
+        },
+        "E_sl_fusion": {
+          "exact_match": 0.386,
+          "exact_match_ci": [
+            0.342,
+            0.432
+          ],
+          "token_f1": 0.4811,
+          "token_f1_ci": [
+            0.4383,
+            0.5219
+          ],
+          "abstention_rate": 0.0,
+          "n_questions": 500
+        }
+      },
+      "pr20": {
+        "A_no_filter": {
+          "exact_match": 0.642,
+          "exact_match_ci": [
+            0.6,
+            0.682
+          ],
+          "token_f1": 0.8079,
+          "token_f1_ci": [
+            0.7764,
+            0.836
+          ],
+          "abstention_rate": 0.0,
+          "n_questions": 500
+        },
+        "B_scalar_0.50": {
+          "exact_match": 0.508,
+          "exact_match_ci": [
+            0.464,
+            0.55
+          ],
+          "token_f1": 0.6308,
+          "token_f1_ci": [
+            0.5903,
+            0.6663
+          ],
+          "abstention_rate": 0.226,
+          "n_questions": 500
+        },
+        "C_majority_vote": {
+          "exact_match": 0.332,
+          "exact_match_ci": [
+            0.292,
+            0.37
+          ],
+          "token_f1": 0.4048,
+          "token_f1_ci": [
+            0.3654,
+            0.4441
+          ],
+          "abstention_rate": 0.0,
+          "n_questions": 500
+        },
+        "E_sl_fusion": {
+          "exact_match": 0.402,
+          "exact_match_ci": [
+            0.36,
+            0.446
+          ],
+          "token_f1": 0.5005,
+          "token_f1_ci": [
+            0.4621,
+            0.5421
+          ],
+          "abstention_rate": 0.0,
+          "n_questions": 500
+        }
+      },
+      "pr30": {
+        "A_no_filter": {
+          "exact_match": 0.644,
+          "exact_match_ci": [
+            0.6,
+            0.684
+          ],
+          "token_f1": 0.8086,
+          "token_f1_ci": [
+            0.7777,
+            0.8382
+          ],
+          "abstention_rate": 0.0,
+          "n_questions": 500
+        },
+        "B_scalar_0.50": {
+          "exact_match": 0.51,
+          "exact_match_ci": [
+            0.464,
+            0.55
+          ],
+          "token_f1": 0.6276,
+          "token_f1_ci": [
+            0.587,
+            0.6632
+          ],
+          "abstention_rate": 0.226,
+          "n_questions": 500
+        },
+        "C_majority_vote": {
+          "exact_match": 0.31,
+          "exact_match_ci": [
+            0.27,
+            0.352
+          ],
+          "token_f1": 0.3687,
+          "token_f1_ci": [
+            0.327,
+            0.4094
+          ],
+          "abstention_rate": 0.0,
+          "n_questions": 500
+        },
+        "E_sl_fusion": {
+          "exact_match": 0.4,
+          "exact_match_ci": [
+            0.354,
+            0.446
+          ],
+          "token_f1": 0.4992,
+          "token_f1_ci": [
+            0.4582,
+            0.5392
+          ],
+          "abstention_rate": 0.0,
+          "n_questions": 500
+        }
+      }
+    }
+  },
+  "timestamp": "2026-03-12T02:55:36.911301+00:00",
+  "raw_data": {
+    "n_questions_per_method_per_poison_rate": 500,
+    "total_api_calls": 8000
+  },
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.0",
+    "numpy_version": "2.4.3",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": "EN3.1b Tier 2: API-based LLM answer generation using openai (gpt-4o-mini). Evaluates 4 filtering methods across 4 poison rates. Complements local Qwen2.5-7B results for cross-model validation."
+}

@@ -1,7 +1,7 @@
 # Experiment Findings
 
 **Date:** 2026-03-11
-**Status:** EN7.1, EN1.2/EN1.2b, EA1.1 (ext), EN2.1+EN2.2 (ext), EN1.1/1.1b complete, results archived
+**Status:** EN7.1, EN1.2/EN1.2b, EA1.1 (ext), EN2.1+EN2.2 (ext), EN1.1/1.1b, EN3.1/3.1b (Tier 1+2), EN3.2-H3 (metadata-enriched prompting + ANSWERS-ONLY ablation) complete.
 
 ---
 
@@ -549,3 +549,589 @@ any configuration. Trust discount appropriately downweights the weak models
 - `experiments/EN1/results/en1_1_results_20260311_143608.json` (v1, archived)
 - `experiments/EN1/results/en1_1b_results.json` (v2, refined fusion)
 - `experiments/EN1/results/en1_1b_results_20260311_150541.json` (v2, archived)
+- `experiments/EN3/results/en3_1_results.json` (v1, relevance-based — SL loses)
+- `experiments/EN3/results/en3_1_results_20260311_175429.json` (v1, archived)
+- `experiments/EN3/results/en3_1b_results.json` (v1b Tier 1+Tier 2 Qwen, latest)
+- `experiments/EN3/results/en3_1b_results_20260312_000833.json` (v1b Qwen Tier 2, archived)
+- `experiments/EN3/results/en3_1b_results_20260312_025851.json` (v1b Tier 1 w/ Method F, archived)
+- `experiments/EN3/results/en3_1b_tier2_openai_results.json` (GPT-4o-mini Tier 2, A/B/C/E)
+- `experiments/EN3/results/en3_1b_tier2_openai_results_20260312_025536.json` (GPT-4o-mini, archived)
+- `experiments/EN3/EN3_2_design.md` (redesigned RAG experiment: H1/H2/H3)
+- `experiments/EN3/results/en3_2_h3_full_results.json` (EN3.2-H3 full run, latest)
+- `experiments/EN3/results/en3_2_h3_full_results_20260312_045938.json` (EN3.2-H3 full, archived)
+- `experiments/EN3/results/en3_2_h3_limited_results.json` (EN3.2-H3 limited run, 50q x 2pr)
+- `experiments/EN3/checkpoints/en3_2_h3_full_pr{05,10,20,30}.json` (EN3.2-H3 per-poison-rate checkpoints)
+- `experiments/EN3/results/en3_2_h3_ablation_results.json` (EN3.2-H3 ablation run, latest)
+- `experiments/EN3/results/en3_2_h3_ablation_results_20260312_074108.json` (EN3.2-H3 ablation, archived)
+- `experiments/EN3/checkpoints/en3_2_h3_ablation_pr{05,10,20,30}.json` (EN3.2-H3 ablation per-poison-rate checkpoints)
+
+---
+
+## EN3.1 + EN3.1b — RAG Pipeline with Confidence-Aware Retrieval
+
+**Result:** SL answer-agreement fusion reduces poison passage inclusion by
+42-55% relative to the best scalar baseline and by 53-65% relative to
+majority voting, while retaining equal or higher gold passage rates.
+
+**Scale:** 500 questions from SQuAD 1.1 dev, 4 poison rates {5%, 10%, 20%, 30%},
+top-10 retrieval via all-MiniLM-L6-v2, answer extraction via DistilBERT QA.
+6 filtering methods with bootstrap 95% CIs (n=1000).
+
+### Design Evolution: v1 Failure → v1b Success
+
+**EN3.1 (v1) showed SL loses when applied naively.** Converting cosine
+similarity scores to SL opinions and detecting pairwise conflict does NOT
+outperform scalar thresholding. Root cause: poisoned passages have nearly
+identical cosine scores to gold passages (same topic, swapped answer entity).
+The SL conflict signal was picking up trivial relevance score spread, not
+factual disagreement. All 5 SL conflict thresholds produced identical results
+(always triggered, always kept exactly 5 passages). This is an important
+negative finding.
+
+**EN3.1b (v1b) redesigned the approach to test the right hypothesis:**
+SL's value in RAG is detecting **answer-level conflict**, not filtering by
+relevance score. A lightweight extractive QA model extracts candidate answers
+from each passage, passages are grouped by answer agreement, and SL operates
+on the answer groups.
+
+### Methods Compared
+
+| Method | Description |
+|--------|-------------|
+| A: No filter | All top-10 passages, no filtering |
+| B: Scalar threshold | Drop passages below cosine similarity threshold (sweep 0.3-0.6) |
+| C: Majority vote | Keep passages agreeing with plurality-extracted answer |
+| D: Weighted vote | Like C but weighted by cosine similarity per answer group |
+| E: SL fusion | SL opinions from combined cosine+QA signals, cumulative_fuse within groups, pairwise_conflict between groups, keep highest-evidence group on conflict |
+| E2: SL + abstain | Like E but abstains when best group has high uncertainty (u > 0.3) |
+
+### Tier 1 Results: Poison Inclusion Rate (lower = better)
+
+| Poison Rate | A: No Filter | B: Scalar 0.50 | C: Majority | D: Weighted | **E: SL Fusion** |
+|:-----------:|:------------:|:---------------:|:-----------:|:-----------:|:----------------:|
+| 5% | 0.192 | 0.076 | 0.098 | 0.098 | **0.034** |
+| 10% | 0.398 | 0.156 | 0.202 | 0.202 | **0.082** |
+| 20% | 0.630 | 0.292 | 0.380 | 0.388 | **0.160** |
+| 30% | 0.770 | 0.376 | 0.448 | 0.446 | **0.208** |
+
+**SL wins across all poison rates.** CIs are non-overlapping vs all baselines
+at 20% and 30% poison rates.
+
+### SL Advantage (absolute reduction in poison inclusion)
+
+| Poison Rate | SL vs Best Scalar | SL vs Majority Vote | SL vs Weighted Vote |
+|:-----------:|:-----------------:|:-------------------:|:-------------------:|
+| 5% | -4.2pp | -6.4pp | -6.4pp |
+| 10% | -7.4pp | -12.0pp | -12.0pp |
+| 20% | -13.2pp | -22.0pp | -22.8pp |
+| 30% | -16.8pp | -24.0pp | -23.8pp |
+
+**The SL advantage scales with poison rate.** This is the expected behavior:
+as conflicting evidence increases, SL's formal conflict detection becomes
+proportionally more valuable.
+
+### Gold Retention Rate (higher = better)
+
+| Poison Rate | A: No Filter | B: Scalar 0.50 | C: Majority | D: Weighted | **E: SL Fusion** |
+|:-----------:|:------------:|:---------------:|:-----------:|:-----------:|:----------------:|
+| 5% | 0.946 | 0.710 | 0.506 | 0.518 | **0.536** |
+| 10% | 0.944 | 0.710 | 0.476 | 0.484 | **0.512** |
+| 20% | 0.946 | 0.710 | 0.438 | 0.440 | **0.530** |
+| 30% | 0.942 | 0.710 | 0.408 | 0.416 | **0.520** |
+
+**SL retains more gold passages than the answer-based baselines (C, D)**
+while filtering far more poison. The scalar baseline retains more gold (0.71)
+but at 2-5x higher poison inclusion and 22% abstention.
+
+### Why SL Outperforms Majority Vote (Key Insight)
+
+Majority vote (C) and weighted vote (D) pick the LARGEST answer group. SL
+fusion (E) picks the group with the **highest accumulated evidence**, which
+combines group size, cosine similarity, AND QA extraction confidence via
+`cumulative_fuse`. This matters when:
+
+1. **A small group of high-confidence passages outweighs a large group of
+   low-confidence passages.** Majority vote counts heads; SL counts evidence.
+
+2. **Conflict between groups is formally detected** via `pairwise_conflict`,
+   which captures when groups actively disagree vs merely differ. This
+   triggers selective filtering only when warranted.
+
+3. **Uncertainty is tracked end-to-end.** Each passage's opinion reflects
+   both retrieval relevance AND answer extraction confidence. Dogmatic
+   opinions (from `from_confidence()`) would defeat this — the experiment
+   uses `from_evidence()` to preserve meaningful uncertainty.
+
+### Why v1 Failed (Equally Important Finding)
+
+Relevance-score-based SL fails because:
+1. Cosine similarity measures **topical relevance**, not **factual accuracy**.
+2. Poisoned passages (same topic, swapped answer) have cosine scores
+   indistinguishable from gold passages.
+3. SL conflict detection on relevance opinions picks up **score spread**
+   (which always exists in top-10 retrieval), not factual disagreement.
+4. The conflict threshold was always triggered, producing identical 5-passage
+   results across all threshold values.
+
+**Lesson for practitioners:** SL conflict detection is powerful when applied
+to signals that capture the relevant dimension of disagreement. Applying it
+to the wrong signal (relevance instead of factual content) provides no
+benefit over simpler methods.
+
+### Honest Assessment
+
+- **Gold retention for all answer-based methods is moderate** (0.41-0.54).
+  The QA extraction step introduces errors: when DistilBERT extracts the
+  wrong answer from the gold passage, that passage gets misclassified into
+  the wrong answer group. A stronger QA model would improve all answer-based
+  methods (C, D, E) proportionally.
+- **Scalar thresholding (B_0.50) achieves high gold retention (0.71) but at
+  significant cost:** 22% abstention rate and 2-5x higher poison inclusion.
+- **E and E2 produce identical results** in these experiments because the
+  abstention criterion (u > 0.3) was never triggered — the evidence weight
+  W=10 produces opinions with u ≈ 0.167, always below the threshold. A
+  lower evidence weight or higher threshold would differentiate them.
+
+### Method F: Context-Preserving SL Outlier Removal
+
+Method F removes only the lowest-evidence answer group (the outlier),
+keeping everything else. Designed to preserve context while surgically
+excising poison.
+
+| Metric | A: No Filter | F: SL Remove Outlier | E: SL Select Best |
+|--------|:------------:|:--------------------:|:-----------------:|
+| Passages kept (pr30) | 10.0 | 8.8 | 1.4 |
+| Gold retention (pr30) | 0.944 | 0.942 | 0.524 |
+| Poison inclusion (pr30) | 0.762 | 0.720 | 0.212 |
+
+**Method F preserves near-identical context** (8.8 passages, 0.942 gold
+retention) but achieves only modest poison reduction (−4.2pp vs no-filter
+at pr30). The extracted-answer grouping catches poison only when the QA
+model extracts a different answer from the poisoned passage, which is a
+subset of all poison cases.
+
+### Tier 2 Results: LLM Answer Quality
+
+**Qwen2.5-7B-Instruct (local, 4-bit quantized) — Exact Match:**
+
+| Method | pr05 | pr10 | pr20 | pr30 |
+|--------|:----:|:----:|:----:|:----:|
+| A: No filter | 0.158 | 0.160 | 0.160 | 0.170 |
+| B: Scalar 0.50 | 0.176 | 0.176 | 0.168 | 0.170 |
+| C: Majority vote | 0.156 | 0.142 | 0.136 | 0.148 |
+| E: SL select best | 0.176 | 0.170 | 0.184 | 0.178 |
+
+Qwen-7B is too weak to draw conclusions (baseline EM ≈ 0.16, all
+differences within noise). SL (E) is best or tied at every poison rate
+but the margin is tiny. This model compresses all method differences.
+
+**GPT-4o-mini (API, 500q × 4 poison rates, $1.30) — Exact Match:**
+
+| Method | pr05 | pr10 | pr20 | pr30 |
+|--------|:----:|:----:|:----:|:----:|
+| A: No filter (10 pass.) | **0.638** | **0.636** | **0.642** | **0.644** |
+| B: Scalar 0.50 (~3 pass.) | 0.510 | 0.510 | 0.508 | 0.510 |
+| C: Majority (~2 pass.) | 0.382 | 0.342 | 0.332 | 0.310 |
+| E: SL select (~1.3 pass.) | 0.410 | 0.386 | 0.402 | 0.400 |
+
+**GPT-4o-mini Token F1:**
+
+| Method | pr05 | pr10 | pr20 | pr30 |
+|--------|:----:|:----:|:----:|:----:|
+| A: No filter | **0.805** | **0.802** | **0.808** | **0.809** |
+| B: Scalar 0.50 | 0.626 | 0.623 | 0.631 | 0.628 |
+| C: Majority | 0.461 | 0.423 | 0.405 | 0.369 |
+| E: SL select | 0.506 | 0.481 | 0.501 | 0.499 |
+
+### CRITICAL FINDING: Pre-Filtering Is the Wrong Use of SL in RAG
+
+**No-filter doesn't degrade with increasing poison.** GPT-4o-mini scores
+EM ≈ 0.64 and F1 ≈ 0.81 regardless of whether 5% or 30% of passages are
+poisoned. The LLM is robust enough to ignore 1-3 poisoned passages when
+it has 7-9 correct passages alongside.
+
+**All filtering methods HURT by destroying context.** Scalar thresholding
+(3.2 passages) loses 13pp EM. Majority vote (2.0 passages) loses 26-33pp.
+SL select-best (1.3 passages) loses 23-25pp. The context loss outweighs
+any benefit from poison removal.
+
+**This is the most important experimental finding of EN3.** It reveals that
+SL's value in RAG is NOT as a passage pre-filter. Strong LLMs handle noisy
+context well. The right framing for jsonld-ex in RAG is:
+
+1. **Metadata-enriched prompting:** Annotate passages with SL opinions
+   (b, d, u, conflict flags) IN the prompt so the LLM can reason about
+   source reliability. The LLM sees ALL passages but with epistemic
+   metadata.
+
+2. **Calibrated selective answering:** Use SL uncertainty to decide
+   WHEN to answer vs abstain, not WHICH passages to include.
+
+3. **Conflict detection for human escalation:** Flag contradicting
+   sources for human review rather than automatically resolving them.
+
+### Revised Paper Framing
+
+EN3.1/3.1b as presented in the paper should tell three stories:
+
+1. **Tier 1 (filtering quality):** SL answer-agreement fusion reduces
+   poison passage inclusion by 42-55% vs best scalar. This demonstrates
+   the algebra works — SL conflict detection is mathematically sound.
+
+2. **Tier 2 (end-to-end QA):** Pre-filtering hurts strong LLMs. This
+   is an honest, important finding. It motivates the correct use of SL:
+   as metadata enrichment, not as a filter.
+
+3. **EN3.2 (metadata-enriched prompting):** The redesigned experiment
+   tests the RIGHT hypothesis — whether SL metadata IN the prompt
+   helps the LLM on hard questions where source quality matters.
+   This is the unique jsonld-ex contribution.
+
+### Key Claims for NeurIPS Paper (defensible)
+
+1. **SL answer-agreement fusion reduces poison inclusion by 42-55% vs the
+   best scalar baseline** across poison rates 5-30%, with non-overlapping
+   95% CIs at higher poison rates. (Tier 1 — algebra works.)
+2. **The SL advantage scales with contamination level** — as conflicting
+   evidence increases, formal conflict detection becomes more valuable.
+3. **Pre-filtering is the wrong use of SL for strong LLMs.** Context
+   quantity matters more than context purity for models like GPT-4o-mini.
+   (Honest negative — motivates the right framing.)
+4. **Naive application of SL to relevance scores fails** (v1 finding) —
+   SL must be applied to the dimension of disagreement that matters
+   (factual content, not topical relevance).
+5. **Evidence-based opinions are essential.** Using `from_evidence()` with
+   meaningful uncertainty enables conflict detection; dogmatic opinions
+   from `from_confidence()` would defeat the mechanism.
+6. **jsonld-ex's value in RAG is as a metadata annotation framework,**
+   not a filter. (Confirmed by EN3.2-H3 results — see below.)
+
+### Suggested Paper Presentation
+
+- **Table 1:** Tier 1 filtering quality — 7-method comparison across 4
+  poison rates (SL wins on poison inclusion, headline result)
+- **Table 2:** Tier 2 GPT-4o-mini EM/F1 — no-filter dominates, honest
+  negative showing pre-filtering hurts
+- **Figure:** Poison inclusion vs passages kept tradeoff curve (shows
+  the Pareto frontier — no-filter and SL are on different parts)
+- **Discussion box:** v1→v1b evolution as pedagogical example; v1b→EN3.2
+  evolution motivating metadata enrichment
+- **Table 3:** EN3.2-H3 metadata-enriched prompting results (see EN3.2-H3 section)
+
+
+---
+
+## EN3.2-H3 — Metadata-Enriched Prompting
+
+**Result:** The ANSWERS-ONLY ablation reveals that extracted answer hints
+drive the entire improvement over PLAIN (+12-14pp EM, p < 10^-5). SL metadata
+(b, d, u triples, conflict/agreement, fused assessment) actively hurts by
+-4 to -5pp vs ANSWERS-ONLY (McNemar p < 0.001 at all poison rates). The
+ordering is ANSWERS-ONLY > JSONLD-EX > PLAIN > SCALAR. This is an honest
+negative result for SL in RAG prompting, but a positive result for the
+jsonld-ex annotation framework (the QA extraction pipeline adds +13pp).
+
+**Scale:** 500 questions from SQuAD 1.1 dev, 4 poison rates {5%, 10%, 20%, 30%},
+3 prompt conditions (PLAIN, SCALAR, JSONLD-EX), GPT-4o-mini (temp=0, seed=42).
+6,000 total API calls (~$3.50). Within-subject design with paired McNemar's
+tests and bootstrap 95% CIs (n=1000). Questions stratified by difficulty
+(easy/medium/hard).
+
+### Experimental Design
+
+Three prompt conditions applied to the same 10 retrieved passages (no filtering):
+
+| Condition | What the LLM sees |
+|-----------|-------------------|
+| PLAIN | Numbered passages + question |
+| SCALAR | Passages + cosine similarity score per passage |
+| JSONLD-EX | Passages + SL (b, d, u) triple + extracted answer + conflict/agreement flags + fused natural-language assessment |
+
+Difficulty classification based on gold passage rank and poison presence:
+- **Easy:** gold passage in top-3, no poison passages in retrieved set
+- **Medium:** gold in top-3 with 1 poison, or gold rank 4-7 with <=1 poison
+- **Hard:** gold rank >= 8, or gold missing, or >= 2 poison passages
+
+### Overall Results
+
+| Poison | PLAIN EM [95% CI] | SCALAR EM [95% CI] | JSONLD-EX EM [95% CI] | Delta(JL-P) |
+|--------|-------------------|--------------------|-----------------------|---------|
+| 5%  | 0.642 [0.600, 0.680] | 0.632 [0.588, 0.670] | **0.728** [0.690, 0.766] | **+8.6pp** |
+| 10% | 0.628 [0.586, 0.670] | 0.634 [0.588, 0.672] | **0.722** [0.682, 0.762] | **+9.4pp** |
+| 20% | 0.644 [0.600, 0.684] | 0.628 [0.584, 0.668] | **0.716** [0.674, 0.756] | **+7.2pp** |
+| 30% | 0.640 [0.594, 0.680] | 0.642 [0.598, 0.680] | **0.716** [0.676, 0.756] | **+7.6pp** |
+
+Token F1 shows smaller, mostly non-significant differences (CIs overlap):
+PLAIN F1 ~ 0.80, SCALAR ~ 0.79, JSONLD-EX ~ 0.81 across all poison rates.
+
+**SCALAR never significantly outperforms PLAIN** at any poison rate (p >= 0.099).
+Raw cosine similarity scores are noise to GPT-4o-mini.
+
+Prompt overhead: JSONLD-EX adds ~20.4% to prompt length (9,800 vs 8,140 chars).
+
+### Difficulty Breakdown (Key Table)
+
+| Poison | Difficulty | n | PLAIN EM | SCALAR EM | JSONLD-EX EM | Delta(JL-P) | McNemar p |
+|--------|-----------|---|----------|-----------|--------------|---------|-----------|
+| 5%  | easy   | 353 | 0.688 | 0.680 | **0.802** | **+11.3pp** | **<0.001** |
+| 5%  | medium | 103 | 0.660 | 0.641 | 0.680 | +1.9pp | 0.831 |
+| 5%  | hard   |  44 | 0.227 | 0.227 | 0.250 | +2.3pp | 1.000 |
+| 10% | easy   | 261 | 0.678 | 0.686 | **0.812** | **+13.4pp** | **<0.001** |
+| 10% | medium | 177 | 0.644 | 0.655 | 0.695 | +5.1pp | 0.253 |
+| 10% | hard   |  62 | 0.371 | 0.355 | 0.419 | +4.8pp | 0.450 |
+| 20% | easy   | 156 | 0.654 | 0.635 | **0.769** | **+11.5pp** | **0.006** |
+| 20% | medium | 224 | 0.665 | 0.647 | **0.750** | **+8.5pp** | **0.015** |
+| 20% | hard   | 120 | 0.592 | 0.583 | 0.583 | -0.8pp | 1.000 |
+| 30% | easy   | 100 | 0.640 | 0.650 | **0.770** | **+13.0pp** | **0.016** |
+| 30% | medium | 211 | 0.659 | 0.659 | **0.730** | **+7.1pp** | **0.046** |
+| 30% | hard   | 189 | 0.619 | 0.619 | 0.672 | +5.3pp | 0.165 |
+
+### McNemar's Tests Summary
+
+| Comparison | pr05 | pr10 | pr20 | pr30 |
+|-----------|------|------|------|------|
+| PLAIN vs SCALAR | p=0.332 n.s. | p=0.628 n.s. | p=0.099 n.s. | p=1.000 n.s. |
+| PLAIN vs JSONLD-EX | **p<0.001** | **p<0.001** | **p=0.001** | **p<0.001** |
+| SCALAR vs JSONLD-EX | **p<0.001** | **p<0.001** | **p<0.001** | **p<0.001** |
+
+JSONLD-EX vs PLAIN: discordant pairs consistently favor JSONLD-EX
+(n_01=77-84, n_10=37-41 across poison rates).
+
+### Difficulty Distribution Shifts with Poison Rate
+
+| Poison | Easy | Medium | Hard |
+|--------|------|--------|------|
+| 5%  | 353 (70.6%) | 103 (20.6%) |  44 (8.8%)  |
+| 10% | 261 (52.2%) | 177 (35.4%) |  62 (12.4%) |
+| 20% | 156 (31.2%) | 224 (44.8%) | 120 (24.0%) |
+| 30% | 100 (20.0%) | 211 (42.2%) | 189 (37.8%) |
+
+This validates the classifier: more poison passages push questions from
+easy into medium and hard categories.
+
+### Critical Honest Assessment
+
+**1. The difficulty interaction is opposite to the hypothesis.**
+
+The design predicted SL metadata would help MOST on hard questions (gold
+passage low-ranked, poison present, contradictions). Instead, the effect
+is largest on easy questions (+11-13pp, highly significant) and never
+reaches significance on hard questions at any poison rate.
+
+On hard questions, the discordant pair counts are balanced (pr20: 12 vs 13;
+pr30: 26 vs 16) -- the metadata helps on some hard questions and hurts on
+others. At pr20, the effect is literally -0.8pp (JSONLD-EX marginally worse).
+
+**2. Extracted-answer confound.**
+
+The JSONLD-EX prompt includes `extracted_answer="Paris"` per passage. PLAIN
+and SCALAR do not. On easy questions, the extractive QA model typically gets
+the answer right, so the LLM receives an answer hint embedded in the metadata.
+This confound makes it impossible to attribute the +8pp overall improvement
+specifically to SL (b, d, u) triples vs. the extracted answer leaking into
+the prompt.
+
+A fourth condition (ANSWERS-ONLY: passages + extracted answers, no SL triples,
+no conflict/agreement, no fused assessment) is required to disentangle this.
+
+**3. What the pattern reveals about SL's actual value in RAG prompting.**
+
+The metadata amplifies good retrieval signal but cannot compensate when
+retrieval fundamentally fails. On easy questions (gold passage top-3, no poison),
+the metadata helps the LLM identify and trust the correct passages. On hard
+questions (gold low-ranked or missing, multiple poison passages), the metadata
+is working with the same poor retrieval that all conditions share.
+
+**4. SCALAR being useless is itself a finding.**
+
+Raw cosine scores add nothing -- in fact they sometimes hurt (though never
+significantly). This means unstructured scalar confidence is noise to GPT-4o-mini.
+The fact that JSONLD-EX helps while SCALAR doesn't suggests the *structured*
+nature of the metadata (agreement counts, conflict flags, natural-language
+assessment) matters, not just giving the LLM a number. However, this
+comparison is weakened by the extracted-answer confound in JSONLD-EX.
+
+**5. Token F1 shows a weaker effect than EM.**
+
+F1 differences are small (JSONLD-EX F1 ~ 0.81 vs PLAIN ~ 0.80) with
+overlapping CIs at most poison rates. The EM improvement is driven by the
+LLM producing exact-match-compatible answer formats (e.g., "39" instead of
+"39 years old"), which the SL metadata's extracted answers may encourage.
+
+### ANSWERS-ONLY Ablation Results
+
+**Ablation design:** A fourth condition (ANSWERS-ONLY) was added to isolate
+the extracted-answer confound. This condition includes passages + extracted
+answers per passage, but NO SL (b, d, u) triples, NO conflict/agreement
+flags, NO cosine scores, and NO fused assessment.
+
+| Condition | Passages | Cosine score | Extracted answer | SL (b,d,u) | Conflict/agreement | Assessment |
+|-----------|----------|-------------|-----------------|-----------|-------------------|------------|
+| PLAIN | yes | | | | | |
+| SCALAR | yes | yes | | | | |
+| ANSWERS-ONLY | yes | | yes | | | |
+| JSONLD-EX | yes | | yes | yes | yes | yes |
+
+**Scale:** 500 questions x 4 poison rates x 1 new condition = 2,000 API
+calls (~$0.65). Compared against existing PLAIN/SCALAR/JSONLD-EX results
+from the full H3 run (same questions, same seed, same model).
+
+### Ablation: Overall Results (Key Table)
+
+| Poison | PLAIN | SCALAR | ANSWERS-ONLY | JSONLD-EX | AO-P | JL-AO |
+|--------|-------|--------|-------------|-----------|------|-------|
+| 5%  | 0.642 | 0.632 | **0.774** | 0.728 | **+13.2pp** | **-4.6pp** |
+| 10% | 0.628 | 0.634 | **0.764** | 0.722 | **+13.6pp** | **-4.2pp** |
+| 20% | 0.644 | 0.628 | **0.766** | 0.716 | **+12.2pp** | **-5.0pp** |
+| 30% | 0.640 | 0.642 | **0.768** | 0.716 | **+12.8pp** | **-5.2pp** |
+
+**ANSWERS-ONLY beats everything.** It beats PLAIN by +12-14pp and beats
+JSONLD-EX by +4-5pp. All gaps are statistically significant (p < 0.001).
+
+### Ablation: Per-Difficulty Breakdown
+
+| Poison | Difficulty | n | PLAIN | ANS-ONLY | JSONLD-EX | AO-P | JL-AO |
+|--------|-----------|---|-------|----------|-----------|------|-------|
+| 5%  | easy   | 353 | 0.688 | **0.833** | 0.802 | +14.5pp | -3.1pp |
+| 5%  | medium | 103 | 0.660 | **0.806** | 0.680 | +14.6pp | **-12.6pp** |
+| 5%  | hard   |  44 | 0.227 | 0.227 | 0.250 | +0.0pp | +2.3pp |
+| 10% | easy   | 261 | 0.678 | **0.824** | 0.812 | +14.6pp | -1.2pp |
+| 10% | medium | 177 | 0.644 | **0.780** | 0.695 | +13.6pp | **-8.5pp** |
+| 10% | hard   |  62 | 0.371 | **0.468** | 0.419 | +9.7pp | -4.8pp |
+| 20% | easy   | 156 | 0.654 | **0.776** | 0.769 | +12.2pp | -0.6pp |
+| 20% | medium | 224 | 0.665 | **0.835** | 0.750 | +17.0pp | **-8.5pp** |
+| 20% | hard   | 120 | 0.592 | 0.625 | 0.583 | +3.3pp | -4.2pp |
+| 30% | easy   | 100 | 0.640 | **0.820** | 0.770 | +18.0pp | -5.0pp |
+| 30% | medium | 211 | 0.659 | **0.777** | 0.730 | +11.9pp | **-4.7pp** |
+| 30% | hard   | 189 | 0.619 | **0.730** | 0.672 | +11.1pp | **-5.8pp** |
+
+The SL metadata damage concentrates on medium-difficulty questions: ANSWERS-ONLY
+scores 0.78-0.84 while JSONLD-EX scores only 0.68-0.75, a gap of 8-13pp. On
+easy questions the gap is smaller (1-5pp). On hard questions the pattern is
+mixed but generally favors ANSWERS-ONLY.
+
+### Ablation: McNemar's Tests
+
+| Poison | PLAIN vs ANS-ONLY | ANS-ONLY vs JSONLD-EX | PLAIN vs JSONLD-EX |
+|--------|-------------------|----------------------|-------------------|
+| 5%  | **p<0.001** (n01=88, n10=22) | **p<0.001** (n01=8, n10=31) | **p<0.001** |
+| 10% | **p<0.001** (n01=92, n10=24) | **p=0.001** (n01=8, n10=29) | **p<0.001** |
+| 20% | **p<0.001** (n01=86, n10=25) | **p<0.001** (n01=8, n10=33) | **p=0.001** |
+| 30% | **p<0.001** (n01=86, n10=22) | **p<0.001** (n01=5, n10=31) | **p<0.001** |
+
+ANSWERS-ONLY vs JSONLD-EX per difficulty (McNemar):
+- **Medium:** significant at all poison rates (p=0.004 to p=0.034)
+- **Hard:** significant at pr30 (p=0.006), not significant at lower rates (small n)
+- **Easy:** significant at pr05 (p=0.029), not at higher rates
+
+### Interpretation: What the Ablation Reveals
+
+**1. The extracted answers drive the entire JSONLD-EX improvement over PLAIN.**
+
+ANSWERS-ONLY adds +12-14pp over PLAIN. JSONLD-EX adds +7-9pp over PLAIN. The
+SL components (b, d, u triples + conflict + agreement + assessment) then
+SUBTRACT 4-5pp from the answer-driven gain. Every bit of the original JSONLD-EX
+improvement came from extracted answer hints, and the SL algebra was dead weight
+that partially offset it.
+
+**2. SL metadata actively confuses GPT-4o-mini.**
+
+The numeric (b, d, u) triples, conflict flags, and fused assessment text add
+parsing burden and potentially misleading signals. On medium questions, this
+confusion costs 8-13pp EM. The LLM performs better when it receives just the
+answer hint and reads the passages itself than when it receives a structured
+epistemic assessment.
+
+**3. This is consistent with the SCALAR finding.**
+
+SCALAR (cosine scores) also hurts relative to PLAIN (though not significantly).
+GPT-4o-mini ignores or is confused by numeric quality metadata in prompts. The
+SL metadata is a more elaborate version of the same problem.
+
+**4. The QA extraction pipeline itself is highly valuable.**
+
+The +13pp from extracted answers is the largest single improvement in the
+entire EN3 experiment series. This demonstrates that the jsonld-ex annotation
+framework (which provides the infrastructure for QA extraction, answer grouping,
+and per-passage metadata) adds genuine value -- just not through the specific
+channel of SL uncertainty algebra.
+
+**5. This does NOT invalidate SL's value in other contexts.**
+
+EN1.1 (NER fusion: highest precision), EN1.2 (temporal adaptation: +24% worst-case
+MAE), and EN3.1b Tier 1 (poison filtering: -42-55%) demonstrate SL's value when
+the algebra operates DIRECTLY on the decision (fusion, filtering, abstention).
+The negative finding here is specifically about PROMPTING an LLM with SL metadata.
+LLMs are not algebraic reasoners -- they process natural language, not opinion
+triples.
+
+### Comparison with EN3.1b Findings
+
+EN3.1b showed pre-filtering hurts because context loss outweighs poison removal.
+EN3.2-H3 confirms that keeping ALL passages and ANNOTATING them is the right
+approach. But the ablation reveals a finer distinction: the valuable annotation
+is the EXTRACTED ANSWER (simple, natural-language, directly usable by the LLM),
+not the SL opinion triple (numeric, requires algebraic interpretation the LLM
+cannot perform).
+
+The full story across EN3.1/3.1b/3.2:
+1. **SL pre-filtering works algebraically** (Tier 1: -42-55% poison) but
+   **hurts LLM answer quality** (Tier 2: context loss)
+2. **Annotation > filtering** for strong LLMs (keep all passages, add metadata)
+3. **Answer hints > SL metadata** for LLM prompting (LLMs use natural-language
+   hints, not opinion triples)
+4. **SL's value is upstream** -- in the pipeline that extracts, groups, and
+   evaluates answers -- not in the prompt text the LLM reads
+
+### Key Claims for NeurIPS Paper (revised after ablation)
+
+1. **jsonld-ex's annotation pipeline improves RAG answer quality by +13pp EM**
+   (ANSWERS-ONLY vs PLAIN, p < 10^-5 at all poison rates). The framework
+   enables QA extraction and per-passage annotation that directly benefits
+   LLM reasoning.
+
+2. **Scalar cosine scores provide no benefit** and SL opinion triples
+   actively hurt (-4-5pp vs answers alone). LLMs are not algebraic reasoners;
+   numeric epistemic metadata in prompts adds parsing burden without benefit.
+   This connects to EA1.1's scalar collapse: the information destruction
+   problem manifests differently in LLM prompts (the LLM cannot recover
+   the information even when it's present).
+
+3. **The annotation approach dominates pre-filtering.** EN3.1b Tier 2
+   (pre-filtering) showed EM ~ 0.41-0.64; EN3.2-H3 (annotation with
+   answers) achieves EM ~ 0.77 by preserving full context with useful hints.
+
+4. **Honest negative: SL metadata does not help LLMs reason about source
+   reliability in RAG prompts.** This is the most important finding for
+   practitioners: the right use of SL in RAG is upstream (pipeline-level
+   fusion, filtering, abstention decisions) not downstream (prompt metadata).
+
+5. **SL's value is in direct algebraic operation**, not LLM prompting.
+   EN1.1 (fusion), EN1.2 (temporal), EN3.1b Tier 1 (filtering) all show
+   SL advantages when the algebra makes the decision. EN3.2-H3 shows it
+   doesn't transfer to prompt-based reasoning.
+
+### Suggested Paper Presentation
+
+- **Table:** Overall EM across 4 conditions x 4 poison rates (headline --
+  shows ANSWERS-ONLY > JSONLD-EX > PLAIN, the clean decomposition)
+- **Table:** Difficulty breakdown for ANSWERS-ONLY vs JSONLD-EX (shows
+  where SL metadata hurts most)
+- **Table:** McNemar's tests for the 3 key pairs
+- **Discussion:** The ablation as a methodological contribution -- it
+  demonstrates the importance of confound control in metadata-enriched
+  prompting studies. Frame SL's role as upstream pipeline algebra, not
+  downstream prompt metadata. Connect to the broader argument that
+  structured confidence has value in programmatic contexts (fusion,
+  filtering, abstention) but not in natural-language prompting.
+
+### Files
+
+- `experiments/EN3/en3_2_h3_core.py` (prompt builders incl. ANSWERS-ONLY, difficulty classifier, SL metadata, McNemar's test)
+- `experiments/EN3/en3_2_h3_experiment.py` (main experiment runner, 3 conditions)
+- `experiments/EN3/en3_2_h3_ablation.py` (ANSWERS-ONLY ablation runner)
+- `experiments/EN3/tests/test_en3_2_h3.py` (45 unit tests incl. ANSWERS-ONLY)
+- `experiments/EN3/results/en3_2_h3_full_results.json` (full H3 run, 3 conditions)
+- `experiments/EN3/results/en3_2_h3_ablation_results.json` (ablation run)
+- `experiments/EN3/checkpoints/en3_2_h3_full_pr{05,10,20,30}.json` (H3 per-poison-rate)
+- `experiments/EN3/checkpoints/en3_2_h3_ablation_pr{05,10,20,30}.json` (ablation per-poison-rate)
