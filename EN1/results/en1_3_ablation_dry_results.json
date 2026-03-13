@@ -1,0 +1,5684 @@
+{
+  "experiment_id": "EN1.3-ablation",
+  "parameters": {
+    "n_instances": 100,
+    "honest_counts": [
+      5
+    ],
+    "honest_accuracies": [
+      0.8
+    ],
+    "adversarial_k": [
+      0,
+      2
+    ],
+    "robust_thresholds": [
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.3
+    ],
+    "hetero_configs": [
+      "uniform_low",
+      "uniform_high",
+      "spread_5",
+      "spread_3",
+      "one_strong_rest_weak",
+      "one_weak_rest_strong"
+    ],
+    "n_seeds": 3,
+    "n_bootstrap": 100,
+    "global_seed": 42,
+    "mode": "dry"
+  },
+  "metrics": {
+    "core_grid": {
+      "nh5_acc80_k0_inversion": {
+        "scalar_mean": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.265724,
+          "mean_brier": 0.135849
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.179152,
+          "mean_brier": 0.104191
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.114667,
+          "mean_brier": 0.080533
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.227666,
+          "mean_brier": 0.112244
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.265724,
+          "mean_brier": 0.135849
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.242502,
+          "mean_brier": 0.123644,
+          "mean_uncertainty": 0.038462
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.13006,
+          "mean_brier": 0.089765,
+          "mean_uncertainty": 0.0625,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.13006,
+          "mean_brier": 0.089765,
+          "mean_uncertainty": 0.0625,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.13006,
+          "mean_brier": 0.089765,
+          "mean_uncertainty": 0.0625,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.130033,
+          "mean_brier": 0.089762,
+          "mean_uncertainty": 0.062103,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.134543,
+          "mean_brier": 0.091537,
+          "mean_uncertainty": 0.048657,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.263272,
+          "mean_brier": 0.134478,
+          "mean_uncertainty": 0.154541
+        }
+      },
+      "nh5_acc80_k2_inversion": {
+        "scalar_mean": {
+          "mean_accuracy": 0.68,
+          "ci_accuracy": [
+            0.6395,
+            0.72
+          ],
+          "mean_f1": 0.721101,
+          "mean_ece": 0.2115,
+          "mean_brier": 0.246644
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.72,
+          "ci_accuracy": [
+            0.67475,
+            0.79
+          ],
+          "mean_f1": 0.756539,
+          "mean_ece": 0.100024,
+          "mean_brier": 0.20708
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.72,
+          "ci_accuracy": [
+            0.67475,
+            0.79
+          ],
+          "mean_f1": 0.756539,
+          "mean_ece": 0.16381,
+          "mean_brier": 0.208707
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.72,
+          "ci_accuracy": [
+            0.67475,
+            0.79
+          ],
+          "mean_f1": 0.756539,
+          "mean_ece": 0.163885,
+          "mean_brier": 0.210844
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.265724,
+          "mean_brier": 0.135849
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.68,
+          "ci_accuracy": [
+            0.6395,
+            0.72
+          ],
+          "mean_f1": 0.721101,
+          "mean_ece": 0.174513,
+          "mean_brier": 0.24703,
+          "mean_uncertainty": 0.027778
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.72,
+          "ci_accuracy": [
+            0.67475,
+            0.79
+          ],
+          "mean_f1": 0.756539,
+          "mean_ece": 0.321608,
+          "mean_brier": 0.227692,
+          "mean_uncertainty": 0.047619,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.48
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.72,
+          "ci_accuracy": [
+            0.67475,
+            0.79
+          ],
+          "mean_f1": 0.756539,
+          "mean_ece": 0.321608,
+          "mean_brier": 0.227692,
+          "mean_uncertainty": 0.047619,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.48
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.72,
+          "ci_accuracy": [
+            0.67475,
+            0.79
+          ],
+          "mean_f1": 0.756539,
+          "mean_ece": 0.321608,
+          "mean_brier": 0.227692,
+          "mean_uncertainty": 0.047619,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.48
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.72,
+          "ci_accuracy": [
+            0.67475,
+            0.79
+          ],
+          "mean_f1": 0.756539,
+          "mean_ece": 0.321495,
+          "mean_brier": 0.227502,
+          "mean_uncertainty": 0.047476,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.4828
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.72,
+          "ci_accuracy": [
+            0.67475,
+            0.79
+          ],
+          "mean_f1": 0.756539,
+          "mean_ece": 0.338419,
+          "mean_brier": 0.226531,
+          "mean_uncertainty": 0.043873,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.5573
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.716667,
+          "ci_accuracy": [
+            0.666333,
+            0.79
+          ],
+          "mean_f1": 0.75449,
+          "mean_ece": 0.18353,
+          "mean_brier": 0.235523,
+          "mean_uncertainty": 0.13436
+        }
+      },
+      "nh5_acc80_k0_targeted": {
+        "scalar_mean": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.265724,
+          "mean_brier": 0.135849
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.179152,
+          "mean_brier": 0.104191
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.114667,
+          "mean_brier": 0.080533
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.227666,
+          "mean_brier": 0.112244
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.265724,
+          "mean_brier": 0.135849
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.242502,
+          "mean_brier": 0.123644,
+          "mean_uncertainty": 0.038462
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.13006,
+          "mean_brier": 0.089765,
+          "mean_uncertainty": 0.0625,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.13006,
+          "mean_brier": 0.089765,
+          "mean_uncertainty": 0.0625,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.13006,
+          "mean_brier": 0.089765,
+          "mean_uncertainty": 0.0625,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.130033,
+          "mean_brier": 0.089762,
+          "mean_uncertainty": 0.062103,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.134543,
+          "mean_brier": 0.091537,
+          "mean_uncertainty": 0.048657,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.263272,
+          "mean_brier": 0.134478,
+          "mean_uncertainty": 0.154541
+        }
+      },
+      "nh5_acc80_k2_targeted": {
+        "scalar_mean": {
+          "mean_accuracy": 0.8,
+          "ci_accuracy": [
+            0.75475,
+            0.87
+          ],
+          "mean_f1": 0.806519,
+          "mean_ece": 0.328615,
+          "mean_brier": 0.190751
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.82,
+          "ci_accuracy": [
+            0.773167,
+            0.9
+          ],
+          "mean_f1": 0.829431,
+          "mean_ece": 0.168541,
+          "mean_brier": 0.154643
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.82,
+          "ci_accuracy": [
+            0.773167,
+            0.9
+          ],
+          "mean_f1": 0.829431,
+          "mean_ece": 0.242857,
+          "mean_brier": 0.143673
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.82,
+          "ci_accuracy": [
+            0.773167,
+            0.9
+          ],
+          "mean_f1": 0.829431,
+          "mean_ece": 0.262465,
+          "mean_brier": 0.157728
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.265724,
+          "mean_brier": 0.135849
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.8,
+          "ci_accuracy": [
+            0.75475,
+            0.87
+          ],
+          "mean_f1": 0.806519,
+          "mean_ece": 0.322776,
+          "mean_brier": 0.184494,
+          "mean_uncertainty": 0.027778
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.82,
+          "ci_accuracy": [
+            0.773167,
+            0.9
+          ],
+          "mean_f1": 0.829431,
+          "mean_ece": 0.175075,
+          "mean_brier": 0.157886,
+          "mean_uncertainty": 0.047619,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.3033
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.82,
+          "ci_accuracy": [
+            0.773167,
+            0.9
+          ],
+          "mean_f1": 0.829431,
+          "mean_ece": 0.175075,
+          "mean_brier": 0.157886,
+          "mean_uncertainty": 0.047619,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.3033
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.82,
+          "ci_accuracy": [
+            0.773167,
+            0.9
+          ],
+          "mean_f1": 0.829431,
+          "mean_ece": 0.175075,
+          "mean_brier": 0.157886,
+          "mean_uncertainty": 0.047619,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.3033
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.82,
+          "ci_accuracy": [
+            0.773167,
+            0.9
+          ],
+          "mean_f1": 0.829431,
+          "mean_ece": 0.174802,
+          "mean_brier": 0.157848,
+          "mean_uncertainty": 0.046916,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.3082
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.82,
+          "ci_accuracy": [
+            0.773167,
+            0.9
+          ],
+          "mean_f1": 0.829431,
+          "mean_ece": 0.212427,
+          "mean_brier": 0.158779,
+          "mean_uncertainty": 0.039631,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.45
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.806667,
+          "ci_accuracy": [
+            0.75475,
+            0.89
+          ],
+          "mean_f1": 0.814156,
+          "mean_ece": 0.322624,
+          "mean_brier": 0.187456,
+          "mean_uncertainty": 0.123394
+        }
+      },
+      "nh5_acc80_k0_random": {
+        "scalar_mean": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.265724,
+          "mean_brier": 0.135849
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.179152,
+          "mean_brier": 0.104191
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.114667,
+          "mean_brier": 0.080533
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.227666,
+          "mean_brier": 0.112244
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.265724,
+          "mean_brier": 0.135849
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.242502,
+          "mean_brier": 0.123644,
+          "mean_uncertainty": 0.038462
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.13006,
+          "mean_brier": 0.089765,
+          "mean_uncertainty": 0.0625,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.13006,
+          "mean_brier": 0.089765,
+          "mean_uncertainty": 0.0625,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.13006,
+          "mean_brier": 0.089765,
+          "mean_uncertainty": 0.0625,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.130033,
+          "mean_brier": 0.089762,
+          "mean_uncertainty": 0.062103,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.134543,
+          "mean_brier": 0.091537,
+          "mean_uncertainty": 0.048657,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.263272,
+          "mean_brier": 0.134478,
+          "mean_uncertainty": 0.154541
+        }
+      },
+      "nh5_acc80_k2_random": {
+        "scalar_mean": {
+          "mean_accuracy": 0.886667,
+          "ci_accuracy": [
+            0.87,
+            0.92
+          ],
+          "mean_f1": 0.904829,
+          "mean_ece": 0.268122,
+          "mean_brier": 0.161336
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.893333,
+          "ci_accuracy": [
+            0.88,
+            0.92
+          ],
+          "mean_f1": 0.911225,
+          "mean_ece": 0.200844,
+          "mean_brier": 0.116186
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.893333,
+          "ci_accuracy": [
+            0.88,
+            0.92
+          ],
+          "mean_f1": 0.911225,
+          "mean_ece": 0.158095,
+          "mean_brier": 0.110612
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.896667,
+          "ci_accuracy": [
+            0.88,
+            0.93
+          ],
+          "mean_f1": 0.91406,
+          "mean_ece": 0.222192,
+          "mean_brier": 0.124945
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.265724,
+          "mean_brier": 0.135849
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.886667,
+          "ci_accuracy": [
+            0.87,
+            0.92
+          ],
+          "mean_f1": 0.904829,
+          "mean_ece": 0.25282,
+          "mean_brier": 0.150317,
+          "mean_uncertainty": 0.027778
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.893333,
+          "ci_accuracy": [
+            0.871583,
+            0.93
+          ],
+          "mean_f1": 0.911035,
+          "mean_ece": 0.104197,
+          "mean_brier": 0.102189,
+          "mean_uncertainty": 0.047619,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.42
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.893333,
+          "ci_accuracy": [
+            0.871583,
+            0.93
+          ],
+          "mean_f1": 0.911035,
+          "mean_ece": 0.104197,
+          "mean_brier": 0.102189,
+          "mean_uncertainty": 0.047619,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.42
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.893333,
+          "ci_accuracy": [
+            0.871583,
+            0.93
+          ],
+          "mean_f1": 0.911035,
+          "mean_ece": 0.104197,
+          "mean_brier": 0.102189,
+          "mean_uncertainty": 0.047619,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.42
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.893333,
+          "ci_accuracy": [
+            0.871583,
+            0.93
+          ],
+          "mean_f1": 0.911035,
+          "mean_ece": 0.104416,
+          "mean_brier": 0.102258,
+          "mean_uncertainty": 0.047253,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.4245
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.893333,
+          "ci_accuracy": [
+            0.871583,
+            0.93
+          ],
+          "mean_f1": 0.911035,
+          "mean_ece": 0.116741,
+          "mean_brier": 0.105773,
+          "mean_uncertainty": 0.038901,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.47
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.893333,
+          "ci_accuracy": [
+            0.87,
+            0.94
+          ],
+          "mean_f1": 0.911002,
+          "mean_ece": 0.267529,
+          "mean_brier": 0.155789,
+          "mean_uncertainty": 0.121594
+        }
+      },
+      "nh5_acc80_k0_subtle": {
+        "scalar_mean": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.265724,
+          "mean_brier": 0.135849
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.179152,
+          "mean_brier": 0.104191
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.114667,
+          "mean_brier": 0.080533
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.227666,
+          "mean_brier": 0.112244
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.265724,
+          "mean_brier": 0.135849
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.242502,
+          "mean_brier": 0.123644,
+          "mean_uncertainty": 0.038462
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.13006,
+          "mean_brier": 0.089765,
+          "mean_uncertainty": 0.0625,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.13006,
+          "mean_brier": 0.089765,
+          "mean_uncertainty": 0.0625,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.13006,
+          "mean_brier": 0.089765,
+          "mean_uncertainty": 0.0625,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.130033,
+          "mean_brier": 0.089762,
+          "mean_uncertainty": 0.062103,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.134543,
+          "mean_brier": 0.091537,
+          "mean_uncertainty": 0.048657,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.263272,
+          "mean_brier": 0.134478,
+          "mean_uncertainty": 0.154541
+        }
+      },
+      "nh5_acc80_k2_subtle": {
+        "scalar_mean": {
+          "mean_accuracy": 0.853333,
+          "ci_accuracy": [
+            0.831583,
+            0.89
+          ],
+          "mean_f1": 0.874456,
+          "mean_ece": 0.265917,
+          "mean_brier": 0.186987
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.72,
+          "ci_accuracy": [
+            0.67475,
+            0.79
+          ],
+          "mean_f1": 0.756539,
+          "mean_ece": 0.338934,
+          "mean_brier": 0.155444
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.72,
+          "ci_accuracy": [
+            0.67475,
+            0.79
+          ],
+          "mean_f1": 0.756539,
+          "mean_ece": 0.16381,
+          "mean_brier": 0.208707
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.84,
+          "ci_accuracy": [
+            0.81475,
+            0.87
+          ],
+          "mean_f1": 0.862564,
+          "mean_ece": 0.217765,
+          "mean_brier": 0.161304
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.265724,
+          "mean_brier": 0.135849
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.853333,
+          "ci_accuracy": [
+            0.831583,
+            0.89
+          ],
+          "mean_f1": 0.874456,
+          "mean_ece": 0.251348,
+          "mean_brier": 0.17851,
+          "mean_uncertainty": 0.027778
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.843333,
+          "ci_accuracy": [
+            0.816333,
+            0.87
+          ],
+          "mean_f1": 0.865838,
+          "mean_ece": 0.115209,
+          "mean_brier": 0.129934,
+          "mean_uncertainty": 0.047619,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.5522
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.843333,
+          "ci_accuracy": [
+            0.816333,
+            0.87
+          ],
+          "mean_f1": 0.865838,
+          "mean_ece": 0.115209,
+          "mean_brier": 0.129934,
+          "mean_uncertainty": 0.047619,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.5522
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.843333,
+          "ci_accuracy": [
+            0.816333,
+            0.87
+          ],
+          "mean_f1": 0.865838,
+          "mean_ece": 0.115209,
+          "mean_brier": 0.129934,
+          "mean_uncertainty": 0.047619,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.5522
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.843333,
+          "ci_accuracy": [
+            0.816333,
+            0.87
+          ],
+          "mean_f1": 0.865838,
+          "mean_ece": 0.115209,
+          "mean_brier": 0.129934,
+          "mean_uncertainty": 0.047619,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.5522
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.843333,
+          "ci_accuracy": [
+            0.816333,
+            0.87
+          ],
+          "mean_f1": 0.865838,
+          "mean_ece": 0.111485,
+          "mean_brier": 0.129329,
+          "mean_uncertainty": 0.044363,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.6135
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.876667,
+          "ci_accuracy": [
+            0.861583,
+            0.9
+          ],
+          "mean_f1": 0.895689,
+          "mean_ece": 0.279391,
+          "mean_brier": 0.179534,
+          "mean_uncertainty": 0.126763
+        }
+      },
+      "nh5_acc80_k0_colluding": {
+        "scalar_mean": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.265724,
+          "mean_brier": 0.135849
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.179152,
+          "mean_brier": 0.104191
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.114667,
+          "mean_brier": 0.080533
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.227666,
+          "mean_brier": 0.112244
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.265724,
+          "mean_brier": 0.135849
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.242502,
+          "mean_brier": 0.123644,
+          "mean_uncertainty": 0.038462
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.13006,
+          "mean_brier": 0.089765,
+          "mean_uncertainty": 0.0625,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.13006,
+          "mean_brier": 0.089765,
+          "mean_uncertainty": 0.0625,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.13006,
+          "mean_brier": 0.089765,
+          "mean_uncertainty": 0.0625,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.130033,
+          "mean_brier": 0.089762,
+          "mean_uncertainty": 0.062103,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.134543,
+          "mean_brier": 0.091537,
+          "mean_uncertainty": 0.048657,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 1.0
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.263272,
+          "mean_brier": 0.134478,
+          "mean_uncertainty": 0.154541
+        }
+      },
+      "nh5_acc80_k2_colluding": {
+        "scalar_mean": {
+          "mean_accuracy": 0.696667,
+          "ci_accuracy": [
+            0.66475,
+            0.74
+          ],
+          "mean_f1": 0.735192,
+          "mean_ece": 0.17677,
+          "mean_brier": 0.23724
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.72,
+          "ci_accuracy": [
+            0.67475,
+            0.79
+          ],
+          "mean_f1": 0.756539,
+          "mean_ece": 0.100339,
+          "mean_brier": 0.206567
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.72,
+          "ci_accuracy": [
+            0.67475,
+            0.79
+          ],
+          "mean_f1": 0.756539,
+          "mean_ece": 0.16381,
+          "mean_brier": 0.208707
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.72,
+          "ci_accuracy": [
+            0.67475,
+            0.79
+          ],
+          "mean_f1": 0.756539,
+          "mean_ece": 0.155512,
+          "mean_brier": 0.209558
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.92,
+          "ci_accuracy": [
+            0.903167,
+            0.94
+          ],
+          "mean_f1": 0.932088,
+          "mean_ece": 0.265724,
+          "mean_brier": 0.135849
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.696667,
+          "ci_accuracy": [
+            0.66475,
+            0.74
+          ],
+          "mean_f1": 0.735192,
+          "mean_ece": 0.171886,
+          "mean_brier": 0.236177,
+          "mean_uncertainty": 0.027778
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.72,
+          "ci_accuracy": [
+            0.67475,
+            0.79
+          ],
+          "mean_f1": 0.756539,
+          "mean_ece": 0.217355,
+          "mean_brier": 0.220491,
+          "mean_uncertainty": 0.047619,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.4811
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.72,
+          "ci_accuracy": [
+            0.67475,
+            0.79
+          ],
+          "mean_f1": 0.756539,
+          "mean_ece": 0.217355,
+          "mean_brier": 0.220491,
+          "mean_uncertainty": 0.047619,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.4811
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.72,
+          "ci_accuracy": [
+            0.67475,
+            0.79
+          ],
+          "mean_f1": 0.756539,
+          "mean_ece": 0.217355,
+          "mean_brier": 0.220491,
+          "mean_uncertainty": 0.047619,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.4811
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.72,
+          "ci_accuracy": [
+            0.67475,
+            0.79
+          ],
+          "mean_f1": 0.756539,
+          "mean_ece": 0.217318,
+          "mean_brier": 0.220428,
+          "mean_uncertainty": 0.047537,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.4829
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.72,
+          "ci_accuracy": [
+            0.67475,
+            0.79
+          ],
+          "mean_f1": 0.756539,
+          "mean_ece": 0.234416,
+          "mean_brier": 0.219666,
+          "mean_uncertainty": 0.043873,
+          "mean_det_recall": 1.0,
+          "mean_det_precision": 0.5573
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.72,
+          "ci_accuracy": [
+            0.67475,
+            0.79
+          ],
+          "mean_f1": 0.756539,
+          "mean_ece": 0.184191,
+          "mean_brier": 0.226496,
+          "mean_uncertainty": 0.133155
+        }
+      }
+    },
+    "heterogeneous": {
+      "uniform_low_k0_inversion": {
+        "scalar_mean": {
+          "mean_accuracy": 0.76,
+          "ci_accuracy": [
+            0.741583,
+            0.79
+          ],
+          "mean_f1": 0.789789,
+          "mean_ece": 0.203584,
+          "mean_brier": 0.217457
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.756667,
+          "ci_accuracy": [
+            0.741583,
+            0.78
+          ],
+          "mean_f1": 0.785854,
+          "mean_ece": 0.164626,
+          "mean_brier": 0.203415
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.756667,
+          "ci_accuracy": [
+            0.741583,
+            0.78
+          ],
+          "mean_f1": 0.785854,
+          "mean_ece": 0.107333,
+          "mean_brier": 0.172933
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.756667,
+          "ci_accuracy": [
+            0.741583,
+            0.78
+          ],
+          "mean_f1": 0.785854,
+          "mean_ece": 0.193224,
+          "mean_brier": 0.207688
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.76,
+          "ci_accuracy": [
+            0.741583,
+            0.79
+          ],
+          "mean_f1": 0.789789,
+          "mean_ece": 0.203584,
+          "mean_brier": 0.217457
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.76,
+          "ci_accuracy": [
+            0.741583,
+            0.79
+          ],
+          "mean_f1": 0.789789,
+          "mean_ece": 0.201733,
+          "mean_brier": 0.213273
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.756667,
+          "ci_accuracy": [
+            0.741583,
+            0.78
+          ],
+          "mean_f1": 0.785854,
+          "mean_ece": 0.122508,
+          "mean_brier": 0.195582
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.756667,
+          "ci_accuracy": [
+            0.741583,
+            0.78
+          ],
+          "mean_f1": 0.785854,
+          "mean_ece": 0.122508,
+          "mean_brier": 0.195582
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.756667,
+          "ci_accuracy": [
+            0.741583,
+            0.78
+          ],
+          "mean_f1": 0.785854,
+          "mean_ece": 0.122508,
+          "mean_brier": 0.195582
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.756667,
+          "ci_accuracy": [
+            0.741583,
+            0.78
+          ],
+          "mean_f1": 0.785854,
+          "mean_ece": 0.122508,
+          "mean_brier": 0.195582
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.756667,
+          "ci_accuracy": [
+            0.741583,
+            0.78
+          ],
+          "mean_f1": 0.785854,
+          "mean_ece": 0.122508,
+          "mean_brier": 0.195582
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.76,
+          "ci_accuracy": [
+            0.741583,
+            0.79
+          ],
+          "mean_f1": 0.789789,
+          "mean_ece": 0.203803,
+          "mean_brier": 0.217581
+        }
+      },
+      "uniform_low_k2_inversion": {
+        "scalar_mean": {
+          "mean_accuracy": 0.03,
+          "ci_accuracy": [
+            0.03,
+            0.03
+          ],
+          "mean_f1": 0.033137,
+          "mean_ece": 0.538748,
+          "mean_brier": 0.32469
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.45,
+          "ci_accuracy": [
+            0.377417,
+            0.52
+          ],
+          "mean_f1": 0.484683,
+          "mean_ece": 0.209305,
+          "mean_brier": 0.281413
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.45,
+          "ci_accuracy": [
+            0.377417,
+            0.52
+          ],
+          "mean_f1": 0.484683,
+          "mean_ece": 0.215714,
+          "mean_brier": 0.312721
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.45,
+          "ci_accuracy": [
+            0.377417,
+            0.52
+          ],
+          "mean_f1": 0.484683,
+          "mean_ece": 0.180642,
+          "mean_brier": 0.279203
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.76,
+          "ci_accuracy": [
+            0.741583,
+            0.79
+          ],
+          "mean_f1": 0.789789,
+          "mean_ece": 0.203584,
+          "mean_brier": 0.217457
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.03,
+          "ci_accuracy": [
+            0.03,
+            0.03
+          ],
+          "mean_f1": 0.033137,
+          "mean_ece": 0.550206,
+          "mean_brier": 0.338377
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.13,
+          "ci_accuracy": [
+            0.097917,
+            0.16
+          ],
+          "mean_f1": 0.144456,
+          "mean_ece": 0.598341,
+          "mean_brier": 0.493627
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.13,
+          "ci_accuracy": [
+            0.097917,
+            0.16
+          ],
+          "mean_f1": 0.144456,
+          "mean_ece": 0.598341,
+          "mean_brier": 0.493627
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.13,
+          "ci_accuracy": [
+            0.097917,
+            0.16
+          ],
+          "mean_f1": 0.144456,
+          "mean_ece": 0.598341,
+          "mean_brier": 0.493627
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.13,
+          "ci_accuracy": [
+            0.097917,
+            0.16
+          ],
+          "mean_f1": 0.144456,
+          "mean_ece": 0.598341,
+          "mean_brier": 0.493627
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.13,
+          "ci_accuracy": [
+            0.097917,
+            0.16
+          ],
+          "mean_f1": 0.144456,
+          "mean_ece": 0.59412,
+          "mean_brier": 0.487223
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.013333,
+          "ci_accuracy": [
+            0.01,
+            0.018417
+          ],
+          "mean_f1": 0.019673,
+          "mean_ece": 0.563535,
+          "mean_brier": 0.334407
+        }
+      },
+      "uniform_low_k0_targeted": {
+        "scalar_mean": {
+          "mean_accuracy": 0.76,
+          "ci_accuracy": [
+            0.741583,
+            0.79
+          ],
+          "mean_f1": 0.789789,
+          "mean_ece": 0.203584,
+          "mean_brier": 0.217457
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.756667,
+          "ci_accuracy": [
+            0.741583,
+            0.78
+          ],
+          "mean_f1": 0.785854,
+          "mean_ece": 0.164626,
+          "mean_brier": 0.203415
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.756667,
+          "ci_accuracy": [
+            0.741583,
+            0.78
+          ],
+          "mean_f1": 0.785854,
+          "mean_ece": 0.107333,
+          "mean_brier": 0.172933
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.756667,
+          "ci_accuracy": [
+            0.741583,
+            0.78
+          ],
+          "mean_f1": 0.785854,
+          "mean_ece": 0.193224,
+          "mean_brier": 0.207688
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.76,
+          "ci_accuracy": [
+            0.741583,
+            0.79
+          ],
+          "mean_f1": 0.789789,
+          "mean_ece": 0.203584,
+          "mean_brier": 0.217457
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.76,
+          "ci_accuracy": [
+            0.741583,
+            0.79
+          ],
+          "mean_f1": 0.789789,
+          "mean_ece": 0.201733,
+          "mean_brier": 0.213273
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.756667,
+          "ci_accuracy": [
+            0.741583,
+            0.78
+          ],
+          "mean_f1": 0.785854,
+          "mean_ece": 0.122508,
+          "mean_brier": 0.195582
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.756667,
+          "ci_accuracy": [
+            0.741583,
+            0.78
+          ],
+          "mean_f1": 0.785854,
+          "mean_ece": 0.122508,
+          "mean_brier": 0.195582
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.756667,
+          "ci_accuracy": [
+            0.741583,
+            0.78
+          ],
+          "mean_f1": 0.785854,
+          "mean_ece": 0.122508,
+          "mean_brier": 0.195582
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.756667,
+          "ci_accuracy": [
+            0.741583,
+            0.78
+          ],
+          "mean_f1": 0.785854,
+          "mean_ece": 0.122508,
+          "mean_brier": 0.195582
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.756667,
+          "ci_accuracy": [
+            0.741583,
+            0.78
+          ],
+          "mean_f1": 0.785854,
+          "mean_ece": 0.122508,
+          "mean_brier": 0.195582
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.76,
+          "ci_accuracy": [
+            0.741583,
+            0.79
+          ],
+          "mean_f1": 0.789789,
+          "mean_ece": 0.203803,
+          "mean_brier": 0.217581
+        }
+      },
+      "uniform_low_k2_targeted": {
+        "scalar_mean": {
+          "mean_accuracy": 0.403333,
+          "ci_accuracy": [
+            0.37,
+            0.46
+          ],
+          "mean_f1": 0.052007,
+          "mean_ece": 0.210189,
+          "mean_brier": 0.258317
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.626667,
+          "ci_accuracy": [
+            0.552667,
+            0.72
+          ],
+          "mean_f1": 0.581343,
+          "mean_ece": 0.168328,
+          "mean_brier": 0.234451
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.626667,
+          "ci_accuracy": [
+            0.552667,
+            0.72
+          ],
+          "mean_f1": 0.581343,
+          "mean_ece": 0.235714,
+          "mean_brier": 0.227007
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.626667,
+          "ci_accuracy": [
+            0.552667,
+            0.72
+          ],
+          "mean_f1": 0.581343,
+          "mean_ece": 0.196803,
+          "mean_brier": 0.234266
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.76,
+          "ci_accuracy": [
+            0.741583,
+            0.79
+          ],
+          "mean_f1": 0.789789,
+          "mean_ece": 0.203584,
+          "mean_brier": 0.217457
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.403333,
+          "ci_accuracy": [
+            0.37,
+            0.46
+          ],
+          "mean_f1": 0.052007,
+          "mean_ece": 0.227214,
+          "mean_brier": 0.261576
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.46,
+          "ci_accuracy": [
+            0.421583,
+            0.53
+          ],
+          "mean_f1": 0.214858,
+          "mean_ece": 0.316332,
+          "mean_brier": 0.332388
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.46,
+          "ci_accuracy": [
+            0.421583,
+            0.53
+          ],
+          "mean_f1": 0.214858,
+          "mean_ece": 0.316332,
+          "mean_brier": 0.332388
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.46,
+          "ci_accuracy": [
+            0.421583,
+            0.53
+          ],
+          "mean_f1": 0.214858,
+          "mean_ece": 0.316332,
+          "mean_brier": 0.332388
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.46,
+          "ci_accuracy": [
+            0.421583,
+            0.53
+          ],
+          "mean_f1": 0.214858,
+          "mean_ece": 0.316332,
+          "mean_brier": 0.332388
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.46,
+          "ci_accuracy": [
+            0.421583,
+            0.53
+          ],
+          "mean_f1": 0.214858,
+          "mean_ece": 0.310049,
+          "mean_brier": 0.329734
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.403333,
+          "ci_accuracy": [
+            0.37,
+            0.45
+          ],
+          "mean_f1": 0.030769,
+          "mean_ece": 0.230247,
+          "mean_brier": 0.262573
+        }
+      },
+      "uniform_high_k0_inversion": {
+        "scalar_mean": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.236212,
+          "mean_brier": 0.063515
+        },
+        "scalar_median": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.171633,
+          "mean_brier": 0.029741
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.104,
+          "mean_brier": 0.027733
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.189031,
+          "mean_brier": 0.039844
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.236212,
+          "mean_brier": 0.063515
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.195629,
+          "mean_brier": 0.048548
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.113357,
+          "mean_brier": 0.013057
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.11325,
+          "mean_brier": 0.013038
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.117067,
+          "mean_brier": 0.013864
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.117607,
+          "mean_brier": 0.014003
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.117607,
+          "mean_brier": 0.014003
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.221358,
+          "mean_brier": 0.057533
+        }
+      },
+      "uniform_high_k2_inversion": {
+        "scalar_mean": {
+          "mean_accuracy": 0.913333,
+          "ci_accuracy": [
+            0.91,
+            0.92
+          ],
+          "mean_f1": 0.926336,
+          "mean_ece": 0.311535,
+          "mean_brier": 0.169194
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.913333,
+          "ci_accuracy": [
+            0.91,
+            0.92
+          ],
+          "mean_f1": 0.926336,
+          "mean_ece": 0.109528,
+          "mean_brier": 0.087492
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.913333,
+          "ci_accuracy": [
+            0.91,
+            0.92
+          ],
+          "mean_f1": 0.926336,
+          "mean_ece": 0.260952,
+          "mean_brier": 0.138231
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.913333,
+          "ci_accuracy": [
+            0.91,
+            0.92
+          ],
+          "mean_f1": 0.926336,
+          "mean_ece": 0.190954,
+          "mean_brier": 0.104032
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.236212,
+          "mean_brier": 0.063515
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.913333,
+          "ci_accuracy": [
+            0.91,
+            0.92
+          ],
+          "mean_f1": 0.926336,
+          "mean_ece": 0.294569,
+          "mean_brier": 0.158204
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.913333,
+          "ci_accuracy": [
+            0.91,
+            0.92
+          ],
+          "mean_f1": 0.926336,
+          "mean_ece": 0.0513,
+          "mean_brier": 0.079194
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.913333,
+          "ci_accuracy": [
+            0.91,
+            0.92
+          ],
+          "mean_f1": 0.926336,
+          "mean_ece": 0.051301,
+          "mean_brier": 0.079195
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.913333,
+          "ci_accuracy": [
+            0.91,
+            0.92
+          ],
+          "mean_f1": 0.926336,
+          "mean_ece": 0.051165,
+          "mean_brier": 0.079636
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.913333,
+          "ci_accuracy": [
+            0.91,
+            0.92
+          ],
+          "mean_f1": 0.926336,
+          "mean_ece": 0.051341,
+          "mean_brier": 0.079728
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.913333,
+          "ci_accuracy": [
+            0.91,
+            0.92
+          ],
+          "mean_f1": 0.926336,
+          "mean_ece": 0.051341,
+          "mean_brier": 0.079728
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.913333,
+          "ci_accuracy": [
+            0.91,
+            0.92
+          ],
+          "mean_f1": 0.926336,
+          "mean_ece": 0.263619,
+          "mean_brier": 0.129926
+        }
+      },
+      "uniform_high_k0_targeted": {
+        "scalar_mean": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.236212,
+          "mean_brier": 0.063515
+        },
+        "scalar_median": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.171633,
+          "mean_brier": 0.029741
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.104,
+          "mean_brier": 0.027733
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.189031,
+          "mean_brier": 0.039844
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.236212,
+          "mean_brier": 0.063515
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.195629,
+          "mean_brier": 0.048548
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.113357,
+          "mean_brier": 0.013057
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.11325,
+          "mean_brier": 0.013038
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.117067,
+          "mean_brier": 0.013864
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.117607,
+          "mean_brier": 0.014003
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.117607,
+          "mean_brier": 0.014003
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.221358,
+          "mean_brier": 0.057533
+        }
+      },
+      "uniform_high_k2_targeted": {
+        "scalar_mean": {
+          "mean_accuracy": 0.943333,
+          "ci_accuracy": [
+            0.931583,
+            0.96
+          ],
+          "mean_f1": 0.950409,
+          "mean_ece": 0.336816,
+          "mean_brier": 0.125481
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.943333,
+          "ci_accuracy": [
+            0.931583,
+            0.96
+          ],
+          "mean_f1": 0.950409,
+          "mean_ece": 0.141585,
+          "mean_brier": 0.068957
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.943333,
+          "ci_accuracy": [
+            0.931583,
+            0.96
+          ],
+          "mean_f1": 0.950409,
+          "mean_ece": 0.247619,
+          "mean_brier": 0.090884
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.943333,
+          "ci_accuracy": [
+            0.931583,
+            0.96
+          ],
+          "mean_f1": 0.950409,
+          "mean_ece": 0.252272,
+          "mean_brier": 0.078901
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 1.0,
+          "ci_accuracy": [
+            1.0,
+            1.0
+          ],
+          "mean_f1": 1.0,
+          "mean_ece": 0.236212,
+          "mean_brier": 0.063515
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.943333,
+          "ci_accuracy": [
+            0.931583,
+            0.96
+          ],
+          "mean_f1": 0.950409,
+          "mean_ece": 0.309618,
+          "mean_brier": 0.112246
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.943333,
+          "ci_accuracy": [
+            0.931583,
+            0.96
+          ],
+          "mean_f1": 0.950409,
+          "mean_ece": 0.077205,
+          "mean_brier": 0.056531
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.943333,
+          "ci_accuracy": [
+            0.931583,
+            0.96
+          ],
+          "mean_f1": 0.950409,
+          "mean_ece": 0.077206,
+          "mean_brier": 0.056531
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.943333,
+          "ci_accuracy": [
+            0.931583,
+            0.96
+          ],
+          "mean_f1": 0.950409,
+          "mean_ece": 0.0785,
+          "mean_brier": 0.057162
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.943333,
+          "ci_accuracy": [
+            0.931583,
+            0.96
+          ],
+          "mean_f1": 0.950409,
+          "mean_ece": 0.080147,
+          "mean_brier": 0.058155
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.943333,
+          "ci_accuracy": [
+            0.931583,
+            0.96
+          ],
+          "mean_f1": 0.950409,
+          "mean_ece": 0.080147,
+          "mean_brier": 0.058155
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.943333,
+          "ci_accuracy": [
+            0.931583,
+            0.96
+          ],
+          "mean_f1": 0.950409,
+          "mean_ece": 0.308314,
+          "mean_brier": 0.106694
+        }
+      },
+      "spread_5_k0_inversion": {
+        "scalar_mean": {
+          "mean_accuracy": 0.966667,
+          "ci_accuracy": [
+            0.94,
+            1.0
+          ],
+          "mean_f1": 0.973446,
+          "mean_ece": 0.311116,
+          "mean_brier": 0.125621
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.923333,
+          "ci_accuracy": [
+            0.91,
+            0.93
+          ],
+          "mean_f1": 0.934909,
+          "mean_ece": 0.246152,
+          "mean_brier": 0.104355
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.923333,
+          "ci_accuracy": [
+            0.91,
+            0.93
+          ],
+          "mean_f1": 0.934909,
+          "mean_ece": 0.128667,
+          "mean_brier": 0.081733
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.94,
+          "ci_accuracy": [
+            0.93,
+            0.96
+          ],
+          "mean_f1": 0.949998,
+          "mean_ece": 0.274739,
+          "mean_brier": 0.111649
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.966667,
+          "ci_accuracy": [
+            0.94,
+            1.0
+          ],
+          "mean_f1": 0.973446,
+          "mean_ece": 0.311116,
+          "mean_brier": 0.125621
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.966667,
+          "ci_accuracy": [
+            0.94,
+            1.0
+          ],
+          "mean_f1": 0.973446,
+          "mean_ece": 0.290115,
+          "mean_brier": 0.111612
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.94,
+          "ci_accuracy": [
+            0.93,
+            0.96
+          ],
+          "mean_f1": 0.949998,
+          "mean_ece": 0.167085,
+          "mean_brier": 0.061815
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.94,
+          "ci_accuracy": [
+            0.93,
+            0.96
+          ],
+          "mean_f1": 0.949998,
+          "mean_ece": 0.167085,
+          "mean_brier": 0.061815
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.94,
+          "ci_accuracy": [
+            0.93,
+            0.96
+          ],
+          "mean_f1": 0.949998,
+          "mean_ece": 0.167085,
+          "mean_brier": 0.061815
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.94,
+          "ci_accuracy": [
+            0.93,
+            0.96
+          ],
+          "mean_f1": 0.949998,
+          "mean_ece": 0.167085,
+          "mean_brier": 0.061815
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.94,
+          "ci_accuracy": [
+            0.93,
+            0.96
+          ],
+          "mean_f1": 0.949998,
+          "mean_ece": 0.171713,
+          "mean_brier": 0.070868
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.97,
+          "ci_accuracy": [
+            0.95,
+            1.0
+          ],
+          "mean_f1": 0.975948,
+          "mean_ece": 0.304502,
+          "mean_brier": 0.11911
+        }
+      },
+      "spread_5_k2_inversion": {
+        "scalar_mean": {
+          "mean_accuracy": 0.606667,
+          "ci_accuracy": [
+            0.562667,
+            0.64
+          ],
+          "mean_f1": 0.644533,
+          "mean_ece": 0.131313,
+          "mean_brier": 0.238398
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.696667,
+          "ci_accuracy": [
+            0.66,
+            0.77
+          ],
+          "mean_f1": 0.732714,
+          "mean_ece": 0.144205,
+          "mean_brier": 0.217031
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.696667,
+          "ci_accuracy": [
+            0.66,
+            0.77
+          ],
+          "mean_f1": 0.732714,
+          "mean_ece": 0.14619,
+          "mean_brier": 0.213946
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.643333,
+          "ci_accuracy": [
+            0.62475,
+            0.66
+          ],
+          "mean_f1": 0.675935,
+          "mean_ece": 0.141321,
+          "mean_brier": 0.223078
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.966667,
+          "ci_accuracy": [
+            0.94,
+            1.0
+          ],
+          "mean_f1": 0.973446,
+          "mean_ece": 0.311116,
+          "mean_brier": 0.125621
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.606667,
+          "ci_accuracy": [
+            0.562667,
+            0.64
+          ],
+          "mean_f1": 0.644533,
+          "mean_ece": 0.130777,
+          "mean_brier": 0.237045
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.603333,
+          "ci_accuracy": [
+            0.5695,
+            0.63
+          ],
+          "mean_f1": 0.644602,
+          "mean_ece": 0.214818,
+          "mean_brier": 0.271221
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.603333,
+          "ci_accuracy": [
+            0.5695,
+            0.63
+          ],
+          "mean_f1": 0.644602,
+          "mean_ece": 0.214818,
+          "mean_brier": 0.271221
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.603333,
+          "ci_accuracy": [
+            0.5695,
+            0.63
+          ],
+          "mean_f1": 0.644602,
+          "mean_ece": 0.214818,
+          "mean_brier": 0.271221
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.603333,
+          "ci_accuracy": [
+            0.5695,
+            0.63
+          ],
+          "mean_f1": 0.644602,
+          "mean_ece": 0.214818,
+          "mean_brier": 0.271221
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.603333,
+          "ci_accuracy": [
+            0.5695,
+            0.63
+          ],
+          "mean_f1": 0.644602,
+          "mean_ece": 0.205838,
+          "mean_brier": 0.269802
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.696667,
+          "ci_accuracy": [
+            0.676333,
+            0.71
+          ],
+          "mean_f1": 0.727605,
+          "mean_ece": 0.169602,
+          "mean_brier": 0.228821
+        }
+      },
+      "spread_5_k0_targeted": {
+        "scalar_mean": {
+          "mean_accuracy": 0.966667,
+          "ci_accuracy": [
+            0.94,
+            1.0
+          ],
+          "mean_f1": 0.973446,
+          "mean_ece": 0.311116,
+          "mean_brier": 0.125621
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.923333,
+          "ci_accuracy": [
+            0.91,
+            0.93
+          ],
+          "mean_f1": 0.934909,
+          "mean_ece": 0.246152,
+          "mean_brier": 0.104355
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.923333,
+          "ci_accuracy": [
+            0.91,
+            0.93
+          ],
+          "mean_f1": 0.934909,
+          "mean_ece": 0.128667,
+          "mean_brier": 0.081733
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.94,
+          "ci_accuracy": [
+            0.93,
+            0.96
+          ],
+          "mean_f1": 0.949998,
+          "mean_ece": 0.274739,
+          "mean_brier": 0.111649
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.966667,
+          "ci_accuracy": [
+            0.94,
+            1.0
+          ],
+          "mean_f1": 0.973446,
+          "mean_ece": 0.311116,
+          "mean_brier": 0.125621
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.966667,
+          "ci_accuracy": [
+            0.94,
+            1.0
+          ],
+          "mean_f1": 0.973446,
+          "mean_ece": 0.290115,
+          "mean_brier": 0.111612
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.94,
+          "ci_accuracy": [
+            0.93,
+            0.96
+          ],
+          "mean_f1": 0.949998,
+          "mean_ece": 0.167085,
+          "mean_brier": 0.061815
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.94,
+          "ci_accuracy": [
+            0.93,
+            0.96
+          ],
+          "mean_f1": 0.949998,
+          "mean_ece": 0.167085,
+          "mean_brier": 0.061815
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.94,
+          "ci_accuracy": [
+            0.93,
+            0.96
+          ],
+          "mean_f1": 0.949998,
+          "mean_ece": 0.167085,
+          "mean_brier": 0.061815
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.94,
+          "ci_accuracy": [
+            0.93,
+            0.96
+          ],
+          "mean_f1": 0.949998,
+          "mean_ece": 0.167085,
+          "mean_brier": 0.061815
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.94,
+          "ci_accuracy": [
+            0.93,
+            0.96
+          ],
+          "mean_f1": 0.949998,
+          "mean_ece": 0.171713,
+          "mean_brier": 0.070868
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.97,
+          "ci_accuracy": [
+            0.95,
+            1.0
+          ],
+          "mean_f1": 0.975948,
+          "mean_ece": 0.304502,
+          "mean_brier": 0.11911
+        }
+      },
+      "spread_5_k2_targeted": {
+        "scalar_mean": {
+          "mean_accuracy": 0.75,
+          "ci_accuracy": [
+            0.716333,
+            0.79
+          ],
+          "mean_f1": 0.740786,
+          "mean_ece": 0.373882,
+          "mean_brier": 0.183621
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.803333,
+          "ci_accuracy": [
+            0.763167,
+            0.87
+          ],
+          "mean_f1": 0.808994,
+          "mean_ece": 0.324159,
+          "mean_brier": 0.15772
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.803333,
+          "ci_accuracy": [
+            0.763167,
+            0.87
+          ],
+          "mean_f1": 0.808994,
+          "mean_ece": 0.262381,
+          "mean_brier": 0.148367
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.766667,
+          "ci_accuracy": [
+            0.74475,
+            0.79
+          ],
+          "mean_f1": 0.761666,
+          "mean_ece": 0.334581,
+          "mean_brier": 0.163911
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.966667,
+          "ci_accuracy": [
+            0.94,
+            1.0
+          ],
+          "mean_f1": 0.973446,
+          "mean_ece": 0.311116,
+          "mean_brier": 0.125621
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.75,
+          "ci_accuracy": [
+            0.716333,
+            0.79
+          ],
+          "mean_f1": 0.740786,
+          "mean_ece": 0.352497,
+          "mean_brier": 0.176029
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.753333,
+          "ci_accuracy": [
+            0.72475,
+            0.79
+          ],
+          "mean_f1": 0.745204,
+          "mean_ece": 0.209316,
+          "mean_brier": 0.178034
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.753333,
+          "ci_accuracy": [
+            0.72475,
+            0.79
+          ],
+          "mean_f1": 0.745204,
+          "mean_ece": 0.209316,
+          "mean_brier": 0.178034
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.753333,
+          "ci_accuracy": [
+            0.72475,
+            0.79
+          ],
+          "mean_f1": 0.745204,
+          "mean_ece": 0.209316,
+          "mean_brier": 0.178034
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.753333,
+          "ci_accuracy": [
+            0.72475,
+            0.79
+          ],
+          "mean_f1": 0.745204,
+          "mean_ece": 0.209087,
+          "mean_brier": 0.178424
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.753333,
+          "ci_accuracy": [
+            0.72475,
+            0.79
+          ],
+          "mean_f1": 0.745204,
+          "mean_ece": 0.206705,
+          "mean_brier": 0.181153
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.776667,
+          "ci_accuracy": [
+            0.732667,
+            0.81
+          ],
+          "mean_f1": 0.773436,
+          "mean_ece": 0.371441,
+          "mean_brier": 0.178389
+        }
+      },
+      "spread_3_k0_inversion": {
+        "scalar_mean": {
+          "mean_accuracy": 0.933333,
+          "ci_accuracy": [
+            0.92,
+            0.96
+          ],
+          "mean_f1": 0.944985,
+          "mean_ece": 0.255851,
+          "mean_brier": 0.116476
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.903333,
+          "ci_accuracy": [
+            0.89,
+            0.93
+          ],
+          "mean_f1": 0.919927,
+          "mean_ece": 0.224001,
+          "mean_brier": 0.107276
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.903333,
+          "ci_accuracy": [
+            0.89,
+            0.93
+          ],
+          "mean_f1": 0.919927,
+          "mean_ece": 0.085556,
+          "mean_brier": 0.091481
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.903333,
+          "ci_accuracy": [
+            0.89,
+            0.93
+          ],
+          "mean_f1": 0.919927,
+          "mean_ece": 0.224001,
+          "mean_brier": 0.107276
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.933333,
+          "ci_accuracy": [
+            0.92,
+            0.96
+          ],
+          "mean_f1": 0.944985,
+          "mean_ece": 0.255851,
+          "mean_brier": 0.116476
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.933333,
+          "ci_accuracy": [
+            0.92,
+            0.96
+          ],
+          "mean_f1": 0.944985,
+          "mean_ece": 0.236287,
+          "mean_brier": 0.105172
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.903333,
+          "ci_accuracy": [
+            0.89,
+            0.93
+          ],
+          "mean_f1": 0.919927,
+          "mean_ece": 0.158368,
+          "mean_brier": 0.079193
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.903333,
+          "ci_accuracy": [
+            0.89,
+            0.93
+          ],
+          "mean_f1": 0.919927,
+          "mean_ece": 0.158368,
+          "mean_brier": 0.079193
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.903333,
+          "ci_accuracy": [
+            0.89,
+            0.93
+          ],
+          "mean_f1": 0.919927,
+          "mean_ece": 0.158368,
+          "mean_brier": 0.079193
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.903333,
+          "ci_accuracy": [
+            0.89,
+            0.93
+          ],
+          "mean_f1": 0.919927,
+          "mean_ece": 0.158368,
+          "mean_brier": 0.079193
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.903333,
+          "ci_accuracy": [
+            0.89,
+            0.93
+          ],
+          "mean_f1": 0.919927,
+          "mean_ece": 0.166823,
+          "mean_brier": 0.089965
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.943333,
+          "ci_accuracy": [
+            0.931583,
+            0.96
+          ],
+          "mean_f1": 0.953363,
+          "mean_ece": 0.274981,
+          "mean_brier": 0.120902
+        }
+      },
+      "spread_3_k2_inversion": {
+        "scalar_mean": {
+          "mean_accuracy": 0.466667,
+          "ci_accuracy": [
+            0.433167,
+            0.52
+          ],
+          "mean_f1": 0.500388,
+          "mean_ece": 0.180274,
+          "mean_brier": 0.283784
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.5,
+          "ci_accuracy": [
+            0.457917,
+            0.55
+          ],
+          "mean_f1": 0.534288,
+          "mean_ece": 0.283305,
+          "mean_brier": 0.314032
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.5,
+          "ci_accuracy": [
+            0.457917,
+            0.55
+          ],
+          "mean_f1": 0.534288,
+          "mean_ece": 0.182,
+          "mean_brier": 0.289467
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.5,
+          "ci_accuracy": [
+            0.457917,
+            0.55
+          ],
+          "mean_f1": 0.534288,
+          "mean_ece": 0.283305,
+          "mean_brier": 0.314032
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.933333,
+          "ci_accuracy": [
+            0.92,
+            0.96
+          ],
+          "mean_f1": 0.944985,
+          "mean_ece": 0.255851,
+          "mean_brier": 0.116476
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.466667,
+          "ci_accuracy": [
+            0.433167,
+            0.52
+          ],
+          "mean_f1": 0.500388,
+          "mean_ece": 0.206504,
+          "mean_brier": 0.289701
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.45,
+          "ci_accuracy": [
+            0.3995,
+            0.51
+          ],
+          "mean_f1": 0.479577,
+          "mean_ece": 0.347709,
+          "mean_brier": 0.386487
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.45,
+          "ci_accuracy": [
+            0.3995,
+            0.51
+          ],
+          "mean_f1": 0.479577,
+          "mean_ece": 0.347709,
+          "mean_brier": 0.386487
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.45,
+          "ci_accuracy": [
+            0.3995,
+            0.51
+          ],
+          "mean_f1": 0.479577,
+          "mean_ece": 0.347709,
+          "mean_brier": 0.386487
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.45,
+          "ci_accuracy": [
+            0.3995,
+            0.51
+          ],
+          "mean_f1": 0.479577,
+          "mean_ece": 0.347618,
+          "mean_brier": 0.386328
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.45,
+          "ci_accuracy": [
+            0.3995,
+            0.51
+          ],
+          "mean_f1": 0.479577,
+          "mean_ece": 0.343117,
+          "mean_brier": 0.378897
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.383333,
+          "ci_accuracy": [
+            0.322667,
+            0.45
+          ],
+          "mean_f1": 0.419776,
+          "mean_ece": 0.184452,
+          "mean_brier": 0.291818
+        }
+      },
+      "spread_3_k0_targeted": {
+        "scalar_mean": {
+          "mean_accuracy": 0.933333,
+          "ci_accuracy": [
+            0.92,
+            0.96
+          ],
+          "mean_f1": 0.944985,
+          "mean_ece": 0.255851,
+          "mean_brier": 0.116476
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.903333,
+          "ci_accuracy": [
+            0.89,
+            0.93
+          ],
+          "mean_f1": 0.919927,
+          "mean_ece": 0.224001,
+          "mean_brier": 0.107276
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.903333,
+          "ci_accuracy": [
+            0.89,
+            0.93
+          ],
+          "mean_f1": 0.919927,
+          "mean_ece": 0.085556,
+          "mean_brier": 0.091481
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.903333,
+          "ci_accuracy": [
+            0.89,
+            0.93
+          ],
+          "mean_f1": 0.919927,
+          "mean_ece": 0.224001,
+          "mean_brier": 0.107276
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.933333,
+          "ci_accuracy": [
+            0.92,
+            0.96
+          ],
+          "mean_f1": 0.944985,
+          "mean_ece": 0.255851,
+          "mean_brier": 0.116476
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.933333,
+          "ci_accuracy": [
+            0.92,
+            0.96
+          ],
+          "mean_f1": 0.944985,
+          "mean_ece": 0.236287,
+          "mean_brier": 0.105172
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.903333,
+          "ci_accuracy": [
+            0.89,
+            0.93
+          ],
+          "mean_f1": 0.919927,
+          "mean_ece": 0.158368,
+          "mean_brier": 0.079193
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.903333,
+          "ci_accuracy": [
+            0.89,
+            0.93
+          ],
+          "mean_f1": 0.919927,
+          "mean_ece": 0.158368,
+          "mean_brier": 0.079193
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.903333,
+          "ci_accuracy": [
+            0.89,
+            0.93
+          ],
+          "mean_f1": 0.919927,
+          "mean_ece": 0.158368,
+          "mean_brier": 0.079193
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.903333,
+          "ci_accuracy": [
+            0.89,
+            0.93
+          ],
+          "mean_f1": 0.919927,
+          "mean_ece": 0.158368,
+          "mean_brier": 0.079193
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.903333,
+          "ci_accuracy": [
+            0.89,
+            0.93
+          ],
+          "mean_f1": 0.919927,
+          "mean_ece": 0.166823,
+          "mean_brier": 0.089965
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.943333,
+          "ci_accuracy": [
+            0.931583,
+            0.96
+          ],
+          "mean_f1": 0.953363,
+          "mean_ece": 0.274981,
+          "mean_brier": 0.120902
+        }
+      },
+      "spread_3_k2_targeted": {
+        "scalar_mean": {
+          "mean_accuracy": 0.656667,
+          "ci_accuracy": [
+            0.62,
+            0.73
+          ],
+          "mean_f1": 0.609946,
+          "mean_ece": 0.358057,
+          "mean_brier": 0.205162
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.676667,
+          "ci_accuracy": [
+            0.633167,
+            0.75
+          ],
+          "mean_f1": 0.640577,
+          "mean_ece": 0.249453,
+          "mean_brier": 0.215482
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.676667,
+          "ci_accuracy": [
+            0.633167,
+            0.75
+          ],
+          "mean_f1": 0.640577,
+          "mean_ece": 0.280667,
+          "mean_brier": 0.1908
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.676667,
+          "ci_accuracy": [
+            0.633167,
+            0.75
+          ],
+          "mean_f1": 0.640577,
+          "mean_ece": 0.249453,
+          "mean_brier": 0.215482
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.933333,
+          "ci_accuracy": [
+            0.92,
+            0.96
+          ],
+          "mean_f1": 0.944985,
+          "mean_ece": 0.255851,
+          "mean_brier": 0.116476
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.656667,
+          "ci_accuracy": [
+            0.62,
+            0.73
+          ],
+          "mean_f1": 0.609946,
+          "mean_ece": 0.353062,
+          "mean_brier": 0.202334
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.643333,
+          "ci_accuracy": [
+            0.59475,
+            0.72
+          ],
+          "mean_f1": 0.587713,
+          "mean_ece": 0.28253,
+          "mean_brier": 0.256996
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.643333,
+          "ci_accuracy": [
+            0.59475,
+            0.72
+          ],
+          "mean_f1": 0.587713,
+          "mean_ece": 0.28253,
+          "mean_brier": 0.256996
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.643333,
+          "ci_accuracy": [
+            0.59475,
+            0.72
+          ],
+          "mean_f1": 0.587713,
+          "mean_ece": 0.28253,
+          "mean_brier": 0.256996
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.643333,
+          "ci_accuracy": [
+            0.59475,
+            0.72
+          ],
+          "mean_f1": 0.587713,
+          "mean_ece": 0.280315,
+          "mean_brier": 0.25753
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.643333,
+          "ci_accuracy": [
+            0.59475,
+            0.72
+          ],
+          "mean_f1": 0.587713,
+          "mean_ece": 0.265399,
+          "mean_brier": 0.2575
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.596667,
+          "ci_accuracy": [
+            0.5495,
+            0.65
+          ],
+          "mean_f1": 0.50463,
+          "mean_ece": 0.363118,
+          "mean_brier": 0.210334
+        }
+      },
+      "one_strong_rest_weak_k0_inversion": {
+        "scalar_mean": {
+          "mean_accuracy": 0.926667,
+          "ci_accuracy": [
+            0.897917,
+            0.95
+          ],
+          "mean_f1": 0.937965,
+          "mean_ece": 0.34157,
+          "mean_brier": 0.181096
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.803333,
+          "ci_accuracy": [
+            0.791583,
+            0.82
+          ],
+          "mean_f1": 0.832544,
+          "mean_ece": 0.227826,
+          "mean_brier": 0.206678
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.803333,
+          "ci_accuracy": [
+            0.791583,
+            0.82
+          ],
+          "mean_f1": 0.832544,
+          "mean_ece": 0.111333,
+          "mean_brier": 0.1484
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.813333,
+          "ci_accuracy": [
+            0.801583,
+            0.83
+          ],
+          "mean_f1": 0.840778,
+          "mean_ece": 0.255632,
+          "mean_brier": 0.210018
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.926667,
+          "ci_accuracy": [
+            0.897917,
+            0.95
+          ],
+          "mean_f1": 0.937965,
+          "mean_ece": 0.34157,
+          "mean_brier": 0.181096
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.926667,
+          "ci_accuracy": [
+            0.897917,
+            0.95
+          ],
+          "mean_f1": 0.937965,
+          "mean_ece": 0.328478,
+          "mean_brier": 0.171997
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.813333,
+          "ci_accuracy": [
+            0.801583,
+            0.83
+          ],
+          "mean_f1": 0.840778,
+          "mean_ece": 0.196778,
+          "mean_brier": 0.145157
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.813333,
+          "ci_accuracy": [
+            0.801583,
+            0.83
+          ],
+          "mean_f1": 0.840778,
+          "mean_ece": 0.196778,
+          "mean_brier": 0.145157
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.813333,
+          "ci_accuracy": [
+            0.801583,
+            0.83
+          ],
+          "mean_f1": 0.840778,
+          "mean_ece": 0.196778,
+          "mean_brier": 0.145157
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.813333,
+          "ci_accuracy": [
+            0.801583,
+            0.83
+          ],
+          "mean_f1": 0.840778,
+          "mean_ece": 0.196778,
+          "mean_brier": 0.145157
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.813333,
+          "ci_accuracy": [
+            0.801583,
+            0.83
+          ],
+          "mean_f1": 0.840778,
+          "mean_ece": 0.196778,
+          "mean_brier": 0.145157
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.93,
+          "ci_accuracy": [
+            0.906333,
+            0.95
+          ],
+          "mean_f1": 0.940946,
+          "mean_ece": 0.34398,
+          "mean_brier": 0.180439
+        }
+      },
+      "one_strong_rest_weak_k2_inversion": {
+        "scalar_mean": {
+          "mean_accuracy": 0.093333,
+          "ci_accuracy": [
+            0.073167,
+            0.12
+          ],
+          "mean_f1": 0.110688,
+          "mean_ece": 0.448117,
+          "mean_brier": 0.292511
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.47,
+          "ci_accuracy": [
+            0.431083,
+            0.5
+          ],
+          "mean_f1": 0.507679,
+          "mean_ece": 0.153796,
+          "mean_brier": 0.264075
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.47,
+          "ci_accuracy": [
+            0.431083,
+            0.5
+          ],
+          "mean_f1": 0.507679,
+          "mean_ece": 0.208095,
+          "mean_brier": 0.291497
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.453333,
+          "ci_accuracy": [
+            0.427917,
+            0.47
+          ],
+          "mean_f1": 0.490879,
+          "mean_ece": 0.147884,
+          "mean_brier": 0.270324
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.926667,
+          "ci_accuracy": [
+            0.897917,
+            0.95
+          ],
+          "mean_f1": 0.937965,
+          "mean_ece": 0.34157,
+          "mean_brier": 0.181096
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.093333,
+          "ci_accuracy": [
+            0.073167,
+            0.12
+          ],
+          "mean_f1": 0.110688,
+          "mean_ece": 0.455026,
+          "mean_brier": 0.300158
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.07,
+          "ci_accuracy": [
+            0.05,
+            0.1
+          ],
+          "mean_f1": 0.090762,
+          "mean_ece": 0.652308,
+          "mean_brier": 0.496493
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.07,
+          "ci_accuracy": [
+            0.05,
+            0.1
+          ],
+          "mean_f1": 0.090762,
+          "mean_ece": 0.652308,
+          "mean_brier": 0.496493
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.07,
+          "ci_accuracy": [
+            0.05,
+            0.1
+          ],
+          "mean_f1": 0.090762,
+          "mean_ece": 0.652308,
+          "mean_brier": 0.496493
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.07,
+          "ci_accuracy": [
+            0.05,
+            0.1
+          ],
+          "mean_f1": 0.090762,
+          "mean_ece": 0.652308,
+          "mean_brier": 0.496493
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.07,
+          "ci_accuracy": [
+            0.05,
+            0.1
+          ],
+          "mean_f1": 0.090762,
+          "mean_ece": 0.652054,
+          "mean_brier": 0.496085
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.056667,
+          "ci_accuracy": [
+            0.04,
+            0.08
+          ],
+          "mean_f1": 0.065756,
+          "mean_ece": 0.493377,
+          "mean_brier": 0.302951
+        }
+      },
+      "one_strong_rest_weak_k0_targeted": {
+        "scalar_mean": {
+          "mean_accuracy": 0.926667,
+          "ci_accuracy": [
+            0.897917,
+            0.95
+          ],
+          "mean_f1": 0.937965,
+          "mean_ece": 0.34157,
+          "mean_brier": 0.181096
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.803333,
+          "ci_accuracy": [
+            0.791583,
+            0.82
+          ],
+          "mean_f1": 0.832544,
+          "mean_ece": 0.227826,
+          "mean_brier": 0.206678
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.803333,
+          "ci_accuracy": [
+            0.791583,
+            0.82
+          ],
+          "mean_f1": 0.832544,
+          "mean_ece": 0.111333,
+          "mean_brier": 0.1484
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.813333,
+          "ci_accuracy": [
+            0.801583,
+            0.83
+          ],
+          "mean_f1": 0.840778,
+          "mean_ece": 0.255632,
+          "mean_brier": 0.210018
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.926667,
+          "ci_accuracy": [
+            0.897917,
+            0.95
+          ],
+          "mean_f1": 0.937965,
+          "mean_ece": 0.34157,
+          "mean_brier": 0.181096
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.926667,
+          "ci_accuracy": [
+            0.897917,
+            0.95
+          ],
+          "mean_f1": 0.937965,
+          "mean_ece": 0.328478,
+          "mean_brier": 0.171997
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.813333,
+          "ci_accuracy": [
+            0.801583,
+            0.83
+          ],
+          "mean_f1": 0.840778,
+          "mean_ece": 0.196778,
+          "mean_brier": 0.145157
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.813333,
+          "ci_accuracy": [
+            0.801583,
+            0.83
+          ],
+          "mean_f1": 0.840778,
+          "mean_ece": 0.196778,
+          "mean_brier": 0.145157
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.813333,
+          "ci_accuracy": [
+            0.801583,
+            0.83
+          ],
+          "mean_f1": 0.840778,
+          "mean_ece": 0.196778,
+          "mean_brier": 0.145157
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.813333,
+          "ci_accuracy": [
+            0.801583,
+            0.83
+          ],
+          "mean_f1": 0.840778,
+          "mean_ece": 0.196778,
+          "mean_brier": 0.145157
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.813333,
+          "ci_accuracy": [
+            0.801583,
+            0.83
+          ],
+          "mean_f1": 0.840778,
+          "mean_ece": 0.196778,
+          "mean_brier": 0.145157
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.93,
+          "ci_accuracy": [
+            0.906333,
+            0.95
+          ],
+          "mean_f1": 0.940946,
+          "mean_ece": 0.34398,
+          "mean_brier": 0.180439
+        }
+      },
+      "one_strong_rest_weak_k2_targeted": {
+        "scalar_mean": {
+          "mean_accuracy": 0.45,
+          "ci_accuracy": [
+            0.41,
+            0.53
+          ],
+          "mean_f1": 0.172766,
+          "mean_ece": 0.371835,
+          "mean_brier": 0.229988
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.65,
+          "ci_accuracy": [
+            0.5995,
+            0.71
+          ],
+          "mean_f1": 0.610898,
+          "mean_ece": 0.263382,
+          "mean_brier": 0.228266
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.65,
+          "ci_accuracy": [
+            0.5995,
+            0.71
+          ],
+          "mean_f1": 0.610898,
+          "mean_ece": 0.240476,
+          "mean_brier": 0.207687
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.653333,
+          "ci_accuracy": [
+            0.621583,
+            0.71
+          ],
+          "mean_f1": 0.604387,
+          "mean_ece": 0.331698,
+          "mean_brier": 0.218321
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.926667,
+          "ci_accuracy": [
+            0.897917,
+            0.95
+          ],
+          "mean_f1": 0.937965,
+          "mean_ece": 0.34157,
+          "mean_brier": 0.181096
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.45,
+          "ci_accuracy": [
+            0.41,
+            0.53
+          ],
+          "mean_f1": 0.172766,
+          "mean_ece": 0.359632,
+          "mean_brier": 0.228599
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.44,
+          "ci_accuracy": [
+            0.4,
+            0.52
+          ],
+          "mean_f1": 0.144788,
+          "mean_ece": 0.354687,
+          "mean_brier": 0.319525
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.44,
+          "ci_accuracy": [
+            0.4,
+            0.52
+          ],
+          "mean_f1": 0.144788,
+          "mean_ece": 0.354687,
+          "mean_brier": 0.319525
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.44,
+          "ci_accuracy": [
+            0.4,
+            0.52
+          ],
+          "mean_f1": 0.144788,
+          "mean_ece": 0.354687,
+          "mean_brier": 0.319525
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.44,
+          "ci_accuracy": [
+            0.4,
+            0.52
+          ],
+          "mean_f1": 0.144788,
+          "mean_ece": 0.354687,
+          "mean_brier": 0.319525
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.44,
+          "ci_accuracy": [
+            0.4,
+            0.52
+          ],
+          "mean_f1": 0.144788,
+          "mean_ece": 0.339194,
+          "mean_brier": 0.321092
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.426667,
+          "ci_accuracy": [
+            0.39,
+            0.5
+          ],
+          "mean_f1": 0.105919,
+          "mean_ece": 0.369601,
+          "mean_brier": 0.233829
+        }
+      },
+      "one_weak_rest_strong_k0_inversion": {
+        "scalar_mean": {
+          "mean_accuracy": 0.97,
+          "ci_accuracy": [
+            0.96,
+            0.98
+          ],
+          "mean_f1": 0.97528,
+          "mean_ece": 0.269017,
+          "mean_brier": 0.087821
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.973333,
+          "ci_accuracy": [
+            0.97,
+            0.98
+          ],
+          "mean_f1": 0.977945,
+          "mean_ece": 0.183027,
+          "mean_brier": 0.043186
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.973333,
+          "ci_accuracy": [
+            0.97,
+            0.98
+          ],
+          "mean_f1": 0.977945,
+          "mean_ece": 0.131333,
+          "mean_brier": 0.0508
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.973333,
+          "ci_accuracy": [
+            0.97,
+            0.98
+          ],
+          "mean_f1": 0.977945,
+          "mean_ece": 0.210253,
+          "mean_brier": 0.056658
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.97,
+          "ci_accuracy": [
+            0.96,
+            0.98
+          ],
+          "mean_f1": 0.97528,
+          "mean_ece": 0.269017,
+          "mean_brier": 0.087821
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.97,
+          "ci_accuracy": [
+            0.96,
+            0.98
+          ],
+          "mean_f1": 0.97528,
+          "mean_ece": 0.239225,
+          "mean_brier": 0.072243
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.973333,
+          "ci_accuracy": [
+            0.97,
+            0.98
+          ],
+          "mean_f1": 0.977945,
+          "mean_ece": 0.120257,
+          "mean_brier": 0.031339
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.973333,
+          "ci_accuracy": [
+            0.97,
+            0.98
+          ],
+          "mean_f1": 0.977945,
+          "mean_ece": 0.120227,
+          "mean_brier": 0.031333
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.973333,
+          "ci_accuracy": [
+            0.97,
+            0.98
+          ],
+          "mean_f1": 0.977945,
+          "mean_ece": 0.122189,
+          "mean_brier": 0.031765
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.973333,
+          "ci_accuracy": [
+            0.97,
+            0.98
+          ],
+          "mean_f1": 0.977945,
+          "mean_ece": 0.122364,
+          "mean_brier": 0.03181
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.973333,
+          "ci_accuracy": [
+            0.97,
+            0.98
+          ],
+          "mean_f1": 0.977945,
+          "mean_ece": 0.142142,
+          "mean_brier": 0.037996
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.97,
+          "ci_accuracy": [
+            0.96,
+            0.98
+          ],
+          "mean_f1": 0.97528,
+          "mean_ece": 0.253411,
+          "mean_brier": 0.07851
+        }
+      },
+      "one_weak_rest_strong_k2_inversion": {
+        "scalar_mean": {
+          "mean_accuracy": 0.813333,
+          "ci_accuracy": [
+            0.8,
+            0.83
+          ],
+          "mean_f1": 0.838265,
+          "mean_ece": 0.242234,
+          "mean_brier": 0.198134
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.823333,
+          "ci_accuracy": [
+            0.81,
+            0.84
+          ],
+          "mean_f1": 0.846471,
+          "mean_ece": 0.130112,
+          "mean_brier": 0.130874
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.823333,
+          "ci_accuracy": [
+            0.81,
+            0.84
+          ],
+          "mean_f1": 0.846471,
+          "mean_ece": 0.19381,
+          "mean_brier": 0.173673
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.826667,
+          "ci_accuracy": [
+            0.81,
+            0.84
+          ],
+          "mean_f1": 0.849762,
+          "mean_ece": 0.189833,
+          "mean_brier": 0.153082
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.97,
+          "ci_accuracy": [
+            0.96,
+            0.98
+          ],
+          "mean_f1": 0.97528,
+          "mean_ece": 0.269017,
+          "mean_brier": 0.087821
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.813333,
+          "ci_accuracy": [
+            0.8,
+            0.83
+          ],
+          "mean_f1": 0.838265,
+          "mean_ece": 0.23589,
+          "mean_brier": 0.190814
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.816667,
+          "ci_accuracy": [
+            0.81,
+            0.83
+          ],
+          "mean_f1": 0.841419,
+          "mean_ece": 0.077104,
+          "mean_brier": 0.140968
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.816667,
+          "ci_accuracy": [
+            0.81,
+            0.83
+          ],
+          "mean_f1": 0.841419,
+          "mean_ece": 0.077104,
+          "mean_brier": 0.140968
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.816667,
+          "ci_accuracy": [
+            0.81,
+            0.83
+          ],
+          "mean_f1": 0.841419,
+          "mean_ece": 0.077104,
+          "mean_brier": 0.140968
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.816667,
+          "ci_accuracy": [
+            0.81,
+            0.83
+          ],
+          "mean_f1": 0.841419,
+          "mean_ece": 0.077104,
+          "mean_brier": 0.140968
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.816667,
+          "ci_accuracy": [
+            0.81,
+            0.83
+          ],
+          "mean_f1": 0.841419,
+          "mean_ece": 0.077653,
+          "mean_brier": 0.142523
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.95,
+          "ci_accuracy": [
+            0.92,
+            0.968417
+          ],
+          "mean_f1": 0.959011,
+          "mean_ece": 0.349886,
+          "mean_brier": 0.170572
+        }
+      },
+      "one_weak_rest_strong_k0_targeted": {
+        "scalar_mean": {
+          "mean_accuracy": 0.97,
+          "ci_accuracy": [
+            0.96,
+            0.98
+          ],
+          "mean_f1": 0.97528,
+          "mean_ece": 0.269017,
+          "mean_brier": 0.087821
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.973333,
+          "ci_accuracy": [
+            0.97,
+            0.98
+          ],
+          "mean_f1": 0.977945,
+          "mean_ece": 0.183027,
+          "mean_brier": 0.043186
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.973333,
+          "ci_accuracy": [
+            0.97,
+            0.98
+          ],
+          "mean_f1": 0.977945,
+          "mean_ece": 0.131333,
+          "mean_brier": 0.0508
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.973333,
+          "ci_accuracy": [
+            0.97,
+            0.98
+          ],
+          "mean_f1": 0.977945,
+          "mean_ece": 0.210253,
+          "mean_brier": 0.056658
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.97,
+          "ci_accuracy": [
+            0.96,
+            0.98
+          ],
+          "mean_f1": 0.97528,
+          "mean_ece": 0.269017,
+          "mean_brier": 0.087821
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.97,
+          "ci_accuracy": [
+            0.96,
+            0.98
+          ],
+          "mean_f1": 0.97528,
+          "mean_ece": 0.239225,
+          "mean_brier": 0.072243
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.973333,
+          "ci_accuracy": [
+            0.97,
+            0.98
+          ],
+          "mean_f1": 0.977945,
+          "mean_ece": 0.120257,
+          "mean_brier": 0.031339
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.973333,
+          "ci_accuracy": [
+            0.97,
+            0.98
+          ],
+          "mean_f1": 0.977945,
+          "mean_ece": 0.120227,
+          "mean_brier": 0.031333
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.973333,
+          "ci_accuracy": [
+            0.97,
+            0.98
+          ],
+          "mean_f1": 0.977945,
+          "mean_ece": 0.122189,
+          "mean_brier": 0.031765
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.973333,
+          "ci_accuracy": [
+            0.97,
+            0.98
+          ],
+          "mean_f1": 0.977945,
+          "mean_ece": 0.122364,
+          "mean_brier": 0.03181
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.973333,
+          "ci_accuracy": [
+            0.97,
+            0.98
+          ],
+          "mean_f1": 0.977945,
+          "mean_ece": 0.142142,
+          "mean_brier": 0.037996
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.97,
+          "ci_accuracy": [
+            0.96,
+            0.98
+          ],
+          "mean_f1": 0.97528,
+          "mean_ece": 0.253411,
+          "mean_brier": 0.07851
+        }
+      },
+      "one_weak_rest_strong_k2_targeted": {
+        "scalar_mean": {
+          "mean_accuracy": 0.876667,
+          "ci_accuracy": [
+            0.861583,
+            0.9
+          ],
+          "mean_f1": 0.887319,
+          "mean_ece": 0.336022,
+          "mean_brier": 0.149242
+        },
+        "scalar_median": {
+          "mean_accuracy": 0.88,
+          "ci_accuracy": [
+            0.863167,
+            0.9
+          ],
+          "mean_f1": 0.890517,
+          "mean_ece": 0.220818,
+          "mean_brier": 0.097504
+        },
+        "scalar_majority_vote": {
+          "mean_accuracy": 0.88,
+          "ci_accuracy": [
+            0.863167,
+            0.9
+          ],
+          "mean_f1": 0.890517,
+          "mean_ece": 0.261429,
+          "mean_brier": 0.116803
+        },
+        "scalar_trimmed_mean": {
+          "mean_accuracy": 0.883333,
+          "ci_accuracy": [
+            0.871583,
+            0.9
+          ],
+          "mean_f1": 0.893836,
+          "mean_ece": 0.270184,
+          "mean_brier": 0.110209
+        },
+        "scalar_oracle_trimmed": {
+          "mean_accuracy": 0.97,
+          "ci_accuracy": [
+            0.96,
+            0.98
+          ],
+          "mean_f1": 0.97528,
+          "mean_ece": 0.269017,
+          "mean_brier": 0.087821
+        },
+        "sl_cumulative": {
+          "mean_accuracy": 0.876667,
+          "ci_accuracy": [
+            0.861583,
+            0.9
+          ],
+          "mean_f1": 0.887319,
+          "mean_ece": 0.32384,
+          "mean_brier": 0.137809
+        },
+        "sl_robust_t0.05": {
+          "mean_accuracy": 0.88,
+          "ci_accuracy": [
+            0.863167,
+            0.9
+          ],
+          "mean_f1": 0.890517,
+          "mean_ece": 0.11992,
+          "mean_brier": 0.097474
+        },
+        "sl_robust_t0.10": {
+          "mean_accuracy": 0.88,
+          "ci_accuracy": [
+            0.863167,
+            0.9
+          ],
+          "mean_f1": 0.890517,
+          "mean_ece": 0.11992,
+          "mean_brier": 0.097474
+        },
+        "sl_robust_t0.15": {
+          "mean_accuracy": 0.88,
+          "ci_accuracy": [
+            0.863167,
+            0.9
+          ],
+          "mean_f1": 0.890517,
+          "mean_ece": 0.116078,
+          "mean_brier": 0.097651
+        },
+        "sl_robust_t0.20": {
+          "mean_accuracy": 0.88,
+          "ci_accuracy": [
+            0.863167,
+            0.9
+          ],
+          "mean_f1": 0.890517,
+          "mean_ece": 0.113746,
+          "mean_brier": 0.098539
+        },
+        "sl_robust_t0.30": {
+          "mean_accuracy": 0.88,
+          "ci_accuracy": [
+            0.863167,
+            0.9
+          ],
+          "mean_f1": 0.890517,
+          "mean_ece": 0.113904,
+          "mean_brier": 0.101029
+        },
+        "sl_trust_discount": {
+          "mean_accuracy": 0.946667,
+          "ci_accuracy": [
+            0.92475,
+            0.97
+          ],
+          "mean_f1": 0.954505,
+          "mean_ece": 0.316994,
+          "mean_brier": 0.134863
+        }
+      }
+    },
+    "breaking_points": {
+      "nh5_acc80_inversion_scalar_mean": {
+        "breaking_k": 1,
+        "breaking_ratio": 0.16666666666666666,
+        "baseline_accuracy": 0.9,
+        "accuracy_at_break": 0.69,
+        "threshold_accuracy": 0.85,
+        "accuracy_curve": [
+          [
+            0,
+            0.9
+          ],
+          [
+            1,
+            0.69
+          ],
+          [
+            2,
+            0.63
+          ],
+          [
+            3,
+            0.25
+          ],
+          [
+            4,
+            0.06
+          ],
+          [
+            5,
+            0.0
+          ],
+          [
+            6,
+            0.0
+          ],
+          [
+            7,
+            0.0
+          ]
+        ]
+      },
+      "nh5_acc80_inversion_scalar_trimmed_mean": {
+        "breaking_k": 1,
+        "breaking_ratio": 0.16666666666666666,
+        "baseline_accuracy": 0.9,
+        "accuracy_at_break": 0.74,
+        "threshold_accuracy": 0.85,
+        "accuracy_curve": [
+          [
+            0,
+            0.9
+          ],
+          [
+            1,
+            0.74
+          ],
+          [
+            2,
+            0.67
+          ],
+          [
+            3,
+            0.31
+          ],
+          [
+            4,
+            0.25
+          ],
+          [
+            5,
+            0.0
+          ],
+          [
+            6,
+            0.0
+          ],
+          [
+            7,
+            0.0
+          ]
+        ]
+      },
+      "nh5_acc80_inversion_sl_cumulative": {
+        "breaking_k": 1,
+        "breaking_ratio": 0.16666666666666666,
+        "baseline_accuracy": 0.9,
+        "accuracy_at_break": 0.69,
+        "threshold_accuracy": 0.85,
+        "accuracy_curve": [
+          [
+            0,
+            0.9
+          ],
+          [
+            1,
+            0.69
+          ],
+          [
+            2,
+            0.63
+          ],
+          [
+            3,
+            0.25
+          ],
+          [
+            4,
+            0.06
+          ],
+          [
+            5,
+            0.0
+          ],
+          [
+            6,
+            0.0
+          ],
+          [
+            7,
+            0.0
+          ]
+        ]
+      },
+      "nh5_acc80_inversion_sl_robust": {
+        "breaking_k": 1,
+        "breaking_ratio": 0.16666666666666666,
+        "baseline_accuracy": 0.9,
+        "accuracy_at_break": 0.74,
+        "threshold_accuracy": 0.85,
+        "accuracy_curve": [
+          [
+            0,
+            0.9
+          ],
+          [
+            1,
+            0.74
+          ],
+          [
+            2,
+            0.67
+          ],
+          [
+            3,
+            0.25
+          ],
+          [
+            4,
+            0.16
+          ],
+          [
+            5,
+            0.0
+          ],
+          [
+            6,
+            0.0
+          ],
+          [
+            7,
+            0.0
+          ]
+        ]
+      },
+      "nh5_acc80_inversion_sl_trust_discount": {
+        "breaking_k": 1,
+        "breaking_ratio": 0.16666666666666666,
+        "baseline_accuracy": 0.9,
+        "accuracy_at_break": 0.78,
+        "threshold_accuracy": 0.85,
+        "accuracy_curve": [
+          [
+            0,
+            0.9
+          ],
+          [
+            1,
+            0.78
+          ],
+          [
+            2,
+            0.66
+          ],
+          [
+            3,
+            0.25
+          ],
+          [
+            4,
+            0.0
+          ],
+          [
+            5,
+            0.0
+          ],
+          [
+            6,
+            0.0
+          ],
+          [
+            7,
+            0.0
+          ]
+        ]
+      },
+      "nh5_acc80_targeted_scalar_mean": {
+        "breaking_k": 1,
+        "breaking_ratio": 0.16666666666666666,
+        "baseline_accuracy": 0.9,
+        "accuracy_at_break": 0.77,
+        "threshold_accuracy": 0.85,
+        "accuracy_curve": [
+          [
+            0,
+            0.9
+          ],
+          [
+            1,
+            0.77
+          ],
+          [
+            2,
+            0.75
+          ],
+          [
+            3,
+            0.52
+          ],
+          [
+            4,
+            0.4
+          ],
+          [
+            5,
+            0.37
+          ],
+          [
+            6,
+            0.37
+          ],
+          [
+            7,
+            0.37
+          ]
+        ]
+      },
+      "nh5_acc80_targeted_scalar_trimmed_mean": {
+        "breaking_k": 1,
+        "breaking_ratio": 0.16666666666666666,
+        "baseline_accuracy": 0.9,
+        "accuracy_at_break": 0.78,
+        "threshold_accuracy": 0.85,
+        "accuracy_curve": [
+          [
+            0,
+            0.9
+          ],
+          [
+            1,
+            0.78
+          ],
+          [
+            2,
+            0.77
+          ],
+          [
+            3,
+            0.56
+          ],
+          [
+            4,
+            0.52
+          ],
+          [
+            5,
+            0.37
+          ],
+          [
+            6,
+            0.37
+          ],
+          [
+            7,
+            0.37
+          ]
+        ]
+      },
+      "nh5_acc80_targeted_sl_cumulative": {
+        "breaking_k": 1,
+        "breaking_ratio": 0.16666666666666666,
+        "baseline_accuracy": 0.9,
+        "accuracy_at_break": 0.77,
+        "threshold_accuracy": 0.85,
+        "accuracy_curve": [
+          [
+            0,
+            0.9
+          ],
+          [
+            1,
+            0.77
+          ],
+          [
+            2,
+            0.75
+          ],
+          [
+            3,
+            0.52
+          ],
+          [
+            4,
+            0.4
+          ],
+          [
+            5,
+            0.37
+          ],
+          [
+            6,
+            0.37
+          ],
+          [
+            7,
+            0.37
+          ]
+        ]
+      },
+      "nh5_acc80_targeted_sl_robust": {
+        "breaking_k": 1,
+        "breaking_ratio": 0.16666666666666666,
+        "baseline_accuracy": 0.9,
+        "accuracy_at_break": 0.78,
+        "threshold_accuracy": 0.85,
+        "accuracy_curve": [
+          [
+            0,
+            0.9
+          ],
+          [
+            1,
+            0.78
+          ],
+          [
+            2,
+            0.77
+          ],
+          [
+            3,
+            0.52
+          ],
+          [
+            4,
+            0.46
+          ],
+          [
+            5,
+            0.37
+          ],
+          [
+            6,
+            0.37
+          ],
+          [
+            7,
+            0.37
+          ]
+        ]
+      },
+      "nh5_acc80_targeted_sl_trust_discount": {
+        "breaking_k": 1,
+        "breaking_ratio": 0.16666666666666666,
+        "baseline_accuracy": 0.9,
+        "accuracy_at_break": 0.79,
+        "threshold_accuracy": 0.85,
+        "accuracy_curve": [
+          [
+            0,
+            0.9
+          ],
+          [
+            1,
+            0.79
+          ],
+          [
+            2,
+            0.75
+          ],
+          [
+            3,
+            0.52
+          ],
+          [
+            4,
+            0.37
+          ],
+          [
+            5,
+            0.37
+          ],
+          [
+            6,
+            0.37
+          ],
+          [
+            7,
+            0.37
+          ]
+        ]
+      },
+      "nh5_acc70_inversion_scalar_mean": {
+        "breaking_k": 1,
+        "breaking_ratio": 0.16666666666666666,
+        "baseline_accuracy": 0.79,
+        "accuracy_at_break": 0.45,
+        "threshold_accuracy": 0.74,
+        "accuracy_curve": [
+          [
+            0,
+            0.79
+          ],
+          [
+            1,
+            0.45
+          ],
+          [
+            2,
+            0.12
+          ],
+          [
+            3,
+            0.0
+          ],
+          [
+            4,
+            0.0
+          ],
+          [
+            5,
+            0.0
+          ],
+          [
+            6,
+            0.0
+          ],
+          [
+            7,
+            0.0
+          ]
+        ]
+      },
+      "nh5_acc70_inversion_scalar_trimmed_mean": {
+        "breaking_k": 1,
+        "breaking_ratio": 0.16666666666666666,
+        "baseline_accuracy": 0.79,
+        "accuracy_at_break": 0.54,
+        "threshold_accuracy": 0.74,
+        "accuracy_curve": [
+          [
+            0,
+            0.79
+          ],
+          [
+            1,
+            0.54
+          ],
+          [
+            2,
+            0.45
+          ],
+          [
+            3,
+            0.16
+          ],
+          [
+            4,
+            0.12
+          ],
+          [
+            5,
+            0.0
+          ],
+          [
+            6,
+            0.0
+          ],
+          [
+            7,
+            0.0
+          ]
+        ]
+      },
+      "nh5_acc70_inversion_sl_cumulative": {
+        "breaking_k": 1,
+        "breaking_ratio": 0.16666666666666666,
+        "baseline_accuracy": 0.79,
+        "accuracy_at_break": 0.45,
+        "threshold_accuracy": 0.74,
+        "accuracy_curve": [
+          [
+            0,
+            0.79
+          ],
+          [
+            1,
+            0.45
+          ],
+          [
+            2,
+            0.12
+          ],
+          [
+            3,
+            0.0
+          ],
+          [
+            4,
+            0.0
+          ],
+          [
+            5,
+            0.0
+          ],
+          [
+            6,
+            0.0
+          ],
+          [
+            7,
+            0.0
+          ]
+        ]
+      },
+      "nh5_acc70_inversion_sl_robust": {
+        "breaking_k": 1,
+        "breaking_ratio": 0.16666666666666666,
+        "baseline_accuracy": 0.79,
+        "accuracy_at_break": 0.54,
+        "threshold_accuracy": 0.74,
+        "accuracy_curve": [
+          [
+            0,
+            0.79
+          ],
+          [
+            1,
+            0.54
+          ],
+          [
+            2,
+            0.23
+          ],
+          [
+            3,
+            0.06
+          ],
+          [
+            4,
+            0.0
+          ],
+          [
+            5,
+            0.0
+          ],
+          [
+            6,
+            0.0
+          ],
+          [
+            7,
+            0.0
+          ]
+        ]
+      },
+      "nh5_acc70_inversion_sl_trust_discount": {
+        "breaking_k": 1,
+        "breaking_ratio": 0.16666666666666666,
+        "baseline_accuracy": 0.79,
+        "accuracy_at_break": 0.45,
+        "threshold_accuracy": 0.74,
+        "accuracy_curve": [
+          [
+            0,
+            0.79
+          ],
+          [
+            1,
+            0.45
+          ],
+          [
+            2,
+            0.12
+          ],
+          [
+            3,
+            0.0
+          ],
+          [
+            4,
+            0.0
+          ],
+          [
+            5,
+            0.0
+          ],
+          [
+            6,
+            0.0
+          ],
+          [
+            7,
+            0.0
+          ]
+        ]
+      },
+      "nh10_acc80_inversion_scalar_mean": {
+        "breaking_k": 2,
+        "breaking_ratio": 0.16666666666666666,
+        "baseline_accuracy": 0.98,
+        "accuracy_at_break": 0.82,
+        "threshold_accuracy": 0.9299999999999999,
+        "accuracy_curve": [
+          [
+            0,
+            0.98
+          ],
+          [
+            1,
+            0.97
+          ],
+          [
+            2,
+            0.82
+          ],
+          [
+            3,
+            0.69
+          ],
+          [
+            4,
+            0.56
+          ],
+          [
+            5,
+            0.28
+          ],
+          [
+            6,
+            0.2
+          ],
+          [
+            7,
+            0.09
+          ],
+          [
+            8,
+            0.01
+          ],
+          [
+            9,
+            0.0
+          ],
+          [
+            10,
+            0.0
+          ]
+        ]
+      },
+      "nh10_acc80_inversion_scalar_trimmed_mean": {
+        "breaking_k": 2,
+        "breaking_ratio": 0.16666666666666666,
+        "baseline_accuracy": 0.98,
+        "accuracy_at_break": 0.85,
+        "threshold_accuracy": 0.9299999999999999,
+        "accuracy_curve": [
+          [
+            0,
+            0.98
+          ],
+          [
+            1,
+            0.97
+          ],
+          [
+            2,
+            0.85
+          ],
+          [
+            3,
+            0.82
+          ],
+          [
+            4,
+            0.6
+          ],
+          [
+            5,
+            0.58
+          ],
+          [
+            6,
+            0.3
+          ],
+          [
+            7,
+            0.28
+          ],
+          [
+            8,
+            0.1
+          ],
+          [
+            9,
+            0.09
+          ],
+          [
+            10,
+            0.0
+          ]
+        ]
+      },
+      "nh10_acc80_inversion_sl_cumulative": {
+        "breaking_k": 2,
+        "breaking_ratio": 0.16666666666666666,
+        "baseline_accuracy": 0.98,
+        "accuracy_at_break": 0.82,
+        "threshold_accuracy": 0.9299999999999999,
+        "accuracy_curve": [
+          [
+            0,
+            0.98
+          ],
+          [
+            1,
+            0.97
+          ],
+          [
+            2,
+            0.82
+          ],
+          [
+            3,
+            0.69
+          ],
+          [
+            4,
+            0.56
+          ],
+          [
+            5,
+            0.28
+          ],
+          [
+            6,
+            0.2
+          ],
+          [
+            7,
+            0.09
+          ],
+          [
+            8,
+            0.01
+          ],
+          [
+            9,
+            0.0
+          ],
+          [
+            10,
+            0.0
+          ]
+        ]
+      },
+      "nh10_acc80_inversion_sl_robust": {
+        "breaking_k": 2,
+        "breaking_ratio": 0.16666666666666666,
+        "baseline_accuracy": 0.98,
+        "accuracy_at_break": 0.83,
+        "threshold_accuracy": 0.9299999999999999,
+        "accuracy_curve": [
+          [
+            0,
+            0.98
+          ],
+          [
+            1,
+            0.97
+          ],
+          [
+            2,
+            0.83
+          ],
+          [
+            3,
+            0.78
+          ],
+          [
+            4,
+            0.58
+          ],
+          [
+            5,
+            0.32
+          ],
+          [
+            6,
+            0.24
+          ],
+          [
+            7,
+            0.09
+          ],
+          [
+            8,
+            0.04
+          ],
+          [
+            9,
+            0.0
+          ],
+          [
+            10,
+            0.0
+          ]
+        ]
+      },
+      "nh10_acc80_inversion_sl_trust_discount": {
+        "breaking_k": 2,
+        "breaking_ratio": 0.16666666666666666,
+        "baseline_accuracy": 0.98,
+        "accuracy_at_break": 0.84,
+        "threshold_accuracy": 0.9299999999999999,
+        "accuracy_curve": [
+          [
+            0,
+            0.98
+          ],
+          [
+            1,
+            0.97
+          ],
+          [
+            2,
+            0.84
+          ],
+          [
+            3,
+            0.81
+          ],
+          [
+            4,
+            0.58
+          ],
+          [
+            5,
+            0.28
+          ],
+          [
+            6,
+            0.09
+          ],
+          [
+            7,
+            0.01
+          ],
+          [
+            8,
+            0.0
+          ],
+          [
+            9,
+            0.0
+          ],
+          [
+            10,
+            0.0
+          ]
+        ]
+      },
+      "nh10_acc90_inversion_scalar_mean": {
+        "breaking_k": 4,
+        "breaking_ratio": 0.2857142857142857,
+        "baseline_accuracy": 1.0,
+        "accuracy_at_break": 0.94,
+        "threshold_accuracy": 0.95,
+        "accuracy_curve": [
+          [
+            0,
+            1.0
+          ],
+          [
+            1,
+            1.0
+          ],
+          [
+            2,
+            0.99
+          ],
+          [
+            3,
+            0.98
+          ],
+          [
+            4,
+            0.94
+          ],
+          [
+            5,
+            0.92
+          ],
+          [
+            6,
+            0.77
+          ],
+          [
+            7,
+            0.72
+          ],
+          [
+            8,
+            0.52
+          ],
+          [
+            9,
+            0.29
+          ],
+          [
+            10,
+            0.13
+          ]
+        ]
+      },
+      "nh10_acc90_inversion_scalar_trimmed_mean": {
+        "breaking_k": 4,
+        "breaking_ratio": 0.2857142857142857,
+        "baseline_accuracy": 1.0,
+        "accuracy_at_break": 0.94,
+        "threshold_accuracy": 0.95,
+        "accuracy_curve": [
+          [
+            0,
+            1.0
+          ],
+          [
+            1,
+            1.0
+          ],
+          [
+            2,
+            0.99
+          ],
+          [
+            3,
+            0.98
+          ],
+          [
+            4,
+            0.94
+          ],
+          [
+            5,
+            0.92
+          ],
+          [
+            6,
+            0.78
+          ],
+          [
+            7,
+            0.72
+          ],
+          [
+            8,
+            0.51
+          ],
+          [
+            9,
+            0.29
+          ],
+          [
+            10,
+            0.12
+          ]
+        ]
+      },
+      "nh10_acc90_inversion_sl_cumulative": {
+        "breaking_k": 4,
+        "breaking_ratio": 0.2857142857142857,
+        "baseline_accuracy": 1.0,
+        "accuracy_at_break": 0.94,
+        "threshold_accuracy": 0.95,
+        "accuracy_curve": [
+          [
+            0,
+            1.0
+          ],
+          [
+            1,
+            1.0
+          ],
+          [
+            2,
+            0.99
+          ],
+          [
+            3,
+            0.98
+          ],
+          [
+            4,
+            0.94
+          ],
+          [
+            5,
+            0.92
+          ],
+          [
+            6,
+            0.77
+          ],
+          [
+            7,
+            0.72
+          ],
+          [
+            8,
+            0.52
+          ],
+          [
+            9,
+            0.29
+          ],
+          [
+            10,
+            0.13
+          ]
+        ]
+      },
+      "nh10_acc90_inversion_sl_robust": {
+        "breaking_k": 4,
+        "breaking_ratio": 0.2857142857142857,
+        "baseline_accuracy": 1.0,
+        "accuracy_at_break": 0.94,
+        "threshold_accuracy": 0.95,
+        "accuracy_curve": [
+          [
+            0,
+            1.0
+          ],
+          [
+            1,
+            1.0
+          ],
+          [
+            2,
+            0.99
+          ],
+          [
+            3,
+            0.98
+          ],
+          [
+            4,
+            0.94
+          ],
+          [
+            5,
+            0.92
+          ],
+          [
+            6,
+            0.76
+          ],
+          [
+            7,
+            0.72
+          ],
+          [
+            8,
+            0.52
+          ],
+          [
+            9,
+            0.29
+          ],
+          [
+            10,
+            0.13
+          ]
+        ]
+      },
+      "nh10_acc90_inversion_sl_trust_discount": {
+        "breaking_k": 6,
+        "breaking_ratio": 0.375,
+        "baseline_accuracy": 1.0,
+        "accuracy_at_break": 0.92,
+        "threshold_accuracy": 0.95,
+        "accuracy_curve": [
+          [
+            0,
+            1.0
+          ],
+          [
+            1,
+            1.0
+          ],
+          [
+            2,
+            1.0
+          ],
+          [
+            3,
+            0.99
+          ],
+          [
+            4,
+            0.98
+          ],
+          [
+            5,
+            0.95
+          ],
+          [
+            6,
+            0.92
+          ],
+          [
+            7,
+            0.72
+          ],
+          [
+            8,
+            0.53
+          ],
+          [
+            9,
+            0.24
+          ],
+          [
+            10,
+            0.0
+          ]
+        ]
+      },
+      "nh3_acc80_inversion_scalar_mean": {
+        "breaking_k": 1,
+        "breaking_ratio": 0.25,
+        "baseline_accuracy": 0.86,
+        "accuracy_at_break": 0.46,
+        "threshold_accuracy": 0.8099999999999999,
+        "accuracy_curve": [
+          [
+            0,
+            0.86
+          ],
+          [
+            1,
+            0.46
+          ],
+          [
+            2,
+            0.44
+          ],
+          [
+            3,
+            0.0
+          ],
+          [
+            4,
+            0.0
+          ],
+          [
+            5,
+            0.0
+          ]
+        ]
+      },
+      "nh3_acc80_inversion_scalar_trimmed_mean": {
+        "breaking_k": 1,
+        "breaking_ratio": 0.25,
+        "baseline_accuracy": 0.86,
+        "accuracy_at_break": 0.57,
+        "threshold_accuracy": 0.8099999999999999,
+        "accuracy_curve": [
+          [
+            0,
+            0.86
+          ],
+          [
+            1,
+            0.57
+          ],
+          [
+            2,
+            0.45
+          ],
+          [
+            3,
+            0.0
+          ],
+          [
+            4,
+            0.0
+          ],
+          [
+            5,
+            0.0
+          ]
+        ]
+      },
+      "nh3_acc80_inversion_sl_cumulative": {
+        "breaking_k": 1,
+        "breaking_ratio": 0.25,
+        "baseline_accuracy": 0.86,
+        "accuracy_at_break": 0.46,
+        "threshold_accuracy": 0.8099999999999999,
+        "accuracy_curve": [
+          [
+            0,
+            0.86
+          ],
+          [
+            1,
+            0.46
+          ],
+          [
+            2,
+            0.44
+          ],
+          [
+            3,
+            0.0
+          ],
+          [
+            4,
+            0.0
+          ],
+          [
+            5,
+            0.0
+          ]
+        ]
+      },
+      "nh3_acc80_inversion_sl_robust": {
+        "breaking_k": 1,
+        "breaking_ratio": 0.25,
+        "baseline_accuracy": 0.86,
+        "accuracy_at_break": 0.57,
+        "threshold_accuracy": 0.8099999999999999,
+        "accuracy_curve": [
+          [
+            0,
+            0.86
+          ],
+          [
+            1,
+            0.57
+          ],
+          [
+            2,
+            0.45
+          ],
+          [
+            3,
+            0.0
+          ],
+          [
+            4,
+            0.0
+          ],
+          [
+            5,
+            0.0
+          ]
+        ]
+      },
+      "nh3_acc80_inversion_sl_trust_discount": {
+        "breaking_k": 1,
+        "breaking_ratio": 0.25,
+        "baseline_accuracy": 0.86,
+        "accuracy_at_break": 0.57,
+        "threshold_accuracy": 0.8099999999999999,
+        "accuracy_curve": [
+          [
+            0,
+            0.86
+          ],
+          [
+            1,
+            0.57
+          ],
+          [
+            2,
+            0.38
+          ],
+          [
+            3,
+            0.0
+          ],
+          [
+            4,
+            0.0
+          ],
+          [
+            5,
+            0.0
+          ]
+        ]
+      }
+    }
+  },
+  "timestamp": "2026-03-12T20:53:44.493535+00:00",
+  "raw_data": null,
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.0",
+    "numpy_version": "2.4.3",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": "EN1.3 comprehensive ablation: core grid (1×1×5strats×2k), heterogeneous (6 configs), breaking points (5 methods). 10.2s."
+}
