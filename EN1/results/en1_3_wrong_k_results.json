@@ -1,0 +1,4754 @@
+{
+  "experiment_id": "EN1.3-wrong-k",
+  "parameters": {
+    "configs": [
+      {
+        "nh": 5,
+        "acc": 0.8,
+        "label": "nh5_acc80"
+      },
+      {
+        "nh": 5,
+        "acc": 0.9,
+        "label": "nh5_acc90"
+      },
+      {
+        "nh": 7,
+        "acc": 0.8,
+        "label": "nh7_acc80"
+      },
+      {
+        "nh": 10,
+        "acc": 0.8,
+        "label": "nh10_acc80"
+      },
+      {
+        "nh": 10,
+        "acc": 0.9,
+        "label": "nh10_acc90"
+      },
+      {
+        "nh": 3,
+        "acc": 0.8,
+        "label": "nh3_acc80"
+      }
+    ],
+    "k_trues": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "k_hats": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "strategies": [
+      "inversion",
+      "targeted"
+    ],
+    "n_seeds": 20,
+    "n_instances": 500,
+    "n_bootstrap": 1000
+  },
+  "metrics": {
+    "nh5_acc80_k0_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9425,
+        "ci_accuracy": [
+          0.9388,
+          0.9465
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9425,
+        "ci_accuracy": [
+          0.9388,
+          0.9465
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9425,
+        "ci_accuracy": [
+          0.9388,
+          0.9465
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9425,
+        "ci_accuracy": [
+          0.9388,
+          0.9465
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9425,
+        "ci_accuracy": [
+          0.9388,
+          0.9465
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9425,
+        "ci_accuracy": [
+          0.9388,
+          0.9465
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9425,
+        "ci_accuracy": [
+          0.9388,
+          0.9465
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9425,
+        "ci_accuracy": [
+          0.9388,
+          0.9465
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9425,
+        "ci_accuracy": [
+          0.9388,
+          0.9465
+        ]
+      }
+    },
+    "nh5_acc80_k1_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.8613,
+        "ci_accuracy": [
+          0.851498,
+          0.8709
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.7502,
+        "ci_accuracy": [
+          0.741297,
+          0.7586
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.7502,
+        "ci_accuracy": [
+          0.741297,
+          0.7586
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.7502,
+        "ci_accuracy": [
+          0.741297,
+          0.7586
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.8019,
+        "ci_accuracy": [
+          0.792898,
+          0.8101
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.8173,
+        "ci_accuracy": [
+          0.808997,
+          0.825305
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.8173,
+        "ci_accuracy": [
+          0.808997,
+          0.825305
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.8173,
+        "ci_accuracy": [
+          0.808997,
+          0.825305
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.8019,
+        "ci_accuracy": [
+          0.792898,
+          0.8101
+        ]
+      }
+    },
+    "nh5_acc80_k2_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.7343,
+        "ci_accuracy": [
+          0.7257,
+          0.7432
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.6969,
+        "ci_accuracy": [
+          0.6893,
+          0.704702
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.6969,
+        "ci_accuracy": [
+          0.6893,
+          0.704702
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.6969,
+        "ci_accuracy": [
+          0.6893,
+          0.704702
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.7355,
+        "ci_accuracy": [
+          0.727097,
+          0.744202
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.7355,
+        "ci_accuracy": [
+          0.727097,
+          0.744202
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.7355,
+        "ci_accuracy": [
+          0.727097,
+          0.744202
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.7355,
+        "ci_accuracy": [
+          0.727097,
+          0.744202
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.7355,
+        "ci_accuracy": [
+          0.727097,
+          0.744202
+        ]
+      }
+    },
+    "nh5_acc80_k3_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.3246,
+        "ci_accuracy": [
+          0.316297,
+          0.3328
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.3246,
+        "ci_accuracy": [
+          0.316297,
+          0.3328
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.3246,
+        "ci_accuracy": [
+          0.316297,
+          0.3328
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.3246,
+        "ci_accuracy": [
+          0.316297,
+          0.3328
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.3247,
+        "ci_accuracy": [
+          0.316495,
+          0.332803
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.329,
+        "ci_accuracy": [
+          0.321,
+          0.337
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.4079,
+        "ci_accuracy": [
+          0.398398,
+          0.418103
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.4079,
+        "ci_accuracy": [
+          0.398398,
+          0.418103
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.4079,
+        "ci_accuracy": [
+          0.398398,
+          0.418103
+        ]
+      }
+    },
+    "nh5_acc80_k4_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.0438,
+        "ci_accuracy": [
+          0.040497,
+          0.0472
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.0438,
+        "ci_accuracy": [
+          0.040497,
+          0.0472
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.0438,
+        "ci_accuracy": [
+          0.040497,
+          0.0472
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.1565,
+        "ci_accuracy": [
+          0.149898,
+          0.163105
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.3101,
+        "ci_accuracy": [
+          0.3022,
+          0.318403
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.3246,
+        "ci_accuracy": [
+          0.316297,
+          0.3328
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.3246,
+        "ci_accuracy": [
+          0.316297,
+          0.3328
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.3246,
+        "ci_accuracy": [
+          0.316297,
+          0.3328
+        ]
+      }
+    },
+    "nh5_acc80_k5_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "nh5_acc80_k0_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9425,
+        "ci_accuracy": [
+          0.9388,
+          0.9465
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9425,
+        "ci_accuracy": [
+          0.9388,
+          0.9465
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9425,
+        "ci_accuracy": [
+          0.9388,
+          0.9465
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9425,
+        "ci_accuracy": [
+          0.9388,
+          0.9465
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9425,
+        "ci_accuracy": [
+          0.9388,
+          0.9465
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9425,
+        "ci_accuracy": [
+          0.9388,
+          0.9465
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9425,
+        "ci_accuracy": [
+          0.9388,
+          0.9465
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9425,
+        "ci_accuracy": [
+          0.9388,
+          0.9465
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9425,
+        "ci_accuracy": [
+          0.9388,
+          0.9465
+        ]
+      }
+    },
+    "nh5_acc80_k1_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.8662,
+        "ci_accuracy": [
+          0.858997,
+          0.8735
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.8427,
+        "ci_accuracy": [
+          0.837697,
+          0.8487
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.8427,
+        "ci_accuracy": [
+          0.837697,
+          0.8487
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.8427,
+        "ci_accuracy": [
+          0.837697,
+          0.8487
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.8738,
+        "ci_accuracy": [
+          0.8687,
+          0.8796
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.8794,
+        "ci_accuracy": [
+          0.873897,
+          0.8853
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.8794,
+        "ci_accuracy": [
+          0.873897,
+          0.8853
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.8794,
+        "ci_accuracy": [
+          0.873897,
+          0.8853
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.8738,
+        "ci_accuracy": [
+          0.8687,
+          0.8796
+        ]
+      }
+    },
+    "nh5_acc80_k2_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.8251,
+        "ci_accuracy": [
+          0.8193,
+          0.8315
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.8165,
+        "ci_accuracy": [
+          0.8111,
+          0.8222
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.8165,
+        "ci_accuracy": [
+          0.8111,
+          0.8222
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.8165,
+        "ci_accuracy": [
+          0.8111,
+          0.8222
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.8399,
+        "ci_accuracy": [
+          0.8349,
+          0.8454
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.8399,
+        "ci_accuracy": [
+          0.8349,
+          0.8454
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.8399,
+        "ci_accuracy": [
+          0.8349,
+          0.8454
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.8399,
+        "ci_accuracy": [
+          0.8349,
+          0.8454
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.8399,
+        "ci_accuracy": [
+          0.8349,
+          0.8454
+        ]
+      }
+    },
+    "nh5_acc80_k3_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.594,
+        "ci_accuracy": [
+          0.5856,
+          0.603402
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.5952,
+        "ci_accuracy": [
+          0.5866,
+          0.6045
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.5952,
+        "ci_accuracy": [
+          0.5866,
+          0.6045
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.5952,
+        "ci_accuracy": [
+          0.5866,
+          0.6045
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.5952,
+        "ci_accuracy": [
+          0.5866,
+          0.6045
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.5972,
+        "ci_accuracy": [
+          0.5886,
+          0.6063
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.6422,
+        "ci_accuracy": [
+          0.6333,
+          0.652502
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.6422,
+        "ci_accuracy": [
+          0.6333,
+          0.652502
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.6422,
+        "ci_accuracy": [
+          0.6333,
+          0.652502
+        ]
+      }
+    },
+    "nh5_acc80_k4_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.4275,
+        "ci_accuracy": [
+          0.418098,
+          0.437202
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.4275,
+        "ci_accuracy": [
+          0.418098,
+          0.437202
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.4275,
+        "ci_accuracy": [
+          0.418098,
+          0.437202
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.4961,
+        "ci_accuracy": [
+          0.4878,
+          0.505703
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.5865,
+        "ci_accuracy": [
+          0.577598,
+          0.596402
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.5953,
+        "ci_accuracy": [
+          0.5868,
+          0.6045
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.5953,
+        "ci_accuracy": [
+          0.5868,
+          0.6045
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.5953,
+        "ci_accuracy": [
+          0.5868,
+          0.6045
+        ]
+      }
+    },
+    "nh5_acc80_k5_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      }
+    },
+    "nh5_acc90_k0_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9922,
+        "ci_accuracy": [
+          0.9906,
+          0.993603
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9922,
+        "ci_accuracy": [
+          0.9906,
+          0.993603
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9922,
+        "ci_accuracy": [
+          0.9906,
+          0.993603
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9922,
+        "ci_accuracy": [
+          0.9906,
+          0.993603
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9922,
+        "ci_accuracy": [
+          0.9906,
+          0.993603
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9922,
+        "ci_accuracy": [
+          0.9906,
+          0.993603
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9922,
+        "ci_accuracy": [
+          0.9906,
+          0.993603
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9922,
+        "ci_accuracy": [
+          0.9906,
+          0.993603
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9922,
+        "ci_accuracy": [
+          0.9906,
+          0.993603
+        ]
+      }
+    },
+    "nh5_acc90_k1_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9922,
+        "ci_accuracy": [
+          0.9906,
+          0.993603
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9537,
+        "ci_accuracy": [
+          0.9482,
+          0.958605
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9537,
+        "ci_accuracy": [
+          0.9482,
+          0.958605
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9537,
+        "ci_accuracy": [
+          0.9482,
+          0.958605
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9521,
+        "ci_accuracy": [
+          0.947097,
+          0.9568
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9523,
+        "ci_accuracy": [
+          0.947297,
+          0.9568
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9523,
+        "ci_accuracy": [
+          0.947297,
+          0.9568
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9523,
+        "ci_accuracy": [
+          0.947297,
+          0.9568
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9521,
+        "ci_accuracy": [
+          0.947097,
+          0.9568
+        ]
+      }
+    },
+    "nh5_acc90_k2_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9212,
+        "ci_accuracy": [
+          0.9137,
+          0.928105
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9174,
+        "ci_accuracy": [
+          0.909793,
+          0.924603
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9174,
+        "ci_accuracy": [
+          0.909793,
+          0.924603
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9174,
+        "ci_accuracy": [
+          0.909793,
+          0.924603
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9174,
+        "ci_accuracy": [
+          0.909793,
+          0.924603
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9174,
+        "ci_accuracy": [
+          0.909793,
+          0.924603
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9174,
+        "ci_accuracy": [
+          0.909793,
+          0.924603
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9174,
+        "ci_accuracy": [
+          0.909793,
+          0.924603
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9174,
+        "ci_accuracy": [
+          0.909793,
+          0.924603
+        ]
+      }
+    },
+    "nh5_acc90_k3_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9166,
+        "ci_accuracy": [
+          0.9087,
+          0.9243
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.7532,
+        "ci_accuracy": [
+          0.7433,
+          0.762807
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.7532,
+        "ci_accuracy": [
+          0.7433,
+          0.762807
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.7532,
+        "ci_accuracy": [
+          0.7433,
+          0.762807
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.7499,
+        "ci_accuracy": [
+          0.739698,
+          0.7599
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.7522,
+        "ci_accuracy": [
+          0.7424,
+          0.761608
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.7508,
+        "ci_accuracy": [
+          0.741297,
+          0.759902
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.7508,
+        "ci_accuracy": [
+          0.741297,
+          0.759902
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.7508,
+        "ci_accuracy": [
+          0.741297,
+          0.759902
+        ]
+      }
+    },
+    "nh5_acc90_k4_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.5833,
+        "ci_accuracy": [
+          0.573997,
+          0.593607
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.5833,
+        "ci_accuracy": [
+          0.573997,
+          0.593607
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.5833,
+        "ci_accuracy": [
+          0.573997,
+          0.593607
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.5833,
+        "ci_accuracy": [
+          0.573997,
+          0.593607
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.5833,
+        "ci_accuracy": [
+          0.573997,
+          0.593607
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.5833,
+        "ci_accuracy": [
+          0.573997,
+          0.593607
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.5833,
+        "ci_accuracy": [
+          0.573997,
+          0.593607
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.5833,
+        "ci_accuracy": [
+          0.573997,
+          0.593607
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.5833,
+        "ci_accuracy": [
+          0.573997,
+          0.593607
+        ]
+      }
+    },
+    "nh5_acc90_k5_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.0051,
+        "ci_accuracy": [
+          0.0033,
+          0.007202
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.2931,
+        "ci_accuracy": [
+          0.282398,
+          0.3034
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.2931,
+        "ci_accuracy": [
+          0.282398,
+          0.3034
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.2931,
+        "ci_accuracy": [
+          0.282398,
+          0.3034
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.2959,
+        "ci_accuracy": [
+          0.284797,
+          0.3063
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.2952,
+        "ci_accuracy": [
+          0.2834,
+          0.306905
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.2925,
+        "ci_accuracy": [
+          0.280997,
+          0.304005
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.2989,
+        "ci_accuracy": [
+          0.287887,
+          0.3101
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.2989,
+        "ci_accuracy": [
+          0.287887,
+          0.3101
+        ]
+      }
+    },
+    "nh5_acc90_k0_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9922,
+        "ci_accuracy": [
+          0.9906,
+          0.993603
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9922,
+        "ci_accuracy": [
+          0.9906,
+          0.993603
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9922,
+        "ci_accuracy": [
+          0.9906,
+          0.993603
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9922,
+        "ci_accuracy": [
+          0.9906,
+          0.993603
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9922,
+        "ci_accuracy": [
+          0.9906,
+          0.993603
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9922,
+        "ci_accuracy": [
+          0.9906,
+          0.993603
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9922,
+        "ci_accuracy": [
+          0.9906,
+          0.993603
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9922,
+        "ci_accuracy": [
+          0.9906,
+          0.993603
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9922,
+        "ci_accuracy": [
+          0.9906,
+          0.993603
+        ]
+      }
+    },
+    "nh5_acc90_k1_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9914,
+        "ci_accuracy": [
+          0.9897,
+          0.993
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9719,
+        "ci_accuracy": [
+          0.9689,
+          0.9749
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9719,
+        "ci_accuracy": [
+          0.9689,
+          0.9749
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9719,
+        "ci_accuracy": [
+          0.9689,
+          0.9749
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9698,
+        "ci_accuracy": [
+          0.9666,
+          0.9728
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9694,
+        "ci_accuracy": [
+          0.965697,
+          0.972803
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9694,
+        "ci_accuracy": [
+          0.965697,
+          0.972803
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9694,
+        "ci_accuracy": [
+          0.965697,
+          0.972803
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9698,
+        "ci_accuracy": [
+          0.9666,
+          0.9728
+        ]
+      }
+    },
+    "nh5_acc90_k2_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9521,
+        "ci_accuracy": [
+          0.9483,
+          0.956303
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9522,
+        "ci_accuracy": [
+          0.9484,
+          0.9564
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9522,
+        "ci_accuracy": [
+          0.9484,
+          0.9564
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9522,
+        "ci_accuracy": [
+          0.9484,
+          0.9564
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9522,
+        "ci_accuracy": [
+          0.9484,
+          0.9564
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9522,
+        "ci_accuracy": [
+          0.9484,
+          0.9564
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9522,
+        "ci_accuracy": [
+          0.9484,
+          0.9564
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9522,
+        "ci_accuracy": [
+          0.9484,
+          0.9564
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9522,
+        "ci_accuracy": [
+          0.9484,
+          0.9564
+        ]
+      }
+    },
+    "nh5_acc90_k3_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9386,
+        "ci_accuracy": [
+          0.9334,
+          0.9438
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.8508,
+        "ci_accuracy": [
+          0.8445,
+          0.8566
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.8508,
+        "ci_accuracy": [
+          0.8445,
+          0.8566
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.8508,
+        "ci_accuracy": [
+          0.8445,
+          0.8566
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.8484,
+        "ci_accuracy": [
+          0.842197,
+          0.854103
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.8509,
+        "ci_accuracy": [
+          0.845897,
+          0.8552
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.8509,
+        "ci_accuracy": [
+          0.8462,
+          0.8559
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.8509,
+        "ci_accuracy": [
+          0.8462,
+          0.8559
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.8509,
+        "ci_accuracy": [
+          0.8462,
+          0.8559
+        ]
+      }
+    },
+    "nh5_acc90_k4_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.7501,
+        "ci_accuracy": [
+          0.7422,
+          0.7581
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.7501,
+        "ci_accuracy": [
+          0.7422,
+          0.7581
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.7501,
+        "ci_accuracy": [
+          0.7422,
+          0.7581
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.7501,
+        "ci_accuracy": [
+          0.7422,
+          0.7581
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.7501,
+        "ci_accuracy": [
+          0.7422,
+          0.7581
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.7501,
+        "ci_accuracy": [
+          0.7422,
+          0.7581
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.7501,
+        "ci_accuracy": [
+          0.7422,
+          0.7581
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.7501,
+        "ci_accuracy": [
+          0.7422,
+          0.7581
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.7501,
+        "ci_accuracy": [
+          0.7422,
+          0.7581
+        ]
+      }
+    },
+    "nh5_acc90_k5_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.4155,
+        "ci_accuracy": [
+          0.406295,
+          0.4254
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.5773,
+        "ci_accuracy": [
+          0.566995,
+          0.587602
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.5773,
+        "ci_accuracy": [
+          0.566995,
+          0.587602
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.5773,
+        "ci_accuracy": [
+          0.566995,
+          0.587602
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.5803,
+        "ci_accuracy": [
+          0.570198,
+          0.590607
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.5783,
+        "ci_accuracy": [
+          0.568597,
+          0.5887
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.5782,
+        "ci_accuracy": [
+          0.567397,
+          0.589603
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.5819,
+        "ci_accuracy": [
+          0.571997,
+          0.591512
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.5819,
+        "ci_accuracy": [
+          0.571997,
+          0.591512
+        ]
+      }
+    },
+    "nh7_acc80_k0_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9688,
+        "ci_accuracy": [
+          0.9659,
+          0.9717
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9688,
+        "ci_accuracy": [
+          0.9659,
+          0.9717
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9688,
+        "ci_accuracy": [
+          0.9659,
+          0.9717
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9688,
+        "ci_accuracy": [
+          0.9659,
+          0.9717
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9688,
+        "ci_accuracy": [
+          0.9659,
+          0.9717
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9688,
+        "ci_accuracy": [
+          0.9659,
+          0.9717
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9688,
+        "ci_accuracy": [
+          0.9659,
+          0.9717
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9688,
+        "ci_accuracy": [
+          0.9659,
+          0.9717
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9688,
+        "ci_accuracy": [
+          0.9659,
+          0.9717
+        ]
+      }
+    },
+    "nh7_acc80_k1_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9209,
+        "ci_accuracy": [
+          0.9144,
+          0.927303
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.8606,
+        "ci_accuracy": [
+          0.852992,
+          0.8683
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.8606,
+        "ci_accuracy": [
+          0.852992,
+          0.8683
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.8606,
+        "ci_accuracy": [
+          0.852992,
+          0.8683
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.8883,
+        "ci_accuracy": [
+          0.880597,
+          0.895903
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.8937,
+        "ci_accuracy": [
+          0.886297,
+          0.9008
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.8984,
+        "ci_accuracy": [
+          0.8918,
+          0.9049
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.8984,
+        "ci_accuracy": [
+          0.8918,
+          0.9049
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.8883,
+        "ci_accuracy": [
+          0.880597,
+          0.895903
+        ]
+      }
+    },
+    "nh7_acc80_k2_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.8458,
+        "ci_accuracy": [
+          0.8389,
+          0.852302
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.8129,
+        "ci_accuracy": [
+          0.8053,
+          0.82
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.8129,
+        "ci_accuracy": [
+          0.8053,
+          0.82
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.8129,
+        "ci_accuracy": [
+          0.8053,
+          0.82
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.8448,
+        "ci_accuracy": [
+          0.8381,
+          0.8513
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.8462,
+        "ci_accuracy": [
+          0.8394,
+          0.852603
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.8462,
+        "ci_accuracy": [
+          0.8394,
+          0.852603
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.8462,
+        "ci_accuracy": [
+          0.8394,
+          0.852603
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.8462,
+        "ci_accuracy": [
+          0.8394,
+          0.852603
+        ]
+      }
+    },
+    "nh7_acc80_k3_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.5726,
+        "ci_accuracy": [
+          0.562697,
+          0.5822
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.5713,
+        "ci_accuracy": [
+          0.5612,
+          0.581103
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.5713,
+        "ci_accuracy": [
+          0.5612,
+          0.581103
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.5713,
+        "ci_accuracy": [
+          0.5612,
+          0.581103
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.5719,
+        "ci_accuracy": [
+          0.5621,
+          0.5816
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.5769,
+        "ci_accuracy": [
+          0.5671,
+          0.5865
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.6146,
+        "ci_accuracy": [
+          0.6052,
+          0.6238
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.6467,
+        "ci_accuracy": [
+          0.636397,
+          0.6562
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.6146,
+        "ci_accuracy": [
+          0.6052,
+          0.6238
+        ]
+      }
+    },
+    "nh7_acc80_k4_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.2275,
+        "ci_accuracy": [
+          0.2186,
+          0.236105
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.261,
+        "ci_accuracy": [
+          0.252095,
+          0.269602
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.261,
+        "ci_accuracy": [
+          0.252095,
+          0.269602
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.261,
+        "ci_accuracy": [
+          0.252095,
+          0.269602
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.3839,
+        "ci_accuracy": [
+          0.3732,
+          0.393203
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.532,
+        "ci_accuracy": [
+          0.5211,
+          0.542903
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.571,
+        "ci_accuracy": [
+          0.561,
+          0.5809
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.5711,
+        "ci_accuracy": [
+          0.5611,
+          0.581
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.5711,
+        "ci_accuracy": [
+          0.5611,
+          0.581
+        ]
+      }
+    },
+    "nh7_acc80_k5_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.0188,
+        "ci_accuracy": [
+          0.016098,
+          0.021503
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.1724,
+        "ci_accuracy": [
+          0.1669,
+          0.177803
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.1724,
+        "ci_accuracy": [
+          0.1669,
+          0.177803
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.1724,
+        "ci_accuracy": [
+          0.1669,
+          0.177803
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.202,
+        "ci_accuracy": [
+          0.195198,
+          0.2081
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.2062,
+        "ci_accuracy": [
+          0.198998,
+          0.213002
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.2063,
+        "ci_accuracy": [
+          0.199,
+          0.213202
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.2074,
+        "ci_accuracy": [
+          0.2,
+          0.214303
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.2608,
+        "ci_accuracy": [
+          0.252397,
+          0.268503
+        ]
+      }
+    },
+    "nh7_acc80_k0_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9688,
+        "ci_accuracy": [
+          0.9659,
+          0.9717
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9688,
+        "ci_accuracy": [
+          0.9659,
+          0.9717
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9688,
+        "ci_accuracy": [
+          0.9659,
+          0.9717
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9688,
+        "ci_accuracy": [
+          0.9659,
+          0.9717
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9688,
+        "ci_accuracy": [
+          0.9659,
+          0.9717
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9688,
+        "ci_accuracy": [
+          0.9659,
+          0.9717
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9688,
+        "ci_accuracy": [
+          0.9659,
+          0.9717
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9688,
+        "ci_accuracy": [
+          0.9659,
+          0.9717
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9688,
+        "ci_accuracy": [
+          0.9659,
+          0.9717
+        ]
+      }
+    },
+    "nh7_acc80_k1_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9287,
+        "ci_accuracy": [
+          0.923798,
+          0.9336
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9132,
+        "ci_accuracy": [
+          0.9082,
+          0.918503
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9132,
+        "ci_accuracy": [
+          0.9082,
+          0.918503
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9132,
+        "ci_accuracy": [
+          0.9082,
+          0.918503
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9301,
+        "ci_accuracy": [
+          0.925,
+          0.9351
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.932,
+        "ci_accuracy": [
+          0.9272,
+          0.936503
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9339,
+        "ci_accuracy": [
+          0.9296,
+          0.938403
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9339,
+        "ci_accuracy": [
+          0.9296,
+          0.938403
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9301,
+        "ci_accuracy": [
+          0.925,
+          0.9351
+        ]
+      }
+    },
+    "nh7_acc80_k2_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.902,
+        "ci_accuracy": [
+          0.896998,
+          0.907105
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.8866,
+        "ci_accuracy": [
+          0.881497,
+          0.8917
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.8866,
+        "ci_accuracy": [
+          0.881497,
+          0.8917
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.8866,
+        "ci_accuracy": [
+          0.881497,
+          0.8917
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9071,
+        "ci_accuracy": [
+          0.9024,
+          0.9122
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9078,
+        "ci_accuracy": [
+          0.9033,
+          0.912803
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9078,
+        "ci_accuracy": [
+          0.9033,
+          0.912803
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9078,
+        "ci_accuracy": [
+          0.9033,
+          0.912803
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9078,
+        "ci_accuracy": [
+          0.9033,
+          0.912803
+        ]
+      }
+    },
+    "nh7_acc80_k3_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.744,
+        "ci_accuracy": [
+          0.737895,
+          0.7512
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.7439,
+        "ci_accuracy": [
+          0.7376,
+          0.751003
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.7439,
+        "ci_accuracy": [
+          0.7376,
+          0.751003
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.7439,
+        "ci_accuracy": [
+          0.7376,
+          0.751003
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.7444,
+        "ci_accuracy": [
+          0.738492,
+          0.751103
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.747,
+        "ci_accuracy": [
+          0.741298,
+          0.753703
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.7695,
+        "ci_accuracy": [
+          0.7637,
+          0.776003
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.7886,
+        "ci_accuracy": [
+          0.782697,
+          0.795
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.7695,
+        "ci_accuracy": [
+          0.7637,
+          0.776003
+        ]
+      }
+    },
+    "nh7_acc80_k4_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.5256,
+        "ci_accuracy": [
+          0.516897,
+          0.535203
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.5559,
+        "ci_accuracy": [
+          0.5465,
+          0.565803
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.5559,
+        "ci_accuracy": [
+          0.5465,
+          0.565803
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.5559,
+        "ci_accuracy": [
+          0.5465,
+          0.565803
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.6307,
+        "ci_accuracy": [
+          0.6222,
+          0.639103
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.7201,
+        "ci_accuracy": [
+          0.713,
+          0.728
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.7438,
+        "ci_accuracy": [
+          0.7375,
+          0.750805
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.7439,
+        "ci_accuracy": [
+          0.737698,
+          0.751003
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.7439,
+        "ci_accuracy": [
+          0.737698,
+          0.751003
+        ]
+      }
+    },
+    "nh7_acc80_k5_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.4077,
+        "ci_accuracy": [
+          0.398095,
+          0.417502
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.5036,
+        "ci_accuracy": [
+          0.494198,
+          0.51361
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.5036,
+        "ci_accuracy": [
+          0.494198,
+          0.51361
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.5036,
+        "ci_accuracy": [
+          0.494198,
+          0.51361
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.5209,
+        "ci_accuracy": [
+          0.511495,
+          0.530605
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.5238,
+        "ci_accuracy": [
+          0.514597,
+          0.5336
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.5238,
+        "ci_accuracy": [
+          0.514597,
+          0.5336
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.5244,
+        "ci_accuracy": [
+          0.515,
+          0.5343
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.5552,
+        "ci_accuracy": [
+          0.546698,
+          0.564803
+        ]
+      }
+    },
+    "nh10_acc80_k0_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9797,
+        "ci_accuracy": [
+          0.9769,
+          0.9823
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9796,
+        "ci_accuracy": [
+          0.9768,
+          0.982303
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9796,
+        "ci_accuracy": [
+          0.9768,
+          0.982303
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9796,
+        "ci_accuracy": [
+          0.9768,
+          0.982303
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9797,
+        "ci_accuracy": [
+          0.9767,
+          0.9825
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9802,
+        "ci_accuracy": [
+          0.9775,
+          0.982603
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9809,
+        "ci_accuracy": [
+          0.978797,
+          0.9829
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9798,
+        "ci_accuracy": [
+          0.9776,
+          0.982
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9797,
+        "ci_accuracy": [
+          0.9767,
+          0.9825
+        ]
+      }
+    },
+    "nh10_acc80_k1_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9677,
+        "ci_accuracy": [
+          0.963998,
+          0.9711
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9668,
+        "ci_accuracy": [
+          0.9632,
+          0.970103
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9668,
+        "ci_accuracy": [
+          0.9632,
+          0.970103
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9668,
+        "ci_accuracy": [
+          0.9632,
+          0.970103
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9677,
+        "ci_accuracy": [
+          0.963998,
+          0.9711
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9677,
+        "ci_accuracy": [
+          0.963998,
+          0.9711
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9677,
+        "ci_accuracy": [
+          0.963998,
+          0.9711
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9677,
+        "ci_accuracy": [
+          0.963998,
+          0.9711
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9677,
+        "ci_accuracy": [
+          0.963998,
+          0.9711
+        ]
+      }
+    },
+    "nh10_acc80_k2_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9162,
+        "ci_accuracy": [
+          0.908697,
+          0.9226
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.8757,
+        "ci_accuracy": [
+          0.8688,
+          0.8825
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.8757,
+        "ci_accuracy": [
+          0.8688,
+          0.8825
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.8757,
+        "ci_accuracy": [
+          0.8688,
+          0.8825
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.8836,
+        "ci_accuracy": [
+          0.876497,
+          0.890805
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.8963,
+        "ci_accuracy": [
+          0.888897,
+          0.903602
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9028,
+        "ci_accuracy": [
+          0.8955,
+          0.909905
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9076,
+        "ci_accuracy": [
+          0.901197,
+          0.914
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.8963,
+        "ci_accuracy": [
+          0.888897,
+          0.903602
+        ]
+      }
+    },
+    "nh10_acc80_k3_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.8675,
+        "ci_accuracy": [
+          0.860397,
+          0.874402
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.7701,
+        "ci_accuracy": [
+          0.7608,
+          0.778907
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.7701,
+        "ci_accuracy": [
+          0.7608,
+          0.778907
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.7701,
+        "ci_accuracy": [
+          0.7608,
+          0.778907
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.8378,
+        "ci_accuracy": [
+          0.830895,
+          0.844402
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.871,
+        "ci_accuracy": [
+          0.8644,
+          0.877302
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.8739,
+        "ci_accuracy": [
+          0.8671,
+          0.8803
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.8739,
+        "ci_accuracy": [
+          0.8671,
+          0.8803
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.8739,
+        "ci_accuracy": [
+          0.8671,
+          0.8803
+        ]
+      }
+    },
+    "nh10_acc80_k4_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.6673,
+        "ci_accuracy": [
+          0.657598,
+          0.6762
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.6582,
+        "ci_accuracy": [
+          0.649295,
+          0.666903
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.6582,
+        "ci_accuracy": [
+          0.649295,
+          0.666903
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.6582,
+        "ci_accuracy": [
+          0.649295,
+          0.666903
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.6669,
+        "ci_accuracy": [
+          0.657398,
+          0.675405
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.668,
+        "ci_accuracy": [
+          0.658195,
+          0.6768
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.6725,
+        "ci_accuracy": [
+          0.662397,
+          0.681402
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.6939,
+        "ci_accuracy": [
+          0.6853,
+          0.701805
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.6939,
+        "ci_accuracy": [
+          0.6853,
+          0.701805
+        ]
+      }
+    },
+    "nh10_acc80_k5_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.3763,
+        "ci_accuracy": [
+          0.365497,
+          0.385908
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.3765,
+        "ci_accuracy": [
+          0.3663,
+          0.385708
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.3765,
+        "ci_accuracy": [
+          0.3663,
+          0.385708
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.3765,
+        "ci_accuracy": [
+          0.3663,
+          0.385708
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.4118,
+        "ci_accuracy": [
+          0.400097,
+          0.421703
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.4938,
+        "ci_accuracy": [
+          0.481397,
+          0.504805
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.6112,
+        "ci_accuracy": [
+          0.598988,
+          0.6229
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.6655,
+        "ci_accuracy": [
+          0.6562,
+          0.674005
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.6672,
+        "ci_accuracy": [
+          0.657598,
+          0.6759
+        ]
+      }
+    },
+    "nh10_acc80_k0_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9797,
+        "ci_accuracy": [
+          0.9769,
+          0.9823
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9796,
+        "ci_accuracy": [
+          0.9768,
+          0.982303
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9796,
+        "ci_accuracy": [
+          0.9768,
+          0.982303
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9796,
+        "ci_accuracy": [
+          0.9768,
+          0.982303
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9797,
+        "ci_accuracy": [
+          0.9767,
+          0.9825
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9802,
+        "ci_accuracy": [
+          0.9775,
+          0.982603
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9809,
+        "ci_accuracy": [
+          0.978797,
+          0.9829
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9798,
+        "ci_accuracy": [
+          0.9776,
+          0.982
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9797,
+        "ci_accuracy": [
+          0.9767,
+          0.9825
+        ]
+      }
+    },
+    "nh10_acc80_k1_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9778,
+        "ci_accuracy": [
+          0.974797,
+          0.9804
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9776,
+        "ci_accuracy": [
+          0.9747,
+          0.9802
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9776,
+        "ci_accuracy": [
+          0.9747,
+          0.9802
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9776,
+        "ci_accuracy": [
+          0.9747,
+          0.9802
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.978,
+        "ci_accuracy": [
+          0.974997,
+          0.9807
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.978,
+        "ci_accuracy": [
+          0.974997,
+          0.9807
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.978,
+        "ci_accuracy": [
+          0.974997,
+          0.9807
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.978,
+        "ci_accuracy": [
+          0.974997,
+          0.9807
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.978,
+        "ci_accuracy": [
+          0.974997,
+          0.9807
+        ]
+      }
+    },
+    "nh10_acc80_k2_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9301,
+        "ci_accuracy": [
+          0.9241,
+          0.9354
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9244,
+        "ci_accuracy": [
+          0.918897,
+          0.929403
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9244,
+        "ci_accuracy": [
+          0.918897,
+          0.929403
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9244,
+        "ci_accuracy": [
+          0.918897,
+          0.929403
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9293,
+        "ci_accuracy": [
+          0.923898,
+          0.934005
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9375,
+        "ci_accuracy": [
+          0.9324,
+          0.9422
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9422,
+        "ci_accuracy": [
+          0.936898,
+          0.9469
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9437,
+        "ci_accuracy": [
+          0.9392,
+          0.948003
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9375,
+        "ci_accuracy": [
+          0.9324,
+          0.9422
+        ]
+      }
+    },
+    "nh10_acc80_k3_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.8828,
+        "ci_accuracy": [
+          0.8764,
+          0.888902
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.8618,
+        "ci_accuracy": [
+          0.855598,
+          0.868503
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.8618,
+        "ci_accuracy": [
+          0.855598,
+          0.868503
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.8618,
+        "ci_accuracy": [
+          0.855598,
+          0.868503
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9019,
+        "ci_accuracy": [
+          0.896197,
+          0.907202
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9215,
+        "ci_accuracy": [
+          0.9162,
+          0.9267
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9234,
+        "ci_accuracy": [
+          0.917797,
+          0.928403
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9234,
+        "ci_accuracy": [
+          0.917797,
+          0.928403
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9234,
+        "ci_accuracy": [
+          0.917797,
+          0.928403
+        ]
+      }
+    },
+    "nh10_acc80_k4_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.7923,
+        "ci_accuracy": [
+          0.7859,
+          0.7985
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.7952,
+        "ci_accuracy": [
+          0.789097,
+          0.801103
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.7952,
+        "ci_accuracy": [
+          0.789097,
+          0.801103
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.7952,
+        "ci_accuracy": [
+          0.789097,
+          0.801103
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.8009,
+        "ci_accuracy": [
+          0.7953,
+          0.8066
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.8016,
+        "ci_accuracy": [
+          0.795897,
+          0.8073
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.8041,
+        "ci_accuracy": [
+          0.7987,
+          0.809503
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.8157,
+        "ci_accuracy": [
+          0.810398,
+          0.8212
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.8157,
+        "ci_accuracy": [
+          0.810398,
+          0.8212
+        ]
+      }
+    },
+    "nh10_acc80_k5_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.6203,
+        "ci_accuracy": [
+          0.6124,
+          0.6293
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.6271,
+        "ci_accuracy": [
+          0.6193,
+          0.635805
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.6271,
+        "ci_accuracy": [
+          0.6193,
+          0.635805
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.6271,
+        "ci_accuracy": [
+          0.6193,
+          0.635805
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.647,
+        "ci_accuracy": [
+          0.6405,
+          0.6542
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.6962,
+        "ci_accuracy": [
+          0.6877,
+          0.705303
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.7673,
+        "ci_accuracy": [
+          0.758998,
+          0.7759
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.8,
+        "ci_accuracy": [
+          0.7943,
+          0.8055
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.8012,
+        "ci_accuracy": [
+          0.795697,
+          0.8068
+        ]
+      }
+    },
+    "nh10_acc90_k0_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9993,
+        "ci_accuracy": [
+          0.9989,
+          0.9997
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9993,
+        "ci_accuracy": [
+          0.9989,
+          0.9997
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9993,
+        "ci_accuracy": [
+          0.9989,
+          0.9997
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9993,
+        "ci_accuracy": [
+          0.9989,
+          0.9997
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9993,
+        "ci_accuracy": [
+          0.9989,
+          0.9997
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9994,
+        "ci_accuracy": [
+          0.999,
+          0.9998
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9995,
+        "ci_accuracy": [
+          0.9991,
+          0.9998
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9994,
+        "ci_accuracy": [
+          0.999,
+          0.9998
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9993,
+        "ci_accuracy": [
+          0.9989,
+          0.9997
+        ]
+      }
+    },
+    "nh10_acc90_k1_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9987,
+        "ci_accuracy": [
+          0.997997,
+          0.9994
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9987,
+        "ci_accuracy": [
+          0.997997,
+          0.9994
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9987,
+        "ci_accuracy": [
+          0.997997,
+          0.9994
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9987,
+        "ci_accuracy": [
+          0.997997,
+          0.9994
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9987,
+        "ci_accuracy": [
+          0.997997,
+          0.9994
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9987,
+        "ci_accuracy": [
+          0.997997,
+          0.9994
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9987,
+        "ci_accuracy": [
+          0.997997,
+          0.9994
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9987,
+        "ci_accuracy": [
+          0.997997,
+          0.9994
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9987,
+        "ci_accuracy": [
+          0.997997,
+          0.9994
+        ]
+      }
+    },
+    "nh10_acc90_k2_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9987,
+        "ci_accuracy": [
+          0.997997,
+          0.9994
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9941,
+        "ci_accuracy": [
+          0.9921,
+          0.9956
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9941,
+        "ci_accuracy": [
+          0.9921,
+          0.9956
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9941,
+        "ci_accuracy": [
+          0.9921,
+          0.9956
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.994,
+        "ci_accuracy": [
+          0.9918,
+          0.9956
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9937,
+        "ci_accuracy": [
+          0.9919,
+          0.9951
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9937,
+        "ci_accuracy": [
+          0.9921,
+          0.9951
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9939,
+        "ci_accuracy": [
+          0.992297,
+          0.9954
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9937,
+        "ci_accuracy": [
+          0.9919,
+          0.9951
+        ]
+      }
+    },
+    "nh10_acc90_k3_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9969,
+        "ci_accuracy": [
+          0.9958,
+          0.9978
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9875,
+        "ci_accuracy": [
+          0.9846,
+          0.9899
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9875,
+        "ci_accuracy": [
+          0.9846,
+          0.9899
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9875,
+        "ci_accuracy": [
+          0.9846,
+          0.9899
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9875,
+        "ci_accuracy": [
+          0.9846,
+          0.9899
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9875,
+        "ci_accuracy": [
+          0.9846,
+          0.9899
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9875,
+        "ci_accuracy": [
+          0.9846,
+          0.9899
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9875,
+        "ci_accuracy": [
+          0.9846,
+          0.9899
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9875,
+        "ci_accuracy": [
+          0.9846,
+          0.9899
+        ]
+      }
+    },
+    "nh10_acc90_k4_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9875,
+        "ci_accuracy": [
+          0.9846,
+          0.9899
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9569,
+        "ci_accuracy": [
+          0.9512,
+          0.9622
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9569,
+        "ci_accuracy": [
+          0.9512,
+          0.9622
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9569,
+        "ci_accuracy": [
+          0.9512,
+          0.9622
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9572,
+        "ci_accuracy": [
+          0.951997,
+          0.962
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9568,
+        "ci_accuracy": [
+          0.951997,
+          0.9612
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9572,
+        "ci_accuracy": [
+          0.952597,
+          0.961302
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9565,
+        "ci_accuracy": [
+          0.9519,
+          0.9604
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9565,
+        "ci_accuracy": [
+          0.9519,
+          0.9604
+        ]
+      }
+    },
+    "nh10_acc90_k5_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9729,
+        "ci_accuracy": [
+          0.9677,
+          0.9774
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.925,
+        "ci_accuracy": [
+          0.918597,
+          0.930802
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.925,
+        "ci_accuracy": [
+          0.918597,
+          0.930802
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.925,
+        "ci_accuracy": [
+          0.918597,
+          0.930802
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.925,
+        "ci_accuracy": [
+          0.918597,
+          0.930802
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.925,
+        "ci_accuracy": [
+          0.918597,
+          0.930802
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.925,
+        "ci_accuracy": [
+          0.918597,
+          0.930802
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.925,
+        "ci_accuracy": [
+          0.918597,
+          0.930802
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.925,
+        "ci_accuracy": [
+          0.918597,
+          0.930802
+        ]
+      }
+    },
+    "nh10_acc90_k0_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9993,
+        "ci_accuracy": [
+          0.9989,
+          0.9997
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9993,
+        "ci_accuracy": [
+          0.9989,
+          0.9997
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9993,
+        "ci_accuracy": [
+          0.9989,
+          0.9997
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9993,
+        "ci_accuracy": [
+          0.9989,
+          0.9997
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9993,
+        "ci_accuracy": [
+          0.9989,
+          0.9997
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9994,
+        "ci_accuracy": [
+          0.999,
+          0.9998
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9995,
+        "ci_accuracy": [
+          0.9991,
+          0.9998
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9994,
+        "ci_accuracy": [
+          0.999,
+          0.9998
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9993,
+        "ci_accuracy": [
+          0.9989,
+          0.9997
+        ]
+      }
+    },
+    "nh10_acc90_k1_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9994,
+        "ci_accuracy": [
+          0.9989,
+          0.999803
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9994,
+        "ci_accuracy": [
+          0.9989,
+          0.999803
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9994,
+        "ci_accuracy": [
+          0.9989,
+          0.999803
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9994,
+        "ci_accuracy": [
+          0.9989,
+          0.999803
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9994,
+        "ci_accuracy": [
+          0.9989,
+          0.999803
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9994,
+        "ci_accuracy": [
+          0.9989,
+          0.999803
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9994,
+        "ci_accuracy": [
+          0.9989,
+          0.999803
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9994,
+        "ci_accuracy": [
+          0.9989,
+          0.999803
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9994,
+        "ci_accuracy": [
+          0.9989,
+          0.999803
+        ]
+      }
+    },
+    "nh10_acc90_k2_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9994,
+        "ci_accuracy": [
+          0.9989,
+          0.999803
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9966,
+        "ci_accuracy": [
+          0.995097,
+          0.9979
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9966,
+        "ci_accuracy": [
+          0.995097,
+          0.9979
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9966,
+        "ci_accuracy": [
+          0.995097,
+          0.9979
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9963,
+        "ci_accuracy": [
+          0.9945,
+          0.997703
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9962,
+        "ci_accuracy": [
+          0.9946,
+          0.9976
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9963,
+        "ci_accuracy": [
+          0.9949,
+          0.9975
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9964,
+        "ci_accuracy": [
+          0.995,
+          0.9976
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9962,
+        "ci_accuracy": [
+          0.9946,
+          0.9976
+        ]
+      }
+    },
+    "nh10_acc90_k3_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9934,
+        "ci_accuracy": [
+          0.9911,
+          0.995103
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9923,
+        "ci_accuracy": [
+          0.9901,
+          0.9942
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9923,
+        "ci_accuracy": [
+          0.9901,
+          0.9942
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9923,
+        "ci_accuracy": [
+          0.9901,
+          0.9942
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9923,
+        "ci_accuracy": [
+          0.9901,
+          0.9942
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9923,
+        "ci_accuracy": [
+          0.9901,
+          0.9942
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9923,
+        "ci_accuracy": [
+          0.9901,
+          0.9942
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9923,
+        "ci_accuracy": [
+          0.9901,
+          0.9942
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9923,
+        "ci_accuracy": [
+          0.9901,
+          0.9942
+        ]
+      }
+    },
+    "nh10_acc90_k4_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.9923,
+        "ci_accuracy": [
+          0.9901,
+          0.9942
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9745,
+        "ci_accuracy": [
+          0.9712,
+          0.977703
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9745,
+        "ci_accuracy": [
+          0.9712,
+          0.977703
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9745,
+        "ci_accuracy": [
+          0.9712,
+          0.977703
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9749,
+        "ci_accuracy": [
+          0.9716,
+          0.9781
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9744,
+        "ci_accuracy": [
+          0.9711,
+          0.9775
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9744,
+        "ci_accuracy": [
+          0.971098,
+          0.9773
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9743,
+        "ci_accuracy": [
+          0.9715,
+          0.9769
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9743,
+        "ci_accuracy": [
+          0.9715,
+          0.9769
+        ]
+      }
+    },
+    "nh10_acc90_k5_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.961,
+        "ci_accuracy": [
+          0.956398,
+          0.965
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.9562,
+        "ci_accuracy": [
+          0.951797,
+          0.9603
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.9562,
+        "ci_accuracy": [
+          0.951797,
+          0.9603
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.9562,
+        "ci_accuracy": [
+          0.951797,
+          0.9603
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.9562,
+        "ci_accuracy": [
+          0.951797,
+          0.9603
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.9562,
+        "ci_accuracy": [
+          0.951797,
+          0.9603
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.9562,
+        "ci_accuracy": [
+          0.951797,
+          0.9603
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.9562,
+        "ci_accuracy": [
+          0.951797,
+          0.9603
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.9562,
+        "ci_accuracy": [
+          0.951797,
+          0.9603
+        ]
+      }
+    },
+    "nh3_acc80_k0_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.8911,
+        "ci_accuracy": [
+          0.8849,
+          0.897103
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.8911,
+        "ci_accuracy": [
+          0.8849,
+          0.897103
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.8911,
+        "ci_accuracy": [
+          0.8849,
+          0.897103
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.8911,
+        "ci_accuracy": [
+          0.8849,
+          0.897103
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.8911,
+        "ci_accuracy": [
+          0.8849,
+          0.897103
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.8911,
+        "ci_accuracy": [
+          0.8849,
+          0.897103
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.8911,
+        "ci_accuracy": [
+          0.8849,
+          0.897103
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.8911,
+        "ci_accuracy": [
+          0.8849,
+          0.897103
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.8911,
+        "ci_accuracy": [
+          0.8849,
+          0.897103
+        ]
+      }
+    },
+    "nh3_acc80_k1_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.698,
+        "ci_accuracy": [
+          0.682095,
+          0.713703
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.5223,
+        "ci_accuracy": [
+          0.510195,
+          0.533903
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.5223,
+        "ci_accuracy": [
+          0.510195,
+          0.533903
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.5223,
+        "ci_accuracy": [
+          0.510195,
+          0.533903
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.6328,
+        "ci_accuracy": [
+          0.621092,
+          0.644202
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.6328,
+        "ci_accuracy": [
+          0.621092,
+          0.644202
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.6328,
+        "ci_accuracy": [
+          0.621092,
+          0.644202
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.6328,
+        "ci_accuracy": [
+          0.621092,
+          0.644202
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.6328,
+        "ci_accuracy": [
+          0.621092,
+          0.644202
+        ]
+      }
+    },
+    "nh3_acc80_k2_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.4476,
+        "ci_accuracy": [
+          0.431198,
+          0.4634
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.4767,
+        "ci_accuracy": [
+          0.465697,
+          0.4874
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.4767,
+        "ci_accuracy": [
+          0.465697,
+          0.4874
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.4767,
+        "ci_accuracy": [
+          0.465697,
+          0.4874
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.5067,
+        "ci_accuracy": [
+          0.495095,
+          0.5182
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.5067,
+        "ci_accuracy": [
+          0.495095,
+          0.5182
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.5067,
+        "ci_accuracy": [
+          0.495095,
+          0.5182
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.5067,
+        "ci_accuracy": [
+          0.495095,
+          0.5182
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.5067,
+        "ci_accuracy": [
+          0.495095,
+          0.5182
+        ]
+      }
+    },
+    "nh3_acc80_k3_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "nh3_acc80_k4_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "nh3_acc80_k5_inversion": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.0,
+        "ci_accuracy": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "nh3_acc80_k0_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.8911,
+        "ci_accuracy": [
+          0.8849,
+          0.897103
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.8911,
+        "ci_accuracy": [
+          0.8849,
+          0.897103
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.8911,
+        "ci_accuracy": [
+          0.8849,
+          0.897103
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.8911,
+        "ci_accuracy": [
+          0.8849,
+          0.897103
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.8911,
+        "ci_accuracy": [
+          0.8849,
+          0.897103
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.8911,
+        "ci_accuracy": [
+          0.8849,
+          0.897103
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.8911,
+        "ci_accuracy": [
+          0.8849,
+          0.897103
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.8911,
+        "ci_accuracy": [
+          0.8849,
+          0.897103
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.8911,
+        "ci_accuracy": [
+          0.8849,
+          0.897103
+        ]
+      }
+    },
+    "nh3_acc80_k1_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.7253,
+        "ci_accuracy": [
+          0.717395,
+          0.733402
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.7002,
+        "ci_accuracy": [
+          0.6937,
+          0.7071
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.7002,
+        "ci_accuracy": [
+          0.6937,
+          0.7071
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.7002,
+        "ci_accuracy": [
+          0.6937,
+          0.7071
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.759,
+        "ci_accuracy": [
+          0.7518,
+          0.7666
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.759,
+        "ci_accuracy": [
+          0.7518,
+          0.7666
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.759,
+        "ci_accuracy": [
+          0.7518,
+          0.7666
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.759,
+        "ci_accuracy": [
+          0.7518,
+          0.7666
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.759,
+        "ci_accuracy": [
+          0.7518,
+          0.7666
+        ]
+      }
+    },
+    "nh3_acc80_k2_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.627,
+        "ci_accuracy": [
+          0.6186,
+          0.635805
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.6814,
+        "ci_accuracy": [
+          0.676197,
+          0.687003
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.6814,
+        "ci_accuracy": [
+          0.676197,
+          0.687003
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.6814,
+        "ci_accuracy": [
+          0.676197,
+          0.687003
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.7003,
+        "ci_accuracy": [
+          0.694297,
+          0.7067
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.7003,
+        "ci_accuracy": [
+          0.694297,
+          0.7067
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.7003,
+        "ci_accuracy": [
+          0.694297,
+          0.7067
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.7003,
+        "ci_accuracy": [
+          0.694297,
+          0.7067
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.7003,
+        "ci_accuracy": [
+          0.694297,
+          0.7067
+        ]
+      }
+    },
+    "nh3_acc80_k3_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.4023,
+        "ci_accuracy": [
+          0.3928,
+          0.412303
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.4023,
+        "ci_accuracy": [
+          0.3928,
+          0.412303
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.4023,
+        "ci_accuracy": [
+          0.3928,
+          0.412303
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.4023,
+        "ci_accuracy": [
+          0.3928,
+          0.412303
+        ]
+      }
+    },
+    "nh3_acc80_k4_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      }
+    },
+    "nh3_acc80_k5_targeted": {
+      "sl_trust_discount": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "sl_cumulative": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "scalar_mean": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "trimmed_k0": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "trimmed_k1": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "trimmed_k2": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "trimmed_k3": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "trimmed_k4": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      },
+      "trimmed_oracle": {
+        "mean_accuracy": 0.4024,
+        "ci_accuracy": [
+          0.392897,
+          0.4124
+        ]
+      }
+    }
+  },
+  "timestamp": "2026-03-13T15:36:38.336436+00:00",
+  "raw_data": null,
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.0",
+    "numpy_version": "2.4.3",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": "Wrong-k analysis: 6 configs × 2 strats × 6 k_true × 5 k_hat × 20 seeds. 111.8s."
+}

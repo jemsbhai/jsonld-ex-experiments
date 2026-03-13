@@ -1941,3 +1941,49 @@ SL does NOT have a consistent calibration advantage — honest finding.
 - `experiments/EN1/tests/conftest.py`
 - `experiments/EN1/results/en1_3_full_results.json`
 - `experiments/EN1/results/en1_3_ablation_full_part{1,2,3}_results.json`
+
+
+### Wrong-k Analysis (Supplementary to EN1.3)
+
+**Date:** 2026-03-12
+**Result:** SL trust_discount wins the minimax game (best worst-case across
+unknown k) ONLY at nh=10, acc≥0.90 — the strong-majority regime. In all
+other configs, scalar trimmed_mean with appropriate k̂ has better minimax.
+However, SL's minimax advantage at nh=10,acc=0.90 is genuine and significant:
+0.973 vs 0.925 (inversion), a +4.8pp gap no fixed k̂ can match.
+
+**Scale:** 6 configs × 2 strategies × 6 k_true × 5 k_hat × 20 seeds.
+
+**Key table (nh=10, acc=0.90, inversion):**
+
+| k_true | trim_k0 | trim_k1 | trim_k2 | trim_k3 | trim_k4 | SL_TD |
+|--------|---------|---------|---------|---------|---------|-------|
+| 0 | 0.999 | 0.999 | 0.999 | 1.000 | 0.999 | 0.999 |
+| 1 | 0.999 | 0.999 | 0.999 | 0.999 | 0.999 | 0.999 |
+| 2 | 0.994 | 0.994 | 0.994 | 0.994 | 0.994 | 0.999 |
+| 3 | 0.988 | 0.988 | 0.988 | 0.988 | 0.988 | 0.997 |
+| 4 | 0.957 | 0.957 | 0.957 | 0.957 | 0.957 | 0.988 |
+| 5 | 0.925 | 0.925 | 0.925 | 0.925 | 0.925 | **0.973** |
+| **worst** | 0.925 | 0.925 | 0.925 | 0.925 | 0.925 | **0.973** |
+
+At nh=10,acc=0.90: SL trust_discount achieves 0.973 worst-case vs 0.925
+for every scalar variant. No choice of k̂ matches this. The advantage
+comes from k=4-5 where trust discount correctly downweights adversaries
+while trimmed_mean (which can only trim n//2 = 5 sources max) runs out
+of headroom.
+
+**Honest negative:** At nh≤7 or acc≤0.80, SL trust_discount's worst-case
+is typically 0.000 (catastrophic failure when adversaries reach ~50%),
+same as scalar methods. The minimax argument only holds when the honest
+majority is strong enough for trust learning to work.
+
+**Paper framing:** The wrong-k analysis establishes that SL trust_discount
+is the only method that achieves hyperparameter-free minimax optimality
+in the strong-majority regime. For weaker regimes, all methods fail at
+high contamination — the choice of method matters less than having enough
+honest sources.
+
+### Files
+
+- `experiments/EN1/en1_3_wrong_k.py`
+- `experiments/EN1/results/en1_3_wrong_k_results.json`
