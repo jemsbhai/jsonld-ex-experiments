@@ -1987,3 +1987,157 @@ honest sources.
 
 - `experiments/EN1/en1_3_wrong_k.py`
 - `experiments/EN1/results/en1_3_wrong_k_results.json`
+
+
+---
+
+## EN1.4 — Trust Discount Chain Analysis
+
+**Date:** 2026-03-12
+**Result:** STRONG POSITIVE — SL trust discount converges to the base rate
+(preserving prior knowledge) while scalar trust multiplication converges to
+zero (destroying all information). Closed-form verified across 558 checks
+with zero error. Decision divergence occurs within 2-12 steps depending on
+trust level. Novel finding: BDU entropy is non-monotonic along the chain.
+
+**Scale:** 6 trust levels × 9 base rates × 30-step chains, heterogeneous
+chains, branching provenance (1-5 paths × 3 lengths), 558 closed-form
+verification checks. Pure mathematical analysis.
+
+### The Core Result
+
+For a chain of n intermediaries, each with trust opinion having belief b_t:
+
+| Method | Formula | Limit (n→∞) | Behavior |
+|--------|---------|-------------|----------|
+| **SL** | P(ω_n) = a + b_t^n × (P₀ − a) | **a** (base rate) | Preserves prior |
+| Scalar | c_n = t^n × c₀ | **0** | Destroys all information |
+| Bayesian | p_n = (2r−1)^n × (p₀−0.5) + 0.5 | **0.5** (uniform prior) | Converges to uniform |
+
+**Closed-form verification: 558 checks across 6 trust levels × 3 base rates
+× 31 chain steps. Zero errors. Max deviation: 0.00e+00.**
+
+### Finding 1: Decision Divergence is Inevitable and Rapid
+
+At every (trust_level, base_rate) combination tested, SL and scalar produce
+different binary decisions within 2-12 chain steps:
+
+| Trust Level | Divergence Step | SL Decision | Scalar Decision |
+|-------------|----------------|-------------|-----------------|
+| 0.60 | 2 | positive | negative |
+| 0.80 | 3 | positive | negative |
+| 0.85 | 4 | positive | negative |
+| 0.90 | 6 | positive | negative |
+| 0.95 | 11 | positive | negative |
+
+(Base rate = 0.7, original P = 0.83, threshold = 0.5)
+
+At the divergence point, scalar has decayed below the decision threshold
+while SL is converging toward the base rate (0.7) — still above threshold.
+**In a provenance chain of moderate length, scalar trust produces the wrong
+binary decision while SL produces the correct one.**
+
+### Finding 2: Base Rate Preservation (the Key SL Advantage)
+
+At step 20 with trust=0.85:
+
+| Base Rate | SL P(ω₂₀) | Scalar c₂₀ | Bayesian p₂₀ | SL − Scalar |
+|-----------|-----------|------------|-------------|-------------|
+| 0.1 | 0.128 | 0.031 | 0.500 | +0.096 |
+| 0.3 | 0.321 | 0.032 | 0.500 | +0.288 |
+| 0.5 | 0.514 | 0.033 | 0.500 | +0.481 |
+| 0.7 | 0.707 | 0.034 | 0.500 | +0.673 |
+| 0.9 | 0.900 | 0.034 | 0.500 | +0.865 |
+
+Scalar collapses to ~0.03 regardless of base rate. Bayesian converges to
+0.5 (the uniform prior). **SL is the only method that converges to the
+correct base rate**, preserving domain knowledge encoded in the prior.
+
+### Finding 3: BDU Entropy is Non-Monotonic (Novel Mathematical Observation)
+
+Shannon entropy of the (b, d, u) triple increases before decreasing:
+- Step 0: H = 0.884 (peaked at b=0.80)
+- Step 3: H = 1.347 (PEAK — more uniform distribution)
+- Step 15: H = 0.465 (concentrating at u)
+- Limit: H → 0 (vacuous opinion, all mass at u)
+
+**Evidence mass (b+d) IS monotonically decreasing** — verified as the correct
+invariant. The entropy non-monotonicity occurs because the distribution
+transitions from peaked-at-b through near-uniform to peaked-at-u. This is
+mathematically correct behavior and should be documented as a property of
+trust discount chains.
+
+### Finding 4: Branching Provenance Recovers Information
+
+Multiple independent trust paths fused via cumulative_fuse recover
+information lost through individual chains:
+
+| Paths | Chain Length 3 | Chain Length 5 | Chain Length 10 |
+|-------|---------------|---------------|-----------------|
+| 1 path | u=0.514 | u=0.689 | u=0.898 |
+| 2 paths | u=0.346 | u=0.525 | u=0.815 |
+| 3 paths | u=0.260 | u=0.424 | u=0.746 |
+| 5 paths | u=0.174 | u=0.307 | u=0.638 |
+
+5 independent paths through 5-hop chains reduce uncertainty from 0.689
+(single path) to 0.307 — a 55% reduction. This models real-world scenarios
+where information reaches a decision-maker through multiple independent
+channels. **Scalar trust has no equivalent mechanism** — multiple paths
+would all decay to ~0, and averaging zeros gives zero.
+
+### Finding 5: Weak Link Dominance in Heterogeneous Chains
+
+One weak link (trust belief = 0.30) in a chain of strong links (0.95)
+causes a catastrophic uncertainty jump:
+
+| Chain Config | P at step 3 | u at step 3 |
+|-------------|-------------|-------------|
+| Uniform strong [0.95×5] | 0.822 | 0.185 |
+| One weak at position 3 | 0.602 | 0.743 |
+| Degrading [0.95→0.55] | 0.727 | 0.425 |
+
+The weak link at position 3 quadruples uncertainty (0.185 → 0.743).
+This is honest behavior — the system correctly reflects that the
+provenance chain's reliability is limited by its weakest link.
+
+### Key Claims for NeurIPS Paper
+
+1. **SL trust discount converges to the base rate; scalar converges to zero.**
+   Proven analytically (P(ω_n) = a + b_t^n(P₀−a)) and verified
+   computationally (558 checks, zero error). This is the fundamental
+   mathematical difference.
+
+2. **Decision divergence occurs within 2-12 steps for realistic trust levels.**
+   In any provenance chain of moderate length, scalar trust produces
+   incorrect binary decisions while SL preserves the correct decision
+   grounded in the base rate.
+
+3. **SL is the only method that preserves domain-specific priors.**
+   Scalar loses all prior information; Bayesian intermediary updating
+   converges to a uniform prior. SL converges to the base rate,
+   which encodes domain knowledge.
+
+4. **Branching provenance recovers information** through fusion of multiple
+   independent trust paths. 5 paths reduce uncertainty by 55%. Scalar
+   has no equivalent mechanism.
+
+5. **Novel finding: BDU entropy is non-monotonic along trust chains.**
+   Evidence mass (b+d) decays monotonically, but Shannon entropy of the
+   (b,d,u) triple peaks at an intermediate step before converging to zero.
+
+### Suggested Paper Presentation
+
+- **Figure 1 (headline):** SL vs scalar vs Bayesian convergence curves
+  for trust=0.85, showing SL→base_rate, scalar→0, Bayesian→0.5
+- **Table 1:** Base rate sweep showing SL preserves each base rate
+- **Table 2:** Decision divergence steps across trust levels
+- **Figure 2:** Branching provenance — uncertainty reduction with paths
+- **Figure 3:** Information content — entropy non-monotonicity with
+  evidence mass overlay showing the correct monotonic invariant
+
+### Files
+
+- `experiments/EN1/en1_4_core.py` (35 tests)
+- `experiments/EN1/en1_4_trust_chains.py` (experiment runner)
+- `experiments/EN1/tests/test_en1_4.py` (35 tests)
+- `experiments/EN1/results/en1_4_results.json`
