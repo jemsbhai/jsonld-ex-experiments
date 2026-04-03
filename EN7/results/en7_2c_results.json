@@ -1,0 +1,265 @@
+{
+  "experiment_id": "EN7.2c",
+  "parameters": {
+    "seed": 42,
+    "intel_lab_max_readings": 500000,
+    "intel_lab_modalities": [
+      "temperature (>25C)",
+      "humidity (>40%)",
+      "light (>200 lux)"
+    ],
+    "intel_lab_window_minutes": 10,
+    "intel_lab_uncertainty": "per-sensor noise + within-window variance",
+    "sklearn_datasets": [
+      "breast_cancer",
+      "digits"
+    ],
+    "sklearn_models": [
+      "logistic_regression",
+      "random_forest"
+    ],
+    "ner_models": [
+      "spacy",
+      "flair",
+      "stanza",
+      "huggingface",
+      "gliner2"
+    ],
+    "ner_uncertainty_mode": "disagreement"
+  },
+  "metrics": {
+    "H7_sensor_loss_gt_15pct": true,
+    "H8_sklearn_loss_gt_15pct": true,
+    "H9_ner_loss_gt_15pct": true,
+    "all_confirmed": true,
+    "summary": [
+      {
+        "dataset": "Intel Lab Sensors",
+        "H_lost": 0.8049,
+        "pct_lost": 15.93,
+        "u_range": 0.2051,
+        "conflict_rate": 0.003
+      },
+      {
+        "dataset": "scikit-learn Classifiers",
+        "H_lost": 1.2888,
+        "pct_lost": 24.12,
+        "u_range": 0.2249,
+        "conflict_rate": 0.0016
+      },
+      {
+        "dataset": "CoNLL-2003 NER",
+        "H_lost": 0.5233,
+        "pct_lost": 21.63,
+        "u_range": 0.1933,
+        "conflict_rate": 0.0006
+      }
+    ],
+    "total_time_sec": 57.8
+  },
+  "timestamp": "2026-04-03T04:46:42.683899+00:00",
+  "raw_data": {
+    "R1_intel_lab": {
+      "status": "OK",
+      "metadata": {
+        "status": "OK",
+        "total_readings_parsed": 500000,
+        "parse_errors": 143428,
+        "n_sensors": 18,
+        "n_windows": 1555,
+        "n_opinions_generated": 4663,
+        "modality_counts": {
+          "temperature": 1555,
+          "humidity": 1555,
+          "light": 1553
+        },
+        "mean_uncertainty": 0.0331,
+        "std_uncertainty": 0.0507,
+        "mean_belief": 0.3399,
+        "mean_P": 0.3565
+      },
+      "descriptive_stats": {
+        "n_opinions": 4663,
+        "mean_belief": 0.3399,
+        "mean_disbelief": 0.627,
+        "mean_uncertainty": 0.0331,
+        "std_uncertainty": 0.0507,
+        "mean_P": 0.3565
+      },
+      "entropy": {
+        "H_opinion_bits": 5.0541,
+        "H_scalar_bits": 4.5576,
+        "H_opinion_given_scalar_bits": 0.8049,
+        "mutual_information_bits": 4.2492,
+        "information_preserved_pct": 84.07,
+        "information_lost_pct": 15.93
+      },
+      "collisions": {
+        "mean_per_bin": 46.63,
+        "max_per_bin": 1335,
+        "mean_uncertainty_range": 0.2051
+      },
+      "decision": {
+        "conflicting_pairs": 462,
+        "fraction_conflicting": 0.003,
+        "total_pairs_checked": 156311
+      }
+    },
+    "R2_sklearn": {
+      "status": "OK",
+      "metadata": {
+        "status": "OK",
+        "total_opinions": 4732,
+        "datasets": {
+          "breast_cancer_logistic_regression": {
+            "n_samples": 569,
+            "n_classes": 2,
+            "mean_confidence": 0.9357,
+            "mean_uncertainty": 0.1437,
+            "n_opinions": 569
+          },
+          "breast_cancer_random_forest": {
+            "n_samples": 569,
+            "n_classes": 2,
+            "mean_confidence": 0.9198,
+            "mean_uncertainty": 0.2337,
+            "n_opinions": 569
+          },
+          "digits_logistic_regression": {
+            "n_samples": 1797,
+            "n_classes": 10,
+            "mean_confidence": 0.9086,
+            "mean_uncertainty": 0.0405,
+            "n_opinions": 1797
+          },
+          "digits_random_forest": {
+            "n_samples": 1797,
+            "n_classes": 10,
+            "mean_confidence": 0.7191,
+            "mean_uncertainty": 0.3938,
+            "n_opinions": 1797
+          }
+        }
+      },
+      "descriptive_stats": {
+        "n_opinions": 4732,
+        "mean_belief": 0.7102,
+        "mean_disbelief": 0.0795,
+        "mean_uncertainty": 0.2103,
+        "std_uncertainty": 0.2592,
+        "mean_P": 0.8154
+      },
+      "entropy": {
+        "H_opinion_bits": 5.3424,
+        "H_scalar_bits": 4.5042,
+        "H_opinion_given_scalar_bits": 1.2888,
+        "mutual_information_bits": 4.0536,
+        "information_preserved_pct": 75.88,
+        "information_lost_pct": 24.12
+      },
+      "collisions": {
+        "mean_per_bin": 48.29,
+        "max_per_bin": 1960,
+        "mean_uncertainty_range": 0.2249
+      },
+      "decision": {
+        "conflicting_pairs": 255,
+        "fraction_conflicting": 0.0016,
+        "total_pairs_checked": 158907
+      }
+    },
+    "R3_conll2003": {
+      "status": "OK",
+      "metadata": {
+        "status": "OK",
+        "uncertainty_mode": "disagreement",
+        "n_models": 5,
+        "model_names": [
+          "spacy",
+          "flair",
+          "stanza",
+          "huggingface",
+          "gliner2"
+        ],
+        "n_sentences": 3453,
+        "n_opinions_generated": 46435,
+        "mean_uncertainty": 0.1195,
+        "std_uncertainty": 0.1483,
+        "mean_agreement": 0.893,
+        "per_model_token_counts": {
+          "spacy": 46435,
+          "flair": 46435,
+          "stanza": 46435,
+          "huggingface": 46435,
+          "gliner2": 46435
+        }
+      },
+      "descriptive_stats": {
+        "n_opinions": 46435,
+        "mean_belief": 0.7728,
+        "mean_disbelief": 0.1077,
+        "mean_uncertainty": 0.1195,
+        "std_uncertainty": 0.1483,
+        "mean_P": 0.8325
+      },
+      "entropy": {
+        "H_opinion_bits": 2.4191,
+        "H_scalar_bits": 2.1673,
+        "H_opinion_given_scalar_bits": 0.5233,
+        "mutual_information_bits": 1.8959,
+        "information_preserved_pct": 78.37,
+        "information_lost_pct": 21.63
+      },
+      "collisions": {
+        "mean_per_bin": 1105.6,
+        "max_per_bin": 29790,
+        "mean_uncertainty_range": 0.1933
+      },
+      "decision": {
+        "conflicting_pairs": 1284,
+        "fraction_conflicting": 0.0006,
+        "total_pairs_checked": 2235101
+      }
+    },
+    "R3b_ner_uncertainty_sweep": {
+      "disagreement": {
+        "n_opinions": 30000,
+        "H_opinion_bits": 2.4194,
+        "H_lost_bits": 0.5237,
+        "pct_lost": 21.65,
+        "uncertainty_mode": "disagreement",
+        "mean_uncertainty": 0.1195,
+        "std_uncertainty": 0.1483
+      },
+      "calibration": {
+        "n_opinions": 30000,
+        "H_opinion_bits": 2.355,
+        "H_lost_bits": 0.4803,
+        "pct_lost": 20.39,
+        "uncertainty_mode": "calibration",
+        "mean_uncertainty": 0.255,
+        "std_uncertainty": 0.0
+      },
+      "mixed": {
+        "n_opinions": 30000,
+        "H_opinion_bits": 2.6576,
+        "H_lost_bits": 0.2617,
+        "pct_lost": 9.85,
+        "uncertainty_mode": "mixed",
+        "mean_uncertainty": 0.1872,
+        "std_uncertainty": 0.0741
+      }
+    }
+  },
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.0",
+    "numpy_version": "2.4.3",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": "H7=CONFIRMED, H8=CONFIRMED, H9=CONFIRMED. Total time: 57.8s."
+}
