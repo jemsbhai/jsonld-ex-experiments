@@ -1,0 +1,195 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataBiases": "cr:dataBiases",
+    "dataCollection": "cr:dataCollection",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "personalSensitiveInformation": "cr:personalSensitiveInformation",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "repo",
+      "name": "repo",
+      "description": "The Hugging Face git repository.",
+      "contentUrl": "https://huggingface.co/datasets/zalando-datasets/fashion_mnist/tree/refs%2Fconvert%2Fparquet",
+      "encodingFormat": "git+https",
+      "sha256": "https://github.com/mlcommons/croissant/issues/80"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "parquet-files-for-config-fashion_mnist",
+      "name": "parquet-files-for-config-fashion_mnist",
+      "description": "The underlying Parquet files as converted by Hugging Face (see: https://huggingface.co/docs/dataset-viewer/parquet).",
+      "containedIn": {
+        "@id": "repo"
+      },
+      "encodingFormat": "application/x-parquet",
+      "includes": "fashion_mnist/*/*.parquet"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "dataType": "cr:Split",
+      "key": {
+        "@id": "fashion_mnist_splits/split_name"
+      },
+      "@id": "fashion_mnist_splits",
+      "name": "fashion_mnist_splits",
+      "description": "Splits for the fashion_mnist config.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "fashion_mnist_splits/split_name",
+          "name": "split_name",
+          "description": "The name of the split.",
+          "dataType": "sc:Text"
+        }
+      ],
+      "data": [
+        {
+          "fashion_mnist_splits/split_name": "train"
+        },
+        {
+          "fashion_mnist_splits/split_name": "test"
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "fashion_mnist",
+      "name": "fashion_mnist",
+      "description": "zalando-datasets/fashion_mnist - 'fashion_mnist' subset\n\nAdditional information:\n- 2 splits: train, test",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "fashion_mnist/split",
+          "name": "fashion_mnist/split",
+          "description": "Split to which the example belongs to.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "parquet-files-for-config-fashion_mnist"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            },
+            "transform": {
+              "regex": "fashion_mnist/(?:partial-)?(train|test)/.+parquet$"
+            }
+          },
+          "references": {
+            "field": {
+              "@id": "fashion_mnist_splits/split_name"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "fashion_mnist/image",
+          "name": "fashion_mnist/image",
+          "description": "Image column 'image' from the Hugging Face parquet file.",
+          "dataType": "sc:ImageObject",
+          "source": {
+            "fileSet": {
+              "@id": "parquet-files-for-config-fashion_mnist"
+            },
+            "extract": {
+              "column": "image"
+            },
+            "transform": {
+              "jsonPath": "bytes"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "fashion_mnist/label",
+          "name": "fashion_mnist/label",
+          "description": "ClassLabel column 'label' from the Hugging Face parquet file.\nLabels:\nT - shirt / top (0), Trouser (1), Pullover (2), Dress (3), Coat (4), Sandal (5), Shirt (6), Sneaker (7), Bag (8), Ankle boot (9)",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileSet": {
+              "@id": "parquet-files-for-config-fashion_mnist"
+            },
+            "extract": {
+              "column": "label"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "name": "fashion_mnist",
+  "description": "\n\t\n\t\t\n\t\tDataset Card for FashionMNIST\n\t\n\n\n\t\n\t\t\n\t\tDataset Summary\n\t\n\nFashion-MNIST is a dataset of Zalando's article images—consisting of a training set of 60,000 examples and a test set of 10,000 examples. Each example is a 28x28 grayscale image, associated with a label from 10 classes. We intend Fashion-MNIST to serve as a direct drop-in replacement for the original MNIST dataset for benchmarking machine learning algorithms. It shares the same image size and structure of training and testing… See the full description on the dataset page: https://huggingface.co/datasets/zalando-datasets/fashion_mnist.",
+  "alternateName": [
+    "zalando-datasets/fashion_mnist",
+    "FashionMNIST"
+  ],
+  "creator": {
+    "@type": "Organization",
+    "name": "zalando-datasets",
+    "url": "https://huggingface.co/zalando-datasets"
+  },
+  "keywords": [
+    "image-classification",
+    "multi-class-image-classification",
+    "expert-generated",
+    "found",
+    "monolingual",
+    "original",
+    "English",
+    "mit",
+    "10K - 100K",
+    "parquet",
+    "Image",
+    "Datasets",
+    "pandas",
+    "Croissant",
+    "Polars",
+    "arxiv:1708.07747",
+    "🇺🇸 Region: US"
+  ],
+  "license": "https://choosealicense.com/licenses/mit/",
+  "sameAs": "https://github.com/zalandoresearch/fashion-mnist",
+  "url": "https://huggingface.co/datasets/zalando-datasets/fashion_mnist"
+}

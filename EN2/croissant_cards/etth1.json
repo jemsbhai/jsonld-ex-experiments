@@ -1,0 +1,31 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "ett",
+  "description": "The data of Electricity Transformers from two separated counties\nin China collected for two years at hourly and 15-min frequencies.\nEach data point consists of the target value \"oil temperature\" and\n6 power load features. The train/val/test is 12/4/4 months.",
+  "alternateName": [
+    "ETDataset/ett",
+    "Electricity Transformer Temperature"
+  ],
+  "creator": {
+    "@type": "Organization",
+    "name": "Electricity Transformer Dataset (ETDataset)",
+    "url": "https://huggingface.co/ETDataset"
+  },
+  "keywords": [
+    "time-series-forecasting",
+    "univariate-time-series-forecasting",
+    "multivariate-time-series-forecasting",
+    "no-annotation",
+    "found",
+    "monolingual",
+    "original",
+    "cc-by-4.0",
+    "1K<n<10K",
+    "arxiv:2012.07436",
+    "🇺🇸 Region: US"
+  ],
+  "license": "https://choosealicense.com/licenses/cc-by-4.0/",
+  "sameAs": "https://github.com/zhouhaoyi/ETDataset",
+  "url": "https://huggingface.co/datasets/ETDataset/ett"
+}

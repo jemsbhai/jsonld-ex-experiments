@@ -1,0 +1,32 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "pass",
+  "description": "PASS (Pictures without humAns for Self-Supervision) is a large-scale dataset of 1,440,191 images that does not include any humans\nand which can be used for high-quality pretraining while significantly reducing privacy concerns.\nThe PASS images are sourced from the YFCC-100M dataset.",
+  "alternateName": [
+    "yukimasano/pass",
+    "Pictures without humAns for Self-Supervision"
+  ],
+  "creator": {
+    "@type": "Person",
+    "name": "Yuki Asano",
+    "url": "https://huggingface.co/yukimasano"
+  },
+  "keywords": [
+    "other",
+    "no-annotation",
+    "machine-generated",
+    "expert-generated",
+    "monolingual",
+    "extended|yffc100M",
+    "English",
+    "cc-by-4.0",
+    "1M<n<10M",
+    "arxiv:2109.13228",
+    "🇺🇸 Region: US",
+    "image-self-supervised pretraining"
+  ],
+  "license": "https://choosealicense.com/licenses/cc-by-4.0/",
+  "sameAs": "https://www.robots.ox.ac.uk/~vgg/research/pass/",
+  "url": "https://huggingface.co/datasets/yukimasano/pass"
+}

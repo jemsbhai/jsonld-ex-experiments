@@ -1,0 +1,26 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Timeseries-PILE",
+  "description": "\n\t\n\t\t\n\t\tTime Series PILE\n\t\n\nThe Time-series Pile is a large collection of publicly available data from diverse domains, ranging from healthcare to engineering and finance. It comprises of over 5\npublic time-series databases, from several diverse domains for time series foundation model pre-training and evaluation.\n\n\t\n\t\t\n\t\tTime Series PILE Description\n\t\n\nWe compiled a large collection of publicly available datasets from diverse domains into the Time Series Pile. It has 13 unique domains of data… See the full description on the dataset page: https://huggingface.co/datasets/AutonLab/Timeseries-PILE.",
+  "alternateName": [
+    "AutonLab/Timeseries-PILE",
+    "Time Series PILE"
+  ],
+  "creator": {
+    "@type": "Organization",
+    "name": "Auton Lab",
+    "url": "https://huggingface.co/AutonLab"
+  },
+  "keywords": [
+    "time-series-forecasting",
+    "mit",
+    "arxiv:1703.07015",
+    "arxiv:2402.03885",
+    "🇺🇸 Region: US",
+    "time-series",
+    "forecasting"
+  ],
+  "license": "https://choosealicense.com/licenses/mit/",
+  "url": "https://huggingface.co/datasets/AutonLab/Timeseries-PILE"
+}

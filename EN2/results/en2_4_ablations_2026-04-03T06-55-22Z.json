@@ -1,0 +1,1189 @@
+{
+  "experiment": "EN2.4_ablations",
+  "timestamp": "2026-04-03T06-55-22Z",
+  "primary_timestamp": "2026-04-03T06-24-47Z",
+  "ablations": {
+    "A1": {
+      "analysis": "A1_croissant_native_queries",
+      "description": "Score both formats on 5 queries Croissant is designed for",
+      "per_dataset": [
+        {
+          "id": "coco2014",
+          "croissant": {
+            "CQ1": true,
+            "CQ2": true,
+            "CQ3": true,
+            "CQ4": true,
+            "CQ5": true
+          },
+          "jsonldex": {
+            "CQ1": true,
+            "CQ2": true,
+            "CQ3": true,
+            "CQ4": true,
+            "CQ5": true
+          },
+          "croissant_score": 5,
+          "jsonldex_score": 5
+        },
+        {
+          "id": "titanic",
+          "croissant": {
+            "CQ1": true,
+            "CQ2": true,
+            "CQ3": true,
+            "CQ4": true,
+            "CQ5": true
+          },
+          "jsonldex": {
+            "CQ1": true,
+            "CQ2": true,
+            "CQ3": true,
+            "CQ4": true,
+            "CQ5": true
+          },
+          "croissant_score": 5,
+          "jsonldex_score": 5
+        },
+        {
+          "id": "gpt3",
+          "croissant": {
+            "CQ1": true,
+            "CQ2": true,
+            "CQ3": true,
+            "CQ4": true,
+            "CQ5": true
+          },
+          "jsonldex": {
+            "CQ1": true,
+            "CQ2": true,
+            "CQ3": true,
+            "CQ4": true,
+            "CQ5": true
+          },
+          "croissant_score": 5,
+          "jsonldex_score": 5
+        },
+        {
+          "id": "fashion_mnist",
+          "croissant": {
+            "CQ1": true,
+            "CQ2": true,
+            "CQ3": true,
+            "CQ4": true,
+            "CQ5": false
+          },
+          "jsonldex": {
+            "CQ1": true,
+            "CQ2": true,
+            "CQ3": true,
+            "CQ4": true,
+            "CQ5": false
+          },
+          "croissant_score": 4,
+          "jsonldex_score": 4
+        },
+        {
+          "id": "pass",
+          "croissant": {
+            "CQ1": false,
+            "CQ2": true,
+            "CQ3": false,
+            "CQ4": false,
+            "CQ5": false
+          },
+          "jsonldex": {
+            "CQ1": false,
+            "CQ2": true,
+            "CQ3": false,
+            "CQ4": true,
+            "CQ5": false
+          },
+          "croissant_score": 1,
+          "jsonldex_score": 2
+        },
+        {
+          "id": "common_voice",
+          "croissant": {
+            "CQ1": true,
+            "CQ2": false,
+            "CQ3": true,
+            "CQ4": true,
+            "CQ5": false
+          },
+          "jsonldex": {
+            "CQ1": true,
+            "CQ2": false,
+            "CQ3": true,
+            "CQ4": true,
+            "CQ5": false
+          },
+          "croissant_score": 3,
+          "jsonldex_score": 3
+        },
+        {
+          "id": "speech_commands",
+          "croissant": {
+            "CQ1": false,
+            "CQ2": true,
+            "CQ3": false,
+            "CQ4": false,
+            "CQ5": false
+          },
+          "jsonldex": {
+            "CQ1": false,
+            "CQ2": true,
+            "CQ3": false,
+            "CQ4": true,
+            "CQ5": false
+          },
+          "croissant_score": 1,
+          "jsonldex_score": 2
+        },
+        {
+          "id": "etth1",
+          "croissant": {
+            "CQ1": false,
+            "CQ2": true,
+            "CQ3": false,
+            "CQ4": false,
+            "CQ5": false
+          },
+          "jsonldex": {
+            "CQ1": false,
+            "CQ2": true,
+            "CQ3": false,
+            "CQ4": true,
+            "CQ5": false
+          },
+          "croissant_score": 1,
+          "jsonldex_score": 2
+        },
+        {
+          "id": "timeseries_pile",
+          "croissant": {
+            "CQ1": false,
+            "CQ2": true,
+            "CQ3": false,
+            "CQ4": false,
+            "CQ5": false
+          },
+          "jsonldex": {
+            "CQ1": false,
+            "CQ2": true,
+            "CQ3": false,
+            "CQ4": true,
+            "CQ5": false
+          },
+          "croissant_score": 1,
+          "jsonldex_score": 2
+        },
+        {
+          "id": "synthea_fhir",
+          "croissant": {
+            "CQ1": true,
+            "CQ2": true,
+            "CQ3": true,
+            "CQ4": true,
+            "CQ5": false
+          },
+          "jsonldex": {
+            "CQ1": true,
+            "CQ2": true,
+            "CQ3": true,
+            "CQ4": true,
+            "CQ5": false
+          },
+          "croissant_score": 4,
+          "jsonldex_score": 4
+        }
+      ],
+      "avg_croissant": 3,
+      "avg_jsonldex": 3.4
+    },
+    "A2": {
+      "analysis": "A2_combined_scoreboard",
+      "description": "Combined 15-query scoreboard (10 assertion + 5 native)",
+      "per_dataset": [
+        {
+          "id": "coco2014",
+          "croissant_assertion": 0,
+          "croissant_native": 5,
+          "croissant_total": 5,
+          "jsonldex_assertion": 10,
+          "jsonldex_native": 5,
+          "jsonldex_total": 15
+        },
+        {
+          "id": "titanic",
+          "croissant_assertion": 0,
+          "croissant_native": 5,
+          "croissant_total": 5,
+          "jsonldex_assertion": 10,
+          "jsonldex_native": 5,
+          "jsonldex_total": 15
+        },
+        {
+          "id": "gpt3",
+          "croissant_assertion": 0,
+          "croissant_native": 5,
+          "croissant_total": 5,
+          "jsonldex_assertion": 10,
+          "jsonldex_native": 5,
+          "jsonldex_total": 15
+        },
+        {
+          "id": "fashion_mnist",
+          "croissant_assertion": 0,
+          "croissant_native": 4,
+          "croissant_total": 4,
+          "jsonldex_assertion": 10,
+          "jsonldex_native": 4,
+          "jsonldex_total": 14
+        },
+        {
+          "id": "pass",
+          "croissant_assertion": 0,
+          "croissant_native": 1,
+          "croissant_total": 1,
+          "jsonldex_assertion": 10,
+          "jsonldex_native": 2,
+          "jsonldex_total": 12
+        },
+        {
+          "id": "common_voice",
+          "croissant_assertion": 0,
+          "croissant_native": 3,
+          "croissant_total": 3,
+          "jsonldex_assertion": 8,
+          "jsonldex_native": 3,
+          "jsonldex_total": 11
+        },
+        {
+          "id": "speech_commands",
+          "croissant_assertion": 0,
+          "croissant_native": 1,
+          "croissant_total": 1,
+          "jsonldex_assertion": 10,
+          "jsonldex_native": 2,
+          "jsonldex_total": 12
+        },
+        {
+          "id": "etth1",
+          "croissant_assertion": 0,
+          "croissant_native": 1,
+          "croissant_total": 1,
+          "jsonldex_assertion": 10,
+          "jsonldex_native": 2,
+          "jsonldex_total": 12
+        },
+        {
+          "id": "timeseries_pile",
+          "croissant_assertion": 0,
+          "croissant_native": 1,
+          "croissant_total": 1,
+          "jsonldex_assertion": 10,
+          "jsonldex_native": 2,
+          "jsonldex_total": 12
+        },
+        {
+          "id": "synthea_fhir",
+          "croissant_assertion": 0,
+          "croissant_native": 4,
+          "croissant_total": 4,
+          "jsonldex_assertion": 10,
+          "jsonldex_native": 4,
+          "jsonldex_total": 14
+        }
+      ],
+      "avg_croissant": 3,
+      "avg_jsonldex": 13.2,
+      "conclusion": "Croissant scores 3.0/15 (all from native queries). jsonld-ex scores 13.2/15 (native + assertion). Formats are complementary, not competing."
+    },
+    "B3": {
+      "analysis": "B3_leave_one_out",
+      "description": "Remove each annotation type; re-score. Shows marginal value.",
+      "full_score_avg": 9.8,
+      "per_type": {
+        "confidence": {
+          "avg_score": 9.8,
+          "drop_from_full": 0.0,
+          "per_dataset": {
+            "coco2014": 10,
+            "titanic": 10,
+            "gpt3": 10,
+            "fashion_mnist": 10,
+            "pass": 10,
+            "common_voice": 8,
+            "speech_commands": 10,
+            "etth1": 10,
+            "timeseries_pile": 10,
+            "synthea_fhir": 10
+          }
+        },
+        "provenance": {
+          "avg_score": 9.8,
+          "drop_from_full": 0.0,
+          "per_dataset": {
+            "coco2014": 10,
+            "titanic": 10,
+            "gpt3": 10,
+            "fashion_mnist": 10,
+            "pass": 10,
+            "common_voice": 8,
+            "speech_commands": 10,
+            "etth1": 10,
+            "timeseries_pile": 10,
+            "synthea_fhir": 10
+          }
+        },
+        "temporal": {
+          "avg_score": 8,
+          "drop_from_full": -1.8,
+          "per_dataset": {
+            "coco2014": 8,
+            "titanic": 8,
+            "gpt3": 8,
+            "fashion_mnist": 8,
+            "pass": 8,
+            "common_voice": 8,
+            "speech_commands": 8,
+            "etth1": 8,
+            "timeseries_pile": 8,
+            "synthea_fhir": 8
+          }
+        },
+        "human_verified": {
+          "avg_score": 8.8,
+          "drop_from_full": -1.0,
+          "per_dataset": {
+            "coco2014": 9,
+            "titanic": 9,
+            "gpt3": 9,
+            "fashion_mnist": 9,
+            "pass": 9,
+            "common_voice": 7,
+            "speech_commands": 9,
+            "etth1": 9,
+            "timeseries_pile": 9,
+            "synthea_fhir": 9
+          }
+        },
+        "sl_opinions": {
+          "avg_score": 5.8,
+          "drop_from_full": -4.0,
+          "per_dataset": {
+            "coco2014": 6,
+            "titanic": 6,
+            "gpt3": 6,
+            "fashion_mnist": 6,
+            "pass": 6,
+            "common_voice": 4,
+            "speech_commands": 6,
+            "etth1": 6,
+            "timeseries_pile": 6,
+            "synthea_fhir": 6
+          }
+        },
+        "invalidation": {
+          "avg_score": 8.8,
+          "drop_from_full": -1.0,
+          "per_dataset": {
+            "coco2014": 9,
+            "titanic": 9,
+            "gpt3": 9,
+            "fashion_mnist": 9,
+            "pass": 9,
+            "common_voice": 7,
+            "speech_commands": 9,
+            "etth1": 9,
+            "timeseries_pile": 9,
+            "synthea_fhir": 9
+          }
+        }
+      }
+    },
+    "B4": {
+      "analysis": "B4_cumulative_buildup",
+      "description": "Add enrichments one at a time. Shows minimum for X% coverage.",
+      "labels": [
+        "none",
+        "confidence",
+        "provenance",
+        "temporal",
+        "human_verified",
+        "sl_opinions",
+        "invalidation"
+      ],
+      "avg_curve": [
+        0,
+        1,
+        2,
+        3.8,
+        4.8,
+        8.8,
+        9.8
+      ],
+      "per_dataset_curves": {
+        "coco2014": [
+          0,
+          1,
+          2,
+          4,
+          5,
+          9,
+          10
+        ],
+        "titanic": [
+          0,
+          1,
+          2,
+          4,
+          5,
+          9,
+          10
+        ],
+        "gpt3": [
+          0,
+          1,
+          2,
+          4,
+          5,
+          9,
+          10
+        ],
+        "fashion_mnist": [
+          0,
+          1,
+          2,
+          4,
+          5,
+          9,
+          10
+        ],
+        "pass": [
+          0,
+          1,
+          2,
+          4,
+          5,
+          9,
+          10
+        ],
+        "common_voice": [
+          0,
+          1,
+          2,
+          2,
+          3,
+          7,
+          8
+        ],
+        "speech_commands": [
+          0,
+          1,
+          2,
+          4,
+          5,
+          9,
+          10
+        ],
+        "etth1": [
+          0,
+          1,
+          2,
+          4,
+          5,
+          9,
+          10
+        ],
+        "timeseries_pile": [
+          0,
+          1,
+          2,
+          4,
+          5,
+          9,
+          10
+        ],
+        "synthea_fhir": [
+          0,
+          1,
+          2,
+          4,
+          5,
+          9,
+          10
+        ]
+      }
+    },
+    "C5": {
+      "analysis": "C5_absolute_bytes",
+      "description": "Overhead in absolute bytes. High % on small cards is misleading.",
+      "per_dataset": [
+        {
+          "id": "coco2014",
+          "original": 10052,
+          "enriched": 11574,
+          "absolute_overhead": 1522,
+          "relative_pct": 15.14
+        },
+        {
+          "id": "titanic",
+          "original": 9098,
+          "enriched": 10712,
+          "absolute_overhead": 1614,
+          "relative_pct": 17.74
+        },
+        {
+          "id": "gpt3",
+          "original": 5008,
+          "enriched": 6582,
+          "absolute_overhead": 1574,
+          "relative_pct": 31.43
+        },
+        {
+          "id": "fashion_mnist",
+          "original": 5075,
+          "enriched": 6600,
+          "absolute_overhead": 1525,
+          "relative_pct": 30.05
+        },
+        {
+          "id": "pass",
+          "original": 971,
+          "enriched": 3580,
+          "absolute_overhead": 2609,
+          "relative_pct": 268.69
+        },
+        {
+          "id": "common_voice",
+          "original": 3902,
+          "enriched": 5210,
+          "absolute_overhead": 1308,
+          "relative_pct": 33.52
+        },
+        {
+          "id": "speech_commands",
+          "original": 2133,
+          "enriched": 4709,
+          "absolute_overhead": 2576,
+          "relative_pct": 120.77
+        },
+        {
+          "id": "etth1",
+          "original": 971,
+          "enriched": 3694,
+          "absolute_overhead": 2723,
+          "relative_pct": 280.43
+        },
+        {
+          "id": "timeseries_pile",
+          "original": 1162,
+          "enriched": 3885,
+          "absolute_overhead": 2723,
+          "relative_pct": 234.34
+        },
+        {
+          "id": "synthea_fhir",
+          "original": 3301,
+          "enriched": 4946,
+          "absolute_overhead": 1645,
+          "relative_pct": 49.83
+        }
+      ],
+      "mean_absolute_bytes": 1982,
+      "median_absolute_bytes": 1630,
+      "stdev_absolute_bytes": 590,
+      "conclusion": "Absolute enrichment cost is 1,982B on average (median 1,630B), regardless of base card size. High relative % on small HuggingFace cards is an artifact of small denominators, not excessive annotation cost."
+    },
+    "C6": {
+      "analysis": "C6_per_type_overhead",
+      "description": "Byte cost of each annotation type in isolation.",
+      "per_type": {
+        "confidence": {
+          "mean": 63,
+          "median": 66,
+          "min": 33,
+          "max": 66,
+          "all_values": [
+            66,
+            66,
+            66,
+            66,
+            66,
+            33,
+            66,
+            66,
+            66,
+            66
+          ]
+        },
+        "provenance": {
+          "mean": 197,
+          "median": 206,
+          "min": 120,
+          "max": 206,
+          "all_values": [
+            206,
+            206,
+            206,
+            206,
+            206,
+            120,
+            206,
+            206,
+            206,
+            206
+          ]
+        },
+        "temporal": {
+          "mean": 90,
+          "median": 89,
+          "min": 0,
+          "max": 139,
+          "all_values": [
+            89,
+            139,
+            89,
+            89,
+            89,
+            0,
+            89,
+            89,
+            89,
+            139
+          ]
+        },
+        "human_verified": {
+          "mean": 36,
+          "median": 36,
+          "min": 36,
+          "max": 36,
+          "all_values": [
+            36,
+            36,
+            36,
+            36,
+            36,
+            36,
+            36,
+            36,
+            36,
+            36
+          ]
+        },
+        "sl_opinions": {
+          "mean": 457,
+          "median": 457,
+          "min": 457,
+          "max": 457,
+          "all_values": [
+            457,
+            457,
+            457,
+            457,
+            457,
+            457,
+            457,
+            457,
+            457,
+            457
+          ]
+        },
+        "invalidation": {
+          "mean": 266,
+          "median": 266,
+          "min": 266,
+          "max": 266,
+          "all_values": [
+            266,
+            266,
+            266,
+            266,
+            266,
+            266,
+            266,
+            266,
+            266,
+            266
+          ]
+        }
+      }
+    },
+    "C7": {
+      "analysis": "C7_overhead_vs_richness",
+      "description": "Correlation: original card size vs overhead %.",
+      "pearson_r": -0.7845,
+      "points": [
+        {
+          "id": "coco2014",
+          "original_bytes": 10052,
+          "overhead_pct": 15.14
+        },
+        {
+          "id": "titanic",
+          "original_bytes": 9098,
+          "overhead_pct": 17.74
+        },
+        {
+          "id": "gpt3",
+          "original_bytes": 5008,
+          "overhead_pct": 31.43
+        },
+        {
+          "id": "fashion_mnist",
+          "original_bytes": 5075,
+          "overhead_pct": 30.05
+        },
+        {
+          "id": "pass",
+          "original_bytes": 971,
+          "overhead_pct": 268.69
+        },
+        {
+          "id": "common_voice",
+          "original_bytes": 3902,
+          "overhead_pct": 33.52
+        },
+        {
+          "id": "speech_commands",
+          "original_bytes": 2133,
+          "overhead_pct": 120.77
+        },
+        {
+          "id": "etth1",
+          "original_bytes": 971,
+          "overhead_pct": 280.43
+        },
+        {
+          "id": "timeseries_pile",
+          "original_bytes": 1162,
+          "overhead_pct": 234.34
+        },
+        {
+          "id": "synthea_fhir",
+          "original_bytes": 3301,
+          "overhead_pct": 49.83
+        }
+      ],
+      "conclusion": "Pearson r=-0.78: overhead % is strongly inversely correlated with card size. Absolute enrichment cost is roughly constant; percentage is an artifact of base card size."
+    },
+    "D8": {
+      "analysis": "D8_source_type_grouping",
+      "description": "Results grouped by Croissant card source.",
+      "groups": {
+        "huggingface": {
+          "n_datasets": 6,
+          "dataset_ids": [
+            "fashion_mnist",
+            "pass",
+            "common_voice",
+            "speech_commands",
+            "etth1",
+            "timeseries_pile"
+          ],
+          "avg_query_score": 9.67,
+          "avg_overhead_pct": 161.3,
+          "avg_fidelity_pct": 100.0
+        },
+        "mlcommons": {
+          "n_datasets": 3,
+          "dataset_ids": [
+            "coco2014",
+            "titanic",
+            "gpt3"
+          ],
+          "avg_query_score": 10,
+          "avg_overhead_pct": 21.44,
+          "avg_fidelity_pct": 100.0
+        },
+        "self_generated": {
+          "n_datasets": 1,
+          "dataset_ids": [
+            "synthea_fhir"
+          ],
+          "avg_query_score": 10,
+          "avg_overhead_pct": 49.83,
+          "avg_fidelity_pct": 100.0
+        }
+      }
+    },
+    "D9": {
+      "analysis": "D9_domain_grouping",
+      "description": "Results grouped by broad domain category.",
+      "groups": {
+        "NLP": {
+          "n_datasets": 1,
+          "dataset_ids": [
+            "gpt3"
+          ],
+          "avg_query_score": 10,
+          "min_query_score": 10,
+          "max_query_score": 10,
+          "avg_overhead_pct": 31.43
+        },
+        "audio": {
+          "n_datasets": 2,
+          "dataset_ids": [
+            "common_voice",
+            "speech_commands"
+          ],
+          "avg_query_score": 9,
+          "min_query_score": 8,
+          "max_query_score": 10,
+          "avg_overhead_pct": 77.14
+        },
+        "medical": {
+          "n_datasets": 1,
+          "dataset_ids": [
+            "synthea_fhir"
+          ],
+          "avg_query_score": 10,
+          "min_query_score": 10,
+          "max_query_score": 10,
+          "avg_overhead_pct": 49.83
+        },
+        "tabular": {
+          "n_datasets": 1,
+          "dataset_ids": [
+            "titanic"
+          ],
+          "avg_query_score": 10,
+          "min_query_score": 10,
+          "max_query_score": 10,
+          "avg_overhead_pct": 17.74
+        },
+        "time-series": {
+          "n_datasets": 2,
+          "dataset_ids": [
+            "etth1",
+            "timeseries_pile"
+          ],
+          "avg_query_score": 10,
+          "min_query_score": 10,
+          "max_query_score": 10,
+          "avg_overhead_pct": 257.38
+        },
+        "vision": {
+          "n_datasets": 3,
+          "dataset_ids": [
+            "coco2014",
+            "fashion_mnist",
+            "pass"
+          ],
+          "avg_query_score": 10,
+          "min_query_score": 10,
+          "max_query_score": 10,
+          "avg_overhead_pct": 104.63
+        }
+      }
+    },
+    "D10": {
+      "analysis": "D10_universality_matrix",
+      "description": "Full query x dataset pass/fail matrix.",
+      "matrix": {
+        "coco2014": {
+          "Q1": true,
+          "Q2": true,
+          "Q3": true,
+          "Q4": true,
+          "Q5": true,
+          "Q6": true,
+          "Q7": true,
+          "Q8": true,
+          "Q9": true,
+          "Q10": true
+        },
+        "titanic": {
+          "Q1": true,
+          "Q2": true,
+          "Q3": true,
+          "Q4": true,
+          "Q5": true,
+          "Q6": true,
+          "Q7": true,
+          "Q8": true,
+          "Q9": true,
+          "Q10": true
+        },
+        "gpt3": {
+          "Q1": true,
+          "Q2": true,
+          "Q3": true,
+          "Q4": true,
+          "Q5": true,
+          "Q6": true,
+          "Q7": true,
+          "Q8": true,
+          "Q9": true,
+          "Q10": true
+        },
+        "fashion_mnist": {
+          "Q1": true,
+          "Q2": true,
+          "Q3": true,
+          "Q4": true,
+          "Q5": true,
+          "Q6": true,
+          "Q7": true,
+          "Q8": true,
+          "Q9": true,
+          "Q10": true
+        },
+        "pass": {
+          "Q1": true,
+          "Q2": true,
+          "Q3": true,
+          "Q4": true,
+          "Q5": true,
+          "Q6": true,
+          "Q7": true,
+          "Q8": true,
+          "Q9": true,
+          "Q10": true
+        },
+        "common_voice": {
+          "Q1": true,
+          "Q2": true,
+          "Q3": false,
+          "Q4": true,
+          "Q5": true,
+          "Q6": true,
+          "Q7": true,
+          "Q8": true,
+          "Q9": false,
+          "Q10": true
+        },
+        "speech_commands": {
+          "Q1": true,
+          "Q2": true,
+          "Q3": true,
+          "Q4": true,
+          "Q5": true,
+          "Q6": true,
+          "Q7": true,
+          "Q8": true,
+          "Q9": true,
+          "Q10": true
+        },
+        "etth1": {
+          "Q1": true,
+          "Q2": true,
+          "Q3": true,
+          "Q4": true,
+          "Q5": true,
+          "Q6": true,
+          "Q7": true,
+          "Q8": true,
+          "Q9": true,
+          "Q10": true
+        },
+        "timeseries_pile": {
+          "Q1": true,
+          "Q2": true,
+          "Q3": true,
+          "Q4": true,
+          "Q5": true,
+          "Q6": true,
+          "Q7": true,
+          "Q8": true,
+          "Q9": true,
+          "Q10": true
+        },
+        "synthea_fhir": {
+          "Q1": true,
+          "Q2": true,
+          "Q3": true,
+          "Q4": true,
+          "Q5": true,
+          "Q6": true,
+          "Q7": true,
+          "Q8": true,
+          "Q9": true,
+          "Q10": true
+        }
+      },
+      "query_pass_rates": {
+        "Q1": {
+          "passed": 10,
+          "total": 10,
+          "rate": 1.0
+        },
+        "Q2": {
+          "passed": 10,
+          "total": 10,
+          "rate": 1.0
+        },
+        "Q3": {
+          "passed": 9,
+          "total": 10,
+          "rate": 0.9
+        },
+        "Q4": {
+          "passed": 10,
+          "total": 10,
+          "rate": 1.0
+        },
+        "Q5": {
+          "passed": 10,
+          "total": 10,
+          "rate": 1.0
+        },
+        "Q6": {
+          "passed": 10,
+          "total": 10,
+          "rate": 1.0
+        },
+        "Q7": {
+          "passed": 10,
+          "total": 10,
+          "rate": 1.0
+        },
+        "Q8": {
+          "passed": 10,
+          "total": 10,
+          "rate": 1.0
+        },
+        "Q9": {
+          "passed": 9,
+          "total": 10,
+          "rate": 0.9
+        },
+        "Q10": {
+          "passed": 10,
+          "total": 10,
+          "rate": 1.0
+        }
+      },
+      "failures": {
+        "common_voice": [
+          "Q3",
+          "Q9"
+        ]
+      },
+      "conclusion": "1 dataset(s) have partial coverage. Failures are due to missing base fields (e.g., no license), not jsonld-ex limitations."
+    },
+    "E11": {
+      "analysis": "E11_plain_json_baseline",
+      "description": "Can plain JSON custom fields match jsonld-ex?",
+      "plain_json_coverage": {
+        "Q1": true,
+        "Q2": true,
+        "Q3": true,
+        "Q4": false,
+        "Q5": false,
+        "Q6": true,
+        "Q7": false,
+        "Q8": false,
+        "Q9": false,
+        "Q10": true
+      },
+      "plain_json_score": 5,
+      "jsonldex_avg_score": 9.8,
+      "gap_queries": [
+        "Q4",
+        "Q5",
+        "Q7",
+        "Q8",
+        "Q9"
+      ],
+      "semantic_losses": [
+        "No semantic interoperability (custom fields are opaque to other tools)",
+        "No algebraic operations (fusion, conflict, decay)",
+        "No SL uncertainty model (b,d,u triple vs point estimate)",
+        "No JSON-LD context (fields not resolvable to IRIs)",
+        "No validation shapes (cannot verify annotation structure)",
+        "No standard vocabulary (every project invents its own field names)"
+      ],
+      "conclusion": "Plain JSON covers 5/10 queries for simple presence checks, but cannot perform algebraic operations (fusion, conflict, decay) or provide semantic interoperability. The 5 queries requiring SL algebra are unique to jsonld-ex."
+    },
+    "E12": {
+      "analysis": "E12_rai_coverage_mapping",
+      "description": "Map 20 RAI properties to our 10 assertion-level queries.",
+      "rai_property_count": 20,
+      "queries_fully_addressed": 0,
+      "queries_partially_addressed": 2,
+      "rai_mapping": {
+        "rai:dataCollection": [],
+        "rai:dataCollectionType": [],
+        "rai:dataCollectionMissingData": [],
+        "rai:dataCollectionRawData": [],
+        "rai:dataCollectionTimeframe": [],
+        "rai:dataPreprocessingProtocol": [],
+        "rai:dataReleaseMaintenancePlan": [],
+        "rai:dataAnnotationProtocol": [],
+        "rai:dataAnnotationPlatform": [],
+        "rai:dataAnnotationAnalysis": [
+          "Q4_partial"
+        ],
+        "rai:annotationsPerItem": [],
+        "rai:annotatorDemographics": [],
+        "rai:machineAnnotationTools": [
+          "Q2_partial"
+        ],
+        "rai:dataSocialImpact": [],
+        "rai:dataBiases": [],
+        "rai:dataLimitations": [],
+        "rai:dataUseCases": [],
+        "rai:personalSensitiveInformation": [],
+        "rai:dataImputationProtocol": [],
+        "rai:dataManipulationProtocol": []
+      },
+      "key_distinction": "RAI properties are dataset-level free-text (sc:Text). jsonld-ex annotations are assertion-level structured metadata. RAI cannot answer any of the 10 queries because they require machine-actionable per-assertion metadata, not dataset-level text."
+    },
+    "F13": {
+      "analysis": "F13_sensitivity",
+      "description": "Vary enrichment parameters. Query scores are robust.",
+      "results": {
+        "evidence_sensitivity": [
+          {
+            "config": "low_evidence",
+            "opinion_a_u": 0.0385,
+            "opinion_b_u": 0.0909,
+            "fused_u": 0.0278,
+            "fused_pp": 0.8889,
+            "conflict": 0.1801
+          },
+          {
+            "config": "medium_evidence",
+            "opinion_a_u": 0.004,
+            "opinion_b_u": 0.0099,
+            "fused_u": 0.0028,
+            "fused_pp": 0.9046,
+            "conflict": 0.1866
+          },
+          {
+            "config": "high_evidence",
+            "opinion_a_u": 0.0004,
+            "opinion_b_u": 0.001,
+            "fused_u": 0.0003,
+            "fused_pp": 0.9056,
+            "conflict": 0.1889
+          }
+        ],
+        "confidence_sensitivity": [
+          {
+            "config": "low_conf",
+            "desc_confidence": 0.6,
+            "lic_confidence": 0.7,
+            "query_scores_change": false
+          },
+          {
+            "config": "mid_conf",
+            "desc_confidence": 0.95,
+            "lic_confidence": 0.99,
+            "query_scores_change": false
+          },
+          {
+            "config": "high_conf",
+            "desc_confidence": 0.99,
+            "lic_confidence": 1.0,
+            "query_scores_change": false
+          }
+        ]
+      },
+      "conclusion": "Query coverage is determined by annotation PRESENCE, not VALUES. Varying evidence counts changes SL opinion internals (uncertainty decreases with more evidence, as expected by Josang 2016) but does not affect whether queries are answerable. Results are robust."
+    }
+  }
+}

@@ -1,0 +1,738 @@
+{
+  "experiment": "EN2.4",
+  "title": "Head-to-Head vs Croissant on Real Dataset Documentation",
+  "timestamp": "2026-04-03T06-24-47Z",
+  "hypothesis": "jsonld-ex can express everything Croissant expresses PLUS assertion-level uncertainty, provenance, temporal validity, and validation that Croissant cannot.",
+  "n_datasets": 10,
+  "n_queries": 10,
+  "datasets": [
+    {
+      "id": "coco2014",
+      "name": "COCO 2014",
+      "domain": "vision/detection",
+      "source_type": "mlcommons",
+      "status": "OK",
+      "parse_stats": {
+        "name": "COCO",
+        "has_context": true,
+        "has_type": true,
+        "n_distributions": 10,
+        "n_record_sets": 5,
+        "n_fields": 17,
+        "has_rai": false,
+        "rai_properties": [],
+        "original_bytes": 10052
+      },
+      "query_results": {
+        "croissant": {
+          "Q1": false,
+          "Q2": false,
+          "Q3": false,
+          "Q4": false,
+          "Q5": false,
+          "Q6": false,
+          "Q7": false,
+          "Q8": false,
+          "Q9": false,
+          "Q10": false
+        },
+        "jsonldex": {
+          "Q1": true,
+          "Q2": true,
+          "Q3": true,
+          "Q4": true,
+          "Q5": true,
+          "Q6": true,
+          "Q7": true,
+          "Q8": true,
+          "Q9": true,
+          "Q10": true
+        },
+        "croissant_score": 0,
+        "jsonldex_score": 10
+      },
+      "byte_measurements": {
+        "original_bytes": 10052,
+        "enriched_bytes": 11574,
+        "overhead_pct": 15.14
+      },
+      "round_trip_fidelity": {
+        "core_fields_total": 5,
+        "core_fields_preserved": 5,
+        "core_fields_lost": [],
+        "core_fields_transformed": [
+          "description",
+          "license"
+        ],
+        "fidelity_pct": 100.0,
+        "distributions_preserved": true,
+        "distributions_orig": 10,
+        "distributions_rt": 10,
+        "record_sets_preserved": true,
+        "record_sets_orig": 5,
+        "record_sets_rt": 5
+      }
+    },
+    {
+      "id": "titanic",
+      "name": "Titanic",
+      "domain": "tabular/classification",
+      "source_type": "mlcommons",
+      "status": "OK",
+      "parse_stats": {
+        "name": "Titanic",
+        "has_context": true,
+        "has_type": true,
+        "n_distributions": 3,
+        "n_record_sets": 3,
+        "n_fields": 19,
+        "has_rai": false,
+        "rai_properties": [],
+        "original_bytes": 9098
+      },
+      "query_results": {
+        "croissant": {
+          "Q1": false,
+          "Q2": false,
+          "Q3": false,
+          "Q4": false,
+          "Q5": false,
+          "Q6": false,
+          "Q7": false,
+          "Q8": false,
+          "Q9": false,
+          "Q10": false
+        },
+        "jsonldex": {
+          "Q1": true,
+          "Q2": true,
+          "Q3": true,
+          "Q4": true,
+          "Q5": true,
+          "Q6": true,
+          "Q7": true,
+          "Q8": true,
+          "Q9": true,
+          "Q10": true
+        },
+        "croissant_score": 0,
+        "jsonldex_score": 10
+      },
+      "byte_measurements": {
+        "original_bytes": 9098,
+        "enriched_bytes": 10712,
+        "overhead_pct": 17.74
+      },
+      "round_trip_fidelity": {
+        "core_fields_total": 6,
+        "core_fields_preserved": 6,
+        "core_fields_lost": [],
+        "core_fields_transformed": [
+          "description",
+          "version",
+          "license"
+        ],
+        "fidelity_pct": 100.0,
+        "distributions_preserved": true,
+        "distributions_orig": 3,
+        "distributions_rt": 3,
+        "record_sets_preserved": true,
+        "record_sets_orig": 3,
+        "record_sets_rt": 3
+      }
+    },
+    {
+      "id": "gpt3",
+      "name": "GPT-3",
+      "domain": "NLP/LLM",
+      "source_type": "mlcommons",
+      "status": "OK",
+      "parse_stats": {
+        "name": "gpt-3",
+        "has_context": true,
+        "has_type": true,
+        "n_distributions": 2,
+        "n_record_sets": 1,
+        "n_fields": 3,
+        "has_rai": false,
+        "rai_properties": [],
+        "original_bytes": 5008
+      },
+      "query_results": {
+        "croissant": {
+          "Q1": false,
+          "Q2": false,
+          "Q3": false,
+          "Q4": false,
+          "Q5": false,
+          "Q6": false,
+          "Q7": false,
+          "Q8": false,
+          "Q9": false,
+          "Q10": false
+        },
+        "jsonldex": {
+          "Q1": true,
+          "Q2": true,
+          "Q3": true,
+          "Q4": true,
+          "Q5": true,
+          "Q6": true,
+          "Q7": true,
+          "Q8": true,
+          "Q9": true,
+          "Q10": true
+        },
+        "croissant_score": 0,
+        "jsonldex_score": 10
+      },
+      "byte_measurements": {
+        "original_bytes": 5008,
+        "enriched_bytes": 6582,
+        "overhead_pct": 31.43
+      },
+      "round_trip_fidelity": {
+        "core_fields_total": 5,
+        "core_fields_preserved": 5,
+        "core_fields_lost": [],
+        "core_fields_transformed": [
+          "description",
+          "license"
+        ],
+        "fidelity_pct": 100.0,
+        "distributions_preserved": true,
+        "distributions_orig": 2,
+        "distributions_rt": 2,
+        "record_sets_preserved": true,
+        "record_sets_orig": 1,
+        "record_sets_rt": 1
+      }
+    },
+    {
+      "id": "fashion_mnist",
+      "name": "Fashion-MNIST",
+      "domain": "vision/classification",
+      "source_type": "huggingface",
+      "status": "OK",
+      "parse_stats": {
+        "name": "fashion_mnist",
+        "has_context": true,
+        "has_type": true,
+        "n_distributions": 2,
+        "n_record_sets": 2,
+        "n_fields": 4,
+        "has_rai": false,
+        "rai_properties": [],
+        "original_bytes": 5075
+      },
+      "query_results": {
+        "croissant": {
+          "Q1": false,
+          "Q2": false,
+          "Q3": false,
+          "Q4": false,
+          "Q5": false,
+          "Q6": false,
+          "Q7": false,
+          "Q8": false,
+          "Q9": false,
+          "Q10": false
+        },
+        "jsonldex": {
+          "Q1": true,
+          "Q2": true,
+          "Q3": true,
+          "Q4": true,
+          "Q5": true,
+          "Q6": true,
+          "Q7": true,
+          "Q8": true,
+          "Q9": true,
+          "Q10": true
+        },
+        "croissant_score": 0,
+        "jsonldex_score": 10
+      },
+      "byte_measurements": {
+        "original_bytes": 5075,
+        "enriched_bytes": 6600,
+        "overhead_pct": 30.05
+      },
+      "round_trip_fidelity": {
+        "core_fields_total": 6,
+        "core_fields_preserved": 6,
+        "core_fields_lost": [],
+        "core_fields_transformed": [
+          "description",
+          "license"
+        ],
+        "fidelity_pct": 100.0,
+        "distributions_preserved": true,
+        "distributions_orig": 2,
+        "distributions_rt": 2,
+        "record_sets_preserved": true,
+        "record_sets_orig": 2,
+        "record_sets_rt": 2
+      }
+    },
+    {
+      "id": "pass",
+      "name": "PASS",
+      "domain": "privacy-aware vision",
+      "source_type": "huggingface",
+      "status": "OK",
+      "parse_stats": {
+        "name": "pass",
+        "has_context": true,
+        "has_type": true,
+        "n_distributions": 0,
+        "n_record_sets": 0,
+        "n_fields": 0,
+        "has_rai": false,
+        "rai_properties": [],
+        "original_bytes": 971
+      },
+      "query_results": {
+        "croissant": {
+          "Q1": false,
+          "Q2": false,
+          "Q3": false,
+          "Q4": false,
+          "Q5": false,
+          "Q6": false,
+          "Q7": false,
+          "Q8": false,
+          "Q9": false,
+          "Q10": false
+        },
+        "jsonldex": {
+          "Q1": true,
+          "Q2": true,
+          "Q3": true,
+          "Q4": true,
+          "Q5": true,
+          "Q6": true,
+          "Q7": true,
+          "Q8": true,
+          "Q9": true,
+          "Q10": true
+        },
+        "croissant_score": 0,
+        "jsonldex_score": 10
+      },
+      "byte_measurements": {
+        "original_bytes": 971,
+        "enriched_bytes": 3580,
+        "overhead_pct": 268.69
+      },
+      "round_trip_fidelity": {
+        "core_fields_total": 6,
+        "core_fields_preserved": 6,
+        "core_fields_lost": [],
+        "core_fields_transformed": [
+          "description",
+          "license"
+        ],
+        "fidelity_pct": 100.0,
+        "distributions_preserved": true,
+        "distributions_orig": 0,
+        "distributions_rt": 0,
+        "record_sets_preserved": true,
+        "record_sets_orig": 0,
+        "record_sets_rt": 0
+      }
+    },
+    {
+      "id": "common_voice",
+      "name": "Common Voice (en subset)",
+      "domain": "audio/ASR",
+      "source_type": "huggingface",
+      "status": "OK",
+      "parse_stats": {
+        "name": "common_voice_15_en_test",
+        "has_context": true,
+        "has_type": true,
+        "n_distributions": 2,
+        "n_record_sets": 2,
+        "n_fields": 4,
+        "has_rai": false,
+        "rai_properties": [],
+        "original_bytes": 3902
+      },
+      "query_results": {
+        "croissant": {
+          "Q1": false,
+          "Q2": false,
+          "Q3": false,
+          "Q4": false,
+          "Q5": false,
+          "Q6": false,
+          "Q7": false,
+          "Q8": false,
+          "Q9": false,
+          "Q10": false
+        },
+        "jsonldex": {
+          "Q1": true,
+          "Q2": true,
+          "Q3": false,
+          "Q4": true,
+          "Q5": true,
+          "Q6": true,
+          "Q7": true,
+          "Q8": true,
+          "Q9": false,
+          "Q10": true
+        },
+        "croissant_score": 0,
+        "jsonldex_score": 8
+      },
+      "byte_measurements": {
+        "original_bytes": 3902,
+        "enriched_bytes": 5210,
+        "overhead_pct": 33.52
+      },
+      "round_trip_fidelity": {
+        "core_fields_total": 5,
+        "core_fields_preserved": 5,
+        "core_fields_lost": [],
+        "core_fields_transformed": [
+          "description"
+        ],
+        "fidelity_pct": 100.0,
+        "distributions_preserved": true,
+        "distributions_orig": 2,
+        "distributions_rt": 2,
+        "record_sets_preserved": true,
+        "record_sets_orig": 2,
+        "record_sets_rt": 2
+      }
+    },
+    {
+      "id": "speech_commands",
+      "name": "Speech Commands",
+      "domain": "audio/classification",
+      "source_type": "huggingface",
+      "status": "OK",
+      "parse_stats": {
+        "name": "speech_commands",
+        "has_context": true,
+        "has_type": true,
+        "n_distributions": 0,
+        "n_record_sets": 0,
+        "n_fields": 0,
+        "has_rai": false,
+        "rai_properties": [],
+        "original_bytes": 2133
+      },
+      "query_results": {
+        "croissant": {
+          "Q1": false,
+          "Q2": false,
+          "Q3": false,
+          "Q4": false,
+          "Q5": false,
+          "Q6": false,
+          "Q7": false,
+          "Q8": false,
+          "Q9": false,
+          "Q10": false
+        },
+        "jsonldex": {
+          "Q1": true,
+          "Q2": true,
+          "Q3": true,
+          "Q4": true,
+          "Q5": true,
+          "Q6": true,
+          "Q7": true,
+          "Q8": true,
+          "Q9": true,
+          "Q10": true
+        },
+        "croissant_score": 0,
+        "jsonldex_score": 10
+      },
+      "byte_measurements": {
+        "original_bytes": 2133,
+        "enriched_bytes": 4709,
+        "overhead_pct": 120.77
+      },
+      "round_trip_fidelity": {
+        "core_fields_total": 6,
+        "core_fields_preserved": 6,
+        "core_fields_lost": [],
+        "core_fields_transformed": [
+          "description",
+          "license"
+        ],
+        "fidelity_pct": 100.0,
+        "distributions_preserved": true,
+        "distributions_orig": 0,
+        "distributions_rt": 0,
+        "record_sets_preserved": true,
+        "record_sets_orig": 0,
+        "record_sets_rt": 0
+      }
+    },
+    {
+      "id": "etth1",
+      "name": "ETTh1",
+      "domain": "time-series/forecasting",
+      "source_type": "huggingface",
+      "status": "OK",
+      "parse_stats": {
+        "name": "ett",
+        "has_context": true,
+        "has_type": true,
+        "n_distributions": 0,
+        "n_record_sets": 0,
+        "n_fields": 0,
+        "has_rai": false,
+        "rai_properties": [],
+        "original_bytes": 971
+      },
+      "query_results": {
+        "croissant": {
+          "Q1": false,
+          "Q2": false,
+          "Q3": false,
+          "Q4": false,
+          "Q5": false,
+          "Q6": false,
+          "Q7": false,
+          "Q8": false,
+          "Q9": false,
+          "Q10": false
+        },
+        "jsonldex": {
+          "Q1": true,
+          "Q2": true,
+          "Q3": true,
+          "Q4": true,
+          "Q5": true,
+          "Q6": true,
+          "Q7": true,
+          "Q8": true,
+          "Q9": true,
+          "Q10": true
+        },
+        "croissant_score": 0,
+        "jsonldex_score": 10
+      },
+      "byte_measurements": {
+        "original_bytes": 971,
+        "enriched_bytes": 3694,
+        "overhead_pct": 280.43
+      },
+      "round_trip_fidelity": {
+        "core_fields_total": 6,
+        "core_fields_preserved": 6,
+        "core_fields_lost": [],
+        "core_fields_transformed": [
+          "description",
+          "license"
+        ],
+        "fidelity_pct": 100.0,
+        "distributions_preserved": true,
+        "distributions_orig": 0,
+        "distributions_rt": 0,
+        "record_sets_preserved": true,
+        "record_sets_orig": 0,
+        "record_sets_rt": 0
+      }
+    },
+    {
+      "id": "timeseries_pile",
+      "name": "Timeseries-PILE",
+      "domain": "time-series/multi-domain",
+      "source_type": "huggingface",
+      "status": "OK",
+      "parse_stats": {
+        "name": "Timeseries-PILE",
+        "has_context": true,
+        "has_type": true,
+        "n_distributions": 0,
+        "n_record_sets": 0,
+        "n_fields": 0,
+        "has_rai": false,
+        "rai_properties": [],
+        "original_bytes": 1162
+      },
+      "query_results": {
+        "croissant": {
+          "Q1": false,
+          "Q2": false,
+          "Q3": false,
+          "Q4": false,
+          "Q5": false,
+          "Q6": false,
+          "Q7": false,
+          "Q8": false,
+          "Q9": false,
+          "Q10": false
+        },
+        "jsonldex": {
+          "Q1": true,
+          "Q2": true,
+          "Q3": true,
+          "Q4": true,
+          "Q5": true,
+          "Q6": true,
+          "Q7": true,
+          "Q8": true,
+          "Q9": true,
+          "Q10": true
+        },
+        "croissant_score": 0,
+        "jsonldex_score": 10
+      },
+      "byte_measurements": {
+        "original_bytes": 1162,
+        "enriched_bytes": 3885,
+        "overhead_pct": 234.34
+      },
+      "round_trip_fidelity": {
+        "core_fields_total": 6,
+        "core_fields_preserved": 6,
+        "core_fields_lost": [],
+        "core_fields_transformed": [
+          "description",
+          "license"
+        ],
+        "fidelity_pct": 100.0,
+        "distributions_preserved": true,
+        "distributions_orig": 0,
+        "distributions_rt": 0,
+        "record_sets_preserved": true,
+        "record_sets_orig": 0,
+        "record_sets_rt": 0
+      }
+    },
+    {
+      "id": "synthea_fhir",
+      "name": "Synthea FHIR R4 Sample",
+      "domain": "medical/clinical",
+      "source_type": "self_generated",
+      "status": "OK",
+      "parse_stats": {
+        "name": "Synthea FHIR R4 Sample",
+        "has_context": true,
+        "has_type": true,
+        "n_distributions": 1,
+        "n_record_sets": 2,
+        "n_fields": 7,
+        "has_rai": false,
+        "rai_properties": [],
+        "original_bytes": 3301
+      },
+      "query_results": {
+        "croissant": {
+          "Q1": false,
+          "Q2": false,
+          "Q3": false,
+          "Q4": false,
+          "Q5": false,
+          "Q6": false,
+          "Q7": false,
+          "Q8": false,
+          "Q9": false,
+          "Q10": false
+        },
+        "jsonldex": {
+          "Q1": true,
+          "Q2": true,
+          "Q3": true,
+          "Q4": true,
+          "Q5": true,
+          "Q6": true,
+          "Q7": true,
+          "Q8": true,
+          "Q9": true,
+          "Q10": true
+        },
+        "croissant_score": 0,
+        "jsonldex_score": 10
+      },
+      "byte_measurements": {
+        "original_bytes": 3301,
+        "enriched_bytes": 4946,
+        "overhead_pct": 49.83
+      },
+      "round_trip_fidelity": {
+        "core_fields_total": 9,
+        "core_fields_preserved": 9,
+        "core_fields_lost": [],
+        "core_fields_transformed": [
+          "description",
+          "version",
+          "license"
+        ],
+        "fidelity_pct": 100.0,
+        "distributions_preserved": true,
+        "distributions_orig": 1,
+        "distributions_rt": 1,
+        "record_sets_preserved": true,
+        "record_sets_orig": 2,
+        "record_sets_rt": 2
+      }
+    }
+  ],
+  "summary": {
+    "datasets_processed": 10,
+    "datasets_failed": 0,
+    "avg_query_score_croissant": 0.0,
+    "avg_query_score_jsonldex": 9.8,
+    "query_score_improvement": 9.8,
+    "avg_byte_overhead_pct": 108.19,
+    "avg_round_trip_fidelity_pct": 100.0,
+    "per_dataset_croissant_scores": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "per_dataset_jsonldex_scores": [
+      10,
+      10,
+      10,
+      10,
+      10,
+      8,
+      10,
+      10,
+      10,
+      10
+    ],
+    "per_dataset_overheads": [
+      15.14,
+      17.74,
+      31.43,
+      30.05,
+      268.69,
+      33.52,
+      120.77,
+      280.43,
+      234.34,
+      49.83
+    ],
+    "per_dataset_fidelities": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+    ]
+  }
+}
