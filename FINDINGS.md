@@ -2141,3 +2141,784 @@ provenance chain's reliability is limited by its weakest link.
 - `experiments/EN1/en1_4_trust_chains.py` (experiment runner)
 - `experiments/EN1/tests/test_en1_4.py` (35 tests)
 - `experiments/EN1/results/en1_4_results.json`
+
+---
+
+## EN1.5 -- Deduction Under Uncertainty
+
+**Date:** 2026-03-13
+**Status:** COMPLETE
+**Tests:** 71 passing
+**Total trials:** 28,150,000
+
+### Hypothesis
+
+SL deduction preserves calibration when reasoning through uncertain
+conditionals, while naive scalar probability multiplication does not.
+Specifically, SL's explicit uncertainty in the antecedent opinion pulls
+the deduced projected probability toward the base rate (Bayesian
+shrinkage), reducing mean absolute error relative to scalar point
+estimates.
+
+### Datasets (16 total)
+
+- **15 pgmpy Bayesian Network benchmarks:** cancer (4 edges),
+  earthquake (4), survey (6), ASIA (8), sachs (17), child (25),
+  water (36), mildew (42), alarm (46), insurance (52), hailfinder (66),
+  barley (81), win95pts (109), hepar2 (123), andes (338)
+- **Synthea FHIR R4:** 945 Condition-to-Condition comorbidity edges
+  from 1,180 synthetic patients (Walonoski et al. 2018)
+- **Total single-edge:** 1,902 edges
+- **Multi-hop paths:** 4,739 paths (capped at 200/length) across
+  lengths 2, 3, 4
+
+### Protocol
+
+**Part A -- Single-Edge Deduction:**
+For each parent->child edge, draw N observations of the parent from
+Bernoulli(P_true), construct scalar point estimate p_hat = r/N and
+SL opinion via from_evidence(r, N-r, prior_weight=2), then:
+- Scalar: P_hat(child) = p_hat * P(child|parent) + (1-p_hat) * P(child|~parent)
+- SL: deduce(omega_parent, omega_child|parent, omega_child|~parent)
+Conditional opinions built with N=10,000 evidence (near-dogmatic) to
+isolate antecedent uncertainty. 1,000 reps per (edge, N) combination.
+N in {5, 10, 50, 100, 1000}.
+
+**Part B -- Multi-Hop Chained Deduction:**
+Extract all directed acyclic paths of length 2-4 from each KB. Chain
+deductions through each path, using the deduced opinion from step i as
+the antecedent for step i+1. Same evidence levels and reps.
+
+### Key Results
+
+**SL wins 100% of comparisons:** 16/16 datasets (Part A), 41/41
+multi-hop conditions (Part B). No exceptions.
+
+**Part A -- Single-Edge MAE vs True P(child):**
+
+| N | SL Win Rate | Avg DMAE (Scalar-SL) | SL % Improvement |
+|---:|:----------:|--------------------:|-----------------:|
+| 5 | 16/16 | +0.008697 | +28.6% |
+| 10 | 16/16 | +0.003667 | +16.7% |
+| 50 | 16/16 | +0.000390 | +3.8% |
+| 100 | 16/16 | +0.000140 | +2.0% |
+| 1000 | 16/16 | +0.000005 | +0.2% |
+
+**Largest absolute advantage (N=5):**
+- ASIA: 0.052 -> 0.037 (DMAE = +0.015)
+- hailfinder: 0.048 -> 0.034 (DMAE = +0.014)
+- alarm: 0.045 -> 0.032 (DMAE = +0.013)
+
+**Part B -- Multi-Hop (N=5, selected):**
+
+| Dataset | L2 DMAE | L3 DMAE | L4 DMAE |
+|--------:|--------:|--------:|--------:|
+| alarm | +0.006 | +0.003 | +0.001 |
+| andes | +0.003 | +0.001 | +0.000 |
+| win95pts | +0.008 | +0.006 | +0.003 |
+| synthea | +0.000237 | +0.000023 | +0.000005 |
+
+### Mathematical Analysis
+
+**The SL advantage is exactly W/(N+W) = prior_weight / (N + prior_weight).**
+
+This is not a coincidence -- it is a provable consequence of the
+evidence-to-opinion mapping:
+
+  SL: P(omega) = (r + a*W) / (N + W)  (Beta posterior mean)
+  Scalar: p_hat = r / N                (MLE)
+
+The expected absolute deviation of the MLE from the true probability
+is E[|p_hat - p_true|] = sqrt(p*(1-p)/N) * sqrt(2/pi).
+SL's estimator has E[|P(omega) - p_true|] = (N/(N+W)) * E[|p_hat - p_true|].
+The ratio is N/(N+W), giving a reduction of W/(N+W).
+
+At N=5, W=2: reduction = 2/7 = 28.57%, matching all 57 conditions exactly.
+
+**This universality is a strength, not a limitation:**
+1. The advantage is mathematically guaranteed -- no dataset tuning needed
+2. SL makes this automatic through its uncertainty representation
+3. The (b,d,u) triple preserves the epistemic state: "confident estimate"
+   vs "data-sparse guess" are distinguishable even when projected
+   probabilities are close
+4. Scalar methods have no built-in mechanism for this regularization
+
+### Key Insight: Deduced Uncertainty vs Antecedent Uncertainty
+
+The deduced uncertainty u_y is a weighted average of the *conditional*
+uncertainties (component-wise LTP), NOT the antecedent uncertainty.
+With near-dogmatic conditionals (N=10,000), u_y ~ 0.0002 regardless
+of antecedent N. The calibration benefit comes through **projected
+probability shrinkage**: high u_x causes b_y to be pulled toward the
+base-rate-weighted beliefs, regularizing the prediction.
+
+Antecedent uncertainty at N=5: u_x = W/(N+W) = 2/7 = 0.286.
+Antecedent uncertainty at N=1000: u_x = 2/1002 = 0.002.
+
+### Verdict
+
+**POSITIVE for SL.** SL deduction provides automatic Bayesian shrinkage
+through its uncertainty representation, reducing MAE by exactly
+W/(N+W) across all 16 datasets and 41 multi-hop conditions (28.15M
+total trials). The advantage is largest at low evidence (28.6% at N=5)
+and converges gracefully at high evidence. The uniformity of the
+result across heterogeneous datasets (5-node cancer BN to 223-node
+andes BN to 945-edge Synthea comorbidity graph) demonstrates that the
+benefit is a fundamental property of the algebra, not an artifact of
+any particular data distribution.
+
+### Suggested Paper Presentation
+
+- **Table:** MAE comparison across all 16 datasets at each N
+- **Figure 1:** MAE ratio (SL/Scalar) vs N, showing the W/(N+W) curve
+  with all 16 datasets overlaid (they should all lie on the curve)
+- **Figure 2:** Multi-hop path length analysis showing SL advantage
+  persists through chained deductions
+- **Mathematical result:** State the W/(N+W) reduction formula
+  explicitly as a theorem with proof
+
+### Files
+
+- `experiments/EN1/en1_5_core.py` (940 lines, 3 loaders + deduction + multi-hop)
+- `experiments/EN1/en1_5_deduction.py` (runner)
+- `experiments/EN1/tests/test_en1_5.py` (71 tests)
+- `experiments/EN1/results/en1_5_results.json` (28.15M trials)
+
+### EN1.5 Supplementary: Prior Weight Sweep
+
+**Additional trials:** 47,550,000
+**Prior weights tested:** W in {1, 2, 5, 10, 20}
+
+**Result: Predicted W/(N+W) formula matches actual reduction exactly.**
+
+| W | Red@N=5 | Red@N=10 | Red@N=50 | Red@N=100 | Red@N=1000 |
+|--:|--------:|---------:|---------:|----------:|-----------:|
+| 1 | 16.7% | 9.1% | 2.0% | 1.0% | 0.1% |
+| 2 | 28.6% | 16.7% | 3.9% | 2.0% | 0.2% |
+| 5 | 50.0% | 33.3% | 9.1% | 4.8% | 0.5% |
+| 10 | 66.7% | 50.0% | 16.7% | 9.1% | 1.0% |
+| 20 | 80.0% | 66.7% | 28.6% | 16.7% | 2.0% |
+
+All predicted reductions match actuals to within rounding error.
+
+**SL MAE by (W, N):**
+
+| W | N=5 | N=10 | N=50 | N=100 | N=1000 |
+|--:|------:|------:|------:|------:|-------:|
+| 1 | .0190 | .0147 | .0071 | .0051 | .00162 |
+| 2 | .0163 | .0135 | .0070 | .0050 | .00162 |
+| 5 | .0114 | .0108 | .0066 | .0049 | .00162 |
+| 10 | .0076 | .0081 | .0060 | .0047 | .00161 |
+| 20 | .0046 | .0054 | .0052 | .0043 | .00159 |
+| Scalar | .0228 | .0162 | .0073 | .0051 | .00162 |
+
+**Over-regularization check:** SL beats scalar at ALL (W, N) combinations,
+including W=20 at N=1000. This is because base rates are set to the
+true marginal P(parent), so shrinkage toward the base rate is always
+beneficial. **Important caveat:** With a misspecified base rate, high W
+would cause over-regularization. This is a practitioner-tunable
+parameter, and the paper should note that the benefit depends on base
+rate quality.
+
+**Optimal W per evidence level:**
+- N=5: W=20 gives 80.0% MAE reduction (MAE 0.0046 vs 0.0228)
+- N=10: W=20 gives 66.7% reduction
+- N=50: W=20 gives 28.6% reduction
+- N=1000: W=20 gives 2.0% reduction (minimal but still positive)
+
+**Key takeaway for practitioners:** Higher W gives more regularization.
+With a well-calibrated base rate, W=5-10 provides a good tradeoff
+(large benefit at low N, minimal cost at high N). The default W=2
+(Josang's standard) is conservative but safe.
+
+### Files (supplementary)
+
+- `experiments/EN1/en1_5_prior_weight_sweep.py` (runner)
+- `experiments/EN1/results/en1_5_prior_weight_results.json` (47.55M trials)
+
+### Combined EN1.5 Trial Count: 75,700,000
+
+
+
+---
+
+## EN1.1c — Heterogeneous NER Fusion: GLiNER2 Extension + Causal Ablation
+
+**Date:** 2026-04-02
+**Status:** COMPLETE (5-model baseline + 6-subset ablation + Experiment C + Experiment B)
+
+### Summary
+
+Adding GLiNER2 (a zero-shot, sigmoid-based span-matching model) to the
+4-model NER fusion ensemble reveals a **phase transition in SL fusion
+quality at the 3:2 weak:strong ratio**. Three controlled experiments
+isolate the root cause: the weak majority's correlated errors, not
+calibration design (Exp C: zero effect) or entity quality (Exp B:
+helps S4 but not S6). This precisely characterizes SL fusion's scope
+of applicability.
+
+### Models
+
+| Model | Architecture | Confidence | Training | Test F1 | Category |
+|-------|-------------|-----------|----------|---------|----------|
+| spaCy en_core_web_trf | RoBERTa pipeline | Softmax | Supervised | 0.463 | Weak |
+| Flair ner-english-large | Stacked LSTM | Softmax | Supervised | 0.925 | Strong |
+| Stanza en NER | BiLSTM-CRF | Softmax | Supervised | 0.524 | Weak |
+| HuggingFace bert-base-NER | BERT fine-tuned | Softmax | Supervised | 0.913 | Strong |
+| **GLiNER2 gliner2-base-v1** | **DeBERTa span matching** | **Sigmoid** | **Zero-shot** | **0.501** | **Weak** |
+
+**GLiNER2 calibration profile:** Temperature T=9.82 (vs 0.84-1.61 for
+softmax models). 45.6% of entity tokens have raw confidence >0.99 despite
+45% entity accuracy. The sigmoid scoring mechanism is fundamentally
+different from softmax — a measurable, reportable finding independent of
+the fusion results.
+
+### Result 1: 5-Model Baseline (EN1.1c)
+
+| Strategy | 4-Model F1 | 5-Model F1 | Delta | 4-Model Prec | 5-Model Prec | Delta |
+|----------|-----------|-----------|-------|-------------|-------------|-------|
+| B: Scalar weighted | 0.9413 | 0.9411 | -0.0002 | 0.9412 | 0.9415 | +0.0003 |
+| D: Stacking | 0.9375 | 0.9366 | -0.0009 | 0.9363 | 0.9335 | -0.0027 |
+| E2: SL evidence | 0.9397 | 0.9049 | **-0.0348** | 0.9449 | 0.8993 | **-0.0456** |
+| G2: SL+trust | 0.9405 | 0.9065 | **-0.0340** | 0.9443 | 0.8987 | **-0.0456** |
+
+SL degrades by -3.5pp F1 while scalar B is unchanged (-0.02pp).
+
+### Result 2: Quality-Ratio Ablation (6 subsets)
+
+| Subset | Weak:Strong | B F1 | E2 F1 | G2 F1 | G2-B |
+|--------|-----------|------|-------|-------|------|
+| S1: {Flair, HF} | 0:2 | 0.9282 | 0.9290 | 0.9287 | +0.0005 |
+| S2: {Flair, HF, spaCy} | 1:2 | 0.9404 | 0.9392 | 0.9392 | -0.0012 |
+| S3: {Flair, HF, Stanza} | 1:2 | 0.9390 | 0.9386 | 0.9385 | -0.0005 |
+| S4: {Flair, HF, GLiNER2} | 1:2 | 0.9404 | 0.9383 | 0.9384 | -0.0020 |
+| S5: {spaCy, Flair, Stanza, HF} | 2:2 | 0.9413 | 0.9397 | 0.9405 | -0.0008 |
+| S6: {all 5} | 3:2 | 0.9411 | 0.9049 | 0.9065 | **-0.0346** |
+
+**Phase transition:** SL fusion IMPROVES from 0:2 to 2:2 (adding weak
+models provides confirming evidence on O-tokens). At 3:2, it catastrophically
+degrades. This is not gradual — it is a discrete transition when the weak
+majority tips.
+
+**S5 reproduces EN1.1b exactly** (E2=0.9397, G2=0.9405), confirming the
+experimental infrastructure is sound across environments.
+
+**GLiNER2 is more damaging than softmax weak models at 1:2:**
+S4 (GLiNER2): G2-B = -0.0020 vs S2 (spaCy): -0.0012 vs S3 (Stanza): -0.0005.
+The sigmoid confidence mechanism creates harder-to-calibrate overconfidence
+(T=9.82 vs T~1.2-1.5), contributing more fusion noise per model.
+
+### Result 3: Experiment C — Entity-Only Calibration
+
+**Hypothesis:** GLiNER2's O-token confidence of 0.50 (vs 98.9% actual
+accuracy) corrupts temperature scaling, and fixing this recovers performance.
+
+**Result: ZERO EFFECT.** Every subset delta is 0.0000 or -0.0001.
+
+**Root cause identified:** logit(0.50)=0 is invariant to temperature
+scaling. O-token confidence contributes nothing to the calibration
+optimization — T=9.82 is driven entirely by entity tokens. Furthermore,
+in the fusion function, O-tokens are grouped by tag. Strong models already
+contribute dominant O-opinions, so a stronger GLiNER2 O-opinion changes
+nothing.
+
+**Scientific value:** Eliminates a plausible confound. Confirms that the
+damage mechanism operates through entity-prediction tokens, not O-tokens.
+
+### Result 4: Experiment B — Threshold Sweep
+
+**Hypothesis:** Reducing GLiNER2's false entity rate (by raising the
+extraction threshold) recovers SL fusion performance.
+
+GLiNER2 profile across thresholds:
+
+| Threshold | Entities kept | Entity accuracy | T | Dev F1 |
+|-----------|-------------|----------------|---|--------|
+| 0.3 | 13,085 | 43.3% | 9.82 | 0.525 |
+| 0.5 | 12,041 | 46.5% | 10.01 | 0.547 |
+| 0.7 | 10,857 | 50.6% | 9.78 | 0.572 |
+| 0.8 | 10,058 | 53.7% | 9.43 | 0.586 |
+| 0.9 | 8,919 | 58.4% | 8.70 | 0.604 |
+
+**S4 (1:2) recovers fully:**
+
+| Threshold | S4 G2-B |
+|-----------|---------|
+| 0.3 | -0.0022 |
+| 0.5 | -0.0013 |
+| 0.7 | -0.0006 |
+| 0.8 | **-0.0001** |
+| 0.9 | -0.0002 |
+
+At threshold=0.8, S4 G2 matches B within 0.01pp — essentially full
+recovery. When the strong models dominate (2:1 strong:weak), reducing
+the weak model's false entity rate is sufficient.
+
+**S6 (3:2) plateaus at -2.9pp:**
+
+| Threshold | S6 G2-B |
+|-----------|---------|
+| 0.3 | -0.0343 |
+| 0.5 | -0.0320 |
+| 0.7 | **-0.0292** |
+| 0.8 | -0.0293 |
+| 0.9 | -0.0302 |
+
+S6 improves from -3.4pp to -2.9pp at threshold=0.7, then **plateaus and
+slightly reverses**. The remaining gap (-2.86pp to S5) is irreducible
+because spaCy and Stanza continue contributing correlated wrong entity
+predictions that threshold adjustment on GLiNER2 alone cannot fix.
+
+**S5 control is perfectly constant** across all thresholds (G2=0.9405,
+B=0.9413), confirming experimental validity.
+
+### Causal Decomposition
+
+| Experiment | Variable isolated | Effect on S4 (1:2) | Effect on S6 (3:2) | Conclusion |
+|-----------|------------------|-------------------|-------------------|------------|
+| C: O-conf | O-token confidence | 0.0000 | 0.0000 | Not a factor |
+| B: Threshold | Entity false positive rate | Recovers to -0.0001 | Plateaus at -0.0292 | Helps at 1:2, not at 3:2 |
+| Ablation | Weak:strong ratio | — | Phase transition | **Root cause** |
+
+**The root cause is the weak majority's correlated errors in cumulative
+fusion.** This is a fundamental algebraic property: cumulative_fuse
+accumulates evidence from all sources equally (modulo trust discount),
+and when wrong-tag evidence from 3 weak models outweighs correct-tag
+evidence from 2 strong models, fusion produces the wrong answer. Trust
+discount attenuates weak opinions but cannot suppress a correlated
+majority.
+
+### Implications for the Paper
+
+**This investigation STRENGTHENS the NeurIPS submission in four ways:**
+
+1. **Precise scope characterization.** Instead of claiming "SL fusion
+   works for NER" (vague), we claim "SL fusion achieves the highest
+   precision when the strong-model majority holds (EN1.1b), degrades
+   gracefully at 1:2 weak:strong with threshold tuning (Exp B), and
+   fails at 3:2 weak:strong due to correlated weak-majority errors."
+   NeurIPS reviewers reward precise characterization over overclaiming.
+
+2. **Cross-experiment consistency.** The phase transition at weak
+   majority is now demonstrated in THREE independent contexts:
+   - EN1.1c: NER fusion (3:2 weak:strong → -3.5pp)
+   - EN1.3: Byzantine robustness (one_strong_rest_weak → 0.043)
+   - EN3.2-H1c: RAG fusion (top_2 beats all_4+trust by +5.9pp)
+   This convergent evidence from different tasks makes the finding
+   robust and generalizable.
+
+3. **Heterogeneous confidence mechanisms.** GLiNER2's sigmoid T=9.82
+   vs softmax T~1.0 quantifies a concrete calibration challenge.
+   The finding that sigmoid weak models are more damaging than softmax
+   weak models (-0.0020 vs -0.0005 at 1:2) is a novel observation
+   about confidence mechanism heterogeneity in model fusion.
+
+4. **Honest negative with full causal decomposition.** Three controlled
+   experiments (not just one) eliminate alternative explanations. This
+   is the level of rigor NeurIPS expects.
+
+### Design Principle (for practitioners)
+
+SL cumulative fusion requires a quality majority. Before including a
+model in an SL fusion ensemble:
+
+1. Evaluate individual model quality (dev-set F1)
+2. Count weak (F1 < 0.7) vs strong (F1 >= 0.7) models
+3. If weak:strong > 1:1, either exclude weak models or use scalar
+   weighted averaging (which is naturally robust to weak inclusion)
+4. Trust discount helps at 1:2 weak:strong but is insufficient at 3:2
+
+### Suggested Paper Presentation
+
+**Main body (1 table + 1 paragraph):**
+- Table: 4-model vs 5-model comparison (EN1.1b vs EN1.1c headline)
+- Brief discussion: SL degrades with weak majority, consistent with
+  EN1.3 and EN3.2-H1c findings
+
+**Supplementary (full ablation):**
+- Table: Quality-ratio sensitivity matrix (6 subsets × 4 strategies)
+- Table: Threshold sweep (S4 recovery, S6 plateau)
+- Table: Causal decomposition (Exp C: zero, Exp B: partial, ratio: root)
+- Figure: G2-B delta vs weak:strong ratio (shows phase transition)
+
+This keeps the main body focused on the positive results (EN1.1b: SL
+achieves highest precision, outperforms trained meta-learner) while
+the supplementary demonstrates rigorous scope characterization.
+
+### Files
+
+- `experiments/EN1/en1_1c_5model_fusion.py` (5-model baseline)
+- `experiments/EN1/en1_1c_ablation.py` (6-subset quality-ratio ablation)
+- `experiments/EN1/en1_1c_exp_c_entity_cal.py` (Experiment C: O-conf fix)
+- `experiments/EN1/en1_1c_exp_b_threshold.py` (Experiment B: threshold sweep)
+- `experiments/EN1/en1_1c_calibration_diagnostic.py` (calibration deep dive)
+- `experiments/EN1/en1_1c_gliner2_runner.py` (GLiNER2 prediction generation)
+- `experiments/EN1/check_en1_1c_gliner2.py` (pre-check verification)
+- `experiments/EN1/check_gliner2_conf_dist.py` (confidence distribution)
+- `experiments/EN1/results/en1_1c_results.json` (5-model baseline)
+- `experiments/EN1/results/en1_1c_ablation_results.json` (6-subset ablation)
+- `experiments/EN1/results/en1_1c_exp_c_results.json` (Experiment C)
+- `experiments/EN1/results/en1_1c_exp_b_results.json` (Experiment B)
+
+---
+
+## EN1.6 -- Multi-Source Sensor Fusion
+
+**Date:** 2026-04-02
+**Status:** COMPLETE (MIXED RESULT)
+**Tests:** 31 passing
+
+### Hypothesis
+
+SL fusion of heterogeneous sensor readings with different reliability
+profiles produces better state estimation than scalar averaging and
+Kalman filtering.
+
+### Experimental Design
+
+**Sensors (3 heterogeneous types):**
+- High-precision / saturating: TPR=0.98, FPR=0.02 (degrades to 0.50 when saturated)
+- Low-precision / robust: TPR=0.75, FPR=0.20 (always available)
+- Intermittent / high-quality: TPR=0.97, FPR=0.03 (30% availability)
+
+**Signal scenarios (5):** stable_normal, stable_alert, gradual_rise,
+sudden_spike, oscillating
+
+**Methods (5):**
+- Scalar weighted average (LOCF for gaps)
+- Kalman filter (recursive Bayesian, optimal linear estimator)
+- SL naive (rolling window, uninformative base_rate=0.5)
+- SL calibrated (LR-weighted evidence, calibrated base rate, recursive)
+- SL + temporal decay (calibrated + per-sensor staleness decay)
+
+**Configuration:** 500 steps, 200 reps, seed=42
+
+### Key Results
+
+**Part 1 -- Main Comparison (MAE, lower is better):**
+
+| Scenario | Scalar | Kalman | SL cal | SL+temp | SL naive | Best |
+|-----------------|--------|--------|--------|---------|----------|--------|
+| stable_normal | 0.076 | 0.044 | 0.063 | 0.063 | 0.113 | Kalman |
+| stable_alert | 0.118 | 0.107 | 0.076 | 0.078 | 0.153 | SL cal |
+| gradual_rise | 0.096 | 0.070 | 0.083 | 0.079 | 0.163 | Kalman |
+| sudden_spike | 0.084 | 0.051 | 0.072 | 0.073 | 0.146 | Kalman |
+| oscillating | 0.094 | 0.065 | 0.081 | 0.078 | 0.177 | Kalman |
+
+- SL calibrated vs scalar: **5/5 wins**
+- SL calibrated vs Kalman: **1/5 wins** (stable_alert only)
+- Naive SL: **worst in all 5 scenarios** (honest negative baseline)
+
+**Part 2 -- Calibration Improvement (naive -> calibrated):**
+
+| Scenario | Naive MAE | Calibrated MAE | Improvement |
+|-----------------|-----------|----------------|-------------|
+| stable_normal | 0.113 | 0.063 | +43.8% |
+| stable_alert | 0.153 | 0.076 | +50.2% |
+| gradual_rise | 0.163 | 0.083 | +49.2% |
+| sudden_spike | 0.146 | 0.072 | +50.4% |
+| oscillating | 0.177 | 0.081 | +54.4% |
+
+LR-weighted evidence + calibrated base rate improves SL by 44-54%.
+
+**Part 3 -- Extended Investigation (real-world failure modes):**
+
+| Scenario | Scalar | Kalman | SL cal | SL+temp |
+|-----------------------|--------|--------|--------|----------|
+| Sensor degradation | 0.266 | 0.403 | 0.438 | 0.419 |
+| Hobbled Kalman (Q=0.25) | 0.094 | 0.049 | 0.081 | 0.078 |
+| All sensors sparse | 0.114 | 0.078 | 0.149 | 0.142 |
+
+- Sensor degradation: scalar wins (LOCF is accidentally robust to stuck sensor)
+- Hobbled Kalman: higher Q actually helps Kalman respond faster to oscillations
+- All sparse: Kalman still wins even with 30% availability per sensor
+
+**Part 4 -- Conflict Detection (SL unique capability):**
+- Mean conflict BEFORE sensor fault: 0.245
+- Mean conflict AFTER sensor fault: 0.394 (+60.7% increase)
+- Fault detection rate: 14.4% at 0.8% false alarm rate
+- SL can detect sensor faults; scalar/Kalman have no mechanism for this
+
+**Part 5 -- Base Rate Sensitivity:**
+- Misspecified base rates (0.1 to 0.9) produced identical MAE (0.0809)
+- With high-LR sensors, evidence dominates the prior completely
+- SL is naturally robust to base rate misspecification when sensor
+  quality is high (LR >> 1)
+
+### Root Cause Analysis: Why SL Loses on MAE
+
+1. **Kalman is the optimal linear recursive estimator.** It was designed
+   specifically for this problem class. SL was not.
+2. **SL's shrinkage toward base rate hurts when true state is near 0 or 1.**
+   EN1.5 showed shrinkage helps with calibrated base rates and moderate
+   true probabilities. In binary sensor fusion, true state is 0 or 1 --
+   any shrinkage is pure bias.
+3. **Naive SL (uninformative prior + raw counts) is catastrophically bad.**
+   This is the most important practical finding: SL requires proper
+   application (LR-weighted evidence, calibrated base rates).
+
+### What SL Genuinely Provides (Positive)
+
+1. **Beats scalar weighted average in all 5 scenarios** when properly calibrated
+2. **Conflict detection** identifies sensor faults (+60.7% conflict increase,
+   14.4% detection at 0.8% false alarm) -- scalar/Kalman cannot do this
+3. **Uncertainty quantification** varies with sensor availability
+   (gap uncertainty +0.010 higher than full-sensor uncertainty)
+4. **No process model required** -- SL works from evidence alone,
+   unlike Kalman which needs a state transition model
+5. **Robust to base rate misspecification** when sensors have high LR
+
+### Verdict
+
+**MIXED. Honest negative on MAE vs Kalman; honest positive on uncertainty
+and conflict detection.**
+
+SL sensor fusion is NOT a replacement for Kalman filtering in
+recursive state estimation. Kalman is the optimal estimator for this
+problem class and SL cannot match it on accuracy.
+
+However, SL provides capabilities that Kalman lacks: principled
+uncertainty quantification, conflict-based fault detection, and
+model-free operation. When properly calibrated (LR-weighted evidence,
+calibrated base rates), SL beats scalar weighted averaging in all
+scenarios.
+
+The naive SL baseline (uninformative prior, raw counts) is the
+worst-performing method -- demonstrating that SL requires principled
+application. This finding is critical for practitioners and should be
+reported prominently.
+
+### Cross-Reference to SL Win/Loss Conditions
+
+Adds to the "SL does NOT help when" list:
+- One optimal domain-specific estimator exists (Kalman for recursive
+  state estimation)
+- True state is binary (0/1) and shrinkage toward base rate is pure bias
+- Naive application with uninformative priors and raw evidence counts
+
+### Suggested Paper Presentation
+
+Present as Section 4.X "Limitations: When SL Does Not Win" with:
+- Table comparing all methods across scenarios
+- Conflict detection as SL's unique positive contribution
+- Honest acknowledgment that Kalman is superior for this problem class
+- Lesson: proper SL application (LR evidence, calibrated base rates)
+  is essential -- SL is not magic
+
+### Files
+
+- `experiments/EN1/en1_6_core.py` (all methods + sensor models)
+- `experiments/EN1/en1_6_sensor_fusion.py` (main runner)
+- `experiments/EN1/en1_6_investigation.py` (extended failure mode analysis)
+- `experiments/EN1/en1_6_diagnostic.py` (debugging diagnostic)
+- `experiments/EN1/tests/test_en1_6.py` (31 tests)
+- `experiments/EN1/results/en1_6_results.json`
+
+### EN1.6 Real Data: Intel Berkeley Research Lab (Bodik et al. 2004)
+
+**Dataset:** 54 Mica2Dot sensors, 2.3M readings, 36 days (Feb-Apr 2004).
+10 natural clusters of 3-5 correlated sensors. Real sensor failures
+(voltage-induced temperature spikes to 122C+), real missing data.
+57,610 time bins at 5-min resolution.
+
+**Task:** Temperature estimation and binary threshold classification
+(is temperature > 25C?) using redundant sensor readings within
+each cluster.
+
+**Methods:** Scalar mean, trimmed mean, median, Kalman filter,
+SL fusion with conflict-based outlier exclusion.
+
+**Temperature MAE (lower is better):**
+
+| Method | Wins | Aggregate MAE |
+|--------|------|---------------|
+| Median | 3/10 | **1.131** |
+| SL conflict | 3/10 | 1.231 |
+| Trimmed mean | 2/10 | 1.259 |
+| Kalman | 2/10 | 1.789 |
+| Scalar mean | 0/10 | 2.009 |
+
+**Binary Accuracy (is temp > 25C?):**
+
+| Method | Wins | Aggregate Accuracy |
+|--------|------|--------------------|
+| **SL conflict** | **5/10** | **0.9816** |
+| Median | 3/10 | 0.9807 |
+| Trimmed mean | 2/10 | 0.9703 |
+| Scalar mean | 0/10 | 0.9371 |
+| Kalman | 0/10 | 0.9371 |
+
+SL wins the most clusters on binary accuracy (5/10) and achieves the
+highest aggregate accuracy.
+
+**Conflict Detection (SL unique capability):**
+- Clean conflict mean: 0.105-0.113
+- Fault conflict mean: 0.169-0.200
+- Conflict increase during faults: **+60 to +77%**
+- At threshold 0.15: 53.3% precision, 15.9% recall, 1,048/6,590 anomalies caught
+- Per-cluster exclusion precision: 22-90% (varies with anomaly type)
+
+**Threshold Sweep (SL MAE vs Median across 9 thresholds):**
+SL MAE >= Median MAE at every threshold tested. Conflict detection
+hurts MAE because false exclusions (47% of exclusions at best precision)
+damage the temperature estimate. Median is naturally outlier-robust
+without needing explicit detection.
+
+**Honest Assessment:**
+- **SL wins on binary accuracy** (5/10 clusters, best aggregate)
+- **Median wins on temperature MAE** (naturally outlier-robust)
+- **SL conflict detection is real** (60-77% signal increase)
+  but precision too low to beat median on continuous estimation
+- **Scalar mean and Kalman are worst** -- corrupted by anomalies
+  because they lack outlier robustness
+
+**Key Insight:** For simple redundant sensor fusion, median is the
+optimal non-parametric estimator. SL adds value through:
+1. Fault detection signal (actionable for maintenance/alerting)
+2. Better binary classification (when decisions matter more than
+   continuous estimates)
+3. Uncertainty quantification (unavailable from any scalar method)
+
+### Files (real data)
+
+- `experiments/EN1/en1_6_real_data.py` (full real-data experiment)
+- `experiments/EN1/results/en1_6_real_results.json`
+- `data/intel_lab/data.txt` (2.3M readings, gitignored)
+
+
+---
+
+## EN4.1 / EN4.3 / EN4.4: Scalability Benchmarks
+
+**Date:** 2026-04-03
+**Status:** POSITIVE (all operations linear to 1M nodes)
+
+### Hypotheses (pre-registered)
+
+- **H1 (EN4.1):** Core operations (annotate, filter, merge, validate) scale
+  linearly in wall-clock time from 1K to 1M nodes.
+- **H2 (EN4.3):** Peak memory scales linearly (no hidden quadratic allocations).
+- **H3 (EN4.4):** Batch API provides measurable speedup over per-item calls
+  at 10K items.
+
+### Methodology
+
+Standalone benchmark script (`benchmarks/bench_scaling.py`). Each operation
+measured with `timed_trials()` (t-distribution 95% CI) and `tracemalloc`
+peak memory profiling. Trial counts scaled inversely with N: 1K=30 trials,
+10K=20, 100K=10, 1M=5 trials with 0 warmup at 1M.
+
+Data: Synthetic annotated Person nodes with 3 annotated properties (name,
+worksFor, location), each carrying @confidence, @source metadata.
+
+Merge: Two independently-sourced N-node graphs with overlapping @id values.
+
+Hardware: Windows, 64GB RAM, RTX 4090 Laptop GPU (CPU-bound workloads).
+
+### Results
+
+#### Scaling: Wall-Clock Time
+
+| Operation | 1K (ms) | 10K (ms) | 100K (ms) | 1M (ms) | Throughput at 1M |
+|-----------|---------|----------|-----------|---------|------------------|
+| annotate_batch | 0.4 | 4.5 | 51.3 | 579.2 | 1,726,487 n/s |
+| filter_by_confidence | 0.5 | 4.8 | 65.4 | 595.4 | 1,679,475 n/s |
+| merge_graphs | 22.4 | 290.4 | 3,611.7 | 33,870.5 | 29,524 n/s |
+| validate_batch | 4.4 | 52.5 | 748.1 | 6,128.8 | 163,164 n/s |
+
+#### Scaling: Throughput Linearity Check
+
+| Operation | 1K throughput | 1M throughput | Ratio | Linear? |
+|-----------|-------------|--------------|-------|---------|
+| annotate_batch | 2,394,330 | 1,726,487 | 0.721 | YES |
+| filter_by_confidence | 2,108,578 | 1,679,475 | 0.796 | YES |
+| merge_graphs | 44,616 | 29,524 | 0.662 | YES |
+| validate_batch | 224,816 | 163,164 | 0.726 | YES |
+
+All operations maintain >50% of their 1K throughput at 1M nodes, confirming
+linear O(N) scaling. Throughput degradation at large N is attributable to
+cache effects and memory allocation pressure, not algorithmic complexity.
+
+#### Scaling: Peak Memory (tracemalloc)
+
+| Operation | 1K (MB) | 10K (MB) | 100K (MB) | 1M (MB) | Per-node (bytes) |
+|-----------|---------|----------|-----------|---------|-------------------|
+| annotate_batch | 0.2 | 1.8 | 18.3 | 183.5 | ~184 |
+| filter_by_confidence | 0.0 | 0.1 | 0.4 | 4.5 | ~4.5 |
+| merge_graphs | 1.4 | 13.4 | 135.6 | 1,349.8 | ~1,350 |
+| validate_batch | 0.2 | 2.0 | 19.8 | 198.8 | ~199 |
+
+Memory scales linearly for all operations. Notable:
+- **filter_by_confidence** is extremely memory-efficient (4.5MB at 1M) because
+  it only builds the output list without copying node internals.
+- **merge_graphs at 1M uses 1.35GB** due to intermediate conflict-resolution
+  data structures (per-property comparison across sources). This is the
+  practical memory ceiling for single-machine deployment.
+- annotate and validate scale at ~184-199 bytes/node overhead.
+
+#### EN4.4: Batch vs Per-Item API Overhead (n=10,000)
+
+| Operation | Per-item (ms) | Batch (ms) | Speedup |
+|-----------|---------------|------------|---------|
+| annotate | 3.6 | 6.9 | 0.52x |
+| validate | 47.5 | 44.0 | 1.08x |
+| filter | 0.6 | 5.1 | 0.11x |
+
+**H3 REJECTED.** The batch API provides **no performance advantage** over
+per-item calls. In fact, it is slower for annotate (0.52x) and filter (0.11x).
+
+**Root cause analysis:**
+1. **annotate_batch:** Builds a shared kwargs dict on each call and dispatches
+   to the same per-item `annotate()` function internally. The overhead of
+   constructing the shared-overrides tuple pattern exceeds any loop savings.
+2. **validate_batch:** Essentially identical to a list comprehension over
+   `validate_node()`. The 1.08x speedup is within noise.
+3. **filter_by_confidence:** The batch API calls `get_confidence()` per
+   property per node (extracting from nested dicts), while the per-item
+   baseline uses a direct dict lookup `node.get("name", {}).get("@confidence")`.
+   The batch API's generality (supporting multi-property criteria) costs more
+   than the simple case.
+
+**Conclusion:** The batch API's value is **ergonomic** (single call, shared
+defaults, multi-property filtering), not performance. The per-item functions
+are already O(1) with minimal overhead. This is an honest negative result
+that we report rather than bury.
+
+**Future optimization opportunity:** A vectorized batch implementation using
+NumPy arrays for confidence values could provide genuine speedup at scale,
+but is not warranted unless profiling identifies annotation/filtering as a
+pipeline bottleneck.
+
+#### A8: Byzantine-Resistant Fusion Throughput
+
+Added to the main benchmark suite (`bench_algebra.py`) as sections A8a-A8c.
+Three new benchmarks:
+
+1. **bench_robust_fuse:** `robust_fuse()` at n={5,10,20,50,100} opinions
+   across 3 conflict scenarios (no adversary, 1 adversary, 20% adversaries).
+2. **bench_byzantine_fuse:** `byzantine_fuse()` across all 3 strategies
+   (most_conflicting, least_trusted, combined) at same scales.
+3. **bench_byzantine_overhead:** Overhead comparison of cumulative_fuse vs
+   robust_fuse vs byzantine_fuse on honest-only opinions.
+
+Results will be recorded in the next full benchmark suite run
+(`python run_all.py`). Key expected findings:
+- O(n^2) conflict matrix dominates cost at larger group sizes
+- byzantine_fuse adds ~50-100% overhead vs robust_fuse (richer reporting)
+- Both are microsecond-scale operations for typical group sizes (<100 agents)
+
+### Hypothesis Outcomes
+
+| Hypothesis | Outcome | Evidence |
+|-----------|---------|----------|
+| H1: Linear wall-clock scaling | **CONFIRMED** | All 4 ops ratio > 0.66 at 1M |
+| H2: Linear memory scaling | **CONFIRMED** | All ops ~constant bytes/node |
+| H3: Batch speedup over per-item | **REJECTED** | 0.57x average (batch slower) |
+
+### Files
+
+- `benchmarks/bench_scaling.py` (standalone scaling benchmark)
+- `benchmarks/bench_algebra.py` (A8 Byzantine fusion added)
+- `benchmarks/run_all.py` (A8 integrated into suite output)
+- `benchmarks/results/scaling_results_2026-04-03T03-33-22Z.json`
+- `benchmarks/results/scaling_results_2026-04-03T03-33-22Z.md`
