@@ -1,0 +1,353 @@
+{
+  "experiment_id": "EN7.2",
+  "parameters": {
+    "n_opinions": 10000,
+    "scalar_bins": 100,
+    "simplex_grid": 50,
+    "base_rate_bins": 10,
+    "seed": 42,
+    "quantization_bits": [
+      4,
+      8,
+      12,
+      16
+    ]
+  },
+  "metrics": {
+    "H1_many_to_one": true,
+    "H2_information_loss_bits": 6.5551,
+    "H2_confirmed": true,
+    "H3_conflicting_pairs": 116388,
+    "H3_confirmed": true
+  },
+  "timestamp": "2026-04-03T03:59:08.849328+00:00",
+  "raw_data": {
+    "A1_collisions": {
+      "n_bins": 100,
+      "n_opinions": 10000,
+      "non_empty_bins": 100,
+      "mean_per_bin": 100.0,
+      "max_per_bin": 159,
+      "min_per_bin": 5,
+      "median_per_bin": 111,
+      "mean_uncertainty_range": 0.8779,
+      "max_uncertainty_range": 0.9845,
+      "worst_bins": [
+        {
+          "bin": 80,
+          "count": 92,
+          "mean_uncertainty": 0.3297,
+          "std_uncertainty": 0.2638,
+          "min_uncertainty": 0.002,
+          "max_uncertainty": 0.9866,
+          "uncertainty_range": 0.9845
+        },
+        {
+          "bin": 32,
+          "count": 104,
+          "mean_uncertainty": 0.3945,
+          "std_uncertainty": 0.2676,
+          "min_uncertainty": 0.0054,
+          "max_uncertainty": 0.986,
+          "uncertainty_range": 0.9807
+        },
+        {
+          "bin": 69,
+          "count": 148,
+          "mean_uncertainty": 0.3655,
+          "std_uncertainty": 0.2305,
+          "min_uncertainty": 0.0046,
+          "max_uncertainty": 0.9787,
+          "uncertainty_range": 0.9741
+        },
+        {
+          "bin": 65,
+          "count": 130,
+          "mean_uncertainty": 0.3799,
+          "std_uncertainty": 0.2361,
+          "min_uncertainty": 0.0039,
+          "max_uncertainty": 0.9727,
+          "uncertainty_range": 0.9688
+        },
+        {
+          "bin": 74,
+          "count": 98,
+          "mean_uncertainty": 0.3425,
+          "std_uncertainty": 0.2524,
+          "min_uncertainty": 0.0026,
+          "max_uncertainty": 0.9711,
+          "uncertainty_range": 0.9685
+        }
+      ]
+    },
+    "A2_entropy": {
+      "simplex_grid": 50,
+      "scalar_bins": 100,
+      "base_rate_bins": 10,
+      "n_unique_opinion_bins": 6913,
+      "n_unique_scalar_bins": 100,
+      "H_opinion_bits": 12.6093,
+      "H_scalar_bits": 6.507,
+      "H_joint_bits": 13.0621,
+      "H_opinion_given_scalar_bits": 6.5551,
+      "mutual_information_bits": 6.0542,
+      "information_preserved_pct": 48.01,
+      "information_lost_pct": 51.99
+    },
+    "A3_bits_per_representation": {
+      "4_bit": {
+        "quantization_bits": 4,
+        "scalar_states": 16,
+        "simplex_states": 153,
+        "opinion_states": 2601,
+        "scalar_capacity_bits": 4.0,
+        "opinion_capacity_bits": 11.34,
+        "information_gap_bits": 7.34,
+        "capacity_ratio": 162.6
+      },
+      "8_bit": {
+        "quantization_bits": 8,
+        "scalar_states": 256,
+        "simplex_states": 33153,
+        "opinion_states": 8520321,
+        "scalar_capacity_bits": 8.0,
+        "opinion_capacity_bits": 23.02,
+        "information_gap_bits": 15.02,
+        "capacity_ratio": 33282.5
+      },
+      "12_bit": {
+        "quantization_bits": 12,
+        "scalar_states": 4096,
+        "simplex_states": 8394753,
+        "opinion_states": 34393303041,
+        "scalar_capacity_bits": 12.0,
+        "opinion_capacity_bits": 35.0,
+        "information_gap_bits": 23.0,
+        "capacity_ratio": 8396802.5
+      },
+      "16_bit": {
+        "quantization_bits": 16,
+        "scalar_states": 65536,
+        "simplex_states": 2147581953,
+        "opinion_states": 140746078453761,
+        "scalar_capacity_bits": 16.0,
+        "opinion_capacity_bits": 47.0,
+        "information_gap_bits": 31.0,
+        "capacity_ratio": 2147614722.5
+      }
+    },
+    "A4_decision_loss": {
+      "decision_problem": {
+        "reward": 10.0,
+        "penalty": 5.0,
+        "wait_cost": 1.0,
+        "u_threshold": 0.3,
+        "p_epsilon": 0.01,
+        "u_delta": 0.3
+      },
+      "total_pairs_checked": 374383,
+      "conflicting_pairs_found": 116388,
+      "fraction_conflicting": 0.3109,
+      "examples": [
+        {
+          "P_a": 0.1242,
+          "P_b": 0.1232,
+          "P_diff": 0.001011,
+          "u_a": 0.3606,
+          "u_b": 0.0381,
+          "u_diff": 0.3225,
+          "b_a": 0.025,
+          "b_b": 0.0913,
+          "action_a": "WAIT",
+          "action_b": "ACT",
+          "scalar_action": "WAIT",
+          "ev_act": -3.1445,
+          "ev_wait": -1.0
+        },
+        {
+          "P_a": 0.1242,
+          "P_b": 0.1204,
+          "P_diff": 0.003786,
+          "u_a": 0.3606,
+          "u_b": 0.0371,
+          "u_diff": 0.3235,
+          "b_a": 0.025,
+          "b_b": 0.1152,
+          "action_a": "WAIT",
+          "action_b": "ACT",
+          "scalar_action": "WAIT",
+          "ev_act": -3.1655,
+          "ev_wait": -1.0
+        },
+        {
+          "P_a": 0.1242,
+          "P_b": 0.1223,
+          "P_diff": 0.001872,
+          "u_a": 0.3606,
+          "u_b": 0.0597,
+          "u_diff": 0.3009,
+          "b_a": 0.025,
+          "b_b": 0.1083,
+          "action_a": "WAIT",
+          "action_b": "ACT",
+          "scalar_action": "WAIT",
+          "ev_act": -3.1513,
+          "ev_wait": -1.0
+        },
+        {
+          "P_a": 0.1242,
+          "P_b": 0.1245,
+          "P_diff": 0.000295,
+          "u_a": 0.3606,
+          "u_b": 0.0593,
+          "u_diff": 0.3012,
+          "b_a": 0.025,
+          "b_b": 0.1161,
+          "action_a": "WAIT",
+          "action_b": "ACT",
+          "scalar_action": "WAIT",
+          "ev_act": -3.1348,
+          "ev_wait": -1.0
+        },
+        {
+          "P_a": 0.1242,
+          "P_b": 0.1208,
+          "P_diff": 0.003423,
+          "u_a": 0.3606,
+          "u_b": 0.0557,
+          "u_diff": 0.3049,
+          "b_a": 0.025,
+          "b_b": 0.0712,
+          "action_a": "WAIT",
+          "action_b": "ACT",
+          "scalar_action": "WAIT",
+          "ev_act": -3.1625,
+          "ev_wait": -1.0
+        },
+        {
+          "P_a": 0.1242,
+          "P_b": 0.1158,
+          "P_diff": 0.008345,
+          "u_a": 0.3606,
+          "u_b": 0.0296,
+          "u_diff": 0.331,
+          "b_a": 0.025,
+          "b_b": 0.1002,
+          "action_a": "WAIT",
+          "action_b": "ACT",
+          "scalar_action": "WAIT",
+          "ev_act": -3.2,
+          "ev_wait": -1.0
+        },
+        {
+          "P_a": 0.1242,
+          "P_b": 0.1199,
+          "P_diff": 0.00424,
+          "u_a": 0.3606,
+          "u_b": 0.052,
+          "u_diff": 0.3086,
+          "b_a": 0.025,
+          "b_b": 0.0729,
+          "action_a": "WAIT",
+          "action_b": "ACT",
+          "scalar_action": "WAIT",
+          "ev_act": -3.1692,
+          "ev_wait": -1.0
+        },
+        {
+          "P_a": 0.1242,
+          "P_b": 0.12,
+          "P_diff": 0.004162,
+          "u_a": 0.3606,
+          "u_b": 0.0539,
+          "u_diff": 0.3067,
+          "b_a": 0.025,
+          "b_b": 0.0891,
+          "action_a": "WAIT",
+          "action_b": "ACT",
+          "scalar_action": "WAIT",
+          "ev_act": -3.1685,
+          "ev_wait": -1.0
+        },
+        {
+          "P_a": 0.1242,
+          "P_b": 0.1247,
+          "P_diff": 0.000484,
+          "u_a": 0.3606,
+          "u_b": 0.0203,
+          "u_diff": 0.3402,
+          "b_a": 0.025,
+          "b_b": 0.1168,
+          "action_a": "WAIT",
+          "action_b": "ACT",
+          "scalar_action": "WAIT",
+          "ev_act": -3.1333,
+          "ev_wait": -1.0
+        },
+        {
+          "P_a": 0.1242,
+          "P_b": 0.1221,
+          "P_diff": 0.002104,
+          "u_a": 0.3606,
+          "u_b": 0.0485,
+          "u_diff": 0.3121,
+          "b_a": 0.025,
+          "b_b": 0.1127,
+          "action_a": "WAIT",
+          "action_b": "ACT",
+          "scalar_action": "WAIT",
+          "ev_act": -3.1527,
+          "ev_wait": -1.0
+        }
+      ]
+    },
+    "A5_analytical": {
+      "theorem": "The projection P(omega) = b + a*u maps from the 3-dimensional opinion space {(b,d,u,a) : b+d+u=1, b,d,u,a in [0,1]} onto [0,1]. For generic P in (0,1), the fiber P^{-1}(P) is a 2-dimensional surface. This means infinitely many distinct epistemic states collapse to each scalar value.",
+      "fiber_dimensionality": 2,
+      "opinion_space_dimensionality": 3,
+      "scalar_space_dimensionality": 1,
+      "information_destroyed_dimensions": 2,
+      "fiber_sizes_at_001_grid": [
+        {
+          "P": 0.0,
+          "fiber_size_at_001_resolution": 0
+        },
+        {
+          "P": 0.1,
+          "fiber_size_at_001_resolution": 55
+        },
+        {
+          "P": 0.25,
+          "fiber_size_at_001_resolution": 342
+        },
+        {
+          "P": 0.5,
+          "fiber_size_at_001_resolution": 1535
+        },
+        {
+          "P": 0.75,
+          "fiber_size_at_001_resolution": 4031
+        },
+        {
+          "P": 0.9,
+          "fiber_size_at_001_resolution": 6700
+        },
+        {
+          "P": 1.0,
+          "fiber_size_at_001_resolution": 9999
+        }
+      ]
+    }
+  },
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.0",
+    "numpy_version": "2.4.3",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": "All three hypotheses confirmed. H1: 100.0 opinions/bin (many-to-one). H2: 6.56 bits lost. H3: 116388 conflicting action pairs found."
+}

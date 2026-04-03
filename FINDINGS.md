@@ -2922,3 +2922,139 @@ Results will be recorded in the next full benchmark suite run
 - `benchmarks/run_all.py` (A8 integrated into suite output)
 - `benchmarks/results/scaling_results_2026-04-03T03-33-22Z.json`
 - `benchmarks/results/scaling_results_2026-04-03T03-33-22Z.md`
+
+
+---
+
+## EN7.2: Information-Theoretic Capacity Comparison
+
+**Date:** 2026-04-03
+**Status:** POSITIVE (all 3 hypotheses confirmed)
+
+### Hypotheses (pre-registered)
+
+- **H1:** The projection omega -> P(omega) is many-to-one (multiple
+  distinct epistemic states collapse to the same scalar).
+- **H2:** The information loss is quantifiable: H(omega|P) > 0 bits.
+- **H3:** The lost information has practical consequence: scalar-identical
+  opinions require different optimal actions.
+
+### Methodology
+
+Generated 10,000 random SL opinions with (b,d,u) uniform on the
+2-simplex (Dirichlet(1,1,1)) and base rate a uniform on [0,1].
+Projected each to scalar P(omega) = b + a*u. Measured information
+loss via Shannon entropy on discretized distributions, collision
+counting on binned scalars, bits-per-representation at multiple
+quantization levels, and decision-theoretic loss analysis.
+
+Seed: 42. Hardware: Windows, 64GB RAM.
+
+### Results
+
+#### A1: Collision Analysis
+
+| Metric | Value |
+|--------|-------|
+| Scalar bins | 100 |
+| Bins occupied | 100/100 |
+| Mean opinions per bin | 100.0 |
+| Max in single bin | 159 |
+| Mean uncertainty range within bin | 0.878 |
+| Max uncertainty range within bin | 0.985 |
+
+Every scalar bin contains ~100 distinct opinions. Within a single bin
+(opinions sharing the same scalar P to 1% precision), uncertainty
+values span nearly the entire [0,1] range (mean range 0.878). This
+means opinions with the same scalar confidence can range from "near
+certain" (u ~ 0.01) to "nearly ignorant" (u ~ 0.99).
+
+#### A2: Shannon Entropy Analysis
+
+| Measure | Bits |
+|---------|------|
+| H(opinion) | 12.61 |
+| H(scalar) | 6.51 |
+| H(opinion given scalar) | 6.56 |
+| I(opinion; scalar) | 6.05 |
+| Information preserved | 48.0% |
+| **Information LOST** | **52.0%** |
+
+The scalar projection destroys **6.56 bits** -- more than half of the
+12.61 bits carried by the full opinion. This is not a small rounding
+error; it is a fundamental, information-theoretic loss equivalent to
+discarding ~100x distinguishable epistemic states per scalar value.
+
+#### A3: Bits-per-Representation (Quantization Analysis)
+
+| Precision | Scalar capacity | Opinion capacity | Gap | States ratio |
+|-----------|----------------|-----------------|-----|-------------|
+| 4-bit | 4.0 bits | 11.3 bits | 7.3 bits | 163x |
+| 8-bit | 8.0 bits | 23.0 bits | 15.0 bits | 33,282x |
+| 12-bit | 12.0 bits | 35.0 bits | 23.0 bits | 8,396,802x |
+| 16-bit | 16.0 bits | 47.0 bits | 31.0 bits | 2,147,614,722x |
+
+At 8-bit precision (typical for ML confidence scores), the opinion
+representation can distinguish 33,282x more epistemic states than a
+scalar. The gap grows as ~3x per doubling of precision because the
+simplex lattice grows quadratically while the scalar grows linearly.
+
+#### A4: Decision-Theoretic Loss
+
+Decision problem: ACT (expected payoff P*10 - (1-P)*5) vs WAIT
+(cost 1.0, gather more evidence). SL rule: WAIT if u >= 0.3.
+
+| Metric | Value |
+|--------|-------|
+| Pairs checked | 374,383 |
+| Conflicting action pairs | 116,388 |
+| **Fraction with action conflict** | **31.1%** |
+
+**31% of scalar-identical opinion pairs require different optimal
+actions under the SL decision rule.** Example: two opinions both
+projecting to P = 0.12, but one has u = 0.04 (strong disbelief,
+should ACT on the negative evidence) while the other has u = 0.36
+(insufficient evidence, should WAIT). A scalar-only agent cannot
+distinguish these cases.
+
+#### A5: Analytical Fiber Analysis
+
+The projection P(omega) = b + a*u maps from a 3-dimensional opinion
+space to 1-dimensional [0,1]. For each scalar value P, the preimage
+(fiber) is a 2-dimensional surface. At 0.01 grid resolution:
+
+| P value | Distinct opinions mapping to P |
+|---------|-------------------------------|
+| 0.10 | 55 |
+| 0.25 | 342 |
+| 0.50 | 1,535 |
+| 0.75 | 4,031 |
+| 0.90 | 6,700 |
+| 1.00 | 9,999 |
+
+The fiber grows with P because more (b, a, u) combinations satisfy
+b + a*u = P when the target is larger.
+
+### Hypothesis Outcomes
+
+| Hypothesis | Outcome | Evidence |
+|-----------|---------|----------|
+| H1: Many-to-one projection | **CONFIRMED** | 100 opinions/bin, 0.878 mean u-range |
+| H2: Info loss > 0 bits | **CONFIRMED** | 6.56 bits lost (52% of total) |
+| H3: Decision conflict | **CONFIRMED** | 31.1% of pairs require different actions |
+
+### Key Takeaway for Paper
+
+The scalar confidence value P = 0.75 could mean "I have strong
+evidence that the probability is 75%" (b=0.7, d=0.2, u=0.1) or "I
+have no evidence at all and my prior is 75%" (b=0, d=0, u=1, a=0.75).
+These states carry identical scalar confidence but require
+fundamentally different downstream behavior. The opinion tuple
+preserves this distinction at a cost of 3 additional floats per
+annotation -- a 4x storage overhead that preserves 2x the
+information content.
+
+### Files
+
+- `experiments/EN7/en7_2_info_theoretic.py`
+- `experiments/EN7/results/en7_2_results.json`
