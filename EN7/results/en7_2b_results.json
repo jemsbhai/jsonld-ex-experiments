@@ -1,0 +1,471 @@
+{
+  "experiment_id": "EN7.2b",
+  "parameters": {
+    "n_opinions": 10000,
+    "seed": 42,
+    "distributions": [
+      "D0_uniform",
+      "D1_overconfident_dnn",
+      "D2_calibrated_dnn",
+      "D3_high_uncertainty",
+      "D4_evidence_small",
+      "D5_evidence_large",
+      "D6_binary_classifier"
+    ],
+    "ablation_Ns": [
+      1000,
+      10000,
+      100000
+    ],
+    "ablation_bins": [
+      50,
+      100,
+      200,
+      500
+    ],
+    "ablation_base_rates": [
+      "uniform",
+      "beta_2_2",
+      "fixed_0.5"
+    ],
+    "decision_thresholds": [
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5
+    ]
+  },
+  "metrics": {
+    "H4_robust_to_parameters": true,
+    "H5_holds_for_realistic_distributions": true,
+    "H5_all_show_loss": true,
+    "H5_min_pct_lost": 22.37,
+    "H5_max_pct_lost": 51.99,
+    "H6_evidence_higher_loss": false,
+    "H6_evidence_small_pct_lost": 22.37,
+    "H6_evidence_large_pct_lost": 28.16,
+    "H6_avg_confidence_pct_lost": 31.89,
+    "overall_conclusion": "ROBUST",
+    "total_time_sec": 7.2
+  },
+  "timestamp": "2026-04-03T04:09:57.869068+00:00",
+  "raw_data": {
+    "B1_ablation": {
+      "n_convergence": {
+        "1000": {
+          "n": 1000,
+          "H_opinion": 9.8878,
+          "H_scalar": 6.3976,
+          "H_lost": 3.5422,
+          "pct_lost": 35.82
+        },
+        "10000": {
+          "n": 10000,
+          "H_opinion": 12.6093,
+          "H_scalar": 6.507,
+          "H_lost": 6.5551,
+          "pct_lost": 51.99
+        },
+        "100000": {
+          "n": 100000,
+          "H_opinion": 13.5334,
+          "H_scalar": 6.5149,
+          "H_lost": 8.6442,
+          "pct_lost": 63.87
+        }
+      },
+      "bin_resolution": {
+        "50": {
+          "bins": 50,
+          "H_lost": 7.4213,
+          "pct_lost": 58.86,
+          "mean_per_bin": 200.0,
+          "mean_u_range": 0.9097
+        },
+        "100": {
+          "bins": 100,
+          "H_lost": 6.5551,
+          "pct_lost": 51.99,
+          "mean_per_bin": 100.0,
+          "mean_u_range": 0.8779
+        },
+        "200": {
+          "bins": 200,
+          "H_lost": 5.6647,
+          "pct_lost": 44.93,
+          "mean_per_bin": 50.0,
+          "mean_u_range": 0.8297
+        },
+        "500": {
+          "bins": 500,
+          "H_lost": 4.4371,
+          "pct_lost": 35.19,
+          "mean_per_bin": 20.08,
+          "mean_u_range": 0.7413
+        }
+      },
+      "base_rate_distribution": {
+        "uniform": {
+          "base_rate": "uniform",
+          "H_lost": 6.5551,
+          "pct_lost": 51.99,
+          "decision_conflict_rate": 0.3109
+        },
+        "beta_2_2": {
+          "base_rate": "beta_2_2",
+          "H_lost": 6.5805,
+          "pct_lost": 52.57,
+          "decision_conflict_rate": 0.302
+        },
+        "fixed_0.5": {
+          "base_rate": "fixed_0.5",
+          "H_lost": 4.7544,
+          "pct_lost": 46.61,
+          "decision_conflict_rate": 0.2479
+        }
+      },
+      "decision_threshold": {
+        "0.1": {
+          "u_threshold": 0.1,
+          "conflicts": 55302,
+          "total_pairs": 374383,
+          "conflict_rate": 0.1477
+        },
+        "0.2": {
+          "u_threshold": 0.2,
+          "conflicts": 93313,
+          "total_pairs": 374383,
+          "conflict_rate": 0.2492
+        },
+        "0.3": {
+          "u_threshold": 0.3,
+          "conflicts": 116388,
+          "total_pairs": 374383,
+          "conflict_rate": 0.3109
+        },
+        "0.4": {
+          "u_threshold": 0.4,
+          "conflicts": 120162,
+          "total_pairs": 374383,
+          "conflict_rate": 0.321
+        },
+        "0.5": {
+          "u_threshold": 0.5,
+          "conflicts": 104747,
+          "total_pairs": 374383,
+          "conflict_rate": 0.2798
+        }
+      }
+    },
+    "B2_distributions": {
+      "D0_uniform": {
+        "description": "Uniform on simplex (EN7.2 baseline)",
+        "ml_scenario": "Theoretical baseline -- no distributional assumption",
+        "descriptive_stats": {
+          "mean_belief": 0.3332,
+          "mean_disbelief": 0.334,
+          "mean_uncertainty": 0.3328,
+          "mean_P": 0.4994,
+          "std_belief": 0.2342,
+          "std_uncertainty": 0.2351,
+          "std_P": 0.2352
+        },
+        "entropy": {
+          "H_opinion_bits": 12.6093,
+          "H_scalar_bits": 6.507,
+          "H_opinion_given_scalar_bits": 6.5551,
+          "mutual_information_bits": 6.0542,
+          "information_preserved_pct": 48.01,
+          "information_lost_pct": 51.99
+        },
+        "collisions": {
+          "mean_per_bin": 100.0,
+          "max_per_bin": 159,
+          "mean_uncertainty_range": 0.8779,
+          "max_uncertainty_range": 0.9845
+        },
+        "decision": {
+          "conflicting_pairs": 116388,
+          "fraction_conflicting": 0.3109,
+          "total_pairs_checked": 374383
+        }
+      },
+      "D1_overconfident_dnn": {
+        "description": "Overconfident DNN (Beta(5,1), u~0.05)",
+        "ml_scenario": "Uncalibrated deep network (Guo et al. 2017)",
+        "descriptive_stats": {
+          "mean_belief": 0.7879,
+          "mean_disbelief": 0.1568,
+          "mean_uncertainty": 0.0554,
+          "mean_P": 0.8156,
+          "std_belief": 0.1348,
+          "std_uncertainty": 0.0261,
+          "std_P": 0.1334
+        },
+        "entropy": {
+          "H_opinion_bits": 6.7753,
+          "H_scalar_bits": 5.4728,
+          "H_opinion_given_scalar_bits": 2.2876,
+          "mutual_information_bits": 4.4878,
+          "information_preserved_pct": 66.24,
+          "information_lost_pct": 33.76
+        },
+        "collisions": {
+          "mean_per_bin": 126.58,
+          "max_per_bin": 465,
+          "mean_uncertainty_range": 0.0804,
+          "max_uncertainty_range": 0.0899
+        },
+        "decision": {
+          "conflicting_pairs": 0,
+          "fraction_conflicting": 0.0,
+          "total_pairs_checked": 418580
+        }
+      },
+      "D2_calibrated_dnn": {
+        "description": "Calibrated DNN (Beta(2,2), entropy-derived u)",
+        "ml_scenario": "Temperature-scaled deep network",
+        "descriptive_stats": {
+          "mean_belief": 0.3191,
+          "mean_disbelief": 0.3196,
+          "mean_uncertainty": 0.3613,
+          "mean_P": 0.4998,
+          "std_belief": 0.184,
+          "std_uncertainty": 0.1246,
+          "std_P": 0.1726
+        },
+        "entropy": {
+          "H_opinion_bits": 7.3873,
+          "H_scalar_bits": 6.1251,
+          "H_opinion_given_scalar_bits": 2.2184,
+          "mutual_information_bits": 5.1689,
+          "information_preserved_pct": 69.97,
+          "information_lost_pct": 30.03
+        },
+        "collisions": {
+          "mean_per_bin": 104.17,
+          "max_per_bin": 297,
+          "mean_uncertainty_range": 0.0741,
+          "max_uncertainty_range": 0.1129
+        },
+        "decision": {
+          "conflicting_pairs": 0,
+          "fraction_conflicting": 0.0,
+          "total_pairs_checked": 389432
+        }
+      },
+      "D3_high_uncertainty": {
+        "description": "High-uncertainty model (Uniform conf, u~0.3-0.7)",
+        "ml_scenario": "Early training or out-of-distribution inference",
+        "descriptive_stats": {
+          "mean_belief": 0.2522,
+          "mean_disbelief": 0.2482,
+          "mean_uncertainty": 0.4996,
+          "mean_P": 0.502,
+          "std_belief": 0.1585,
+          "std_uncertainty": 0.1155,
+          "std_P": 0.148
+        },
+        "entropy": {
+          "H_opinion_bits": 8.9398,
+          "H_scalar_bits": 5.8744,
+          "H_opinion_given_scalar_bits": 4.0292,
+          "mutual_information_bits": 4.9105,
+          "information_preserved_pct": 54.93,
+          "information_lost_pct": 45.07
+        },
+        "collisions": {
+          "mean_per_bin": 142.86,
+          "max_per_bin": 257,
+          "mean_uncertainty_range": 0.2842,
+          "max_uncertainty_range": 0.3998
+        },
+        "decision": {
+          "conflicting_pairs": 0,
+          "fraction_conflicting": 0.0,
+          "total_pairs_checked": 412075
+        }
+      },
+      "D4_evidence_small": {
+        "description": "Evidence-based, small N (Poisson(10) obs)",
+        "ml_scenario": "Sparse data: few-shot learning, rare events, early A/B tests",
+        "descriptive_stats": {
+          "mean_belief": 0.3646,
+          "mean_disbelief": 0.359,
+          "mean_uncertainty": 0.2763,
+          "mean_P": 0.5028,
+          "std_belief": 0.2266,
+          "std_uncertainty": 0.1612,
+          "std_P": 0.2115
+        },
+        "entropy": {
+          "H_opinion_bits": 6.7379,
+          "H_scalar_bits": 5.3607,
+          "H_opinion_given_scalar_bits": 1.5075,
+          "mutual_information_bits": 5.2304,
+          "information_preserved_pct": 77.63,
+          "information_lost_pct": 22.37
+        },
+        "collisions": {
+          "mean_per_bin": 105.26,
+          "max_per_bin": 1550,
+          "mean_uncertainty_range": 0.1468,
+          "max_uncertainty_range": 0.4765
+        },
+        "decision": {
+          "conflicting_pairs": 25252,
+          "fraction_conflicting": 0.0642,
+          "total_pairs_checked": 393170
+        }
+      },
+      "D5_evidence_large": {
+        "description": "Evidence-based, large N (Poisson(100) obs)",
+        "ml_scenario": "Rich data: large-scale tests, well-studied domains",
+        "descriptive_stats": {
+          "mean_belief": 0.4763,
+          "mean_disbelief": 0.4736,
+          "mean_uncertainty": 0.0501,
+          "mean_P": 0.5014,
+          "std_belief": 0.2254,
+          "std_uncertainty": 0.0504,
+          "std_P": 0.2238
+        },
+        "entropy": {
+          "H_opinion_bits": 7.8062,
+          "H_scalar_bits": 6.3916,
+          "H_opinion_given_scalar_bits": 2.1982,
+          "mutual_information_bits": 5.608,
+          "information_preserved_pct": 71.84,
+          "information_lost_pct": 28.16
+        },
+        "collisions": {
+          "mean_per_bin": 101.01,
+          "max_per_bin": 294,
+          "mean_uncertainty_range": 0.1166,
+          "max_uncertainty_range": 0.1651
+        },
+        "decision": {
+          "conflicting_pairs": 0,
+          "fraction_conflicting": 0.0,
+          "total_pairs_checked": 378111
+        }
+      },
+      "D6_binary_classifier": {
+        "description": "Binary classifier bimodal (Beta mixture, low u)",
+        "ml_scenario": "Confident binary classifier (spam/fraud detection)",
+        "descriptive_stats": {
+          "mean_belief": 0.451,
+          "mean_disbelief": 0.4636,
+          "mean_uncertainty": 0.0853,
+          "mean_P": 0.4937,
+          "std_belief": 0.3892,
+          "std_uncertainty": 0.0374,
+          "std_P": 0.3884
+        },
+        "entropy": {
+          "H_opinion_bits": 7.1985,
+          "H_scalar_bits": 5.8328,
+          "H_opinion_given_scalar_bits": 2.3025,
+          "mutual_information_bits": 4.896,
+          "information_preserved_pct": 68.01,
+          "information_lost_pct": 31.99
+        },
+        "collisions": {
+          "mean_per_bin": 102.04,
+          "max_per_bin": 463,
+          "mean_uncertainty_range": 0.1144,
+          "max_uncertainty_range": 0.1298
+        },
+        "decision": {
+          "conflicting_pairs": 0,
+          "fraction_conflicting": 0.0,
+          "total_pairs_checked": 390213
+        }
+      }
+    },
+    "B3_summary": {
+      "summary_table": [
+        {
+          "distribution": "D0_uniform",
+          "description": "Uniform on simplex (EN7.2 baseline)",
+          "H_opinion": 12.6093,
+          "H_lost": 6.5551,
+          "pct_lost": 51.99,
+          "u_range": 0.8779,
+          "conflict_rate": 0.3109
+        },
+        {
+          "distribution": "D1_overconfident_dnn",
+          "description": "Overconfident DNN (Beta(5,1), u~0.05)",
+          "H_opinion": 6.7753,
+          "H_lost": 2.2876,
+          "pct_lost": 33.76,
+          "u_range": 0.0804,
+          "conflict_rate": 0.0
+        },
+        {
+          "distribution": "D2_calibrated_dnn",
+          "description": "Calibrated DNN (Beta(2,2), entropy-derived u)",
+          "H_opinion": 7.3873,
+          "H_lost": 2.2184,
+          "pct_lost": 30.03,
+          "u_range": 0.0741,
+          "conflict_rate": 0.0
+        },
+        {
+          "distribution": "D3_high_uncertainty",
+          "description": "High-uncertainty model (Uniform conf, u~0.3-0.7)",
+          "H_opinion": 8.9398,
+          "H_lost": 4.0292,
+          "pct_lost": 45.07,
+          "u_range": 0.2842,
+          "conflict_rate": 0.0
+        },
+        {
+          "distribution": "D4_evidence_small",
+          "description": "Evidence-based, small N (Poisson(10) obs)",
+          "H_opinion": 6.7379,
+          "H_lost": 1.5075,
+          "pct_lost": 22.37,
+          "u_range": 0.1468,
+          "conflict_rate": 0.0642
+        },
+        {
+          "distribution": "D5_evidence_large",
+          "description": "Evidence-based, large N (Poisson(100) obs)",
+          "H_opinion": 7.8062,
+          "H_lost": 2.1982,
+          "pct_lost": 28.16,
+          "u_range": 0.1166,
+          "conflict_rate": 0.0
+        },
+        {
+          "distribution": "D6_binary_classifier",
+          "description": "Binary classifier bimodal (Beta mixture, low u)",
+          "H_opinion": 7.1985,
+          "H_lost": 2.3025,
+          "pct_lost": 31.99,
+          "u_range": 0.1144,
+          "conflict_rate": 0.0
+        }
+      ],
+      "all_show_info_loss": true,
+      "min_pct_lost": 22.37,
+      "max_pct_lost": 51.99,
+      "min_conflict_rate": 0.0,
+      "conclusion": "ROBUST"
+    }
+  },
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.0",
+    "numpy_version": "2.4.3",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": "Conclusion: ROBUST. Info loss range: 22.4%-52.0% across 7 distributions. H4=CONFIRMED, H5=CONFIRMED, H6=REJECTED."
+}
