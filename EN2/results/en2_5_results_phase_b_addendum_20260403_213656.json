@@ -1,0 +1,22 @@
+{
+  "experiment_id": "EN2.5_phase_b_addendum",
+  "parameters": {
+    "phase": "B_addendum_coco_audio",
+    "seed": 42,
+    "device": "cuda",
+    "total_time_s": 73.83191919326782
+  },
+  "metrics": {
+    "per_dataset": {},
+    "failed": [
+      {
+        "name": "SUPERB Keyword Spotting",
+        "error": "With n_samples=0, test_size=0.3 and train_size=None, the resulting train set will be empty. Adjust any of the aforementioned parameters."
+      }
+    ]
+  },
+  "timestamp": "2026-04-04T01:36:56.877554+00:00",
+  "raw_data": null,
+  "environment": null,
+  "notes": "Addendum: COCO detection + SUPERB audio. Now 11/13 datasets with real models. LibriSpeech (73 samples) and Synthea kept synthetic."
+}

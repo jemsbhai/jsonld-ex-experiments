@@ -1,0 +1,123 @@
+{
+  "experiment_id": "EN1.6-real",
+  "experiment_name": "Intel Berkeley Lab Sensor Fusion",
+  "timestamp": "20260402_060329",
+  "config": {
+    "dataset": "Intel Berkeley Research Lab (Bodik et al. 2004)",
+    "dataset_url": "https://raw.githubusercontent.com/linsea423/Intel_Lab_Data/master/data.zip",
+    "n_sensors": 54,
+    "n_readings": "~2.3M",
+    "date_range": "2004-02-28 to 2004-04-05",
+    "bin_minutes": 5,
+    "threshold": 25.0,
+    "normal_range": [
+      10,
+      40
+    ],
+    "conflict_threshold": 0.3,
+    "base_rate": 0.4,
+    "n_clusters": 3
+  },
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.0",
+    "numpy_version": "2.4.3",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "cluster_results": [
+    {
+      "cluster_id": 0,
+      "sensors": [
+        1,
+        2,
+        3,
+        4,
+        7
+      ],
+      "region": "NE corner",
+      "n_timesteps": 5944,
+      "total_anomalies": 371,
+      "anomaly_rate": 1.2483176312247646,
+      "scalar_mean_accuracy": 0.951043068640646,
+      "scalar_mean_mae": 0.9257914227689877,
+      "trimmed_mean_accuracy": 0.995457604306864,
+      "trimmed_mean_mae": 0.08858897694560008,
+      "median_accuracy": 0.9996635262449529,
+      "median_mae": 0.026699250084118425,
+      "kalman_accuracy": 0.951043068640646,
+      "kalman_mae": 0.9541115408844935,
+      "sl_conflict_accuracy": 0.9996635262449529,
+      "sl_conflict_mae": 0.026699250084118425,
+      "sl_excluded_total": 0,
+      "sl_correct_exclusions": 0,
+      "sl_exclusion_precision": 0,
+      "conflict_clean_mean": 0.10055798178039042,
+      "conflict_fault_mean": 0.16871308309973598,
+      "conflict_increase": 67.77691846301188
+    },
+    {
+      "cluster_id": 1,
+      "sensors": [
+        6,
+        19,
+        35,
+        50
+      ],
+      "region": "scattered",
+      "n_timesteps": 3261,
+      "total_anomalies": 0,
+      "anomaly_rate": 0.0,
+      "scalar_mean_accuracy": 0.9957068383931309,
+      "scalar_mean_mae": 0.3114945554447503,
+      "trimmed_mean_accuracy": 1.0,
+      "trimmed_mean_mae": 0.0,
+      "median_accuracy": 1.0,
+      "median_mae": 0.0,
+      "kalman_accuracy": 0.9957068383931309,
+      "kalman_mae": 0.25399722063639385,
+      "sl_conflict_accuracy": 1.0,
+      "sl_conflict_mae": 0.0,
+      "sl_excluded_total": 0,
+      "sl_correct_exclusions": 0,
+      "sl_exclusion_precision": 0,
+      "conflict_clean_mean": 0.11246559455630732,
+      "conflict_fault_mean": 0,
+      "conflict_increase": -100.0
+    },
+    {
+      "cluster_id": 2,
+      "sensors": [
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "region": "E wall",
+      "n_timesteps": 5648,
+      "total_anomalies": 723,
+      "anomaly_rate": 2.560198300283286,
+      "scalar_mean_accuracy": 0.9490084985835694,
+      "scalar_mean_mae": 2.3339571303959863,
+      "trimmed_mean_accuracy": 0.9780453257790368,
+      "trimmed_mean_mae": 2.11784577522804,
+      "median_accuracy": 0.9821175637393768,
+      "median_mae": 2.822807423719311,
+      "kalman_accuracy": 0.9490084985835694,
+      "kalman_mae": 1.7135909876202533,
+      "sl_conflict_accuracy": 0.9821175637393768,
+      "sl_conflict_mae": 2.822807423719311,
+      "sl_excluded_total": 0,
+      "sl_correct_exclusions": 0,
+      "sl_exclusion_precision": 0,
+      "conflict_clean_mean": 0.11408272642559565,
+      "conflict_fault_mean": 0.18299479775736882,
+      "conflict_increase": 60.40535100352582
+    }
+  ],
+  "elapsed_seconds": 1.5042359000071883
+}

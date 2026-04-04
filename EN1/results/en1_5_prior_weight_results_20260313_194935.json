@@ -1,0 +1,111 @@
+{
+  "experiment_id": "EN1.5-supp",
+  "experiment_name": "Prior Weight Sweep",
+  "timestamp": "20260313_194935",
+  "config": {
+    "prior_weights": [
+      1,
+      2,
+      10
+    ],
+    "n_values": [
+      5,
+      100
+    ],
+    "n_reps": 50,
+    "seed": 42,
+    "n_datasets": 4,
+    "total_edges": 1016
+  },
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.0",
+    "numpy_version": "2.4.3",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "results": {
+    "1": {
+      "5": {
+        "scalar_mae": 0.011607937140608102,
+        "sl_mae": 0.009671346681170513,
+        "scalar_ece": 0.004507999871007491,
+        "sl_ece": 0.004659331221116639,
+        "scalar_brier": 0.13813763076385766,
+        "sl_brier": 0.13792783236237946,
+        "delta_mae": 0.0019365904594375889,
+        "predicted_reduction_pct": 16.666666666666664,
+        "actual_reduction_pct": 16.683330000666572,
+        "n_trials": 50800
+      },
+      "100": {
+        "scalar_mae": 0.0026850241526185188,
+        "sl_mae": 0.0026579081734331546,
+        "scalar_ece": 0.004452058588915163,
+        "sl_ece": 0.004352292842225683,
+        "scalar_brier": 0.13689571238656364,
+        "sl_brier": 0.13689514882185777,
+        "delta_mae": 2.7115979185364167e-05,
+        "predicted_reduction_pct": 0.9900990099009901,
+        "actual_reduction_pct": 1.0098970304948587,
+        "n_trials": 50800
+      }
+    },
+    "2": {
+      "5": {
+        "scalar_mae": 0.011703487372872348,
+        "sl_mae": 0.008357962245316897,
+        "scalar_ece": 0.0047228371735232805,
+        "sl_ece": 0.004069773685036793,
+        "scalar_brier": 0.13876196399552265,
+        "sl_brier": 0.13841943357809688,
+        "delta_mae": 0.003345525127555451,
+        "predicted_reduction_pct": 28.57142857142857,
+        "actual_reduction_pct": 28.585711429142762,
+        "n_trials": 50800
+      },
+      "100": {
+        "scalar_mae": 0.0027055914356730634,
+        "sl_mae": 0.002652010221164654,
+        "scalar_ece": 0.002377236493662116,
+        "sl_ece": 0.002219051253627583,
+        "scalar_brier": 0.1367059623434846,
+        "sl_brier": 0.13670528659965936,
+        "delta_mae": 5.358121450840933e-05,
+        "predicted_reduction_pct": 1.9607843137254901,
+        "actual_reduction_pct": 1.980388236078226,
+        "n_trials": 50800
+      }
+    },
+    "10": {
+      "5": {
+        "scalar_mae": 0.01168837994468824,
+        "sl_mae": 0.0038953475787136733,
+        "scalar_ece": 0.0050082193665161555,
+        "sl_ece": 0.005025315615653077,
+        "scalar_brier": 0.13686085827244082,
+        "sl_brier": 0.13637690058066623,
+        "delta_mae": 0.007793032365974567,
+        "predicted_reduction_pct": 66.66666666666666,
+        "actual_reduction_pct": 66.6733320002666,
+        "n_trials": 50800
+      },
+      "100": {
+        "scalar_mae": 0.002710223673459841,
+        "sl_mae": 0.002463347033738562,
+        "scalar_ece": 0.0023976546840997707,
+        "sl_ece": 0.002424912176621753,
+        "scalar_brier": 0.13645306161425091,
+        "sl_brier": 0.13644729802326774,
+        "delta_mae": 0.00024687663972127903,
+        "predicted_reduction_pct": 9.090909090909092,
+        "actual_reduction_pct": 9.109087273454412,
+        "n_trials": 50800
+      }
+    }
+  },
+  "total_elapsed_seconds": 25.89087550000113
+}

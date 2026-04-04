@@ -1,0 +1,136 @@
+{
+  "experiment_id": "EN2.5_phase_b",
+  "parameters": {
+    "phase": "B_gpu",
+    "seed": 42,
+    "device": "cuda"
+  },
+  "metrics": {
+    "per_dataset": {
+      "titanic": {
+        "name": "Titanic",
+        "dataset_id": "titanic",
+        "n_test": 215,
+        "model_accuracies": {
+          "sklearn_LogReg": 0.786046511627907,
+          "sklearn_RF": 0.8,
+          "sklearn_XGBoost_GPU": 0.786046511627907
+        },
+        "t3_conflicts": 0,
+        "t4_n_confidence": 164,
+        "t4_n_uncertainty": 164,
+        "t4_divergence": 0,
+        "t4_divergence_pct": 0.0
+      },
+      "fashion_mnist": {
+        "name": "Fashion-MNIST",
+        "dataset_id": "fashion_mnist",
+        "n_test": 10000,
+        "model_accuracies": {
+          "gpu_ResNet18": 0.8571,
+          "gpu_MobileNetV2": 0.9078,
+          "sklearn_LogReg": 0.8266
+        },
+        "t3_conflicts": 391,
+        "t4_n_confidence": 8937,
+        "t4_n_uncertainty": 8937,
+        "t4_divergence": 0,
+        "t4_divergence_pct": 0.0
+      },
+      "cifar10": {
+        "name": "CIFAR-10",
+        "dataset_id": "cifar10",
+        "n_test": 10000,
+        "model_accuracies": {
+          "gpu_ResNet18": 0.839,
+          "gpu_MobileNetV2": 0.8576,
+          "sklearn_LogReg": 0.3276
+        },
+        "t3_conflicts": 3388,
+        "t4_n_confidence": 8610,
+        "t4_n_uncertainty": 8610,
+        "t4_divergence": 0,
+        "t4_divergence_pct": 0.0
+      },
+      "pass_dataset": {
+        "name": "Beans",
+        "dataset_id": "pass_dataset",
+        "n_test": 128,
+        "model_accuracies": {
+          "gpu_ResNet18": 0.921875,
+          "gpu_MobileNetV2": 0.9375,
+          "sklearn_LogReg": 0.6875
+        },
+        "t3_conflicts": 3,
+        "t4_n_confidence": 127,
+        "t4_n_uncertainty": 127,
+        "t4_divergence": 0,
+        "t4_divergence_pct": 0.0
+      },
+      "etth1": {
+        "name": "ETTh1",
+        "dataset_id": "etth1",
+        "n_test": 5219,
+        "model_accuracies": {
+          "sklearn_Ridge": 0.29915929870046876,
+          "sklearn_RF": 0.38081476067198505,
+          "sklearn_XGBoost_GPU": 0.41231099283819994
+        },
+        "t3_conflicts": 33,
+        "t4_n_confidence": 1674,
+        "t4_n_uncertainty": 1674,
+        "t4_divergence": 0,
+        "t4_divergence_pct": 0.0
+      },
+      "timeseries_pile": {
+        "name": "ETTm1",
+        "dataset_id": "timeseries_pile",
+        "n_test": 5198,
+        "model_accuracies": {
+          "sklearn_Ridge": 0.2661853030185458,
+          "sklearn_RF": 0.34851828495063497,
+          "sklearn_XGBoost_GPU": 0.39559455721452075
+        },
+        "t3_conflicts": 12,
+        "t4_n_confidence": 1300,
+        "t4_n_uncertainty": 1300,
+        "t4_divergence": 0,
+        "t4_divergence_pct": 0.0
+      },
+      "squad": {
+        "name": "SQuAD v2",
+        "dataset_id": "squad",
+        "n_test": 11873,
+        "model_accuracies": {
+          "hf_roberta-squad2": 0.6914848816642803,
+          "sklearn_LogReg": 0.572391139560347,
+          "sklearn_RF": 0.8184115219405373
+        },
+        "t3_conflicts": 7684,
+        "t4_n_confidence": 8787,
+        "t4_n_uncertainty": 8787,
+        "t4_divergence": 0,
+        "t4_divergence_pct": 0.0
+      }
+    },
+    "aggregate": {
+      "conf": 29599,
+      "unc": 29599,
+      "div": 0
+    },
+    "failed": [
+      {
+        "name": "AG News",
+        "error": "sparse array length is ambiguous; use getnnz() or shape[0]"
+      },
+      {
+        "name": "IMDB",
+        "error": "sparse array length is ambiguous; use getnnz() or shape[0]"
+      }
+    ]
+  },
+  "timestamp": "2026-04-04T00:44:03.916850+00:00",
+  "raw_data": null,
+  "environment": null,
+  "notes": "Phase B GPU. 7/9 real, 4 synthetic-only. Time: 915s"
+}

@@ -1,0 +1,165 @@
+{
+  "experiment_id": "EN2.5",
+  "parameters": {
+    "phase": "A_synthetic",
+    "n_samples": 50,
+    "n_models": 3,
+    "confidence_threshold": 0.7,
+    "seed": 42,
+    "datasets": [
+      "common_voice",
+      "speech_commands"
+    ]
+  },
+  "metrics": {
+    "loc_comparison": {
+      "T1_load_inspect": {
+        "jsonld_ex": 19,
+        "hf_datasets": 10,
+        "plain_json": 8
+      },
+      "T2_annotate": {
+        "jsonld_ex": 26,
+        "hf_datasets": 33,
+        "plain_json": 12
+      },
+      "T3_merge": {
+        "jsonld_ex": 55,
+        "hf_datasets": 28,
+        "plain_json": 23
+      },
+      "T4_filter": {
+        "jsonld_ex": 16,
+        "hf_datasets": 11,
+        "plain_json": 11
+      },
+      "T5_export": {
+        "jsonld_ex": 28,
+        "hf_datasets": 10,
+        "plain_json": 10
+      }
+    },
+    "feature_scores": {
+      "jsonld_ex": {
+        "native": 14,
+        "workaround": 0,
+        "impossible": 0,
+        "total_14": 14,
+        "score_weighted": 14.0,
+        "details": {
+          "F01": true,
+          "F02": true,
+          "F03": true,
+          "F04": true,
+          "F05": true,
+          "F06": true,
+          "F07": true,
+          "F08": true,
+          "F09": true,
+          "F10": true,
+          "F11": true,
+          "F12": true,
+          "F13": true,
+          "F14": true
+        }
+      },
+      "hf_datasets": {
+        "native": 1,
+        "workaround": 1,
+        "impossible": 12,
+        "total_14": 2,
+        "score_weighted": 1.5,
+        "details": {
+          "F01": true,
+          "F02": "workaround",
+          "F03": false,
+          "F04": false,
+          "F05": false,
+          "F06": false,
+          "F07": false,
+          "F08": false,
+          "F09": false,
+          "F10": false,
+          "F11": false,
+          "F12": false,
+          "F13": false,
+          "F14": false
+        }
+      },
+      "plain_json": {
+        "native": 0,
+        "workaround": 8,
+        "impossible": 6,
+        "total_14": 8,
+        "score_weighted": 4.0,
+        "details": {
+          "F01": false,
+          "F02": "workaround",
+          "F03": "workaround",
+          "F04": "workaround",
+          "F05": "workaround",
+          "F06": false,
+          "F07": "workaround",
+          "F08": "workaround",
+          "F09": false,
+          "F10": false,
+          "F11": false,
+          "F12": false,
+          "F13": "workaround",
+          "F14": "workaround"
+        }
+      }
+    },
+    "interop_scores": {
+      "jsonld_ex": {
+        "json_parseable": true,
+        "json_ld_processable": true,
+        "rdf_convertible": true,
+        "croissant_compatible": true,
+        "prov_o_compatible": true,
+        "schema_org_compatible": true,
+        "sparql_queryable": true,
+        "arrow_compatible": false,
+        "total_7": 7
+      },
+      "hf_datasets": {
+        "json_parseable": true,
+        "json_ld_processable": false,
+        "rdf_convertible": false,
+        "croissant_compatible": false,
+        "prov_o_compatible": false,
+        "schema_org_compatible": false,
+        "sparql_queryable": false,
+        "arrow_compatible": true,
+        "total_7": 2
+      },
+      "plain_json": {
+        "json_parseable": true,
+        "json_ld_processable": false,
+        "rdf_convertible": false,
+        "croissant_compatible": false,
+        "prov_o_compatible": false,
+        "schema_org_compatible": false,
+        "sparql_queryable": false,
+        "arrow_compatible": false,
+        "total_7": 1
+      }
+    },
+    "per_dataset": {},
+    "dataset_summaries": [],
+    "failed_datasets": [
+      {
+        "id": "common_voice",
+        "error": "no records"
+      },
+      {
+        "id": "speech_commands",
+        "error": "no records"
+      }
+    ]
+  },
+  "timestamp": "2026-04-03T21:27:51.341042+00:00",
+  "raw_data": null,
+  "environment": null,
+  "notes": "Phase A: Synthetic predictions. All 5 tasks x 3 approaches across 11 datasets. Phase B (real model predictions) to follow."
+}

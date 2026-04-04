@@ -1,0 +1,355 @@
+{
+  "experiment_id": "EN8.5",
+  "parameters": {
+    "seed": 42,
+    "throughput_iterations": 1000,
+    "complexity_levels": [
+      "simple",
+      "medium",
+      "complex"
+    ],
+    "vector_variants": [
+      "float32",
+      "quantized"
+    ],
+    "formats": [
+      "JSON-LD",
+      "gzip(JSON)",
+      "CBOR-LD",
+      "gzip(CBOR)",
+      "MQTT",
+      "MessagePack"
+    ],
+    "vector_dimensions": {
+      "medium": 128,
+      "complex": 768
+    },
+    "quantization_method": "turboquant",
+    "quantization_bit_width": 4,
+    "note_protobuf_omitted": "Protobuf omitted: requires .proto schema compilation. MessagePack serves as the alternative schema-free binary format."
+  },
+  "metrics": {
+    "formats_tested": [
+      "JSON-LD",
+      "gzip(JSON)",
+      "CBOR-LD",
+      "gzip(CBOR)",
+      "MQTT",
+      "MessagePack"
+    ],
+    "documents_tested": [
+      "simple",
+      "medium_float32",
+      "medium_quantized",
+      "complex_float32",
+      "complex_quantized"
+    ],
+    "throughput_iterations": 1000,
+    "round_trip_fidelity": "30/30",
+    "fidelity_failures": [],
+    "cross_variant_savings": {
+      "medium": {
+        "json_float32_bytes": 3068,
+        "json_quantized_bytes": 680,
+        "json_reduction": 0.7784,
+        "cbor_float32_bytes": 1501,
+        "cbor_quantized_bytes": 477,
+        "cbor_reduction": 0.6822
+      },
+      "complex": {
+        "json_float32_bytes": 49948,
+        "json_quantized_bytes": 5953,
+        "json_reduction": 0.8808,
+        "cbor_float32_bytes": 21889,
+        "cbor_quantized_bytes": 3457,
+        "cbor_reduction": 0.8421
+      }
+    },
+    "quantization_analysis": {
+      "128d": {
+        "dimensions": 128,
+        "bit_width": 4,
+        "float32_json_bytes": 2645,
+        "quantized_json_bytes": 257,
+        "theoretical_minimum_bytes": 64,
+        "json_reduction_ratio": 0.0972,
+        "metadata_overhead_bytes": 76
+      },
+      "768d": {
+        "dimensions": 768,
+        "bit_width": 4,
+        "float32_json_bytes": 16193,
+        "quantized_json_bytes": 1537,
+        "theoretical_minimum_bytes": 384,
+        "json_reduction_ratio": 0.0949,
+        "metadata_overhead_bytes": 76
+      }
+    }
+  },
+  "timestamp": "2026-03-27T21:05:24.565717+00:00",
+  "raw_data": {
+    "format_results": {
+      "simple": [
+        {
+          "format": "JSON-LD",
+          "payload_bytes": 359,
+          "ser_ops_per_sec": 311109.7,
+          "deser_ops_per_sec": 430218.6,
+          "round_trip_ok": true,
+          "compression_ratio": 1.0
+        },
+        {
+          "format": "gzip(JSON)",
+          "payload_bytes": 237,
+          "ser_ops_per_sec": 95576.7,
+          "deser_ops_per_sec": 136375.4,
+          "round_trip_ok": true,
+          "compression_ratio": 0.6602
+        },
+        {
+          "format": "CBOR-LD",
+          "payload_bytes": 317,
+          "ser_ops_per_sec": 168984.6,
+          "deser_ops_per_sec": 245573.5,
+          "round_trip_ok": true,
+          "compression_ratio": 0.883
+        },
+        {
+          "format": "gzip(CBOR)",
+          "payload_bytes": 251,
+          "ser_ops_per_sec": 59409.6,
+          "deser_ops_per_sec": 58284.6,
+          "round_trip_ok": true,
+          "compression_ratio": 0.6992
+        },
+        {
+          "format": "MQTT",
+          "payload_bytes": 317,
+          "ser_ops_per_sec": 103922.0,
+          "deser_ops_per_sec": 160094.8,
+          "round_trip_ok": true,
+          "compression_ratio": 0.883
+        },
+        {
+          "format": "MessagePack",
+          "payload_bytes": 336,
+          "ser_ops_per_sec": 948856.6,
+          "deser_ops_per_sec": 736106.0,
+          "round_trip_ok": true,
+          "compression_ratio": 0.9359
+        }
+      ],
+      "medium_float32": [
+        {
+          "format": "JSON-LD",
+          "payload_bytes": 3068,
+          "ser_ops_per_sec": 20773.2,
+          "deser_ops_per_sec": 35378.6,
+          "round_trip_ok": true,
+          "compression_ratio": 1.0
+        },
+        {
+          "format": "gzip(JSON)",
+          "payload_bytes": 1637,
+          "ser_ops_per_sec": 9774.3,
+          "deser_ops_per_sec": 22206.9,
+          "round_trip_ok": true,
+          "compression_ratio": 0.5336
+        },
+        {
+          "format": "CBOR-LD",
+          "payload_bytes": 1501,
+          "ser_ops_per_sec": 46049.8,
+          "deser_ops_per_sec": 63984.8,
+          "round_trip_ok": true,
+          "compression_ratio": 0.4892
+        },
+        {
+          "format": "gzip(CBOR)",
+          "payload_bytes": 1416,
+          "ser_ops_per_sec": 21686.4,
+          "deser_ops_per_sec": 40414.8,
+          "round_trip_ok": true,
+          "compression_ratio": 0.4615
+        },
+        {
+          "format": "MQTT",
+          "payload_bytes": 1501,
+          "ser_ops_per_sec": 39302.8,
+          "deser_ops_per_sec": 50885.1,
+          "round_trip_ok": true,
+          "compression_ratio": 0.4892
+        },
+        {
+          "format": "MessagePack",
+          "payload_bytes": 1520,
+          "ser_ops_per_sec": 169762.0,
+          "deser_ops_per_sec": 395741.8,
+          "round_trip_ok": true,
+          "compression_ratio": 0.4954
+        }
+      ],
+      "medium_quantized": [
+        {
+          "format": "JSON-LD",
+          "payload_bytes": 680,
+          "ser_ops_per_sec": 176997.4,
+          "deser_ops_per_sec": 213506.4,
+          "round_trip_ok": true,
+          "compression_ratio": 1.0
+        },
+        {
+          "format": "gzip(JSON)",
+          "payload_bytes": 386,
+          "ser_ops_per_sec": 75021.0,
+          "deser_ops_per_sec": 89966.9,
+          "round_trip_ok": true,
+          "compression_ratio": 0.5676
+        },
+        {
+          "format": "CBOR-LD",
+          "payload_bytes": 477,
+          "ser_ops_per_sec": 77772.0,
+          "deser_ops_per_sec": 106192.1,
+          "round_trip_ok": true,
+          "compression_ratio": 0.7015
+        },
+        {
+          "format": "gzip(CBOR)",
+          "payload_bytes": 352,
+          "ser_ops_per_sec": 40907.8,
+          "deser_ops_per_sec": 58039.3,
+          "round_trip_ok": true,
+          "compression_ratio": 0.5176
+        },
+        {
+          "format": "MQTT",
+          "payload_bytes": 477,
+          "ser_ops_per_sec": 60076.3,
+          "deser_ops_per_sec": 107551.2,
+          "round_trip_ok": true,
+          "compression_ratio": 0.7015
+        },
+        {
+          "format": "MessagePack",
+          "payload_bytes": 470,
+          "ser_ops_per_sec": 396212.2,
+          "deser_ops_per_sec": 715870.9,
+          "round_trip_ok": true,
+          "compression_ratio": 0.6912
+        }
+      ],
+      "complex_float32": [
+        {
+          "format": "JSON-LD",
+          "payload_bytes": 49948,
+          "ser_ops_per_sec": 1327.7,
+          "deser_ops_per_sec": 2038.7,
+          "round_trip_ok": true,
+          "compression_ratio": 1.0
+        },
+        {
+          "format": "gzip(JSON)",
+          "payload_bytes": 22845,
+          "ser_ops_per_sec": 173.4,
+          "deser_ops_per_sec": 1520.7,
+          "round_trip_ok": true,
+          "compression_ratio": 0.4574
+        },
+        {
+          "format": "CBOR-LD",
+          "payload_bytes": 21889,
+          "ser_ops_per_sec": 3010.2,
+          "deser_ops_per_sec": 4601.2,
+          "round_trip_ok": true,
+          "compression_ratio": 0.4382
+        },
+        {
+          "format": "gzip(CBOR)",
+          "payload_bytes": 19291,
+          "ser_ops_per_sec": 1101.0,
+          "deser_ops_per_sec": 2374.8,
+          "round_trip_ok": true,
+          "compression_ratio": 0.3862
+        },
+        {
+          "format": "MQTT",
+          "payload_bytes": 21889,
+          "ser_ops_per_sec": 2605.4,
+          "deser_ops_per_sec": 4542.1,
+          "round_trip_ok": true,
+          "compression_ratio": 0.4382
+        },
+        {
+          "format": "MessagePack",
+          "payload_bytes": 21905,
+          "ser_ops_per_sec": 28308.8,
+          "deser_ops_per_sec": 25190.1,
+          "round_trip_ok": true,
+          "compression_ratio": 0.4386
+        }
+      ],
+      "complex_quantized": [
+        {
+          "format": "JSON-LD",
+          "payload_bytes": 5953,
+          "ser_ops_per_sec": 23788.7,
+          "deser_ops_per_sec": 22224.5,
+          "round_trip_ok": true,
+          "compression_ratio": 1.0
+        },
+        {
+          "format": "gzip(JSON)",
+          "payload_bytes": 1031,
+          "ser_ops_per_sec": 2004.9,
+          "deser_ops_per_sec": 12278.3,
+          "round_trip_ok": true,
+          "compression_ratio": 0.1732
+        },
+        {
+          "format": "CBOR-LD",
+          "payload_bytes": 3457,
+          "ser_ops_per_sec": 4448.7,
+          "deser_ops_per_sec": 6490.0,
+          "round_trip_ok": true,
+          "compression_ratio": 0.5807
+        },
+        {
+          "format": "gzip(CBOR)",
+          "payload_bytes": 960,
+          "ser_ops_per_sec": 2674.9,
+          "deser_ops_per_sec": 7359.3,
+          "round_trip_ok": true,
+          "compression_ratio": 0.1613
+        },
+        {
+          "format": "MQTT",
+          "payload_bytes": 3457,
+          "ser_ops_per_sec": 7042.5,
+          "deser_ops_per_sec": 8929.5,
+          "round_trip_ok": true,
+          "compression_ratio": 0.5807
+        },
+        {
+          "format": "MessagePack",
+          "payload_bytes": 2890,
+          "ser_ops_per_sec": 34846.1,
+          "deser_ops_per_sec": 86498.5,
+          "round_trip_ok": true,
+          "compression_ratio": 0.4855
+        }
+      ]
+    }
+  },
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.0",
+    "numpy_version": "2.4.3",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": "EN8.5 with TurboQuant enhancement. Quantized variant uses simulated 4-bit uniform quantization packed two nibbles per byte, representing what a real TurboQuant encoder would produce. Distortion constants are illustrative defaults, not calibrated. See quantization_bridge.py for the SL uncertainty mapping."
+}

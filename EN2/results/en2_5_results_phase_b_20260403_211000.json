@@ -1,0 +1,283 @@
+{
+  "experiment_id": "EN2.5_phase_b",
+  "parameters": {
+    "phase": "B_gpu",
+    "seed": 42,
+    "device": "cuda"
+  },
+  "metrics": {
+    "per_dataset": {
+      "titanic": {
+        "name": "Titanic",
+        "dataset_id": "titanic",
+        "n_test": 215,
+        "model_accuracies": {
+          "sklearn_LogReg": 0.786046511627907,
+          "sklearn_RF": 0.8,
+          "sklearn_XGBoost_GPU": 0.786046511627907
+        },
+        "t3_conflicts": 0,
+        "t4_n_confidence": 170,
+        "t4_n_uncertainty": 160,
+        "t4_divergence": 10,
+        "t4_divergence_pct": 5.88235294117647,
+        "t4_divergence_by_model": {
+          "sklearn_LogReg": {
+            "total_above_conf": 50,
+            "high_uncertainty": 10
+          },
+          "sklearn_RF": {
+            "total_above_conf": 55,
+            "high_uncertainty": 0
+          },
+          "sklearn_XGBoost_GPU": {
+            "total_above_conf": 65,
+            "high_uncertainty": 0
+          }
+        }
+      },
+      "ag_news": {
+        "name": "AG News",
+        "dataset_id": "ag_news",
+        "n_test": 7600,
+        "model_accuracies": {
+          "hf_bert-base-uncased-ag-news": 0.9514473684210526,
+          "hf_distilbert-base-uncased-ag-news": 0.9478947368421052,
+          "sklearn_LogReg": 0.9125
+        },
+        "t3_conflicts": 8,
+        "t4_n_confidence": 7065,
+        "t4_n_uncertainty": 6782,
+        "t4_divergence": 283,
+        "t4_divergence_pct": 4.005661712668082,
+        "t4_divergence_by_model": {
+          "hf_bert-base-uncased-ag-news": {
+            "total_above_conf": 2477,
+            "high_uncertainty": 0
+          },
+          "hf_distilbert-base-uncased-ag-news": {
+            "total_above_conf": 2427,
+            "high_uncertainty": 0
+          },
+          "sklearn_LogReg": {
+            "total_above_conf": 2161,
+            "high_uncertainty": 283
+          }
+        }
+      },
+      "imdb": {
+        "name": "IMDB",
+        "dataset_id": "imdb",
+        "n_test": 25000,
+        "model_accuracies": {
+          "hf_distilbert-base-uncased-finetuned-sst-2-english": 0.82832,
+          "hf_bert-base-uncased-imdb": 0.88652,
+          "sklearn_LogReg": 0.80916
+        },
+        "t3_conflicts": 0,
+        "t4_n_confidence": 21100,
+        "t4_n_uncertainty": 18781,
+        "t4_divergence": 2319,
+        "t4_divergence_pct": 10.990521327014218,
+        "t4_divergence_by_model": {
+          "hf_distilbert-base-uncased-finetuned-sst-2-english": {
+            "total_above_conf": 8116,
+            "high_uncertainty": 0
+          },
+          "hf_bert-base-uncased-imdb": {
+            "total_above_conf": 8136,
+            "high_uncertainty": 0
+          },
+          "sklearn_LogReg": {
+            "total_above_conf": 4848,
+            "high_uncertainty": 2319
+          }
+        }
+      },
+      "fashion_mnist": {
+        "name": "Fashion-MNIST",
+        "dataset_id": "fashion_mnist",
+        "n_test": 10000,
+        "model_accuracies": {
+          "gpu_ResNet18": 0.8681,
+          "gpu_MobileNetV2": 0.8908,
+          "sklearn_LogReg": 0.8266
+        },
+        "t3_conflicts": 75,
+        "t4_n_confidence": 8616,
+        "t4_n_uncertainty": 8273,
+        "t4_divergence": 343,
+        "t4_divergence_pct": 3.9809656453110494,
+        "t4_divergence_by_model": {
+          "gpu_ResNet18": {
+            "total_above_conf": 2926,
+            "high_uncertainty": 0
+          },
+          "gpu_MobileNetV2": {
+            "total_above_conf": 2938,
+            "high_uncertainty": 0
+          },
+          "sklearn_LogReg": {
+            "total_above_conf": 2752,
+            "high_uncertainty": 343
+          }
+        }
+      },
+      "cifar10": {
+        "name": "CIFAR-10",
+        "dataset_id": "cifar10",
+        "n_test": 10000,
+        "model_accuracies": {
+          "gpu_ResNet18": 0.8087,
+          "gpu_MobileNetV2": 0.8461,
+          "sklearn_LogReg": 0.3276
+        },
+        "t3_conflicts": 325,
+        "t4_n_confidence": 6391,
+        "t4_n_uncertainty": 5969,
+        "t4_divergence": 422,
+        "t4_divergence_pct": 6.603035518698169,
+        "t4_divergence_by_model": {
+          "gpu_ResNet18": {
+            "total_above_conf": 2714,
+            "high_uncertainty": 0
+          },
+          "gpu_MobileNetV2": {
+            "total_above_conf": 2840,
+            "high_uncertainty": 0
+          },
+          "sklearn_LogReg": {
+            "total_above_conf": 837,
+            "high_uncertainty": 422
+          }
+        }
+      },
+      "pass_dataset": {
+        "name": "Beans",
+        "dataset_id": "pass_dataset",
+        "n_test": 128,
+        "model_accuracies": {
+          "gpu_ResNet18": 0.9296875,
+          "gpu_MobileNetV2": 0.9296875,
+          "sklearn_LogReg": 0.6875
+        },
+        "t3_conflicts": 0,
+        "t4_n_confidence": 116,
+        "t4_n_uncertainty": 112,
+        "t4_divergence": 4,
+        "t4_divergence_pct": 3.4482758620689653,
+        "t4_divergence_by_model": {
+          "gpu_ResNet18": {
+            "total_above_conf": 42,
+            "high_uncertainty": 0
+          },
+          "gpu_MobileNetV2": {
+            "total_above_conf": 42,
+            "high_uncertainty": 0
+          },
+          "sklearn_LogReg": {
+            "total_above_conf": 32,
+            "high_uncertainty": 4
+          }
+        }
+      },
+      "etth1": {
+        "name": "ETTh1",
+        "dataset_id": "etth1",
+        "n_test": 5219,
+        "model_accuracies": {
+          "sklearn_Ridge": 0.29915929870046876,
+          "sklearn_RF": 0.38081476067198505,
+          "sklearn_XGBoost_GPU": 0.41231099283819994
+        },
+        "t3_conflicts": 0,
+        "t4_n_confidence": 1073,
+        "t4_n_uncertainty": 949,
+        "t4_divergence": 124,
+        "t4_divergence_pct": 11.556383970177073,
+        "t4_divergence_by_model": {
+          "sklearn_XGBoost_GPU": {
+            "total_above_conf": 554,
+            "high_uncertainty": 0
+          },
+          "sklearn_RF": {
+            "total_above_conf": 362,
+            "high_uncertainty": 0
+          },
+          "sklearn_Ridge": {
+            "total_above_conf": 157,
+            "high_uncertainty": 124
+          }
+        }
+      },
+      "timeseries_pile": {
+        "name": "ETTm1",
+        "dataset_id": "timeseries_pile",
+        "n_test": 5198,
+        "model_accuracies": {
+          "sklearn_Ridge": 0.2661853030185458,
+          "sklearn_RF": 0.34851828495063497,
+          "sklearn_XGBoost_GPU": 0.39559455721452075
+        },
+        "t3_conflicts": 0,
+        "t4_n_confidence": 815,
+        "t4_n_uncertainty": 729,
+        "t4_divergence": 86,
+        "t4_divergence_pct": 10.552147239263803,
+        "t4_divergence_by_model": {
+          "sklearn_XGBoost_GPU": {
+            "total_above_conf": 432,
+            "high_uncertainty": 0
+          },
+          "sklearn_RF": {
+            "total_above_conf": 274,
+            "high_uncertainty": 0
+          },
+          "sklearn_Ridge": {
+            "total_above_conf": 109,
+            "high_uncertainty": 86
+          }
+        }
+      },
+      "squad": {
+        "name": "SQuAD v2",
+        "dataset_id": "squad",
+        "n_test": 11873,
+        "model_accuracies": {
+          "hf_roberta-squad2": 0.6914848816642803,
+          "sklearn_LogReg": 0.572391139560347,
+          "sklearn_RF": 0.8184115219405373
+        },
+        "t3_conflicts": 100,
+        "t4_n_confidence": 3732,
+        "t4_n_uncertainty": 3569,
+        "t4_divergence": 163,
+        "t4_divergence_pct": 4.367631296891747,
+        "t4_divergence_by_model": {
+          "hf_roberta-squad2": {
+            "total_above_conf": 653,
+            "high_uncertainty": 0
+          },
+          "sklearn_RF": {
+            "total_above_conf": 2916,
+            "high_uncertainty": 0
+          },
+          "sklearn_LogReg": {
+            "total_above_conf": 163,
+            "high_uncertainty": 163
+          }
+        }
+      }
+    },
+    "aggregate": {
+      "conf": 49078,
+      "unc": 45324,
+      "div": 3754
+    },
+    "failed": []
+  },
+  "timestamp": "2026-04-04T01:10:00.402613+00:00",
+  "raw_data": null,
+  "environment": null,
+  "notes": "Phase B GPU. 9/9 real, 4 synthetic-only. Time: 974s"
+}

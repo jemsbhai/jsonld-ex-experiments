@@ -1,0 +1,30 @@
+# Requirements for EN1.1c (GLiNER2) and EN3.4 (FHIR + GLiNER-BioMed)
+#
+# Install in a dedicated venv:
+#   cd E:\data\code\claudecode\jsonld\jsonld-ex
+#   python -m venv experiments\.venv-gliner
+#   experiments\.venv-gliner\Scripts\Activate.ps1
+#   pip install torch --index-url https://download.pytorch.org/whl/cu124
+#   pip install -e packages\python
+#   pip install -r experiments\requirements-gliner.txt
+#
+# This venv is separate from the main jsonld-ex development environment.
+
+# -- GLiNER2 (general-domain, EN1.1c + EN3.4) --
+gliner2
+
+# -- GLiNER / GLiNER-BioMed (biomedical, EN3.4) --
+gliner
+
+# -- Data loading --
+datasets
+
+# -- Numerical --
+numpy
+scipy
+
+# -- NER evaluation --
+seqeval
+
+# -- Model inference (torch installed separately with CUDA) --
+transformers

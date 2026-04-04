@@ -13,3 +13,17 @@ build/
 *~
 .DS_Store
 Thumbs.db
+
+# Experiment-specific venvs
+.venv-gliner/
+.venv*/
+
+# HuggingFace model caches (if any end up here)
+.cache/
+*.bin
+*.safetensors
+*.onnx
+
+# Large checkpoint files should be tracked via git-lfs or excluded
+# Token-level prediction caches are OK (JSON, ~10-50MB)
+# Model weight files are NOT OK

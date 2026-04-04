@@ -1,0 +1,33 @@
+{
+  "experiment_id": "EN2.5_phase_b_addendum",
+  "parameters": {
+    "phase": "B_addendum_coco_audio",
+    "seed": 42,
+    "device": "cuda",
+    "total_time_s": 21.29587721824646
+  },
+  "metrics": {
+    "per_dataset": {
+      "common_voice": {
+        "name": "SUPERB Keyword Spotting",
+        "dataset_id": "common_voice",
+        "n_test": 3081,
+        "model_accuracies": {
+          "hf_wav2vec2-ks": 0.964297306069458,
+          "sklearn_LogReg": 0.3602726387536514,
+          "sklearn_RF": 0.8708211619604025
+        },
+        "t3_conflicts": 1,
+        "t4_n_confidence": 1606,
+        "t4_n_uncertainty": 1569,
+        "t4_divergence": 37,
+        "t4_divergence_pct": 2.303860523038605
+      }
+    },
+    "failed": []
+  },
+  "timestamp": "2026-04-04T01:49:48.794911+00:00",
+  "raw_data": null,
+  "environment": null,
+  "notes": "Addendum: COCO detection + SUPERB audio. Now 11/13 datasets with real models. LibriSpeech (73 samples) and Synthea kept synthetic."
+}

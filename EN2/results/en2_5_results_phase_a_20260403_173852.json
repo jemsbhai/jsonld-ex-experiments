@@ -1,0 +1,1764 @@
+{
+  "experiment_id": "EN2.5",
+  "parameters": {
+    "phase": "A_synthetic",
+    "n_samples": 99999,
+    "n_models": 3,
+    "confidence_threshold": 0.7,
+    "seed": 42,
+    "datasets": [
+      "fashion_mnist",
+      "cifar10",
+      "coco_2014",
+      "pass_dataset",
+      "ag_news",
+      "imdb",
+      "common_voice",
+      "speech_commands",
+      "etth1",
+      "timeseries_pile",
+      "titanic",
+      "synthea_fhir",
+      "squad"
+    ]
+  },
+  "metrics": {
+    "loc_comparison": {
+      "T1_load_inspect": {
+        "jsonld_ex": 19,
+        "hf_datasets": 10,
+        "plain_json": 8
+      },
+      "T2_annotate": {
+        "jsonld_ex": 26,
+        "hf_datasets": 33,
+        "plain_json": 12
+      },
+      "T3_merge": {
+        "jsonld_ex": 55,
+        "hf_datasets": 28,
+        "plain_json": 23
+      },
+      "T4_filter": {
+        "jsonld_ex": 16,
+        "hf_datasets": 11,
+        "plain_json": 11
+      },
+      "T5_export": {
+        "jsonld_ex": 28,
+        "hf_datasets": 10,
+        "plain_json": 10
+      }
+    },
+    "feature_scores": {
+      "jsonld_ex": {
+        "native": 14,
+        "workaround": 0,
+        "impossible": 0,
+        "total_14": 14,
+        "score_weighted": 14.0,
+        "details": {
+          "F01": true,
+          "F02": true,
+          "F03": true,
+          "F04": true,
+          "F05": true,
+          "F06": true,
+          "F07": true,
+          "F08": true,
+          "F09": true,
+          "F10": true,
+          "F11": true,
+          "F12": true,
+          "F13": true,
+          "F14": true
+        }
+      },
+      "hf_datasets": {
+        "native": 1,
+        "workaround": 1,
+        "impossible": 12,
+        "total_14": 2,
+        "score_weighted": 1.5,
+        "details": {
+          "F01": true,
+          "F02": "workaround",
+          "F03": false,
+          "F04": false,
+          "F05": false,
+          "F06": false,
+          "F07": false,
+          "F08": false,
+          "F09": false,
+          "F10": false,
+          "F11": false,
+          "F12": false,
+          "F13": false,
+          "F14": false
+        }
+      },
+      "plain_json": {
+        "native": 0,
+        "workaround": 8,
+        "impossible": 6,
+        "total_14": 8,
+        "score_weighted": 4.0,
+        "details": {
+          "F01": false,
+          "F02": "workaround",
+          "F03": "workaround",
+          "F04": "workaround",
+          "F05": "workaround",
+          "F06": false,
+          "F07": "workaround",
+          "F08": "workaround",
+          "F09": false,
+          "F10": false,
+          "F11": false,
+          "F12": false,
+          "F13": "workaround",
+          "F14": "workaround"
+        }
+      }
+    },
+    "interop_scores": {
+      "jsonld_ex": {
+        "json_parseable": true,
+        "json_ld_processable": true,
+        "rdf_convertible": true,
+        "croissant_compatible": true,
+        "prov_o_compatible": true,
+        "schema_org_compatible": true,
+        "sparql_queryable": true,
+        "arrow_compatible": false,
+        "total_7": 7
+      },
+      "hf_datasets": {
+        "json_parseable": true,
+        "json_ld_processable": false,
+        "rdf_convertible": false,
+        "croissant_compatible": false,
+        "prov_o_compatible": false,
+        "schema_org_compatible": false,
+        "sparql_queryable": false,
+        "arrow_compatible": true,
+        "total_7": 2
+      },
+      "plain_json": {
+        "json_parseable": true,
+        "json_ld_processable": false,
+        "rdf_convertible": false,
+        "croissant_compatible": false,
+        "prov_o_compatible": false,
+        "schema_org_compatible": false,
+        "sparql_queryable": false,
+        "arrow_compatible": false,
+        "total_7": 1
+      }
+    },
+    "per_dataset": {
+      "fashion_mnist": {
+        "dataset": "Fashion-MNIST",
+        "domain": "vision/classification",
+        "n_samples": 10000,
+        "tasks": {
+          "T1": {
+            "jsonld_ex": {
+              "bytes": 574,
+              "features": [
+                "F01",
+                "F09"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 254,
+              "features": [
+                "F01"
+              ]
+            },
+            "plain_json": {
+              "bytes": 103,
+              "features": []
+            }
+          },
+          "T2": {
+            "jsonld_ex": {
+              "bytes_10": 3430,
+              "features": [
+                "F02",
+                "F03",
+                "F07",
+                "F09",
+                "F14"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 952,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "bytes_10": 952,
+              "features": [
+                "F02"
+              ]
+            }
+          },
+          "T3": {
+            "jsonld_ex": {
+              "bytes_10": 3387,
+              "conflicts": 2027,
+              "features": [
+                "F03",
+                "F04",
+                "F05",
+                "F07",
+                "F12",
+                "F13"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 933,
+              "conflicts": 0,
+              "features": []
+            },
+            "plain_json": {
+              "bytes_10": 753,
+              "conflicts": 0,
+              "features": []
+            }
+          },
+          "T4": {
+            "jsonld_ex": {
+              "n_confidence": 316,
+              "n_uncertainty": 316,
+              "features": [
+                "F02",
+                "F06"
+              ]
+            },
+            "hf_datasets": {
+              "n_confidence": 316,
+              "n_uncertainty": 316,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "n_confidence": 316,
+              "n_uncertainty": 316,
+              "features": []
+            }
+          },
+          "T5": {
+            "jsonld_ex": {
+              "bytes": 4072,
+              "features": [
+                "F07",
+                "F08",
+                "F09",
+                "F10",
+                "F11"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 1020,
+              "features": []
+            },
+            "plain_json": {
+              "bytes": 1041,
+              "features": []
+            }
+          }
+        }
+      },
+      "cifar10": {
+        "dataset": "CIFAR-10",
+        "domain": "vision/classification",
+        "n_samples": 10000,
+        "tasks": {
+          "T1": {
+            "jsonld_ex": {
+              "bytes": 554,
+              "features": [
+                "F01",
+                "F09"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 228,
+              "features": [
+                "F01"
+              ]
+            },
+            "plain_json": {
+              "bytes": 98,
+              "features": []
+            }
+          },
+          "T2": {
+            "jsonld_ex": {
+              "bytes_10": 3430,
+              "features": [
+                "F02",
+                "F03",
+                "F07",
+                "F09",
+                "F14"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 952,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "bytes_10": 952,
+              "features": [
+                "F02"
+              ]
+            }
+          },
+          "T3": {
+            "jsonld_ex": {
+              "bytes_10": 3387,
+              "conflicts": 2027,
+              "features": [
+                "F03",
+                "F04",
+                "F05",
+                "F07",
+                "F12",
+                "F13"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 933,
+              "conflicts": 0,
+              "features": []
+            },
+            "plain_json": {
+              "bytes_10": 753,
+              "conflicts": 0,
+              "features": []
+            }
+          },
+          "T4": {
+            "jsonld_ex": {
+              "n_confidence": 316,
+              "n_uncertainty": 316,
+              "features": [
+                "F02",
+                "F06"
+              ]
+            },
+            "hf_datasets": {
+              "n_confidence": 316,
+              "n_uncertainty": 316,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "n_confidence": 316,
+              "n_uncertainty": 316,
+              "features": []
+            }
+          },
+          "T5": {
+            "jsonld_ex": {
+              "bytes": 4062,
+              "features": [
+                "F07",
+                "F08",
+                "F09",
+                "F10",
+                "F11"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 1015,
+              "features": []
+            },
+            "plain_json": {
+              "bytes": 1036,
+              "features": []
+            }
+          }
+        }
+      },
+      "coco_2014": {
+        "dataset": "COCO 2014",
+        "domain": "vision/detection",
+        "n_samples": 4952,
+        "tasks": {
+          "T1": {
+            "jsonld_ex": {
+              "bytes": 442,
+              "features": [
+                "F01",
+                "F09"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 1257,
+              "features": [
+                "F01"
+              ]
+            },
+            "plain_json": {
+              "bytes": 135,
+              "features": []
+            }
+          },
+          "T2": {
+            "jsonld_ex": {
+              "bytes_10": 10218,
+              "features": [
+                "F02",
+                "F03",
+                "F07",
+                "F09",
+                "F14"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 7742,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "bytes_10": 7742,
+              "features": [
+                "F02"
+              ]
+            }
+          },
+          "T3": {
+            "jsonld_ex": {
+              "bytes_10": 3403,
+              "conflicts": 0,
+              "features": [
+                "F03",
+                "F04",
+                "F05",
+                "F07",
+                "F12",
+                "F13"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 946,
+              "conflicts": 0,
+              "features": []
+            },
+            "plain_json": {
+              "bytes_10": 766,
+              "conflicts": 0,
+              "features": []
+            }
+          },
+          "T4": {
+            "jsonld_ex": {
+              "n_confidence": 0,
+              "n_uncertainty": 0,
+              "features": [
+                "F02",
+                "F06"
+              ]
+            },
+            "hf_datasets": {
+              "n_confidence": 0,
+              "n_uncertainty": 0,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "n_confidence": 0,
+              "n_uncertainty": 0,
+              "features": []
+            }
+          },
+          "T5": {
+            "jsonld_ex": {
+              "bytes": 10852,
+              "features": [
+                "F07",
+                "F08",
+                "F09",
+                "F10",
+                "F11"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 7805,
+              "features": []
+            },
+            "plain_json": {
+              "bytes": 7827,
+              "features": []
+            }
+          }
+        }
+      },
+      "pass_dataset": {
+        "dataset": "Beans",
+        "domain": "vision/agriculture",
+        "n_samples": 128,
+        "tasks": {
+          "T1": {
+            "jsonld_ex": {
+              "bytes": 484,
+              "features": [
+                "F01",
+                "F09"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 218,
+              "features": [
+                "F01"
+              ]
+            },
+            "plain_json": {
+              "bytes": 110,
+              "features": []
+            }
+          },
+          "T2": {
+            "jsonld_ex": {
+              "bytes_10": 5437,
+              "features": [
+                "F02",
+                "F03",
+                "F07",
+                "F09",
+                "F14"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 2966,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "bytes_10": 2966,
+              "features": [
+                "F02"
+              ]
+            }
+          },
+          "T3": {
+            "jsonld_ex": {
+              "bytes_10": 3382,
+              "conflicts": 76,
+              "features": [
+                "F03",
+                "F04",
+                "F05",
+                "F07",
+                "F12",
+                "F13"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 931,
+              "conflicts": 0,
+              "features": []
+            },
+            "plain_json": {
+              "bytes_10": 751,
+              "conflicts": 0,
+              "features": []
+            }
+          },
+          "T4": {
+            "jsonld_ex": {
+              "n_confidence": 66,
+              "n_uncertainty": 66,
+              "features": [
+                "F02",
+                "F06"
+              ]
+            },
+            "hf_datasets": {
+              "n_confidence": 66,
+              "n_uncertainty": 66,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "n_confidence": 66,
+              "n_uncertainty": 66,
+              "features": []
+            }
+          },
+          "T5": {
+            "jsonld_ex": {
+              "bytes": 6063,
+              "features": [
+                "F07",
+                "F08",
+                "F09",
+                "F10",
+                "F11"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 3024,
+              "features": []
+            },
+            "plain_json": {
+              "bytes": 3047,
+              "features": []
+            }
+          }
+        }
+      },
+      "ag_news": {
+        "dataset": "AG News",
+        "domain": "text/classification",
+        "n_samples": 7600,
+        "tasks": {
+          "T1": {
+            "jsonld_ex": {
+              "bytes": 500,
+              "features": [
+                "F01",
+                "F09"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 207,
+              "features": [
+                "F01"
+              ]
+            },
+            "plain_json": {
+              "bytes": 102,
+              "features": []
+            }
+          },
+          "T2": {
+            "jsonld_ex": {
+              "bytes_10": 7505,
+              "features": [
+                "F02",
+                "F03",
+                "F07",
+                "F09",
+                "F14"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 5029,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "bytes_10": 5029,
+              "features": [
+                "F02"
+              ]
+            }
+          },
+          "T3": {
+            "jsonld_ex": {
+              "bytes_10": 3385,
+              "conflicts": 4241,
+              "features": [
+                "F03",
+                "F04",
+                "F05",
+                "F07",
+                "F12",
+                "F13"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 933,
+              "conflicts": 0,
+              "features": []
+            },
+            "plain_json": {
+              "bytes_10": 753,
+              "conflicts": 0,
+              "features": []
+            }
+          },
+          "T4": {
+            "jsonld_ex": {
+              "n_confidence": 2844,
+              "n_uncertainty": 2844,
+              "features": [
+                "F02",
+                "F06"
+              ]
+            },
+            "hf_datasets": {
+              "n_confidence": 2844,
+              "n_uncertainty": 2844,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "n_confidence": 2844,
+              "n_uncertainty": 2844,
+              "features": []
+            }
+          },
+          "T5": {
+            "jsonld_ex": {
+              "bytes": 8135,
+              "features": [
+                "F07",
+                "F08",
+                "F09",
+                "F10",
+                "F11"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 5090,
+              "features": []
+            },
+            "plain_json": {
+              "bytes": 5112,
+              "features": []
+            }
+          }
+        }
+      },
+      "imdb": {
+        "dataset": "IMDB",
+        "domain": "text/sentiment",
+        "n_samples": 25000,
+        "tasks": {
+          "T1": {
+            "jsonld_ex": {
+              "bytes": 466,
+              "features": [
+                "F01",
+                "F09"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 176,
+              "features": [
+                "F01"
+              ]
+            },
+            "plain_json": {
+              "bytes": 95,
+              "features": []
+            }
+          },
+          "T2": {
+            "jsonld_ex": {
+              "bytes_10": 14782,
+              "features": [
+                "F02",
+                "F03",
+                "F07",
+                "F09",
+                "F14"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 12309,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "bytes_10": 12309,
+              "features": [
+                "F02"
+              ]
+            }
+          },
+          "T3": {
+            "jsonld_ex": {
+              "bytes_10": 3379,
+              "conflicts": 15156,
+              "features": [
+                "F03",
+                "F04",
+                "F05",
+                "F07",
+                "F12",
+                "F13"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 933,
+              "conflicts": 0,
+              "features": []
+            },
+            "plain_json": {
+              "bytes_10": 753,
+              "conflicts": 0,
+              "features": []
+            }
+          },
+          "T4": {
+            "jsonld_ex": {
+              "n_confidence": 20965,
+              "n_uncertainty": 20965,
+              "features": [
+                "F02",
+                "F06"
+              ]
+            },
+            "hf_datasets": {
+              "n_confidence": 20965,
+              "n_uncertainty": 20965,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "n_confidence": 20965,
+              "n_uncertainty": 20965,
+              "features": []
+            }
+          },
+          "T5": {
+            "jsonld_ex": {
+              "bytes": 15406,
+              "features": [
+                "F07",
+                "F08",
+                "F09",
+                "F10",
+                "F11"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 12368,
+              "features": []
+            },
+            "plain_json": {
+              "bytes": 12389,
+              "features": []
+            }
+          }
+        }
+      },
+      "common_voice": {
+        "dataset": "Keyword Spotting (SUPERB)",
+        "domain": "audio/classification",
+        "n_samples": 3081,
+        "tasks": {
+          "T1": {
+            "jsonld_ex": {
+              "bytes": 470,
+              "features": [
+                "F01",
+                "F09"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 260,
+              "features": [
+                "F01"
+              ]
+            },
+            "plain_json": {
+              "bytes": 121,
+              "features": []
+            }
+          },
+          "T2": {
+            "jsonld_ex": {
+              "bytes_10": 4933,
+              "features": [
+                "F02",
+                "F03",
+                "F07",
+                "F09",
+                "F14"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 2459,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "bytes_10": 2459,
+              "features": [
+                "F02"
+              ]
+            }
+          },
+          "T3": {
+            "jsonld_ex": {
+              "bytes_10": 3401,
+              "conflicts": 24,
+              "features": [
+                "F03",
+                "F04",
+                "F05",
+                "F07",
+                "F12",
+                "F13"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 943,
+              "conflicts": 0,
+              "features": []
+            },
+            "plain_json": {
+              "bytes_10": 763,
+              "conflicts": 0,
+              "features": []
+            }
+          },
+          "T4": {
+            "jsonld_ex": {
+              "n_confidence": 0,
+              "n_uncertainty": 0,
+              "features": [
+                "F02",
+                "F06"
+              ]
+            },
+            "hf_datasets": {
+              "n_confidence": 0,
+              "n_uncertainty": 0,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "n_confidence": 0,
+              "n_uncertainty": 0,
+              "features": []
+            }
+          },
+          "T5": {
+            "jsonld_ex": {
+              "bytes": 5599,
+              "features": [
+                "F07",
+                "F08",
+                "F09",
+                "F10",
+                "F11"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 2538,
+              "features": []
+            },
+            "plain_json": {
+              "bytes": 2560,
+              "features": []
+            }
+          }
+        }
+      },
+      "speech_commands": {
+        "dataset": "LibriSpeech (test subset)",
+        "domain": "audio/ASR",
+        "n_samples": 73,
+        "tasks": {
+          "T1": {
+            "jsonld_ex": {
+              "bytes": 452,
+              "features": [
+                "F01",
+                "F09"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 261,
+              "features": [
+                "F01"
+              ]
+            },
+            "plain_json": {
+              "bytes": 141,
+              "features": []
+            }
+          },
+          "T2": {
+            "jsonld_ex": {
+              "bytes_10": 7644,
+              "features": [
+                "F02",
+                "F03",
+                "F07",
+                "F09",
+                "F14"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 5167,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "bytes_10": 5167,
+              "features": [
+                "F02"
+              ]
+            }
+          },
+          "T3": {
+            "jsonld_ex": {
+              "bytes_10": 3613,
+              "conflicts": 52,
+              "features": [
+                "F03",
+                "F04",
+                "F05",
+                "F07",
+                "F12",
+                "F13"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 1167,
+              "conflicts": 0,
+              "features": []
+            },
+            "plain_json": {
+              "bytes_10": 987,
+              "conflicts": 0,
+              "features": []
+            }
+          },
+          "T4": {
+            "jsonld_ex": {
+              "n_confidence": 73,
+              "n_uncertainty": 73,
+              "features": [
+                "F02",
+                "F06"
+              ]
+            },
+            "hf_datasets": {
+              "n_confidence": 73,
+              "n_uncertainty": 73,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "n_confidence": 73,
+              "n_uncertainty": 73,
+              "features": []
+            }
+          },
+          "T5": {
+            "jsonld_ex": {
+              "bytes": 8310,
+              "features": [
+                "F07",
+                "F08",
+                "F09",
+                "F10",
+                "F11"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 5244,
+              "features": []
+            },
+            "plain_json": {
+              "bytes": 5268,
+              "features": []
+            }
+          }
+        }
+      },
+      "etth1": {
+        "dataset": "ETTh1",
+        "domain": "time-series/forecasting",
+        "n_samples": 17420,
+        "tasks": {
+          "T1": {
+            "jsonld_ex": {
+              "bytes": 412,
+              "features": [
+                "F01",
+                "F09"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 324,
+              "features": [
+                "F01"
+              ]
+            },
+            "plain_json": {
+              "bytes": 150,
+              "features": []
+            }
+          },
+          "T2": {
+            "jsonld_ex": {
+              "bytes_10": 5604,
+              "features": [
+                "F02",
+                "F03",
+                "F07",
+                "F09",
+                "F14"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 3132,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "bytes_10": 3132,
+              "features": [
+                "F02"
+              ]
+            }
+          },
+          "T3": {
+            "jsonld_ex": {
+              "bytes_10": 3522,
+              "conflicts": 1382,
+              "features": [
+                "F03",
+                "F04",
+                "F05",
+                "F07",
+                "F12",
+                "F13"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 1094,
+              "conflicts": 0,
+              "features": []
+            },
+            "plain_json": {
+              "bytes_10": 914,
+              "conflicts": 0,
+              "features": []
+            }
+          },
+          "T4": {
+            "jsonld_ex": {
+              "n_confidence": 16960,
+              "n_uncertainty": 16960,
+              "features": [
+                "F02",
+                "F06"
+              ]
+            },
+            "hf_datasets": {
+              "n_confidence": 16960,
+              "n_uncertainty": 16960,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "n_confidence": 16960,
+              "n_uncertainty": 16960,
+              "features": []
+            }
+          },
+          "T5": {
+            "jsonld_ex": {
+              "bytes": 6230,
+              "features": [
+                "F07",
+                "F08",
+                "F09",
+                "F10",
+                "F11"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 3192,
+              "features": []
+            },
+            "plain_json": {
+              "bytes": 3213,
+              "features": []
+            }
+          }
+        }
+      },
+      "timeseries_pile": {
+        "dataset": "ETTm1 (minute-level)",
+        "domain": "time-series/multi-domain",
+        "n_samples": 69680,
+        "tasks": {
+          "T1": {
+            "jsonld_ex": {
+              "bytes": 444,
+              "features": [
+                "F01",
+                "F09"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 324,
+              "features": [
+                "F01"
+              ]
+            },
+            "plain_json": {
+              "bytes": 166,
+              "features": []
+            }
+          },
+          "T2": {
+            "jsonld_ex": {
+              "bytes_10": 5593,
+              "features": [
+                "F02",
+                "F03",
+                "F07",
+                "F09",
+                "F14"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 3121,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "bytes_10": 3121,
+              "features": [
+                "F02"
+              ]
+            }
+          },
+          "T3": {
+            "jsonld_ex": {
+              "bytes_10": 3522,
+              "conflicts": 5553,
+              "features": [
+                "F03",
+                "F04",
+                "F05",
+                "F07",
+                "F12",
+                "F13"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 1094,
+              "conflicts": 0,
+              "features": []
+            },
+            "plain_json": {
+              "bytes_10": 914,
+              "conflicts": 0,
+              "features": []
+            }
+          },
+          "T4": {
+            "jsonld_ex": {
+              "n_confidence": 67891,
+              "n_uncertainty": 67891,
+              "features": [
+                "F02",
+                "F06"
+              ]
+            },
+            "hf_datasets": {
+              "n_confidence": 67891,
+              "n_uncertainty": 67891,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "n_confidence": 67891,
+              "n_uncertainty": 67891,
+              "features": []
+            }
+          },
+          "T5": {
+            "jsonld_ex": {
+              "bytes": 6249,
+              "features": [
+                "F07",
+                "F08",
+                "F09",
+                "F10",
+                "F11"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 3196,
+              "features": []
+            },
+            "plain_json": {
+              "bytes": 3217,
+              "features": []
+            }
+          }
+        }
+      },
+      "titanic": {
+        "dataset": "Titanic",
+        "domain": "tabular/binary-classification",
+        "n_samples": 891,
+        "tasks": {
+          "T1": {
+            "jsonld_ex": {
+              "bytes": 483,
+              "features": [
+                "F01",
+                "F09"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 442,
+              "features": [
+                "F01"
+              ]
+            },
+            "plain_json": {
+              "bytes": 210,
+              "features": []
+            }
+          },
+          "T2": {
+            "jsonld_ex": {
+              "bytes_10": 5385,
+              "features": [
+                "F02",
+                "F03",
+                "F07",
+                "F09",
+                "F14"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 2912,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "bytes_10": 2912,
+              "features": [
+                "F02"
+              ]
+            }
+          },
+          "T3": {
+            "jsonld_ex": {
+              "bytes_10": 3379,
+              "conflicts": 537,
+              "features": [
+                "F03",
+                "F04",
+                "F05",
+                "F07",
+                "F12",
+                "F13"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 933,
+              "conflicts": 0,
+              "features": []
+            },
+            "plain_json": {
+              "bytes_10": 753,
+              "conflicts": 0,
+              "features": []
+            }
+          },
+          "T4": {
+            "jsonld_ex": {
+              "n_confidence": 756,
+              "n_uncertainty": 756,
+              "features": [
+                "F02",
+                "F06"
+              ]
+            },
+            "hf_datasets": {
+              "n_confidence": 756,
+              "n_uncertainty": 756,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "n_confidence": 756,
+              "n_uncertainty": 756,
+              "features": []
+            }
+          },
+          "T5": {
+            "jsonld_ex": {
+              "bytes": 6015,
+              "features": [
+                "F07",
+                "F08",
+                "F09",
+                "F10",
+                "F11"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 2972,
+              "features": []
+            },
+            "plain_json": {
+              "bytes": 2995,
+              "features": []
+            }
+          }
+        }
+      },
+      "synthea_fhir": {
+        "dataset": "Synthea FHIR R4",
+        "domain": "medical/clinical",
+        "n_samples": 99999,
+        "tasks": {
+          "T1": {
+            "jsonld_ex": {
+              "bytes": 478,
+              "features": [
+                "F01",
+                "F09"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 31,
+              "features": []
+            },
+            "plain_json": {
+              "bytes": 151,
+              "features": []
+            }
+          },
+          "T2": {
+            "jsonld_ex": {
+              "bytes_10": 5261,
+              "features": [
+                "F02",
+                "F03",
+                "F07",
+                "F09",
+                "F14"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 2,
+              "features": []
+            },
+            "plain_json": {
+              "bytes_10": 2788,
+              "features": [
+                "F02"
+              ]
+            }
+          },
+          "T3": {
+            "jsonld_ex": {
+              "bytes_10": 3379,
+              "conflicts": 60532,
+              "features": [
+                "F03",
+                "F04",
+                "F05",
+                "F07",
+                "F12",
+                "F13"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 2,
+              "conflicts": 0,
+              "features": []
+            },
+            "plain_json": {
+              "bytes_10": 753,
+              "conflicts": 0,
+              "features": []
+            }
+          },
+          "T4": {
+            "jsonld_ex": {
+              "n_confidence": 83646,
+              "n_uncertainty": 83646,
+              "features": [
+                "F02",
+                "F06"
+              ]
+            },
+            "hf_datasets": {
+              "n_confidence": 0,
+              "n_uncertainty": 0,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "n_confidence": 83646,
+              "n_uncertainty": 83646,
+              "features": []
+            }
+          },
+          "T5": {
+            "jsonld_ex": {
+              "bytes": 5907,
+              "features": [
+                "F07",
+                "F08",
+                "F09",
+                "F10",
+                "F11"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 68,
+              "features": []
+            },
+            "plain_json": {
+              "bytes": 2879,
+              "features": []
+            }
+          }
+        }
+      },
+      "squad": {
+        "dataset": "SQuAD v2",
+        "domain": "text/qa",
+        "n_samples": 11873,
+        "tasks": {
+          "T1": {
+            "jsonld_ex": {
+              "bytes": 393,
+              "features": [
+                "F01",
+                "F09"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 306,
+              "features": [
+                "F01"
+              ]
+            },
+            "plain_json": {
+              "bytes": 124,
+              "features": []
+            }
+          },
+          "T2": {
+            "jsonld_ex": {
+              "bytes_10": 13892,
+              "features": [
+                "F02",
+                "F03",
+                "F07",
+                "F09",
+                "F14"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 11396,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "bytes_10": 11416,
+              "features": [
+                "F02"
+              ]
+            }
+          },
+          "T3": {
+            "jsonld_ex": {
+              "bytes_10": 3549,
+              "conflicts": 7139,
+              "features": [
+                "F03",
+                "F04",
+                "F05",
+                "F07",
+                "F12",
+                "F13"
+              ]
+            },
+            "hf_datasets": {
+              "bytes_10": 1092,
+              "conflicts": 0,
+              "features": []
+            },
+            "plain_json": {
+              "bytes_10": 912,
+              "conflicts": 0,
+              "features": []
+            }
+          },
+          "T4": {
+            "jsonld_ex": {
+              "n_confidence": 11873,
+              "n_uncertainty": 11873,
+              "features": [
+                "F02",
+                "F06"
+              ]
+            },
+            "hf_datasets": {
+              "n_confidence": 11873,
+              "n_uncertainty": 11873,
+              "features": [
+                "F02"
+              ]
+            },
+            "plain_json": {
+              "n_confidence": 11873,
+              "n_uncertainty": 11873,
+              "features": []
+            }
+          },
+          "T5": {
+            "jsonld_ex": {
+              "bytes": 14524,
+              "features": [
+                "F07",
+                "F08",
+                "F09",
+                "F10",
+                "F11"
+              ]
+            },
+            "hf_datasets": {
+              "bytes": 11459,
+              "features": []
+            },
+            "plain_json": {
+              "bytes": 11500,
+              "features": []
+            }
+          }
+        }
+      }
+    },
+    "dataset_summaries": [
+      {
+        "id": "fashion_mnist",
+        "name": "Fashion-MNIST",
+        "domain": "vision/classification",
+        "n_samples": 10000,
+        "status": "OK"
+      },
+      {
+        "id": "cifar10",
+        "name": "CIFAR-10",
+        "domain": "vision/classification",
+        "n_samples": 10000,
+        "status": "OK"
+      },
+      {
+        "id": "coco_2014",
+        "name": "COCO 2014",
+        "domain": "vision/detection",
+        "n_samples": 4952,
+        "status": "OK"
+      },
+      {
+        "id": "pass_dataset",
+        "name": "Beans",
+        "domain": "vision/agriculture",
+        "n_samples": 128,
+        "status": "OK"
+      },
+      {
+        "id": "ag_news",
+        "name": "AG News",
+        "domain": "text/classification",
+        "n_samples": 7600,
+        "status": "OK"
+      },
+      {
+        "id": "imdb",
+        "name": "IMDB",
+        "domain": "text/sentiment",
+        "n_samples": 25000,
+        "status": "OK"
+      },
+      {
+        "id": "common_voice",
+        "name": "Keyword Spotting (SUPERB)",
+        "domain": "audio/classification",
+        "n_samples": 3081,
+        "status": "OK"
+      },
+      {
+        "id": "speech_commands",
+        "name": "LibriSpeech (test subset)",
+        "domain": "audio/ASR",
+        "n_samples": 73,
+        "status": "OK"
+      },
+      {
+        "id": "etth1",
+        "name": "ETTh1",
+        "domain": "time-series/forecasting",
+        "n_samples": 17420,
+        "status": "OK"
+      },
+      {
+        "id": "timeseries_pile",
+        "name": "ETTm1 (minute-level)",
+        "domain": "time-series/multi-domain",
+        "n_samples": 69680,
+        "status": "OK"
+      },
+      {
+        "id": "titanic",
+        "name": "Titanic",
+        "domain": "tabular/binary-classification",
+        "n_samples": 891,
+        "status": "OK"
+      },
+      {
+        "id": "synthea_fhir",
+        "name": "Synthea FHIR R4",
+        "domain": "medical/clinical",
+        "n_samples": 99999,
+        "status": "OK"
+      },
+      {
+        "id": "squad",
+        "name": "SQuAD v2",
+        "domain": "text/qa",
+        "n_samples": 11873,
+        "status": "OK"
+      }
+    ],
+    "failed_datasets": []
+  },
+  "timestamp": "2026-04-03T21:38:52.972763+00:00",
+  "raw_data": null,
+  "environment": null,
+  "notes": "Phase A: Synthetic predictions. All 5 tasks x 3 approaches across 11 datasets. Phase B (real model predictions) to follow."
+}
