@@ -1,7 +1,7 @@
 # Experiment Findings
 
 **Date:** 2026-04-03
-**Status:** EN7.1, EN1.2/EN1.2b, EA1.1 (ext), EN2.1+EN2.2 (ext), EN1.1/1.1b, EN3.1/3.1b (Tier 1+2), EN3.2-H3 (metadata-enriched prompting + ANSWERS-ONLY ablation), EN3.2-H1 (calibrated selective answering + ablation), EN3.2-H1b (poison detection), EN3.2-H1c (multi-extractor fusion v1+v2) complete., EN2.4 (Croissant head-to-head + 13 ablations) complete. EN2.5 Phase A (HF datasets head-to-head, 13 datasets, 260K samples) complete. EN2.5 Phase B (GPU real models, 9 datasets, 7.6% divergence validated) complete.
+**Status:** EN7.1, EN1.2/EN1.2b, EA1.1 (ext), EN2.1+EN2.2 (ext), EN1.1/1.1b, EN3.1/3.1b (Tier 1+2), EN3.2-H3 (metadata-enriched prompting + ANSWERS-ONLY ablation), EN3.2-H1 (calibrated selective answering + ablation), EN3.2-H1b (poison detection), EN3.2-H1c (multi-extractor fusion v1+v2) complete., EN2.4 (Croissant head-to-head + 13 ablations) complete. EN2.5 Phase A (HF datasets head-to-head, 13 datasets, 260K samples) complete. EN2.5 Phase B (GPU real models, 9 datasets, 7.6% divergence) + Addendum (COCO+audio, 11/13 real, 7.4% combined) complete. EN8.4 Part A (vector quantization retrieval, synthetic, 7 RQs) complete. EN8.5 (CBOR-LD + TurboQuant transport, 30/30 fidelity, 95% compression) complete.
 
 ---
 
@@ -3975,3 +3975,240 @@ Still synthetic-only: LibriSpeech (73 samples), Synthea FHIR (no clinical models
 
 - `experiments/EN2/en2_5_phase_b_addendum.py` -- addendum script
 - `experiments/EN2/results/en2_5_results_phase_b_addendum.json` -- merged COCO + SUPERB results
+
+
+---
+
+## EN8.4 Part A -- Quantized Vector Retrieval in Knowledge Graphs (Synthetic)
+
+**Date:** 2026-03-28
+**Status:** POSITIVE (with honest caveats) -- quantization-SL bridge validated on synthetic data
+**Hardware:** NVIDIA GeForce RTX 4090 Laptop GPU, Intel Core i9-13980HX
+
+### Motivation
+
+Vector embeddings are central to modern ML pipelines (RAG, semantic search, recommendation). When storing embeddings in knowledge graphs, quantization reduces storage but introduces distortion. jsonld-ex's `@vector` container with `@quantization` metadata enables:
+
+1. Quantized vector storage with method/bit-width provenance
+2. SL uncertainty derived from information-theoretic distortion bounds
+3. Uncertainty-aware ranking that accounts for quantization fidelity
+
+This experiment evaluates whether these capabilities provide measurable benefits on a controlled synthetic benchmark.
+
+### Configuration
+
+- **Corpus:** 1,000 products across 10 categories, 128-dim embeddings
+- **Cluster structure:** Category centers (random unit vectors in R^128) + Gaussian noise (sigma=0.3)
+- **Queries:** 50 (5 per category), drawn from corpus
+- **Quantization methods:** naive_scalar (uniform grid), TurboQuantMSE (rotation + Lloyd-Max), TurboQuantIP (Stage 1 + QJL residual)
+- **Bit-widths:** 2, 3, 4, 8
+- **Ground truth:** Float32 cosine similarity ranking
+- **Seed:** 42 (global)
+- **Intra-category cosine sim:** 0.7649 +/- 0.1104
+- **Inter-category cosine sim:** 0.0024 +/- 0.1090
+
+### Research Questions and Results
+
+#### RQ1-RQ3: Quantization Impact on Retrieval Quality
+
+| Method | Bits | MSE | Pearson r | Spearman rho | R@1 | R@5 | R@10 | Compression |
+|--------|------|-----|-----------|-------------|-----|-----|------|-------------|
+| naive_scalar | 2 | 5.51e-3 | 0.8305 | 0.8007 | 1.000 | 0.444 | 0.442 | 16.0x |
+| turboquant_mse | 2 | 1.01e-3 | 0.9440 | 0.9319 | 1.000 | 0.660 | 0.666 | 16.0x |
+| turboquant_ip | 2 | 2.38e-3 | 0.8525 | 0.8283 | 1.000 | 0.500 | 0.466 | 16.0x |
+| naive_scalar | 3 | 9.40e-4 | 0.9526 | 0.9423 | 1.000 | 0.688 | 0.688 | 10.7x |
+| turboquant_mse | 3 | 3.89e-4 | 0.9797 | 0.9748 | 1.000 | 0.784 | 0.782 | 10.7x |
+| turboquant_ip | 3 | 8.54e-4 | 0.9537 | 0.9434 | 1.000 | 0.676 | 0.692 | 10.7x |
+| naive_scalar | 4 | 2.05e-4 | 0.9891 | 0.9864 | 1.000 | 0.824 | 0.834 | 8.0x |
+| turboquant_mse | 4 | 1.54e-4 | 0.9921 | 0.9900 | 1.000 | 0.824 | 0.856 | 8.0x |
+| turboquant_ip | 4 | 3.28e-4 | 0.9830 | 0.9789 | 1.000 | 0.800 | 0.800 | 8.0x |
+| naive_scalar | 8 | 7.09e-7 | 0.9999+ | 0.9999+ | 1.000 | 1.000 | 0.986 | 4.0x |
+| turboquant_mse | 8 | 5.16e-6 | 0.9997 | 0.9996 | 1.000 | 0.988 | 0.972 | 4.0x |
+| turboquant_ip | 8 | 9.70e-6 | 0.9995 | 0.9993 | 1.000 | 0.984 | 0.952 | 4.0x |
+
+**RQ1 (bit-width impact):** Strong monotonic degradation with fewer bits. At 8-bit, all methods achieve near-perfect retrieval (R@10 >= 0.952). At 4-bit, R@10 drops to 0.800-0.856. At 2-bit, severe degradation (R@10 = 0.442-0.666).
+
+**RQ2 (TurboQuant vs naive):** TurboQuantMSE consistently achieves the lowest MSE and highest retrieval quality at every bit-width. At 2-bit, TurboQuantMSE achieves R@10 = 0.666 vs naive_scalar = 0.442 (a 50.7% relative improvement). The advantage narrows at higher bit-widths as both methods approach float32 quality.
+
+**RQ3 (TurboQuantIP):** TurboQuantIP underperforms TurboQuantMSE on reconstruction-based metrics at all bit-widths. This is expected: TurboQuantIP optimizes inner product estimation (unbiased), not MSE reconstruction. The QJL residual adds noise to per-vector reconstruction while improving inner product accuracy in expectation. However, cosine similarity on dequantized vectors is a reconstruction-based metric, explaining TurboQuantIP's disadvantage here.
+
+**Surprising finding at 8-bit:** naive_scalar (MSE=7.09e-7) outperforms both TurboQuant variants (MSE=5.16e-6 and 9.70e-6). This is because at 8 bits (256 levels), uniform quantization of near-Gaussian data is already near-optimal, and the rotation overhead in TurboQuant introduces slight additional error without benefit. This correctly demonstrates diminishing returns of sophisticated quantization at high bit-widths.
+
+#### RQ4: SL Under Uniform Quantization
+
+**Pre-registered prediction:** SL uncertainty-aware search under uniform quantization should NOT change ranking, because all nodes receive identical quantization metadata and therefore identical uncertainty.
+
+**Result: CONFIRMED.** 100.0% ranking agreement (50/50 queries). Recall@10 difference = exactly 0.000.
+
+This validates the theoretical prediction: when all vectors have the same quantization (and therefore the same SL uncertainty), the projected probability ranking is a monotonic transformation of the raw cosine ranking. The SL layer adds no information in the uniform case. **This is the correct behavior, not a failure.**
+
+#### RQ5: SL Under Mixed-Precision Quantization
+
+**Setup:** 500 nodes at float32 (bitWidth=32), 500 nodes at 4-bit naive_scalar. Random 50/50 split.
+
+| Metric | Raw cosine | SL uncertainty-aware | Difference |
+|--------|-----------|---------------------|------------|
+| Recall@10 | 0.902 +/- 0.071 | 0.884 +/- 0.083 | **-0.018** |
+| SL float32 preference | -- | 62.4% | -- |
+
+**Result: NEGATIVE (slight).** SL uncertainty-aware search performs 1.8 percentage points worse than raw cosine on Recall@10. Although SL correctly prefers float32 nodes 62.4% of the time in top-5 (vs 50% random expectation), this preference occasionally displaces genuinely relevant 4-bit results that are closer in embedding space.
+
+**Interpretation:** At 4-bit with naive_scalar, the quantization distortion is small enough (MSE=2.05e-4) that the SL uncertainty correction overcorrects. The framework correctly identifies float32 results as more trustworthy, but trustworthiness and relevance are not identical. A highly relevant but slightly uncertain result should still outrank a less relevant but fully trusted result. This highlights a fundamental tension: SL uncertainty is about **fidelity of the similarity score**, not about **relevance to the query**.
+
+**Honest caveat:** The distortion constants in `quantization_bridge.py` are illustrative defaults (k_scalar=1.0), not empirically calibrated. With calibrated constants producing smaller uncertainty mass, the overcorrection effect would diminish. This is a known limitation documented in the module docstring.
+
+#### RQ6: Hybrid Symbolic+Vector Search
+
+| Mode | Nodes scanned | Intra-category Recall |
+|------|--------------|----------------------|
+| Pure vector (top-10) | 1,000 | 0.458 |
+| Hybrid (category filter + top-10) | 100 | **1.000** |
+
+**Result: POSITIVE.** Hybrid search achieves perfect intra-category recall with 90% fewer nodes scanned. When the query intent is "find similar items in this category," symbolic pre-filtering is strictly superior to pure vector search, which wastes top-k slots on cross-category results.
+
+**Paper use:** This demonstrates the core value proposition of the knowledge-graph-as-vector-index design: symbolic properties and vector similarity coexist in the same document, enabling hybrid queries without a separate metadata index.
+
+#### RQ7: Storage-vs-Quality Pareto Frontier
+
+| Method | Bits | Bytes/vec | Compression | R@10 | Spearman rho |
+|--------|------|-----------|-------------|------|-------------|
+| turboquant_mse | 2 | 32 | 16.0x | 0.666 | 0.9319 |
+| turboquant_mse | 3 | 48 | 10.7x | 0.782 | 0.9748 |
+| turboquant_mse | 4 | 64 | 8.0x | 0.856 | 0.9900 |
+| naive_scalar | 8 | 128 | 4.0x | 0.986 | 0.9999 |
+| float32 | 32 | 512 | 1.0x | 1.000 | 1.000 |
+
+**Result:** TurboQuantMSE dominates the Pareto frontier at all aggressive compression levels (2-4 bit). At 8-bit, naive_scalar reaches the frontier due to its lower overhead. The practical recommendation: use TurboQuantMSE at 4-bit for 8x compression with <15% R@10 loss, or 8-bit naive for near-lossless at 4x compression.
+
+### Key Findings Summary
+
+1. **TurboQuantMSE dominates the quality-storage trade-off** at aggressive bit-widths, consistent with its near-optimal distortion rate.
+2. **SL under uniform quantization correctly produces no ranking change** (RQ4 confirmed) -- the framework does not fabricate signal where none exists.
+3. **SL under mixed precision slightly hurts retrieval** (RQ5: -1.8pp R@10) -- the uncertainty correction overcorrects because fidelity != relevance. This is an honest negative finding about the regime where SL uncertainty-aware ranking does NOT help.
+4. **Hybrid symbolic+vector search is the strongest contribution** (RQ6: perfect intra-category recall, 90% scan reduction) -- demonstrates the knowledge-graph-as-index value proposition.
+5. **TurboQuantIP underperforms on reconstruction metrics** but is designed for inner product estimation, not MSE reconstruction. Not a failure of TurboQuantIP; a mismatch between its optimization target and our evaluation metric.
+
+### Limitations
+
+- Synthetic data with controlled cluster structure. Real embedding distributions (from pretrained models on natural corpora) may behave differently. **EN8.4 Part B (BEIR benchmarks) is designed to address this.**
+- 128 dimensions. Real sentence embeddings are 384-768 dim; higher dimensionality may change quantization dynamics.
+- 1,000 nodes. Larger corpora may exhibit different distortion patterns.
+- Distortion constants are illustrative, not empirically calibrated.
+- Brute-force O(n) search; not representative of approximate nearest-neighbor performance.
+
+### Files
+
+- `experiments/EN8/en8_4_vector_retrieval.py` -- experiment script
+- `experiments/EN8/results/en8_4a_results.json` -- results
+- `experiments/EN8/results/en8_4a_results_20260328_022309.json` -- timestamped archive
+
+
+
+---
+
+## EN8.5 -- CBOR-LD Compact Transport with TurboQuant Integration
+
+**Date:** 2026-03-27
+**Status:** POSITIVE -- 100% round-trip fidelity across all formats, significant compression benefits
+**Hardware:** Intel Core i9-13980HX, 95.7 GB RAM
+
+### Motivation
+
+ML data exchange often occurs over constrained channels (IoT, edge devices, MQTT brokers). CBOR-LD provides a compact binary serialization of JSON-LD, and TurboQuant's 4-bit quantization dramatically reduces vector payload size. This experiment evaluates the combined benefits of format-level compression and vector-level quantization for jsonld-ex documents.
+
+### Configuration
+
+- **Complexity levels:** simple (no vectors), medium (128-dim), complex (768-dim + 5 provenance entries)
+- **Vector variants:** float32, quantized (4-bit TurboQuant simulation, packed 2 nibbles/byte)
+- **Formats:** JSON-LD, gzip(JSON), CBOR-LD, gzip(CBOR), MQTT (CBOR payload), MessagePack
+- **Throughput:** 1,000 iterations per configuration
+- **Round-trip fidelity:** All 30 configurations (5 documents x 6 formats) tested
+- **Protobuf omitted:** Requires .proto schema compilation; MessagePack serves as alternative schema-free binary format
+
+### Results: Payload Size
+
+#### Simple documents (no vectors)
+
+| Format | Bytes | vs JSON-LD |
+|--------|-------|-----------|
+| JSON-LD | 359 | 1.00x |
+| gzip(JSON) | 237 | 0.66x |
+| CBOR-LD | 317 | 0.88x |
+| gzip(CBOR) | 251 | 0.70x |
+| MessagePack | 336 | 0.94x |
+
+For simple metadata documents, CBOR-LD provides modest 12% reduction. Gzip dominates for small payloads.
+
+#### Medium documents (128-dim vectors)
+
+| Format | Float32 bytes | Quantized bytes | Quant savings |
+|--------|--------------|-----------------|---------------|
+| JSON-LD | 3,068 | 680 | 77.8% |
+| CBOR-LD | 1,501 | 477 | 68.2% |
+| gzip(CBOR) | 1,416 | 352 | 75.1% |
+| MessagePack | 1,520 | 470 | 69.1% |
+
+#### Complex documents (768-dim vectors + provenance)
+
+| Format | Float32 bytes | Quantized bytes | Quant savings |
+|--------|--------------|-----------------|---------------|
+| JSON-LD | 49,948 | 5,953 | 88.1% |
+| CBOR-LD | 21,889 | 3,457 | 84.2% |
+| gzip(CBOR) | 19,291 | 960 | **95.0%** |
+| gzip(JSON) | 22,845 | 1,031 | **95.5%** |
+| MessagePack | 21,905 | 2,890 | 86.8% |
+
+**Key finding:** The combination of TurboQuant 4-bit quantization + gzip compression achieves 95%+ payload reduction for 768-dim embeddings. For complex documents, the pipeline reduces 49.9 KB to under 1 KB.
+
+### Results: Quantization Analysis
+
+| Dimension | Float32 JSON bytes | Quantized JSON bytes | Theoretical min | Reduction | Metadata overhead |
+|-----------|-------------------|---------------------|-----------------|-----------|-------------------|
+| 128-dim | 2,645 | 257 | 64 B | 90.3% | 76 B |
+| 768-dim | 16,193 | 1,537 | 384 B | 90.5% | 76 B |
+
+The 76-byte metadata overhead (quantization method, bit-width, provenance) is constant regardless of vector dimension -- it amortizes to negligible cost at higher dimensions.
+
+### Results: Serialization Throughput
+
+| Format | Simple (ops/s) | Medium float32 | Complex float32 | Complex quantized |
+|--------|---------------|----------------|-----------------|-------------------|
+| JSON-LD | 311K / 430K | 20.8K / 35.4K | 1.3K / 2.0K | 23.8K / 22.2K |
+| CBOR-LD | 169K / 246K | 46.0K / 64.0K | 3.0K / 4.6K | 4.4K / 6.5K |
+| gzip(JSON) | 95.6K / 136K | 9.8K / 22.2K | 173 / 1.5K | 2.0K / 12.3K |
+| gzip(CBOR) | 59.4K / 58.3K | 21.7K / 40.4K | 1.1K / 2.4K | 2.7K / 7.4K |
+| MessagePack | **949K / 736K** | **170K / 396K** | **28.3K / 25.2K** | **34.8K / 86.5K** |
+
+(Format: serialization / deserialization ops/sec)
+
+**MessagePack is consistently the fastest format** (3-20x faster than JSON-LD serialization for complex documents). CBOR-LD is faster than JSON-LD for medium/complex documents due to binary encoding of numeric arrays. Gzip is the slowest due to compression overhead.
+
+### Round-Trip Fidelity
+
+**30/30 configurations pass** -- all document × format combinations round-trip without information loss. Zero fidelity failures.
+
+### Key Findings
+
+1. **Quantization dominates format choice for vector-heavy documents.** The 4-bit TurboQuant reduction (77-88%) far exceeds the format-level savings of CBOR-LD vs JSON-LD (12-56%). The two are complementary and multiplicative.
+
+2. **gzip(CBOR) + TurboQuant achieves 95% total reduction** for 768-dim embeddings -- from 49.9 KB to 960 bytes. This enables real-time ML data exchange over constrained channels.
+
+3. **Metadata overhead is constant (76 bytes)** regardless of vector dimension. At 768-dim, metadata is 1.3% of quantized payload; at 128-dim, it's 16%. This scales favorably.
+
+4. **MessagePack provides the best throughput** for latency-sensitive applications, while gzip(CBOR) provides the best compression for bandwidth-constrained channels.
+
+5. **100% round-trip fidelity** across all 30 configurations confirms that jsonld-ex's transport pipeline preserves information through serialization/deserialization cycles.
+
+### Limitations
+
+- Quantized vectors use simulated 4-bit packing (2 nibbles/byte), not actual TurboQuant encoder output. Real TurboQuant would produce similar byte counts but with different reconstruction error profiles.
+- Single-document serialization measured; batch/streaming scenarios may differ.
+- Network latency and protocol overhead (TCP, MQTT QoS) not measured -- only payload size and serialization throughput.
+- Protobuf not tested (requires schema compilation).
+
+### Files
+
+- `experiments/EN8/en8_5_cbor_transport.py` -- experiment script
+- `experiments/EN8/results/en8_5_results.json` -- results
+- `experiments/EN8/results/en8_5_results_20260327_170524.json` -- timestamped archive
+
