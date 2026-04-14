@@ -1610,6 +1610,41 @@ def test_round_trip(scenario: Scenario) -> dict:
             "constraints_preserved": preserved, "constraints_lost": lost}
 
 
+def test_owl_round_trip(scenario: Scenario) -> dict:
+    """Test OWL round-trip: shape_to_owl_restrictions -> owl_to_shape -> validate."""
+    from jsonld_ex.validation import validate_node
+    from jsonld_ex.owl_interop import shape_to_owl_restrictions, owl_to_shape
+    shape = scenario.jex_shape
+    try:
+        owl_doc = shape_to_owl_restrictions(shape)
+        recovered_shape = owl_to_shape(owl_doc)
+    except Exception as e:
+        return {"scenario": scenario.id, "fidelity_pct": 0.0,
+                "valid_agree": 0, "valid_total": len(scenario.valid_nodes),
+                "invalid_agree": 0, "invalid_total": len(scenario.invalid_nodes),
+                "error": str(e)}
+    va = sum(1 for n in scenario.valid_nodes
+             if validate_node(n, shape).valid == validate_node(n, recovered_shape).valid)
+    ia = sum(1 for n in scenario.invalid_nodes
+             if validate_node(n, shape).valid == validate_node(n, recovered_shape).valid)
+    total = len(scenario.valid_nodes) + len(scenario.invalid_nodes)
+    preserved, lost = [], []
+    for key, val in shape.items():
+        if key.startswith("@") or not isinstance(val, dict):
+            continue
+        for ck in val:
+            if ck.startswith("@"):
+                if recovered_shape.get(key, {}).get(ck) is not None:
+                    preserved.append(f"{key}/{ck}")
+                else:
+                    lost.append(f"{key}/{ck}")
+    return {"scenario": scenario.id,
+            "fidelity_pct": ((va + ia) / total * 100) if total else 100.0,
+            "valid_agree": va, "valid_total": len(scenario.valid_nodes),
+            "invalid_agree": ia, "invalid_total": len(scenario.invalid_nodes),
+            "constraints_preserved": preserved, "constraints_lost": lost}
+
+
 # =============================================================================
 # STATISTICAL ANALYSIS
 # =============================================================================
@@ -1777,6 +1812,19 @@ def run_experiment() -> dict[str, Any]:
         print(f"  {s.id}: {rt['fidelity_pct']:.0f}% (valid {rt['valid_agree']}/{rt['valid_total']}, invalid {rt['invalid_agree']}/{rt['invalid_total']})")
     print()
 
+    # Phase 6b: OWL round-trip
+    print("Phase 6b: OWL round-trip fidelity")
+    owl_roundtrip_results = []
+    for s in scenarios:
+        rt = test_owl_round_trip(s)
+        owl_roundtrip_results.append(rt)
+        err = rt.get('error', '')
+        if err:
+            print(f"  {s.id}: ERROR ({err[:60]})")
+        else:
+            print(f"  {s.id}: {rt['fidelity_pct']:.0f}% (valid {rt['valid_agree']}/{rt['valid_total']}, invalid {rt['invalid_agree']}/{rt['invalid_total']}, lost: {len(rt.get('constraints_lost', []))})")
+    print()
+
     # Phase 7: Statistical tests
     print("Phase 7: Statistical analysis")
     stat_results = {}
@@ -1824,7 +1872,11 @@ def run_experiment() -> dict[str, Any]:
             print(f"  Throughput {tn}: {np.median(tool_meds[tn]):.0f} ops/s")
 
     fids = [r["fidelity_pct"] for r in roundtrip_results]
-    print(f"  Round-trip: mean={np.mean(fids):.1f}%  min={min(fids):.1f}%")
+    print(f"  SHACL round-trip: mean={np.mean(fids):.1f}%  min={min(fids):.1f}%")
+    owl_fids = [r["fidelity_pct"] for r in owl_roundtrip_results if "error" not in r]
+    owl_errs = sum(1 for r in owl_roundtrip_results if "error" in r)
+    if owl_fids:
+        print(f"  OWL round-trip: mean={np.mean(owl_fids):.1f}%  min={min(owl_fids):.1f}%  errors={owl_errs}/15")
     jd = [r["jsonld-ex"] for r in diagnostics_results]
     print(f"  Diagnostics jex: {np.mean(jd):.2f}/3")
 
@@ -1842,6 +1894,7 @@ def run_experiment() -> dict[str, Any]:
                 "Throughput: setup ONCE excluded, only validate() timed",
                 "pyshacl: per-call JSON-LD->RDF parsing included (realistic overhead)",
                 "Wilcoxon signed-rank with Bonferroni (alpha=0.05/3)",
+                "Round-trip tested for both SHACL and OWL mappings",
             ],
         },
         "hypotheses": {
@@ -1858,6 +1911,7 @@ def run_experiment() -> dict[str, Any]:
         "coverage_matrix": coverage_matrix,
         "diagnostics": diagnostics_results,
         "roundtrip_fidelity": roundtrip_results,
+        "owl_roundtrip_fidelity": owl_roundtrip_results,
         "statistical_tests": stat_results,
         "correctness_issues": issues,
     }

@@ -1,7 +1,7 @@
 # Experiment Findings
 
 **Date:** 2026-04-14
-**Status:** EN7.1, EN1.2/EN1.2b, EA1.1 (ext), EN2.1+EN2.2 (ext), EN1.1/1.1b, EN3.1/3.1b (Tier 1+2), EN3.2-H3 (metadata-enriched prompting + ANSWERS-ONLY ablation), EN3.2-H1 (calibrated selective answering + ablation), EN3.2-H1b (poison detection), EN3.2-H1c (multi-extractor fusion v1+v2) complete., EN2.4 (Croissant head-to-head + 13 ablations) complete. EN2.5 Phase A (HF datasets head-to-head, 13 datasets, 260K samples) complete. EN2.5 Phase B (GPU real models, 9 datasets, 7.6% divergence) + Addendum (COCO+audio, 11/13 real, 7.4% combined) complete. EN8.4 Part A (vector quantization retrieval, synthetic, 7 RQs) complete. EN8.4 Part B (BEIR benchmarks, 22 eval sets, 11 datasets, 4.6M max corpus) complete. EN8.5 (CBOR-LD + TurboQuant transport, 30/30 fidelity, 95% compression) complete. **EN8.1 (SHACL Replacement Study, 15 scenarios, 4 tools, 7 metrics, 100% round-trip) complete.**
+**Status:** EN7.1, EN1.2/EN1.2b, EA1.1 (ext), EN2.1+EN2.2 (ext), EN1.1/1.1b, EN3.1/3.1b (Tier 1+2), EN3.2-H3 (metadata-enriched prompting + ANSWERS-ONLY ablation), EN3.2-H1 (calibrated selective answering + ablation), EN3.2-H1b (poison detection), EN3.2-H1c (multi-extractor fusion v1+v2) complete., EN2.4 (Croissant head-to-head + 13 ablations) complete. EN2.5 Phase A (HF datasets head-to-head, 13 datasets, 260K samples) complete. EN2.5 Phase B (GPU real models, 9 datasets, 7.6% divergence) + Addendum (COCO+audio, 11/13 real, 7.4% combined) complete. EN8.4 Part A (vector quantization retrieval, synthetic, 7 RQs) complete. EN8.4 Part B (BEIR benchmarks, 22 eval sets, 11 datasets, 4.6M max corpus) complete. EN8.5 (CBOR-LD + TurboQuant transport, 30/30 fidelity, 95% compression) complete. **EN8.1 (SHACL Replacement Study, 15 scenarios, 4 tools, 7 metrics, 100% SHACL + 75.3% OWL round-trip) complete.**
 
 ---
 
@@ -4389,7 +4389,7 @@ Only Touche-2020 shows a positive effect (+0.026), which may be noise given its 
 ## EN8.1 -- Validation Framework: SHACL Replacement Study
 
 **Date:** 2026-04-14
-**Result:** 15 scenarios, 4 tools, 7 metrics. jsonld-ex 210x faster than pyshacl, 100% SHACL round-trip fidelity, perfect 3.0/3 diagnostics.
+**Result:** 15 scenarios, 4 tools, 7 metrics. jsonld-ex 210x faster than pyshacl, 100% SHACL round-trip fidelity, 75.3% OWL round-trip fidelity, perfect 3.0/3 diagnostics.
 **Version:** v0.7.2 (includes @class, @qualifiedShape, @uniqueLang added for this experiment)
 
 ### Pre-registered Hypotheses
@@ -4542,6 +4542,34 @@ Pipeline: `shape_to_shacl()` -> `shacl_to_shape()` -> `validate_node()`. For eve
 
 Minor representation differences (e.g., `@minCount: 1` vs `@required: True`) do not affect validation outcomes.
 
+### OWL Round-Trip Fidelity
+
+**Result: 75.3% mean fidelity (range: 33-100%).**
+
+Pipeline: `shape_to_owl_restrictions()` -> `owl_to_shape()` -> `validate_node()`.
+
+| Scenario | Fidelity | Lost Constraints | Why |
+|----------|----------|-----------------|-----|
+| S1 ML Dataset Card | 100% | 1 (@in) | Enum not recoverable from owl:oneOf in all cases |
+| S2 Model Prediction | 100% | 1 (@minLength) | String facet lost |
+| S3 Sensor Reading | 100% | 0 | Full round-trip |
+| S4 NER Annotation | 67% | 3 | @qualifiedShape/@minCount lost (no OWL equivalent) |
+| S5 Training Config | 67% | 1 (@lessThan) | Cross-property not in OWL (stored as jex: annotation) |
+| S6 Person Entity | 100% | 1 (@pattern) | Pattern constraint lost but validation still agrees |
+| S7 Temporal Window | 33% | 1 (@lessThan) | Cross-property: both invalid nodes pass after round-trip |
+| S8 Multi-label | 100% | 2 (@minCount) | Cardinality lost but validation still agrees |
+| S9 Conditional | 80% | 6 (@if/@then) | Conditional has no OWL equivalent |
+| S10 Inheritance | 67% | 0 | @extends maps to rdfs:subClassOf but one invalid passes |
+| S11 Logical Combinators | 83% | 0 | @or/@not map to OWL unions/complements, one valid fails |
+| S12 Class Hierarchy | 33% | 2 (@class) | @class not mapped to OWL (stored as jex: annotation) |
+| S13 Qualified Cardinality | 50% | 2 | @qualifiedShape has no OWL equivalent |
+| S14 Unique Language | 50% | 1 (@uniqueLang) | No OWL equivalent |
+| S15 SPARQL Constraint | 100% | 1 (@minCount) | Only partial constraint, lost but validation agrees |
+
+**Interpretation:** SHACL round-trip achieves 100% because SHACL was designed for validation constraints -- there is a direct mapping for every jsonld-ex feature except SPARQL. OWL round-trip achieves 75.3% because OWL was designed for ontology reasoning, not validation. Features like cross-property constraints (@lessThan), conditional validation (@if/@then), qualified cardinality (@qualifiedShape), instance-of checks (@class), and unique language tags (@uniqueLang) have no OWL equivalents. These are stored as `jex:` namespace annotations on the OWL class (preserving data but not validation behavior).
+
+This is architecturally expected and validates the design decision: **use SHACL interop for validation round-trips, OWL interop for ontological integration.**
+
 ### Honest Limitations
 
 1. **LoC comparison is format-dependent.** JSON indent-2 inflates jsonld-ex LoC with structural braces. A compact single-line format would reduce jsonld-ex LoC but hurt readability. We report the readable format.
@@ -4553,8 +4581,6 @@ Minor representation differences (e.g., `@minCount: 1` vs `@required: True`) do 
 4. **pyshacl throughput includes JSON-LD parsing overhead.** This is realistic (users must serialize data to RDF) but means the comparison measures end-to-end cost, not pure SHACL engine speed.
 
 5. **S15 SPARQL constraint is beyond jsonld-ex scope.** This is a design decision, not a bug. The `shape_to_shacl()` interop path provides an escape hatch.
-
-6. **No OWL round-trip tested.** `shape_to_owl_restrictions()` / `owl_to_shape()` was not included in this experiment. Separate experiment needed.
 
 ### New Library Features Added for This Experiment
 
