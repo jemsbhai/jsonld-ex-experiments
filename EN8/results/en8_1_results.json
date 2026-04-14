@@ -1,0 +1,1247 @@
+{
+  "experiment": "EN8.1",
+  "name": "SHACL Replacement Study",
+  "version": "v2",
+  "timestamp": "2026-04-14T09:45:40.991937+00:00",
+  "config": {
+    "num_scenarios": 15,
+    "tools": [
+      "jsonld-ex",
+      "pyshacl",
+      "jsonschema",
+      "pydantic"
+    ],
+    "warmup": 10,
+    "iterations": 100,
+    "jsonld_ex_version": "0.7.2",
+    "methodology": [
+      "LoC: jex=JSON indent-2, SHACL=actual Turtle, JSON Schema=JSON indent-2, pydantic=Python (no imports)",
+      "Bytes: compact serialized size",
+      "Throughput: setup ONCE excluded, only validate() timed",
+      "pyshacl: per-call JSON-LD->RDF parsing included (realistic overhead)",
+      "Wilcoxon signed-rank with Bonferroni (alpha=0.05/3)"
+    ]
+  },
+  "hypotheses": {
+    "H1": "jex fewer LoC than SHACL (S1-S11)",
+    "H2": "jex more compact bytes than SHACL",
+    "H3": "jex higher throughput than pyshacl",
+    "H4": "jex covers S1-S14 fully, S15 partial",
+    "H5": ">=90% round-trip fidelity S1-S14",
+    "H6": "jex diagnostics >=2/3 all scenarios",
+    "H7": "S15 SPARQL unsupported (design boundary)"
+  },
+  "loc_comparison": [
+    {
+      "scenario": "S1",
+      "name": "ML Dataset Card",
+      "jex_loc": 43,
+      "jex_bytes": 481,
+      "shacl_loc": 28,
+      "shacl_bytes": 765,
+      "jsonschema_loc": 49,
+      "jsonschema_bytes": 494,
+      "pydantic_loc": 16,
+      "pydantic_bytes": 757
+    },
+    {
+      "scenario": "S2",
+      "name": "Model Prediction",
+      "jex_loc": 18,
+      "jex_bytes": 216,
+      "shacl_loc": 20,
+      "shacl_bytes": 429,
+      "jsonschema_loc": 22,
+      "jsonschema_bytes": 199,
+      "pydantic_loc": 4,
+      "pydantic_bytes": 166
+    },
+    {
+      "scenario": "S3",
+      "name": "Sensor Reading",
+      "jex_loc": 24,
+      "jex_bytes": 292,
+      "shacl_loc": 28,
+      "shacl_bytes": 589,
+      "jsonschema_loc": 29,
+      "jsonschema_bytes": 275,
+      "pydantic_loc": 6,
+      "pydantic_bytes": 268
+    },
+    {
+      "scenario": "S4",
+      "name": "NER Annotation",
+      "jex_loc": 35,
+      "jex_bytes": 356,
+      "shacl_loc": 31,
+      "shacl_bytes": 725,
+      "jsonschema_loc": 45,
+      "jsonschema_bytes": 356,
+      "pydantic_loc": 10,
+      "pydantic_bytes": 384
+    },
+    {
+      "scenario": "S5",
+      "name": "Training Config",
+      "jex_loc": 25,
+      "jex_bytes": 345,
+      "shacl_loc": 28,
+      "shacl_bytes": 642,
+      "jsonschema_loc": 28,
+      "jsonschema_bytes": 309,
+      "pydantic_loc": 10,
+      "pydantic_bytes": 458
+    },
+    {
+      "scenario": "S6",
+      "name": "Person Entity",
+      "jex_loc": 16,
+      "jex_bytes": 183,
+      "shacl_loc": 18,
+      "shacl_bytes": 383,
+      "jsonschema_loc": 21,
+      "jsonschema_bytes": 202,
+      "pydantic_loc": 4,
+      "pydantic_bytes": 267
+    },
+    {
+      "scenario": "S7",
+      "name": "Temporal Window",
+      "jex_loc": 12,
+      "jex_bytes": 150,
+      "shacl_loc": 13,
+      "shacl_bytes": 300,
+      "jsonschema_loc": 15,
+      "jsonschema_bytes": 125,
+      "pydantic_loc": 8,
+      "pydantic_bytes": 309
+    },
+    {
+      "scenario": "S8",
+      "name": "Multi-label Output",
+      "jex_loc": 13,
+      "jex_bytes": 147,
+      "shacl_loc": 12,
+      "shacl_bytes": 260,
+      "jsonschema_loc": 19,
+      "jsonschema_bytes": 179,
+      "pydantic_loc": 3,
+      "pydantic_bytes": 199
+    },
+    {
+      "scenario": "S9",
+      "name": "Conditional Validation",
+      "jex_loc": 35,
+      "jex_bytes": 274,
+      "shacl_loc": 31,
+      "shacl_bytes": 700,
+      "jsonschema_loc": 28,
+      "jsonschema_bytes": 240,
+      "pydantic_loc": 5,
+      "pydantic_bytes": 331
+    },
+    {
+      "scenario": "S10",
+      "name": "Shape Inheritance",
+      "jex_loc": 22,
+      "jex_bytes": 250,
+      "shacl_loc": 25,
+      "shacl_bytes": 550,
+      "jsonschema_loc": 0,
+      "jsonschema_bytes": 0,
+      "pydantic_loc": 6,
+      "pydantic_bytes": 225
+    },
+    {
+      "scenario": "S11",
+      "name": "Logical Combinators",
+      "jex_loc": 28,
+      "jex_bytes": 221,
+      "shacl_loc": 15,
+      "shacl_bytes": 410,
+      "jsonschema_loc": 33,
+      "jsonschema_bytes": 232,
+      "pydantic_loc": 9,
+      "pydantic_bytes": 399
+    },
+    {
+      "scenario": "S12",
+      "name": "Class Hierarchy",
+      "jex_loc": 11,
+      "jex_bytes": 121,
+      "shacl_loc": 12,
+      "shacl_bytes": 258,
+      "jsonschema_loc": 0,
+      "jsonschema_bytes": 0,
+      "pydantic_loc": 7,
+      "pydantic_bytes": 193
+    },
+    {
+      "scenario": "S13",
+      "name": "Qualified Cardinality",
+      "jex_loc": 12,
+      "jex_bytes": 137,
+      "shacl_loc": 12,
+      "shacl_bytes": 288,
+      "jsonschema_loc": 0,
+      "jsonschema_bytes": 0,
+      "pydantic_loc": 10,
+      "pydantic_bytes": 430
+    },
+    {
+      "scenario": "S14",
+      "name": "Unique Language Tags",
+      "jex_loc": 6,
+      "jex_bytes": 58,
+      "shacl_loc": 6,
+      "shacl_bytes": 153,
+      "jsonschema_loc": 0,
+      "jsonschema_bytes": 0,
+      "pydantic_loc": 11,
+      "pydantic_bytes": 415
+    },
+    {
+      "scenario": "S15",
+      "name": "SPARQL Constraint",
+      "jex_loc": 6,
+      "jex_bytes": 46,
+      "shacl_loc": 14,
+      "shacl_bytes": 361,
+      "jsonschema_loc": 0,
+      "jsonschema_bytes": 0,
+      "pydantic_loc": 7,
+      "pydantic_bytes": 350
+    }
+  ],
+  "throughput": [
+    {
+      "scenario": "S1",
+      "tool": "jsonld-ex",
+      "median_ops_sec": 169491.9069859216,
+      "iqr": [
+        169491.07090956625,
+        172413.3454164095
+      ]
+    },
+    {
+      "scenario": "S1",
+      "tool": "jsonschema",
+      "median_ops_sec": 57971.499983462585,
+      "iqr": [
+        56497.20943096222,
+        59171.55467383068
+      ]
+    },
+    {
+      "scenario": "S1",
+      "tool": "pydantic",
+      "median_ops_sec": 70922.03134133655,
+      "iqr": [
+        67912.31985885167,
+        74212.30752320513
+      ]
+    },
+    {
+      "scenario": "S1",
+      "tool": "pyshacl",
+      "median_ops_sec": 971.3234010220916,
+      "iqr": [
+        851.6268003958603,
+        1080.29422393577
+      ]
+    },
+    {
+      "scenario": "S2",
+      "tool": "jsonld-ex",
+      "median_ops_sec": 196079.17623292282,
+      "iqr": [
+        192307.30430791792,
+        201020.9267657377
+      ]
+    },
+    {
+      "scenario": "S2",
+      "tool": "jsonschema",
+      "median_ops_sec": 81300.77105708371,
+      "iqr": [
+        79365.16248912936,
+        84033.59013502706
+      ]
+    },
+    {
+      "scenario": "S2",
+      "tool": "pydantic",
+      "median_ops_sec": 999992.38556461,
+      "iqr": [
+        999992.38556461,
+        1111102.6506273444
+      ]
+    },
+    {
+      "scenario": "S2",
+      "tool": "pyshacl",
+      "median_ops_sec": 1295.1732776314543,
+      "iqr": [
+        1142.5645447010093,
+        1416.3990507688818
+      ]
+    },
+    {
+      "scenario": "S3",
+      "tool": "jsonld-ex",
+      "median_ops_sec": 169491.9069859216,
+      "iqr": [
+        166666.81235483702,
+        181818.7215866397
+      ]
+    },
+    {
+      "scenario": "S3",
+      "tool": "jsonschema",
+      "median_ops_sec": 73533.37714688269,
+      "iqr": [
+        68261.77760227278,
+        76335.84778043235
+      ]
+    },
+    {
+      "scenario": "S3",
+      "tool": "pydantic",
+      "median_ops_sec": 66225.1718629537,
+      "iqr": [
+        63593.501163143264,
+        69444.47707668054
+      ]
+    },
+    {
+      "scenario": "S3",
+      "tool": "pyshacl",
+      "median_ops_sec": 1132.5675951600574,
+      "iqr": [
+        974.0067864053439,
+        1229.0370619628693
+      ]
+    },
+    {
+      "scenario": "S4",
+      "tool": "jsonld-ex",
+      "median_ops_sec": 87719.302141174,
+      "iqr": [
+        86206.88899649499,
+        88495.58514931813
+      ]
+    },
+    {
+      "scenario": "S4",
+      "tool": "jsonschema",
+      "median_ops_sec": 26595.748028911872,
+      "iqr": [
+        25445.779065016854,
+        28149.561919348198
+      ]
+    },
+    {
+      "scenario": "S4",
+      "tool": "pydantic",
+      "median_ops_sec": 65789.47660588051,
+      "iqr": [
+        62794.79222099709,
+        68493.17528485882
+      ]
+    },
+    {
+      "scenario": "S4",
+      "tool": "pyshacl",
+      "median_ops_sec": 837.9476638206863,
+      "iqr": [
+        712.835565670415,
+        886.7027849892609
+      ]
+    },
+    {
+      "scenario": "S5",
+      "tool": "jsonld-ex",
+      "median_ops_sec": 161290.60868422288,
+      "iqr": [
+        147058.96256730266,
+        163934.74225407216
+      ]
+    },
+    {
+      "scenario": "S5",
+      "tool": "jsonschema",
+      "median_ops_sec": 62111.83354774625,
+      "iqr": [
+        58055.49283591764,
+        64516.12233371387
+      ]
+    },
+    {
+      "scenario": "S5",
+      "tool": "pydantic",
+      "median_ops_sec": 333334.02892926784,
+      "iqr": [
+        333330.79518820334,
+        344828.4211434822
+      ]
+    },
+    {
+      "scenario": "S5",
+      "tool": "pyshacl",
+      "median_ops_sec": 1156.819279687029,
+      "iqr": [
+        1092.6605257484389,
+        1212.9673796983773
+      ]
+    },
+    {
+      "scenario": "S6",
+      "tool": "jsonld-ex",
+      "median_ops_sec": 215078.99840533268,
+      "iqr": [
+        212765.65485383087,
+        217391.02444085918
+      ]
+    },
+    {
+      "scenario": "S6",
+      "tool": "jsonschema",
+      "median_ops_sec": 84033.59013502706,
+      "iqr": [
+        79365.16248912936,
+        86206.88899649499
+      ]
+    },
+    {
+      "scenario": "S6",
+      "tool": "pydantic",
+      "median_ops_sec": 64309.33834721857,
+      "iqr": [
+        61349.74642242736,
+        67567.58455451463
+      ]
+    },
+    {
+      "scenario": "S7",
+      "tool": "jsonld-ex",
+      "median_ops_sec": 285714.48596778617,
+      "iqr": [
+        283728.5596976684,
+        285714.48596778617
+      ]
+    },
+    {
+      "scenario": "S7",
+      "tool": "jsonschema",
+      "median_ops_sec": 129037.61572066581,
+      "iqr": [
+        123456.73723923338,
+        133333.3528704142
+      ]
+    },
+    {
+      "scenario": "S7",
+      "tool": "pydantic",
+      "median_ops_sec": 999992.38556461,
+      "iqr": [
+        999992.38556461,
+        1000021.4897988882
+      ]
+    },
+    {
+      "scenario": "S7",
+      "tool": "pyshacl",
+      "median_ops_sec": 898.6744684296875,
+      "iqr": [
+        849.9248158515982,
+        1307.0640367094488
+      ]
+    },
+    {
+      "scenario": "S8",
+      "tool": "jsonld-ex",
+      "median_ops_sec": 476193.4497678609,
+      "iqr": [
+        476186.8502688619,
+        499996.192782305
+      ]
+    },
+    {
+      "scenario": "S8",
+      "tool": "jsonschema",
+      "median_ops_sec": 103092.61714422875,
+      "iqr": [
+        101010.14847533537,
+        105263.32380972804
+      ]
+    },
+    {
+      "scenario": "S8",
+      "tool": "pydantic",
+      "median_ops_sec": 909083.9868769182,
+      "iqr": [
+        909083.9868769182,
+        909108.0398994576
+      ]
+    },
+    {
+      "scenario": "S8",
+      "tool": "pyshacl",
+      "median_ops_sec": 852.7336226702447,
+      "iqr": [
+        812.1168844934224,
+        881.3096611987203
+      ]
+    },
+    {
+      "scenario": "S9",
+      "tool": "jsonld-ex",
+      "median_ops_sec": 99999.82062759387,
+      "iqr": [
+        98039.0286415385,
+        192307.30430791792
+      ]
+    },
+    {
+      "scenario": "S9",
+      "tool": "jsonschema",
+      "median_ops_sec": 76923.00782892336,
+      "iqr": [
+        74626.94576256462,
+        78740.14435734418
+      ]
+    },
+    {
+      "scenario": "S9",
+      "tool": "pydantic",
+      "median_ops_sec": 64516.12233371387,
+      "iqr": [
+        62402.95655296357,
+        66666.6764352071
+      ]
+    },
+    {
+      "scenario": "S9",
+      "tool": "pyshacl",
+      "median_ops_sec": 281.63954227749844,
+      "iqr": [
+        225.0229617280523,
+        310.2031223345657
+      ]
+    },
+    {
+      "scenario": "S10",
+      "tool": "jsonld-ex",
+      "median_ops_sec": 135135.16910902926,
+      "iqr": [
+        133333.3528704142,
+        136986.35056971764
+      ]
+    },
+    {
+      "scenario": "S10",
+      "tool": "pydantic",
+      "median_ops_sec": 68027.23162696401,
+      "iqr": [
+        66225.1718629537,
+        70422.43198629253
+      ]
+    },
+    {
+      "scenario": "S10",
+      "tool": "pyshacl",
+      "median_ops_sec": 984.5736806817181,
+      "iqr": [
+        706.3527704644923,
+        1126.4790542969463
+      ]
+    },
+    {
+      "scenario": "S11",
+      "tool": "jsonld-ex",
+      "median_ops_sec": 400001.6108220119,
+      "iqr": [
+        384616.7612693793,
+        400001.6108220119
+      ]
+    },
+    {
+      "scenario": "S11",
+      "tool": "jsonschema",
+      "median_ops_sec": 24875.612568795783,
+      "iqr": [
+        24570.030747096233,
+        25062.653184327646
+      ]
+    },
+    {
+      "scenario": "S11",
+      "tool": "pydantic",
+      "median_ops_sec": 31746.039330840256,
+      "iqr": [
+        31249.98942076121,
+        32051.277180361634
+      ]
+    },
+    {
+      "scenario": "S11",
+      "tool": "pyshacl",
+      "median_ops_sec": 592.6984303501201,
+      "iqr": [
+        534.6350979803193,
+        828.6215042248001
+      ]
+    },
+    {
+      "scenario": "S12",
+      "tool": "jsonld-ex",
+      "median_ops_sec": 333334.02892926784,
+      "iqr": [
+        322581.21736844577,
+        344828.4211434822
+      ]
+    },
+    {
+      "scenario": "S12",
+      "tool": "pydantic",
+      "median_ops_sec": 30864.184309808345,
+      "iqr": [
+        30487.809435547602,
+        31250.017842477246
+      ]
+    },
+    {
+      "scenario": "S12",
+      "tool": "pyshacl",
+      "median_ops_sec": 1295.5124261006226,
+      "iqr": [
+        853.7710763820459,
+        1381.1210333843842
+      ]
+    },
+    {
+      "scenario": "S13",
+      "tool": "jsonld-ex",
+      "median_ops_sec": 161289.85156150983,
+      "iqr": [
+        158729.68336051222,
+        161290.60868422288
+      ]
+    },
+    {
+      "scenario": "S13",
+      "tool": "pydantic",
+      "median_ops_sec": 69930.10674395128,
+      "iqr": [
+        67114.107289632,
+        71428.62149194654
+      ]
+    },
+    {
+      "scenario": "S13",
+      "tool": "pyshacl",
+      "median_ops_sec": 770.0150908761609,
+      "iqr": [
+        550.4413097171365,
+        922.1903281373396
+      ]
+    },
+    {
+      "scenario": "S14",
+      "tool": "jsonld-ex",
+      "median_ops_sec": 555551.3253136722,
+      "iqr": [
+        526319.8438797237,
+        555560.307985836
+      ]
+    },
+    {
+      "scenario": "S14",
+      "tool": "pydantic",
+      "median_ops_sec": 63694.25480861918,
+      "iqr": [
+        31720.916240817667,
+        68027.23162696401
+      ]
+    },
+    {
+      "scenario": "S14",
+      "tool": "pyshacl",
+      "median_ops_sec": 1258.822218263563,
+      "iqr": [
+        941.2893315501935,
+        1497.1490234082598
+      ]
+    },
+    {
+      "scenario": "S15",
+      "tool": "jsonld-ex",
+      "median_ops_sec": 741760.0181758569,
+      "iqr": [
+        714280.2754032928,
+        769224.911972777
+      ]
+    },
+    {
+      "scenario": "S15",
+      "tool": "pydantic",
+      "median_ops_sec": 909083.9868769182,
+      "iqr": [
+        833347.1991462734,
+        931829.1263157458
+      ]
+    },
+    {
+      "scenario": "S15",
+      "tool": "pyshacl",
+      "median_ops_sec": 162.536875812108,
+      "iqr": [
+        111.08426821384,
+        180.60338437478492
+      ]
+    }
+  ],
+  "coverage_matrix": [
+    {
+      "scenario": "S1",
+      "name": "ML Dataset Card",
+      "jsonld-ex": "full",
+      "pyshacl": "full",
+      "jsonschema": "full",
+      "pydantic": "full"
+    },
+    {
+      "scenario": "S2",
+      "name": "Model Prediction",
+      "jsonld-ex": "full",
+      "pyshacl": "full",
+      "jsonschema": "full",
+      "pydantic": "full"
+    },
+    {
+      "scenario": "S3",
+      "name": "Sensor Reading",
+      "jsonld-ex": "full",
+      "pyshacl": "full",
+      "jsonschema": "full",
+      "pydantic": "full"
+    },
+    {
+      "scenario": "S4",
+      "name": "NER Annotation",
+      "jsonld-ex": "full",
+      "pyshacl": "full",
+      "jsonschema": "full",
+      "pydantic": "full"
+    },
+    {
+      "scenario": "S5",
+      "name": "Training Config",
+      "jsonld-ex": "full",
+      "pyshacl": "full",
+      "jsonschema": "partial",
+      "pydantic": "full"
+    },
+    {
+      "scenario": "S6",
+      "name": "Person Entity",
+      "jsonld-ex": "full",
+      "pyshacl": "full",
+      "jsonschema": "full",
+      "pydantic": "full"
+    },
+    {
+      "scenario": "S7",
+      "name": "Temporal Window",
+      "jsonld-ex": "full",
+      "pyshacl": "full",
+      "jsonschema": "partial",
+      "pydantic": "full"
+    },
+    {
+      "scenario": "S8",
+      "name": "Multi-label Output",
+      "jsonld-ex": "full",
+      "pyshacl": "full",
+      "jsonschema": "full",
+      "pydantic": "full"
+    },
+    {
+      "scenario": "S9",
+      "name": "Conditional Validation",
+      "jsonld-ex": "full",
+      "pyshacl": "full",
+      "jsonschema": "full",
+      "pydantic": "full"
+    },
+    {
+      "scenario": "S10",
+      "name": "Shape Inheritance",
+      "jsonld-ex": "full",
+      "pyshacl": "full",
+      "jsonschema": "none",
+      "pydantic": "full"
+    },
+    {
+      "scenario": "S11",
+      "name": "Logical Combinators",
+      "jsonld-ex": "full",
+      "pyshacl": "full",
+      "jsonschema": "full",
+      "pydantic": "full"
+    },
+    {
+      "scenario": "S12",
+      "name": "Class Hierarchy",
+      "jsonld-ex": "full",
+      "pyshacl": "full",
+      "jsonschema": "none",
+      "pydantic": "full"
+    },
+    {
+      "scenario": "S13",
+      "name": "Qualified Cardinality",
+      "jsonld-ex": "full",
+      "pyshacl": "full",
+      "jsonschema": "none",
+      "pydantic": "full"
+    },
+    {
+      "scenario": "S14",
+      "name": "Unique Language Tags",
+      "jsonld-ex": "full",
+      "pyshacl": "full",
+      "jsonschema": "none",
+      "pydantic": "full"
+    },
+    {
+      "scenario": "S15",
+      "name": "SPARQL Constraint",
+      "jsonld-ex": "partial",
+      "pyshacl": "full",
+      "jsonschema": "none",
+      "pydantic": "full"
+    }
+  ],
+  "diagnostics": [
+    {
+      "scenario": "S1",
+      "jsonld-ex": 3,
+      "jsonschema": 2,
+      "pydantic": 1,
+      "pyshacl": 2
+    },
+    {
+      "scenario": "S2",
+      "jsonld-ex": 3,
+      "jsonschema": 2,
+      "pydantic": 3,
+      "pyshacl": 2
+    },
+    {
+      "scenario": "S3",
+      "jsonld-ex": 3,
+      "jsonschema": 2,
+      "pydantic": 1,
+      "pyshacl": 2
+    },
+    {
+      "scenario": "S4",
+      "jsonld-ex": 3,
+      "jsonschema": 3,
+      "pydantic": 1,
+      "pyshacl": 3
+    },
+    {
+      "scenario": "S5",
+      "jsonld-ex": 3,
+      "jsonschema": 3,
+      "pydantic": 2,
+      "pyshacl": 3
+    },
+    {
+      "scenario": "S6",
+      "jsonld-ex": 3,
+      "jsonschema": 2,
+      "pydantic": 1,
+      "pyshacl": 0
+    },
+    {
+      "scenario": "S7",
+      "jsonld-ex": 3,
+      "jsonschema": 3,
+      "pydantic": 2,
+      "pyshacl": 3
+    },
+    {
+      "scenario": "S8",
+      "jsonld-ex": 3,
+      "jsonschema": 3,
+      "pydantic": 3,
+      "pyshacl": 2
+    },
+    {
+      "scenario": "S9",
+      "jsonld-ex": 3,
+      "jsonschema": 3,
+      "pydantic": 1,
+      "pyshacl": 0
+    },
+    {
+      "scenario": "S10",
+      "jsonld-ex": 3,
+      "jsonschema": 0,
+      "pydantic": 1,
+      "pyshacl": 3
+    },
+    {
+      "scenario": "S11",
+      "jsonld-ex": 3,
+      "jsonschema": 2,
+      "pydantic": 1,
+      "pyshacl": 2
+    },
+    {
+      "scenario": "S12",
+      "jsonld-ex": 3,
+      "jsonschema": 0,
+      "pydantic": 1,
+      "pyshacl": 3
+    },
+    {
+      "scenario": "S13",
+      "jsonld-ex": 3,
+      "jsonschema": 0,
+      "pydantic": 1,
+      "pyshacl": 3
+    },
+    {
+      "scenario": "S14",
+      "jsonld-ex": 3,
+      "jsonschema": 0,
+      "pydantic": 1,
+      "pyshacl": 2
+    },
+    {
+      "scenario": "S15",
+      "jsonld-ex": 3,
+      "jsonschema": 0,
+      "pydantic": 2,
+      "pyshacl": 0
+    }
+  ],
+  "roundtrip_fidelity": [
+    {
+      "scenario": "S1",
+      "fidelity_pct": 100.0,
+      "valid_agree": 2,
+      "valid_total": 2,
+      "invalid_agree": 3,
+      "invalid_total": 3,
+      "constraints_preserved": [
+        "name/@required",
+        "name/@type",
+        "name/@minLength",
+        "description/@required",
+        "description/@type",
+        "license/@required",
+        "license/@in",
+        "task/@required",
+        "task/@in",
+        "numSamples/@type",
+        "numSamples/@minimum"
+      ],
+      "constraints_lost": []
+    },
+    {
+      "scenario": "S2",
+      "fidelity_pct": 100.0,
+      "valid_agree": 3,
+      "valid_total": 3,
+      "invalid_agree": 3,
+      "invalid_total": 3,
+      "constraints_preserved": [
+        "label/@required",
+        "label/@type",
+        "label/@minLength",
+        "confidence/@required",
+        "confidence/@type",
+        "confidence/@minimum",
+        "confidence/@maximum",
+        "model/@required",
+        "model/@type"
+      ],
+      "constraints_lost": []
+    },
+    {
+      "scenario": "S3",
+      "fidelity_pct": 100.0,
+      "valid_agree": 2,
+      "valid_total": 2,
+      "invalid_agree": 3,
+      "invalid_total": 3,
+      "constraints_preserved": [
+        "value/@required",
+        "value/@type",
+        "unit/@required",
+        "unit/@pattern",
+        "sensorId/@required",
+        "sensorId/@type",
+        "timestamp/@required",
+        "timestamp/@type",
+        "quality/@type",
+        "quality/@minimum",
+        "quality/@maximum"
+      ],
+      "constraints_lost": []
+    },
+    {
+      "scenario": "S4",
+      "fidelity_pct": 100.0,
+      "valid_agree": 1,
+      "valid_total": 1,
+      "invalid_agree": 2,
+      "invalid_total": 2,
+      "constraints_preserved": [
+        "text/@required",
+        "text/@type",
+        "entities/@qualifiedShape",
+        "entities/@qualifiedMinCount"
+      ],
+      "constraints_lost": [
+        "entities/@minCount"
+      ]
+    },
+    {
+      "scenario": "S5",
+      "fidelity_pct": 100.0,
+      "valid_agree": 1,
+      "valid_total": 1,
+      "invalid_agree": 2,
+      "invalid_total": 2,
+      "constraints_preserved": [
+        "learningRate/@required",
+        "learningRate/@type",
+        "learningRate/@minimum",
+        "learningRate/@lessThan",
+        "maxLearningRate/@required",
+        "maxLearningRate/@type",
+        "maxLearningRate/@minimum",
+        "batchSize/@required",
+        "batchSize/@type",
+        "batchSize/@minimum",
+        "epochs/@required",
+        "epochs/@type",
+        "epochs/@minimum",
+        "epochs/@maximum"
+      ],
+      "constraints_lost": []
+    },
+    {
+      "scenario": "S6",
+      "fidelity_pct": 100.0,
+      "valid_agree": 2,
+      "valid_total": 2,
+      "invalid_agree": 4,
+      "invalid_total": 4,
+      "constraints_preserved": [
+        "name/@required",
+        "name/@type",
+        "name/@minLength",
+        "email/@pattern",
+        "age/@type",
+        "age/@minimum",
+        "age/@maximum"
+      ],
+      "constraints_lost": []
+    },
+    {
+      "scenario": "S7",
+      "fidelity_pct": 100.0,
+      "valid_agree": 1,
+      "valid_total": 1,
+      "invalid_agree": 2,
+      "invalid_total": 2,
+      "constraints_preserved": [
+        "startDate/@required",
+        "startDate/@type",
+        "startDate/@lessThan",
+        "endDate/@required",
+        "endDate/@type"
+      ],
+      "constraints_lost": []
+    },
+    {
+      "scenario": "S8",
+      "fidelity_pct": 100.0,
+      "valid_agree": 1,
+      "valid_total": 1,
+      "invalid_agree": 2,
+      "invalid_total": 2,
+      "constraints_preserved": [
+        "labels/@required",
+        "labels/@maxCount",
+        "confidences/@required",
+        "confidences/@maxCount"
+      ],
+      "constraints_lost": [
+        "labels/@minCount",
+        "confidences/@minCount"
+      ]
+    },
+    {
+      "scenario": "S9",
+      "fidelity_pct": 100.0,
+      "valid_agree": 3,
+      "valid_total": 3,
+      "invalid_agree": 2,
+      "invalid_total": 2,
+      "constraints_preserved": [
+        "modality/@required",
+        "modality/@in",
+        "width/@if",
+        "width/@then",
+        "height/@if",
+        "height/@then",
+        "tokenCount/@if",
+        "tokenCount/@then"
+      ],
+      "constraints_lost": []
+    },
+    {
+      "scenario": "S10",
+      "fidelity_pct": 100.0,
+      "valid_agree": 1,
+      "valid_total": 1,
+      "invalid_agree": 2,
+      "invalid_total": 2,
+      "constraints_preserved": [
+        "baseModel/@required",
+        "baseModel/@type",
+        "epochs/@type",
+        "epochs/@minimum"
+      ],
+      "constraints_lost": []
+    },
+    {
+      "scenario": "S11",
+      "fidelity_pct": 100.0,
+      "valid_agree": 4,
+      "valid_total": 4,
+      "invalid_agree": 2,
+      "invalid_total": 2,
+      "constraints_preserved": [
+        "value/@required",
+        "value/@or",
+        "tag/@not"
+      ],
+      "constraints_lost": []
+    },
+    {
+      "scenario": "S12",
+      "fidelity_pct": 100.0,
+      "valid_agree": 1,
+      "valid_total": 1,
+      "invalid_agree": 2,
+      "invalid_total": 2,
+      "constraints_preserved": [
+        "model/@required",
+        "model/@class",
+        "dataset/@required",
+        "dataset/@class"
+      ],
+      "constraints_lost": []
+    },
+    {
+      "scenario": "S13",
+      "fidelity_pct": 100.0,
+      "valid_agree": 1,
+      "valid_total": 1,
+      "invalid_agree": 1,
+      "invalid_total": 1,
+      "constraints_preserved": [
+        "annotations/@qualifiedShape",
+        "annotations/@qualifiedMinCount"
+      ],
+      "constraints_lost": []
+    },
+    {
+      "scenario": "S14",
+      "fidelity_pct": 100.0,
+      "valid_agree": 1,
+      "valid_total": 1,
+      "invalid_agree": 1,
+      "invalid_total": 1,
+      "constraints_preserved": [
+        "label/@uniqueLang"
+      ],
+      "constraints_lost": []
+    },
+    {
+      "scenario": "S15",
+      "fidelity_pct": 100.0,
+      "valid_agree": 1,
+      "valid_total": 1,
+      "invalid_agree": 1,
+      "invalid_total": 1,
+      "constraints_preserved": [],
+      "constraints_lost": [
+        "weights/@minCount"
+      ]
+    }
+  ],
+  "statistical_tests": {
+    "jex_vs_jsonschema": {
+      "n": 10,
+      "wilcoxon_p": 0.001953125,
+      "significant": true,
+      "cliffs_delta": 0.92,
+      "bonferroni_alpha": 0.016666666666666666,
+      "jex_median_ops": 182785.54160942222,
+      "other_median_ops": 75226.20521824893,
+      "jex_95ci": [
+        134745.86380675773,
+        307527.87786715454
+      ],
+      "other_95ci": [
+        50062.57531824318,
+        92196.69410065623
+      ]
+    },
+    "jex_vs_pydantic": {
+      "n": 15,
+      "wilcoxon_p": 0.01025390625,
+      "significant": true,
+      "cliffs_delta": 0.37333333333333335,
+      "bonferroni_alpha": 0.016666666666666666,
+      "jex_median_ops": 196079.17623292282,
+      "other_median_ops": 68027.23162696401,
+      "jex_95ci": [
+        161290.60868422288,
+        333334.02892926784
+      ],
+      "other_95ci": [
+        64308.67344196267,
+        347727.77787774964
+      ]
+    },
+    "jex_vs_pyshacl": {
+      "n": 14,
+      "wilcoxon_p": 0.0001220703125,
+      "significant": true,
+      "cliffs_delta": 1.0,
+      "bonferroni_alpha": 0.016666666666666666,
+      "jex_median_ops": 182785.54160942222,
+      "other_median_ops": 934.986297909401,
+      "jex_95ci": [
+        161289.85156150983,
+        380953.96786782355
+      ],
+      "other_95ci": [
+        770.0007737715122,
+        1156.8048788448925
+      ]
+    }
+  },
+  "correctness_issues": []
+}
