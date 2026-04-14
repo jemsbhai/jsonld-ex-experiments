@@ -1,7 +1,7 @@
 # Experiment Findings
 
-**Date:** 2026-04-03
-**Status:** EN7.1, EN1.2/EN1.2b, EA1.1 (ext), EN2.1+EN2.2 (ext), EN1.1/1.1b, EN3.1/3.1b (Tier 1+2), EN3.2-H3 (metadata-enriched prompting + ANSWERS-ONLY ablation), EN3.2-H1 (calibrated selective answering + ablation), EN3.2-H1b (poison detection), EN3.2-H1c (multi-extractor fusion v1+v2) complete., EN2.4 (Croissant head-to-head + 13 ablations) complete. EN2.5 Phase A (HF datasets head-to-head, 13 datasets, 260K samples) complete. EN2.5 Phase B (GPU real models, 9 datasets, 7.6% divergence) + Addendum (COCO+audio, 11/13 real, 7.4% combined) complete. EN8.4 Part A (vector quantization retrieval, synthetic, 7 RQs) complete. EN8.5 (CBOR-LD + TurboQuant transport, 30/30 fidelity, 95% compression) complete.
+**Date:** 2026-04-13
+**Status:** EN7.1, EN1.2/EN1.2b, EA1.1 (ext), EN2.1+EN2.2 (ext), EN1.1/1.1b, EN3.1/3.1b (Tier 1+2), EN3.2-H3 (metadata-enriched prompting + ANSWERS-ONLY ablation), EN3.2-H1 (calibrated selective answering + ablation), EN3.2-H1b (poison detection), EN3.2-H1c (multi-extractor fusion v1+v2) complete., EN2.4 (Croissant head-to-head + 13 ablations) complete. EN2.5 Phase A (HF datasets head-to-head, 13 datasets, 260K samples) complete. EN2.5 Phase B (GPU real models, 9 datasets, 7.6% divergence) + Addendum (COCO+audio, 11/13 real, 7.4% combined) complete. EN8.4 Part A (vector quantization retrieval, synthetic, 7 RQs) complete. EN8.4 Part B (BEIR benchmarks, 22 eval sets, 11 datasets, 4.6M max corpus) complete. EN8.5 (CBOR-LD + TurboQuant transport, 30/30 fidelity, 95% compression) complete.
 
 ---
 
@@ -4211,4 +4211,176 @@ The 76-byte metadata overhead (quantization method, bit-width, provenance) is co
 - `experiments/EN8/en8_5_cbor_transport.py` -- experiment script
 - `experiments/EN8/results/en8_5_results.json` -- results
 - `experiments/EN8/results/en8_5_results_20260327_170524.json` -- timestamped archive
+
+
+
+---
+
+## EN8.4 Part B -- BEIR Benchmark Evaluation (Real IR Tasks)
+
+**Date:** 2026-04-13
+**Status:** POSITIVE (with honest negative on RQ-B3) -- quantization-SL bridge validated on 22 real IR evaluation sets
+**Hardware:** NVIDIA GeForce RTX 4090 Laptop GPU, Intel Core i9-13980HX, 64GB RAM
+**Runtime:** 7,463 seconds (2.1 hours)
+
+### Motivation
+
+Part A established quantization-retrieval trade-offs on a synthetic product catalog (1K items, 128-dim). Part B validates on real IR benchmarks spanning 3.6K to 4.6M documents with 384-dim sentence embeddings, using the standard BEIR evaluation suite. This is critical for NeurIPS: synthetic results alone would not survive reviewer scrutiny.
+
+### Configuration
+
+- **Encoder:** sentence-transformers/all-MiniLM-L6-v2 (384-dim, L2-normalized)
+- **Quantization methods:** naive_scalar, TurboQuantMSE, TurboQuantIP
+- **Bit-widths:** 2, 3, 4, 8
+- **Search:** Brute-force cosine similarity (dot product on normalized vectors), top-100
+- **Metrics:** NDCG@10 (primary), MRR@10, Recall@{1, 5, 10, 100}
+- **Statistical rigor:** Bootstrap 95% CIs (n=1000, seed=42)
+- **Seed:** 42 (global)
+
+### Datasets (22 evaluation sets across 11 BEIR datasets)
+
+| Dataset | Corpus | Queries | Domain |
+|---------|--------|---------|--------|
+| SciFact | 5,183 | 300 | Scientific claims |
+| NFCorpus | 3,633 | 323 | Biomedical/nutrition |
+| ArguAna | 8,674 | 1,406 | Argumentative retrieval |
+| SCIDOCS | 25,657 | 1,000 | Scientific documents |
+| FiQA | 57,638 | 648 | Financial QA |
+| TREC-COVID | 171,332 | 50 | COVID biomedical |
+| Touche-2020 | 382,545 | 49 | Argument retrieval |
+| CQADupStack (12 sub-forums) | 16K-68K each | 506-2,906 | StackExchange |
+| Quora | 522,931 | 10,000 | Duplicate questions |
+| NQ | 2,681,468 | 3,452 | Open-domain QA |
+| DBPedia-Entity | 4,635,922 | 400 | Entity retrieval |
+
+Corpus sizes span 3 orders of magnitude (3.6K to 4.6M). Domains span scientific, biomedical, financial, argumentative, technical Q&A, open-domain, and entity retrieval.
+
+### Float32 Baselines
+
+| Dataset | NDCG@10 | MRR@10 | R@100 |
+|---------|---------|--------|-------|
+| SciFact | 0.6451 | 0.6047 | 0.9250 |
+| NFCorpus | 0.3169 | 0.5061 | 0.3115 |
+| ArguAna | 0.3697 | 0.2445 | 0.9772 |
+| SCIDOCS | 0.2164 | 0.3594 | 0.5101 |
+| FiQA | 0.3687 | 0.4451 | 0.7061 |
+| TREC-COVID | 0.4544 | 0.7244 | 0.0855 |
+| Touche-2020 | 0.1662 | 0.3195 | 0.4171 |
+| CQADupStack avg (12) | 0.3969 | 0.3813 | 0.7841 |
+| Quora | 0.8754 | 0.8673 | 0.9944 |
+| NQ | 0.4388 | 0.3859 | 0.9033 |
+| DBPedia-Entity | 0.3076 | 0.6396 | 0.4327 |
+
+These baselines are consistent with published BEIR results for all-MiniLM-L6-v2, validating our evaluation pipeline.
+
+### RQ-B1: Bit-Width Impact on Retrieval Quality
+
+Mean NDCG@10 loss (%) vs float32 across 22 evaluation sets:
+
+| Method | 8-bit | 4-bit | 3-bit | 2-bit |
+|--------|-------|-------|-------|-------|
+| naive_scalar | -0.1% | 0.6% | 2.1% | 7.6% |
+| turboquant_mse | 0.0% | 0.3% | 0.6% | **1.0%** |
+| turboquant_ip | 0.0% | 0.5% | 0.8% | 4.7% |
+
+**Pre-registered predictions vs actual:**
+- 8-bit < 1% loss: **CONFIRMED** (all methods 0.0-0.1%)
+- 4-bit < 5% loss: **CONFIRMED** (all methods 0.3-0.6%, much better than predicted)
+- 2-bit > 15% loss: **WRONG for TurboQuantMSE** (only 1.0%) -- the prediction was too pessimistic. TurboQuantMSE's near-optimal distortion rate means even 2-bit (16x compression) preserves retrieval quality remarkably well on real data. Naive scalar at 7.6% is closer to the prediction but still below 15%.
+
+**Key insight:** On real 384-dim sentence embeddings, quantization is far less destructive than on 128-dim synthetic embeddings (Part A). Higher dimensionality provides more redundancy for quantizers to exploit.
+
+### RQ-B2: TurboQuant vs Naive Scalar
+
+TurboQuantMSE consistently outperforms naive scalar at every bit-width on real IR tasks:
+
+| Bit-width | Naive NDCG loss | TurboQuantMSE NDCG loss | TQ advantage |
+|-----------|----------------|------------------------|-------------|
+| 2 | 7.6% | 1.0% | **7.6x** |
+| 3 | 2.1% | 0.6% | 3.5x |
+| 4 | 0.6% | 0.3% | 2.0x |
+| 8 | 0.1% | 0.0% | ~1x |
+
+The advantage is largest at aggressive bit-widths, consistent with Part A. At 8-bit, both methods are effectively lossless and the advantage vanishes.
+
+TurboQuantIP falls between the two, consistent with its design trade-off: it optimizes inner product estimation (unbiased), not MSE reconstruction. On dequantize-then-search (our evaluation protocol), MSE-optimal reconstruction wins.
+
+### RQ-B3: SL Uncertainty-Aware Ranking Under Mixed Precision
+
+**Setup:** 50% of corpus at float32, 50% at 4-bit naive_scalar. Compare raw cosine ranking vs SL-adjusted ranking (projected probability from quantization-derived uncertainty).
+
+**Pre-registered prediction:** Likely null or marginal, consistent with Part A RQ5 = -0.018.
+
+| Dataset | NDCG@10 diff (SL - raw) |
+|---------|------------------------|
+| SciFact | -0.0093 |
+| NFCorpus | -0.0043 |
+| ArguAna | -0.0180 |
+| SCIDOCS | -0.0061 |
+| FiQA | -0.0216 |
+| TREC-COVID | -0.0064 |
+| Touche-2020 | **+0.0262** |
+| CQADupStack/android | -0.0210 |
+| CQADupStack/english | -0.0151 |
+| CQADupStack/gaming | -0.0147 |
+| CQADupStack/gis | -0.0117 |
+| CQADupStack/mathematica | -0.0047 |
+| CQADupStack/physics | -0.0158 |
+| CQADupStack/programmers | -0.0171 |
+| CQADupStack/stats | -0.0176 |
+| CQADupStack/tex | -0.0155 |
+| CQADupStack/unix | -0.0193 |
+| CQADupStack/webmasters | -0.0155 |
+| CQADupStack/wordpress | -0.0169 |
+| Quora | -0.0371 |
+| NQ | -0.0354 |
+| DBPedia-Entity | -0.0198 |
+| **Mean** | **-0.0144** |
+
+**Result: NEGATIVE on 21/22 evaluation sets.** Pre-registered prediction **CONFIRMED.**
+
+Only Touche-2020 shows a positive effect (+0.026), which may be noise given its small query set (n=49).
+
+**Interpretation (same as Part A, now robustly confirmed):** SL uncertainty from quantization distortion measures *fidelity of the similarity score*, not *relevance to the query*. A highly relevant but slightly uncertain result should outrank a less relevant but fully trusted result. The SL correction systematically overcorrects by preferring float32 nodes over quantized nodes even when the quantized node is more relevant. This is a fundamental category mismatch: epistemic uncertainty about score fidelity is not the same as uncertainty about relevance.
+
+**Honest caveat repeated:** The distortion constants in `quantization_bridge.py` are illustrative defaults, not empirically calibrated. Smaller uncertainty mass (from calibrated constants) would reduce overcorrection. However, the consistent negative direction across 21/22 datasets suggests the fundamental issue is the fidelity-vs-relevance conflation, not just calibration.
+
+### Key Findings Summary
+
+1. **TurboQuantMSE achieves near-lossless retrieval even at 2-bit** (16x compression, only 1.0% NDCG@10 loss averaged across 22 evaluation sets). This is the strongest result -- jsonld-ex's `@quantization` metadata correctly identifies TurboQuantMSE as producing lower-uncertainty embeddings.
+
+2. **4-bit quantization is effectively lossless for IR** (<0.6% NDCG loss for all methods). At this compression level, storing vectors in the knowledge graph with `@vector` containers has negligible quality cost.
+
+3. **SL uncertainty-aware ranking does NOT help retrieval** (RQ-B3: -0.0144 mean NDCG@10 diff). Pre-registered prediction confirmed on 21/22 real IR evaluation sets. This is an honest negative finding -- the SL-quantization bridge is useful for *metadata provenance* (knowing how vectors were quantized) but not for *ranking adjustment*.
+
+4. **Results are consistent with Part A** but more favorable: higher-dimensional real embeddings (384-dim) are more resilient to quantization than synthetic 128-dim embeddings. The practical recommendation is even stronger than Part A suggested.
+
+5. **Scale validated:** Brute-force search with quantized vectors works up to 4.6M documents (DBPedia-Entity) on commodity hardware (64GB RAM, RTX 4090 Laptop). The `@vector` container design is practical at real IR scale.
+
+### Limitations
+
+- Single encoder (all-MiniLM-L6-v2, 384-dim). Larger encoders (768-dim, 1024-dim) may show different quantization behavior.
+- Brute-force search only. Approximate nearest neighbor (ANN) methods add their own approximation error that may interact with quantization.
+- TurboQuant batch size 8192 was needed to avoid CUDA OOM on large corpora -- codebook lookup memory scales with corpus size.
+- 3 quantization methods tested. Product quantization, IsoQuant, and other methods were not available in the installed turboquant package.
+- Mixed-precision SL (RQ-B3) tested only 50/50 float32/4-bit split. Other ratios and bit-width combinations untested.
+
+### TODO: Further Analysis
+
+- [ ] Thorough re-analysis of per-dataset patterns (which datasets show highest/lowest quantization sensitivity and why)
+- [ ] Ablation: vary mixed-precision ratio (10/90, 25/75, 75/25) for RQ-B3
+- [ ] Ablation: mixed-precision with 2-bit instead of 4-bit (where SL has more room to help)
+- [ ] Cross-reference with Part A synthetic results: do relative method rankings hold?
+- [ ] Statistical significance testing (paired t-test or Wilcoxon) for method comparisons
+- [ ] Investigate Touche-2020 positive RQ-B3 outlier -- noise or genuine effect?
+- [ ] Per-query analysis: does SL help for specific query difficulty levels?
+
+### Files
+
+- `experiments/EN8/en8_4b_beir_benchmarks.py` -- experiment script
+- `experiments/EN8/results/en8_4b_results.json` -- full results
+- `experiments/EN8/results/en8_4b_results_20260413_205621.json` -- timestamped archive
+- `experiments/EN8/results/en8_4b_checkpoints/` -- per-dataset checkpoint files (22)
+- `experiments/EN8/tests/test_en8_4b_metrics.py` -- IR metric tests (27 tests)
+- `experiments/EN8/tests/test_en8_4b_bootstrap.py` -- Bootstrap CI tests (10 tests)
 
