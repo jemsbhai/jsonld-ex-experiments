@@ -27,3 +27,18 @@ Thumbs.db
 # Large checkpoint files should be tracked via git-lfs or excluded
 # Token-level prediction caches are OK (JSON, ~10-50MB)
 # Model weight files are NOT OK
+
+# ET1 training experiment outputs (generated at runtime)
+ET1/data/
+ET1/results/
+ET1/checkpoints/
+ET1/logs/
+
+# Colab / Jupyter
+.ipynb_checkpoints/
+
+# Secrets
+.env
+.env.local
+*.key
+*secrets*
