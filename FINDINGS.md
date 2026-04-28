@@ -1,7 +1,7 @@
 # Experiment Findings
 
 **Date:** 2026-04-14
-**Status:** EN7.1, EN1.2/EN1.2b, EA1.1 (ext), EN2.1+EN2.2 (ext), EN1.1/1.1b, EN3.1/3.1b (Tier 1+2), EN3.2-H3 (metadata-enriched prompting + ANSWERS-ONLY ablation), EN3.2-H1 (calibrated selective answering + ablation), EN3.2-H1b (poison detection), EN3.2-H1c (multi-extractor fusion v1+v2) complete., EN2.4 (Croissant head-to-head + 13 ablations) complete. EN2.5 Phase A (HF datasets head-to-head, 13 datasets, 260K samples) complete. EN2.5 Phase B (GPU real models, 9 datasets, 7.6% divergence) + Addendum (COCO+audio, 11/13 real, 7.4% combined) complete. EN8.4 Part A (vector quantization retrieval, synthetic, 7 RQs) complete. EN8.4 Part B (BEIR benchmarks, 22 eval sets, 11 datasets, 4.6M max corpus) complete. EN8.5 (CBOR-LD + TurboQuant transport, 30/30 fidelity, 95% compression) complete. **EN8.1 (SHACL Replacement Study, 15 scenarios, 4 tools, 7 metrics, 100% SHACL + 75.3% OWL round-trip) complete.**
+**Status:** EN7.1, EN1.2/EN1.2b, EA1.1 (ext), EN2.1+EN2.2 (ext), EN1.1/1.1b, EN3.1/3.1b (Tier 1+2), EN3.2-H3 (metadata-enriched prompting + ANSWERS-ONLY ablation), EN3.2-H1 (calibrated selective answering + ablation), EN3.2-H1b (poison detection), EN3.2-H1c (multi-extractor fusion v1+v2) complete., EN2.4 (Croissant head-to-head + 13 ablations) complete. EN2.5 Phase A (HF datasets head-to-head, 13 datasets, 260K samples) complete. EN2.5 Phase B (GPU real models, 9 datasets, 7.6% divergence) + Addendum (COCO+audio, 11/13 real, 7.4% combined) complete. EN8.4 Part A (vector quantization retrieval, synthetic, 7 RQs) complete. EN8.4 Part B (BEIR benchmarks, 22 eval sets, 11 datasets, 4.6M max corpus) complete. EN8.5 (CBOR-LD + TurboQuant transport, 30/30 fidelity, 95% compression) complete. **EN8.1 (SHACL Replacement Study, 15 scenarios, 4 tools, 7 metrics, 100% SHACL + 75.3% OWL round-trip) complete.** EN5.1-5.6 (Security & Integrity Validation, 6 experiments, 28 hypotheses, 263 tests, 240K+ PBT mutations) complete.
 
 ---
 
@@ -4601,3 +4601,160 @@ All three include bidirectional SHACL mapping via `shape_to_shacl()`/`shacl_to_s
 - `packages/python/src/jsonld_ex/validation.py` -- @class, @qualifiedShape, @uniqueLang implementation
 - `packages/python/src/jsonld_ex/owl_interop.py` -- SHACL round-trip for new constraints
 
+
+
+---
+
+## EN5: Security and Integrity Validation
+
+**Date:** 2026-04-28
+**Suite:** EN5 (NeurIPS Supplementary, Section 5.5)
+**Environment:** Python 3.12.2, Windows 11, Intel i9-13980HX, 96GB RAM, RTX 4090 Laptop
+**jsonld-ex version:** 0.7.2
+**Total runtime:** 11.9 minutes
+**Seed:** 42
+
+### Overview
+
+Six sub-experiments validating the three security mechanisms proposed in FLAIRS-39:
+`@integrity` (SHA-256/384/512 context hashing), context allowlists (SSRF prevention),
+and `enforce_resource_limits` (DoS prevention). All experiments test the actual
+`jsonld_ex.security` module — no reimplementation.
+
+### EN5.1 — Context Integrity Verification
+
+**Hypotheses:**
+- H5.1a (detection completeness): **CONFIRMED** — 0 false negatives across 240,000+ mutations (10,000 random contexts × 3 algorithms × 8 mutation strategies)
+- H5.1b (no false positives): **CONFIRMED** — 0 false positives across 30,000+ round-trip checks
+- H5.1c (algorithm consistency): **CONFIRMED** — SHA-256, SHA-384, SHA-512 all produce valid, distinct, verifiable hashes
+- H5.1d (determinism + key-order invariance): **CONFIRMED** — 13/13 edge cases passed including Unicode, 50-level nesting, float determinism, key-order invariance
+
+**Latency (10,000 trials, bootstrap 95% CI):**
+- compute_integrity: 1.8µs (100B) → 396µs (1MB), linear with context size
+- verify_integrity: 2.8µs (100B) → 772µs (1MB), ~2× compute (hash + compare)
+- SHA-384/SHA-512 add negligible overhead vs SHA-256
+
+### EN5.2 — Context Allowlist Enforcement
+
+**Hypotheses:**
+- H5.2a (exact match): **CONFIRMED** — 0 errors across 1,000 random (URL, config) pairs
+- H5.2b (pattern matching): **CONFIRMED** — glob wildcards (*, ?) match correctly
+- H5.2c (block_remote override): **CONFIRMED** — 0 errors; rejects even allowlisted URLs
+- H5.2d (empty config permissiveness): **CONFIRMED** — 0 errors; empty config allows all
+
+**SSRF Classification:** 22/22 internal/dangerous URLs blocked (localhost variants, private IPs, link-local/cloud metadata, IPv6 loopback, zero address, file:/ftp:/gopher: schemes). 4/4 public allowlisted URLs accepted.
+
+**Latency:** All scenarios sub-microsecond (<0.13µs mean). Allowlist size has negligible impact (100-entry list: 0.12µs).
+
+### EN5.3 — Validation as Security Layer (Resource Limits)
+
+**Hypotheses:**
+- H5.3a (size enforcement): **CONFIRMED** — 0 false accepts, 0 false rejects across 8 size/limit combinations
+- H5.3b (depth enforcement): **CONFIRMED** — 0 false accepts, 0 false rejects, 0 stack overflows across 9 depth/limit combinations including depth=500 stress test
+- H5.3c (default safety): **CONFIRMED** — 0 crashes on 8 adversarial document types (type confusion, type array injection, cardinality violation, deep nesting, wide document, null injection, numeric overflow, mixed attack)
+- H5.3d (error actionability): **CONFIRMED** — all error messages contain measured value and configured limit
+- H5.3e (timeout): **INVESTIGATION** — `max_expansion_time` exists in `DEFAULT_RESOURCE_LIMITS` (default=30s) but is NOT enforced by `enforce_resource_limits()`. The parameter is accepted but has no effect. This is an implementation gap relative to the FLAIRS proposal (A3).
+- H5.3f (context vs graph depth): **INVESTIGATION** — Both `max_context_depth` and `max_graph_depth` exist in defaults, but only `max_graph_depth` is enforced. `max_context_depth` (default=10) is accepted but not checked. The FLAIRS proposal specifies these as separate limits.
+
+**Processing order:** Size check runs before depth traversal (confirmed). Size check is O(1), depth traversal is O(n) — correct ordering for early rejection.
+
+### EN5.4 — Security Pipeline Overhead
+
+**Hypotheses:**
+- H5.4a (<1ms for docs <100KB): **CONFIRMED** — pipeline latency: 3.4µs (148B), 16.8µs (1KB), 155µs (10KB), 1.6ms (100KB)
+- H5.4b (linear scaling): **CONFIRMED** — scaling exponent 0.97 (log-log regression), essentially linear
+- H5.4c (<5% of annotate): **REJECTED** (pre-registered, honestly reported) — Original hypothesis compared per-value annotate() against per-document security pipeline (different granularities). The ratio grows with document size not because security is expensive, but because annotate() is size-independent. See reanalysis below.
+- H5.4d (memory <2x input): **REJECTED** (pre-registered, honestly reported) — Original metric (peak_memory/input_size) is dominated by ~10KB fixed overhead for small documents (75x at 148B). For documents ≥10KB, security pipeline uses LESS peak memory than json.loads baseline. See reanalysis below.
+
+**H5.4c Reanalysis — Bottleneck Decomposition:**
+| Doc Size | allowlist | integrity | resource_limits | % of pipeline |
+|----------|-----------|-----------|-----------------|---------------|
+| 148B | 0.13µs | 1.02µs | 2.32µs | 67% |
+| 1KB | 0.12µs | 0.98µs | 16.2µs | 94% |
+| 10KB | 0.11µs | 0.99µs | 142.5µs | 99% |
+| 100KB | 0.11µs | 0.98µs | 1,381µs | 99.9% |
+| 1MB | 0.12µs | 1.01µs | 13,594µs | 99.99% |
+
+Allowlist (<0.13µs) and integrity (~1µs) are constant-time and negligible regardless of document size. The bottleneck is `enforce_resource_limits`, specifically `json.dumps()` serialization + depth/node traversal. Optimization path: accept pre-serialized strings to skip re-serialization.
+
+**H5.4d Reanalysis — Memory:**
+| Doc Size | Baseline (json.loads) | Security | Overhead |
+|----------|-----------------------|----------|----------|
+| 148B | 1,986B | 11,169B | +9,183B |
+| 1KB | 7,726B | 12,500B | +4,774B |
+| 10KB | 63,989B | 24,659B | -39,330B |
+| 100KB | 617,937B | 163,200B | -454,737B |
+| 1MB | 6,023,252B | 1,164,674B | -4,858,578B |
+
+Security pipeline uses LESS memory than json.loads for docs ≥10KB because it traverses in-memory structures rather than allocating new objects. Memory scaling exponent: 0.54 (sub-linear). Fixed overhead ~10KB.
+
+**Baseline context:** No competing JSON-LD security framework exists. JSON-LD 1.1 has zero built-in security protections (FLAIRS-39 G1-G3). SRI exists for HTML subresources but has no JSON-LD equivalent. Baselines are (1) the unprotected state and (2) annotate() throughput from EN4.1.
+
+### EN5.5 — Backward Compatibility with Legacy Processors
+
+- **PyLD:** 10/10 documents parsed successfully. Extension keywords (@confidence, @integrity, @vector, @source, @extractedAt, @validFrom, @validUntil) are ignored by PyLD as expected per JSON-LD spec for unknown keywords.
+- **rdflib:** 10/10 documents parsed successfully. Extension keywords do not appear as RDF predicates (correctly dropped during RDF conversion).
+- **Cross-parser agreement:** 100% — both parsers agree on success/failure for all 10 documents.
+- **Standard data preservation:** All standard JSON-LD data (@type, properties, values) preserved through expansion in both parsers.
+
+### EN5.6 — End-to-End Attack Scenarios
+
+**Scenario A (Context Injection/MITM):**
+- Control: Tampered context parses silently — sender/recipient semantics swapped with no error or warning. This demonstrates the vulnerability in unprotected JSON-LD 1.1.
+- Treatment: 10/10 tampering strategies detected by verify_integrity() (swap, delete, add, rename, retype, change URL, change value, reorder, truncate, inject key).
+
+**Scenario B (SSRF Prevention):**
+- 20/20 internal/dangerous URLs blocked by is_context_allowed() with standard allowlist
+- 3/3 allowlisted public URLs accepted
+- block_remote_contexts=True rejects everything including allowlisted URLs
+
+**Scenario C (Resource Exhaustion):**
+- Depth bomb (200 levels): caught, rejection 0.09ms vs unprotected 0.6ms (7x protection factor)
+- Size bomb (10MB+): caught, rejection 13.6ms vs unprotected 6.5ms
+- Width bomb (100K keys): caught by max_total_nodes (added during testing — see key finding below)
+- Unprotected memory: depth=61KB, size=10.5MB, width=16.6MB
+
+**Scenario D (Layered Defense):**
+- Check order verified: allowlist → integrity → resource_limits
+- Each layer independently catches its class of attack
+- Defense-in-depth: document passes only when ALL checks pass
+
+**Scenario E (Security + SL Coexistence):**
+- Security pipeline passes richly-annotated SL documents
+- annotate(), validate_node(), get_confidence() all work after security checks
+- @integrity metadata preserved through SL operations
+- Tampered context detected even with SL metadata present
+- Invalid SL opinions (e.g., confidence=999) do NOT cause security false positives
+- Security layer does NOT inspect SL content — layers are orthogonal
+
+### Key Finding: max_total_nodes Gap
+
+During EN5.6 testing, the width bomb (100K top-level keys, ~1.6MB, depth=1) bypassed `enforce_resource_limits` because it fell under both `max_document_size` (10MB) and `max_graph_depth` (100). The test correctly identified this as a DoS vector.
+
+**Fix:** Added `max_total_nodes=50,000` to `DEFAULT_RESOURCE_LIMITS` and `_measure_depth_and_nodes()` — a single-pass function that counts both depth and total nodes during traversal (no performance penalty). The width bomb now triggers `ValueError: Document node count 100001 exceeds limit 50000`. All 5,231 existing library tests pass with the fix.
+
+This is a textbook example of testing driving implementation improvement.
+
+### Paper-Ready Numbers for Section 5.5
+
+| Metric | Value |
+|--------|-------|
+| Tamper detection rate | 100% (0/240,000+ false negatives) |
+| False positive rate | 0% (0/30,000+ round-trips) |
+| SSRF block rate | 100% (22/22 dangerous URLs) |
+| DoS prevention | 3/3 bomb types caught, 0 crashes |
+| Allowlist latency | <0.13µs (constant) |
+| Integrity latency | ~1µs (constant) |
+| Pipeline scaling | Linear (exponent 0.97) |
+| Memory scaling | Sub-linear (exponent 0.54) |
+| PyLD backward compat | 10/10 documents |
+| rdflib backward compat | 10/10 documents |
+
+### Files
+
+- `experiments/EN5/run_en5_all.py` — Full experiment runner
+- `experiments/EN5/en5_1_core.py` through `en5_6_core.py` — Experiment modules
+- `experiments/EN5/tests/test_en5_1.py` through `test_en5_6.py` — 263 tests
+- `experiments/EN5/results/en5_*_results.json` — Primary results (6 files)
+- `experiments/EN5/results/en5_*_results_*Z.json` — Timestamped archives (6 files)
+- `packages/python/src/jsonld_ex/security.py` — max_total_nodes fix (library repo)
