@@ -1,0 +1,333 @@
+{
+  "experiment_id": "EN5.4",
+  "parameters": {
+    "doc_sizes": [
+      100,
+      1000,
+      10000,
+      100000,
+      1000000
+    ],
+    "latency_trials": 10000,
+    "latency_warmup": 100,
+    "baseline_note": "No competing JSON-LD security framework exists for comparison. JSON-LD 1.1 has zero built-in security (FLAIRS-39 G1-G3). SRI (Subresource Integrity) exists for HTML but has no JSON-LD equivalent. Baselines: (1) unprotected state = no checks, (2) annotate() throughput from EN4.1 as relative overhead denominator."
+  },
+  "metrics": {
+    "H5.4a_confirmed": true,
+    "H5.4b_confirmed": true,
+    "H5.4c_confirmed": false,
+    "H5.4d_confirmed": false,
+    "latency_scaling_exponent": 0.9690393091441828,
+    "memory_scaling_exponent": 0.5383340467914823
+  },
+  "timestamp": "2026-04-28T08:08:49.380048+00:00",
+  "raw_data": {
+    "operations": {
+      "measurements": [
+        {
+          "size_bytes": 148,
+          "operation": "allowlist_check",
+          "mean_us": 0.12838000000000002,
+          "p50_us": 0.1,
+          "p95_us": 0.2,
+          "p99_us": 0.2,
+          "ci_lower_us": 0.12376975000000001,
+          "ci_upper_us": 0.13671049999999998,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 148,
+          "operation": "integrity_verify",
+          "mean_us": 1.02341,
+          "p50_us": 1.0,
+          "p95_us": 1.1,
+          "p99_us": 1.1,
+          "ci_lower_us": 1.01516925,
+          "ci_upper_us": 1.03503075,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 148,
+          "operation": "resource_limits",
+          "mean_us": 2.31722,
+          "p50_us": 2.3,
+          "p95_us": 2.4,
+          "p99_us": 2.5,
+          "ci_lower_us": 2.29928625,
+          "ci_upper_us": 2.34272925,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1086,
+          "operation": "allowlist_check",
+          "mean_us": 0.12257999999999997,
+          "p50_us": 0.1,
+          "p95_us": 0.2,
+          "p99_us": 0.2,
+          "ci_lower_us": 0.1192785,
+          "ci_upper_us": 0.12838,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1086,
+          "operation": "integrity_verify",
+          "mean_us": 0.9758600000000001,
+          "p50_us": 1.0,
+          "p95_us": 1.0,
+          "p99_us": 1.1,
+          "ci_lower_us": 0.97350975,
+          "ci_upper_us": 0.9786907500000002,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1086,
+          "operation": "resource_limits",
+          "mean_us": 16.16447,
+          "p50_us": 16.1,
+          "p95_us": 16.8,
+          "p99_us": 19.4,
+          "ci_lower_us": 16.0954075,
+          "ci_upper_us": 16.25340275,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 10289,
+          "operation": "allowlist_check",
+          "mean_us": 0.11323,
+          "p50_us": 0.1,
+          "p95_us": 0.2,
+          "p99_us": 0.2,
+          "ci_lower_us": 0.11253975000000002,
+          "ci_upper_us": 0.11388,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 10289,
+          "operation": "integrity_verify",
+          "mean_us": 0.9923600000000002,
+          "p50_us": 1.0,
+          "p95_us": 1.0,
+          "p99_us": 1.1,
+          "ci_lower_us": 0.965729,
+          "ci_upper_us": 1.04245875,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 10289,
+          "operation": "resource_limits",
+          "mean_us": 142.49166,
+          "p50_us": 140.6,
+          "p95_us": 148.2,
+          "p99_us": 205.50800000000018,
+          "ci_lower_us": 141.77901025000003,
+          "ci_upper_us": 143.34238025000002,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 102157,
+          "operation": "allowlist_check",
+          "mean_us": 0.11136999999999998,
+          "p50_us": 0.1,
+          "p95_us": 0.2,
+          "p99_us": 0.2,
+          "ci_lower_us": 0.11056975,
+          "ci_upper_us": 0.11247025,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 102157,
+          "operation": "integrity_verify",
+          "mean_us": 0.9767900000000002,
+          "p50_us": 1.0,
+          "p95_us": 1.0,
+          "p99_us": 1.1,
+          "ci_lower_us": 0.9748092500000001,
+          "ci_upper_us": 0.9790902500000002,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 102157,
+          "operation": "resource_limits",
+          "mean_us": 1381.1464299999998,
+          "p50_us": 1375.0,
+          "p95_us": 1530.5349999999994,
+          "p99_us": 2011.3620000000012,
+          "ci_lower_us": 1378.13263425,
+          "ci_upper_us": 1384.1365362500003,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1020736,
+          "operation": "allowlist_check",
+          "mean_us": 0.12240999999999999,
+          "p50_us": 0.1,
+          "p95_us": 0.2,
+          "p99_us": 0.2,
+          "ci_lower_us": 0.12120999999999998,
+          "ci_upper_us": 0.12379000000000001,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1020736,
+          "operation": "integrity_verify",
+          "mean_us": 1.0109700000000001,
+          "p50_us": 1.0,
+          "p95_us": 1.0,
+          "p99_us": 1.1,
+          "ci_lower_us": 0.9730575,
+          "ci_upper_us": 1.0847487499999997,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1020736,
+          "operation": "resource_limits",
+          "mean_us": 13594.26085,
+          "p50_us": 13626.55,
+          "p95_us": 14342.720000000001,
+          "p99_us": 15759.223000000002,
+          "ci_lower_us": 13583.036854000002,
+          "ci_upper_us": 13606.068842749997,
+          "n_trials": 10000
+        }
+      ]
+    },
+    "pipeline": {
+      "measurements": [
+        {
+          "size_bytes": 148,
+          "mean_us": 3.4294800000000003,
+          "p50_us": 3.3,
+          "p95_us": 3.7,
+          "p99_us": 3.9,
+          "ci_lower_us": 3.42434875,
+          "ci_upper_us": 3.43464025,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1086,
+          "mean_us": 16.76369,
+          "p50_us": 16.6,
+          "p95_us": 17.2,
+          "p99_us": 19.1,
+          "ci_lower_us": 16.716611500000003,
+          "ci_upper_us": 16.84900575,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 10289,
+          "mean_us": 154.96292999999997,
+          "p50_us": 144.8,
+          "p95_us": 252.7,
+          "p99_us": 294.3,
+          "ci_lower_us": 154.13947224999998,
+          "ci_upper_us": 155.88889225,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 102157,
+          "mean_us": 1642.0687699999999,
+          "p50_us": 1344.85,
+          "p95_us": 2701.5299999999997,
+          "p99_us": 5484.530000000005,
+          "ci_lower_us": 1624.910492,
+          "ci_upper_us": 1658.7304714999998,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1020736,
+          "mean_us": 16231.147,
+          "p50_us": 14263.6,
+          "p95_us": 24778.44499999999,
+          "p99_us": 32287.861,
+          "ci_lower_us": 16153.339727999999,
+          "ci_upper_us": 16310.876421500001,
+          "n_trials": 10000
+        }
+      ]
+    },
+    "comparison": {
+      "comparisons": [
+        {
+          "size_bytes": 148,
+          "pipeline_mean_us": 4.1630400000000005,
+          "annotate_mean_us": 0.44595999999999997,
+          "overhead_ratio": 9.335
+        },
+        {
+          "size_bytes": 1086,
+          "pipeline_mean_us": 20.1796,
+          "annotate_mean_us": 0.37272999999999995,
+          "overhead_ratio": 54.14
+        },
+        {
+          "size_bytes": 10289,
+          "pipeline_mean_us": 163.26153,
+          "annotate_mean_us": 0.34918999999999994,
+          "overhead_ratio": 467.5435
+        },
+        {
+          "size_bytes": 102157,
+          "pipeline_mean_us": 1671.4949399999998,
+          "annotate_mean_us": 0.35761999999999994,
+          "overhead_ratio": 4673.9414
+        },
+        {
+          "size_bytes": 1020736,
+          "pipeline_mean_us": 16238.168940000001,
+          "annotate_mean_us": 0.5202100000000001,
+          "overhead_ratio": 31214.642
+        }
+      ]
+    },
+    "memory": {
+      "measurements": [
+        {
+          "size_bytes": 148,
+          "baseline_peak_bytes": 1986,
+          "security_peak_bytes": 11169,
+          "overhead_bytes": 9183,
+          "amplification_factor": 75.4662
+        },
+        {
+          "size_bytes": 1086,
+          "baseline_peak_bytes": 7726,
+          "security_peak_bytes": 12500,
+          "overhead_bytes": 4774,
+          "amplification_factor": 11.5101
+        },
+        {
+          "size_bytes": 10289,
+          "baseline_peak_bytes": 63989,
+          "security_peak_bytes": 24659,
+          "overhead_bytes": -39330,
+          "amplification_factor": 2.3966
+        },
+        {
+          "size_bytes": 102157,
+          "baseline_peak_bytes": 617937,
+          "security_peak_bytes": 163200,
+          "overhead_bytes": -454737,
+          "amplification_factor": 1.5975
+        },
+        {
+          "size_bytes": 1020736,
+          "baseline_peak_bytes": 6023252,
+          "security_peak_bytes": 1164674,
+          "overhead_bytes": -4858578,
+          "amplification_factor": 1.141
+        }
+      ]
+    }
+  },
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.2",
+    "numpy_version": "2.4.4",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": null
+}

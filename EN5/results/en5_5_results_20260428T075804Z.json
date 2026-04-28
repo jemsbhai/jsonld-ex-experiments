@@ -1,0 +1,302 @@
+{
+  "experiment_id": "EN5.5",
+  "parameters": {},
+  "metrics": {
+    "H5.5a_pyld_tolerance": true,
+    "H5.5d_rdflib_tolerance": true,
+    "pyld_available": true,
+    "pyld_success_rate": 1.0,
+    "rdflib_available": true,
+    "rdflib_success_rate": 1.0
+  },
+  "timestamp": "2026-04-28T08:08:50.103479+00:00",
+  "raw_data": {
+    "dependency_status": {
+      "pyld": {
+        "name": "PyLD",
+        "available": true,
+        "version": "unknown",
+        "note": "PyLD is available for backward compatibility testing."
+      },
+      "rdflib": {
+        "name": "rdflib",
+        "available": true,
+        "version": "7.6.0",
+        "note": "rdflib with built-in JSON-LD support."
+      }
+    },
+    "pyld": {
+      "parser_name": "PyLD",
+      "parser_available": true,
+      "skipped": false,
+      "skip_reason": "",
+      "total_docs": 10,
+      "successes": 10,
+      "failures": 0,
+      "doc_results": [
+        {
+          "name": "confidence_only",
+          "success": true,
+          "error_type": null,
+          "error_msg": null,
+          "expanded_keys": [
+            "@type",
+            "http://schema.org/name"
+          ],
+          "extension_keywords_survived": [],
+          "standard_data_preserved": true,
+          "triple_count": null
+        },
+        {
+          "name": "integrity_only",
+          "success": true,
+          "error_type": null,
+          "error_msg": null,
+          "expanded_keys": [
+            "@type",
+            "http://schema.org/name"
+          ],
+          "extension_keywords_survived": [],
+          "standard_data_preserved": true,
+          "triple_count": null
+        },
+        {
+          "name": "vector_only",
+          "success": true,
+          "error_type": null,
+          "error_msg": null,
+          "expanded_keys": [
+            "@type",
+            "http://schema.org/name"
+          ],
+          "extension_keywords_survived": [],
+          "standard_data_preserved": true,
+          "triple_count": null
+        },
+        {
+          "name": "provenance_only",
+          "success": true,
+          "error_type": null,
+          "error_msg": null,
+          "expanded_keys": [
+            "@type",
+            "http://schema.org/headline"
+          ],
+          "extension_keywords_survived": [],
+          "standard_data_preserved": true,
+          "triple_count": null
+        },
+        {
+          "name": "temporal_only",
+          "success": true,
+          "error_type": null,
+          "error_msg": null,
+          "expanded_keys": [
+            "@type",
+            "http://schema.org/name"
+          ],
+          "extension_keywords_survived": [],
+          "standard_data_preserved": true,
+          "triple_count": null
+        },
+        {
+          "name": "all_extensions",
+          "success": true,
+          "error_type": null,
+          "error_msg": null,
+          "expanded_keys": [
+            "@type",
+            "http://schema.org/name"
+          ],
+          "extension_keywords_survived": [],
+          "standard_data_preserved": true,
+          "triple_count": null
+        },
+        {
+          "name": "nested_extensions",
+          "success": true,
+          "error_type": null,
+          "error_msg": null,
+          "expanded_keys": [
+            "@type",
+            "http://schema.org/member",
+            "http://schema.org/name"
+          ],
+          "extension_keywords_survived": [],
+          "standard_data_preserved": true,
+          "triple_count": null
+        },
+        {
+          "name": "array_with_extensions",
+          "success": true,
+          "error_type": null,
+          "error_msg": null,
+          "expanded_keys": [
+            "@type",
+            "http://schema.org/itemListElement"
+          ],
+          "extension_keywords_survived": [],
+          "standard_data_preserved": true,
+          "triple_count": null
+        },
+        {
+          "name": "multiple_contexts_integrity",
+          "success": true,
+          "error_type": null,
+          "error_msg": null,
+          "expanded_keys": [
+            "@type",
+            "http://schema.org/name"
+          ],
+          "extension_keywords_survived": [],
+          "standard_data_preserved": true,
+          "triple_count": null
+        },
+        {
+          "name": "minimal_standard",
+          "success": true,
+          "error_type": null,
+          "error_msg": null,
+          "expanded_keys": [
+            "@type",
+            "http://schema.org/email",
+            "http://schema.org/name"
+          ],
+          "extension_keywords_survived": [],
+          "standard_data_preserved": true,
+          "triple_count": null
+        }
+      ]
+    },
+    "rdflib": {
+      "parser_name": "rdflib",
+      "parser_available": true,
+      "skipped": false,
+      "skip_reason": "",
+      "total_docs": 10,
+      "successes": 10,
+      "failures": 0,
+      "doc_results": [
+        {
+          "name": "confidence_only",
+          "success": true,
+          "error_type": null,
+          "error_msg": null,
+          "expanded_keys": [],
+          "extension_keywords_survived": [],
+          "standard_data_preserved": true,
+          "triple_count": 2
+        },
+        {
+          "name": "integrity_only",
+          "success": true,
+          "error_type": null,
+          "error_msg": null,
+          "expanded_keys": [],
+          "extension_keywords_survived": [],
+          "standard_data_preserved": true,
+          "triple_count": 2
+        },
+        {
+          "name": "vector_only",
+          "success": true,
+          "error_type": null,
+          "error_msg": null,
+          "expanded_keys": [],
+          "extension_keywords_survived": [],
+          "standard_data_preserved": true,
+          "triple_count": 2
+        },
+        {
+          "name": "provenance_only",
+          "success": true,
+          "error_type": null,
+          "error_msg": null,
+          "expanded_keys": [],
+          "extension_keywords_survived": [],
+          "standard_data_preserved": true,
+          "triple_count": 2
+        },
+        {
+          "name": "temporal_only",
+          "success": true,
+          "error_type": null,
+          "error_msg": null,
+          "expanded_keys": [],
+          "extension_keywords_survived": [],
+          "standard_data_preserved": true,
+          "triple_count": 2
+        },
+        {
+          "name": "all_extensions",
+          "success": true,
+          "error_type": null,
+          "error_msg": null,
+          "expanded_keys": [],
+          "extension_keywords_survived": [],
+          "standard_data_preserved": true,
+          "triple_count": 2
+        },
+        {
+          "name": "nested_extensions",
+          "success": true,
+          "error_type": null,
+          "error_msg": null,
+          "expanded_keys": [],
+          "extension_keywords_survived": [],
+          "standard_data_preserved": true,
+          "triple_count": 5
+        },
+        {
+          "name": "array_with_extensions",
+          "success": true,
+          "error_type": null,
+          "error_msg": null,
+          "expanded_keys": [],
+          "extension_keywords_survived": [],
+          "standard_data_preserved": true,
+          "triple_count": 10
+        },
+        {
+          "name": "multiple_contexts_integrity",
+          "success": true,
+          "error_type": null,
+          "error_msg": null,
+          "expanded_keys": [],
+          "extension_keywords_survived": [],
+          "standard_data_preserved": true,
+          "triple_count": 2
+        },
+        {
+          "name": "minimal_standard",
+          "success": true,
+          "error_type": null,
+          "error_msg": null,
+          "expanded_keys": [],
+          "extension_keywords_survived": [],
+          "standard_data_preserved": true,
+          "triple_count": 3
+        }
+      ]
+    },
+    "cross_parser": {
+      "parsers_tested": [
+        "PyLD",
+        "rdflib"
+      ],
+      "agreement_rate": 1.0,
+      "finding": "Tested 2 parsers: PyLD, rdflib. Agreement rate: 10/10 documents (100%). PyLD: 10/10 succeeded. rdflib: 10/10 succeeded."
+    }
+  },
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.2",
+    "numpy_version": "2.4.4",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": null
+}

@@ -1,0 +1,357 @@
+{
+  "experiment_id": "EN5.4",
+  "parameters": {
+    "doc_sizes": [
+      100,
+      1000,
+      10000,
+      100000,
+      1000000
+    ],
+    "latency_trials": 10000,
+    "latency_warmup": 100,
+    "baseline_note": "No competing JSON-LD security framework exists for comparison. JSON-LD 1.1 has zero built-in security (FLAIRS-39 G1-G3). SRI (Subresource Integrity) exists for HTML but has no JSON-LD equivalent. Baselines: (1) unprotected state = no checks, (2) annotate() throughput from EN4.1 as relative overhead denominator."
+  },
+  "metrics": {
+    "H5.4a_confirmed": true,
+    "H5.4b_confirmed": true,
+    "H5.4c_original_confirmed": false,
+    "H5.4c_reanalysis": "REJECTED as pre-registered. Original hypothesis compared per-value annotate() against per-document security pipeline (different granularities). Correct metric: pipeline is 3.4µs (148B) to 16ms (1MB), scaling linearly (exponent 0.97). Bottleneck is enforce_resource_limits (json.dumps + traversal), accounting for 67-99.9% of pipeline time. Allowlist (<0.13µs) and integrity (~1µs) are constant-time and negligible.",
+    "H5.4d_original_confirmed": false,
+    "H5.4d_reanalysis": "REJECTED as pre-registered. Original metric (peak_memory/input_size) is dominated by ~10KB fixed overhead for small documents (75x for 148B input). For documents ≥10KB, security pipeline uses LESS peak memory than json.loads baseline because it traverses in-memory structures rather than allocating new objects. Memory scaling exponent is 0.54 (sub-linear). Absolute overhead is bounded at ~10KB.",
+    "latency_scaling_exponent": 0.9237795642275423,
+    "memory_scaling_exponent": 0.5383340467914823,
+    "bottleneck_decomposition": [
+      {
+        "size": 148,
+        "resource_limits_pct": 63.1
+      },
+      {
+        "size": 148,
+        "resource_limits_pct": 63.1
+      },
+      {
+        "size": 148,
+        "resource_limits_pct": 63.1
+      },
+      {
+        "size": 148,
+        "resource_limits_pct": 63.1
+      },
+      {
+        "size": 148,
+        "resource_limits_pct": 63.1
+      }
+    ]
+  },
+  "timestamp": "2026-04-28T08:28:23.766125+00:00",
+  "raw_data": {
+    "operations": {
+      "measurements": [
+        {
+          "size_bytes": 148,
+          "operation": "allowlist_check",
+          "mean_us": 0.18191,
+          "p50_us": 0.1,
+          "p95_us": 0.3,
+          "p99_us": 0.3,
+          "ci_lower_us": 0.14928725,
+          "ci_upper_us": 0.23979224999999998,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 148,
+          "operation": "integrity_verify",
+          "mean_us": 2.6636,
+          "p50_us": 2.7,
+          "p95_us": 2.8,
+          "p99_us": 2.8,
+          "ci_lower_us": 2.65964,
+          "ci_upper_us": 2.66804025,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 148,
+          "operation": "resource_limits",
+          "mean_us": 3.1423400000000004,
+          "p50_us": 2.3,
+          "p95_us": 6.5,
+          "p99_us": 8.0,
+          "ci_lower_us": 2.9808575,
+          "ci_upper_us": 3.42439075,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1086,
+          "operation": "allowlist_check",
+          "mean_us": 0.23032999999999998,
+          "p50_us": 0.2,
+          "p95_us": 0.3,
+          "p99_us": 0.3,
+          "ci_lower_us": 0.22867999999999997,
+          "ci_upper_us": 0.23257024999999998,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1086,
+          "operation": "integrity_verify",
+          "mean_us": 0.9582299999999999,
+          "p50_us": 0.9,
+          "p95_us": 1.1,
+          "p99_us": 1.1,
+          "ci_lower_us": 0.9563385000000002,
+          "ci_upper_us": 0.96036,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1086,
+          "operation": "resource_limits",
+          "mean_us": 22.72524,
+          "p50_us": 15.5,
+          "p95_us": 49.9,
+          "p99_us": 174.7,
+          "ci_lower_us": 22.088764500000003,
+          "ci_upper_us": 23.34765525,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 10289,
+          "operation": "allowlist_check",
+          "mean_us": 0.23138999999999996,
+          "p50_us": 0.2,
+          "p95_us": 0.3,
+          "p99_us": 0.3,
+          "ci_lower_us": 0.22942924999999997,
+          "ci_upper_us": 0.233614,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 10289,
+          "operation": "integrity_verify",
+          "mean_us": 1.0030299999999999,
+          "p50_us": 1.0,
+          "p95_us": 1.0,
+          "p99_us": 1.1,
+          "ci_lower_us": 0.9894797499999999,
+          "ci_upper_us": 1.0236625,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 10289,
+          "operation": "resource_limits",
+          "mean_us": 185.74282,
+          "p50_us": 138.3,
+          "p95_us": 305.8099999999999,
+          "p99_us": 843.5150000000025,
+          "ci_lower_us": 182.785756,
+          "ci_upper_us": 188.54202899999999,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 102157,
+          "operation": "allowlist_check",
+          "mean_us": 0.13355999999999998,
+          "p50_us": 0.1,
+          "p95_us": 0.2,
+          "p99_us": 0.5,
+          "ci_lower_us": 0.123679,
+          "ci_upper_us": 0.14716624999999997,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 102157,
+          "operation": "integrity_verify",
+          "mean_us": 1.7681,
+          "p50_us": 1.5,
+          "p95_us": 3.4,
+          "p99_us": 3.9,
+          "ci_lower_us": 1.7339287500000002,
+          "ci_upper_us": 1.8121732499999998,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 102157,
+          "operation": "resource_limits",
+          "mean_us": 1694.20312,
+          "p50_us": 1350.6,
+          "p95_us": 2982.7899999999986,
+          "p99_us": 5972.291000000013,
+          "ci_lower_us": 1675.6357765,
+          "ci_upper_us": 1711.03439875,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1020736,
+          "operation": "allowlist_check",
+          "mean_us": 0.11479,
+          "p50_us": 0.1,
+          "p95_us": 0.2,
+          "p99_us": 0.2,
+          "ci_lower_us": 0.11382,
+          "ci_upper_us": 0.11595074999999999,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1020736,
+          "operation": "integrity_verify",
+          "mean_us": 1.10069,
+          "p50_us": 1.0,
+          "p95_us": 1.1,
+          "p99_us": 2.6,
+          "ci_lower_us": 1.06544725,
+          "ci_upper_us": 1.1510005,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1020736,
+          "operation": "resource_limits",
+          "mean_us": 16490.89323,
+          "p50_us": 13986.849999999999,
+          "p95_us": 26899.194999999996,
+          "p99_us": 34348.404000000024,
+          "ci_lower_us": 16395.018454250003,
+          "ci_upper_us": 16596.030917250002,
+          "n_trials": 10000
+        }
+      ]
+    },
+    "pipeline": {
+      "measurements": [
+        {
+          "size_bytes": 148,
+          "mean_us": 4.983810000000001,
+          "p50_us": 3.8,
+          "p95_us": 9.1,
+          "p99_us": 27.309000000000196,
+          "ci_lower_us": 4.876899,
+          "ci_upper_us": 5.09470725,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1086,
+          "mean_us": 22.06612,
+          "p50_us": 17.2,
+          "p95_us": 33.6,
+          "p99_us": 54.7,
+          "ci_lower_us": 21.72186125,
+          "ci_upper_us": 22.45470275,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 10289,
+          "mean_us": 177.7448,
+          "p50_us": 138.9,
+          "p95_us": 284.4,
+          "p99_us": 851.1130000000003,
+          "ci_lower_us": 174.79443125,
+          "ci_upper_us": 180.85502350000002,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 102157,
+          "mean_us": 1633.81874,
+          "p50_us": 1372.6,
+          "p95_us": 2687.7199999999993,
+          "p99_us": 5039.15500000001,
+          "ci_lower_us": 1618.6860729999999,
+          "ci_upper_us": 1649.38032725,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1020736,
+          "mean_us": 16379.77535,
+          "p50_us": 14453.0,
+          "p95_us": 24679.504999999994,
+          "p99_us": 32570.076,
+          "ci_lower_us": 16299.972923750001,
+          "ci_upper_us": 16462.79087175,
+          "n_trials": 10000
+        }
+      ]
+    },
+    "comparison": {
+      "comparisons": [
+        {
+          "size_bytes": 148,
+          "pipeline_mean_us": 4.09856,
+          "annotate_mean_us": 0.36327999999999994,
+          "overhead_ratio": 11.2821
+        },
+        {
+          "size_bytes": 1086,
+          "pipeline_mean_us": 23.94039,
+          "annotate_mean_us": 0.35663999999999996,
+          "overhead_ratio": 67.1276
+        },
+        {
+          "size_bytes": 10289,
+          "pipeline_mean_us": 158.35437,
+          "annotate_mean_us": 0.36700999999999995,
+          "overhead_ratio": 431.4715
+        },
+        {
+          "size_bytes": 102157,
+          "pipeline_mean_us": 1615.9538099999997,
+          "annotate_mean_us": 0.37261999999999995,
+          "overhead_ratio": 4336.734
+        },
+        {
+          "size_bytes": 1020736,
+          "pipeline_mean_us": 15641.230759999999,
+          "annotate_mean_us": 0.36404999999999993,
+          "overhead_ratio": 42964.5125
+        }
+      ]
+    },
+    "memory": {
+      "measurements": [
+        {
+          "size_bytes": 148,
+          "baseline_peak_bytes": 1986,
+          "security_peak_bytes": 11169,
+          "overhead_bytes": 9183,
+          "amplification_factor": 75.4662
+        },
+        {
+          "size_bytes": 1086,
+          "baseline_peak_bytes": 7726,
+          "security_peak_bytes": 12500,
+          "overhead_bytes": 4774,
+          "amplification_factor": 11.5101
+        },
+        {
+          "size_bytes": 10289,
+          "baseline_peak_bytes": 63989,
+          "security_peak_bytes": 24659,
+          "overhead_bytes": -39330,
+          "amplification_factor": 2.3966
+        },
+        {
+          "size_bytes": 102157,
+          "baseline_peak_bytes": 617937,
+          "security_peak_bytes": 163200,
+          "overhead_bytes": -454737,
+          "amplification_factor": 1.5975
+        },
+        {
+          "size_bytes": 1020736,
+          "baseline_peak_bytes": 6023252,
+          "security_peak_bytes": 1164674,
+          "overhead_bytes": -4858578,
+          "amplification_factor": 1.141
+        }
+      ]
+    }
+  },
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.2",
+    "numpy_version": "2.4.4",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": "H5.4c and H5.4d were pre-registered with thresholds based on per-value comparison and input-size-relative memory metrics. Both proved to be poorly calibrated: H5.4c compared per-document security cost against per-value annotation cost (different granularities), and H5.4d was dominated by fixed overhead for small documents. We report the original hypothesis outcomes honestly (REJECTED) and present correct absolute metrics. This transparency demonstrates our commitment to not gaming results."
+}

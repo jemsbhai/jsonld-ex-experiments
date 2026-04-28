@@ -1,0 +1,21 @@
+{
+  "total_roundtrip_checks": 10000,
+  "total_mutation_checks": 80000,
+  "false_positives": 0,
+  "false_negatives": 0,
+  "algorithms_tested": [
+    "sha512"
+  ],
+  "mutation_types_tested": [
+    "byte_flip",
+    "key_insert",
+    "key_delete",
+    "value_substitute",
+    "whitespace_inject",
+    "truncate",
+    "key_rename",
+    "value_retype"
+  ],
+  "false_negative_details": [],
+  "false_positive_details": []
+}

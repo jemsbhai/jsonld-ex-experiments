@@ -1,0 +1,106 @@
+{
+  "experiment_id": "EN5.6",
+  "parameters": {
+    "tampering_strategies": [
+      "swap_values",
+      "delete_key",
+      "add_key",
+      "rename_key",
+      "retype_value",
+      "change_url",
+      "change_value",
+      "reorder_keys",
+      "truncate",
+      "inject_new_key"
+    ],
+    "ssrf_test_urls_count": 20
+  },
+  "metrics": {
+    "H5.6a_confirmed": true,
+    "H5.6b_confirmed": true,
+    "H5.6c_confirmed": true,
+    "H5.6d_confirmed": true,
+    "H5.6e_confirmed": true,
+    "scenario_a_strategies_detected": 10,
+    "scenario_a_total_strategies": 10,
+    "scenario_b_ssrf_blocked": 20,
+    "scenario_b_ssrf_total": 20,
+    "scenario_c_all_caught": true,
+    "scenario_c_depth_protection_factor": 5.099764641582264,
+    "scenario_c_size_protection_factor": 0.47680831365443904,
+    "scenario_c_crashes": 0,
+    "scenario_d_defense_in_depth": true,
+    "scenario_e_orthogonality": true
+  },
+  "timestamp": "2026-04-28T08:08:50.433394+00:00",
+  "raw_data": {
+    "scenario_a": {
+      "control_tampered_parses": true,
+      "control_semantics_changed": true,
+      "control_original_mapping": {
+        "sender": "http://schema.org/sender",
+        "recipient": "http://schema.org/recipient"
+      },
+      "control_tampered_mapping": {
+        "sender": "http://schema.org/recipient",
+        "recipient": "http://schema.org/sender"
+      },
+      "valid_context_accepted": true,
+      "total_strategies": 10,
+      "strategies_detected": 10,
+      "undetected_strategies": []
+    },
+    "scenario_b": {
+      "total_ssrf_urls": 20,
+      "ssrf_blocked": 20,
+      "unblocked_urls": [],
+      "allowlisted_accepted": 3,
+      "block_remote_rejects_all": true
+    },
+    "scenario_c": {
+      "depth_bomb_unprotected_time_ms": 0.4344999906606972,
+      "depth_bomb_unprotected_memory_bytes": 61165,
+      "size_bomb_unprotected_time_ms": 6.129799992777407,
+      "size_bomb_unprotected_memory_bytes": 10488396,
+      "width_bomb_unprotected_time_ms": 147.31919998303056,
+      "width_bomb_unprotected_memory_bytes": 16595620,
+      "depth_bomb_caught": true,
+      "depth_bomb_rejection_ms": 0.08520000847056508,
+      "size_bomb_caught": true,
+      "size_bomb_rejection_ms": 12.85589998587966,
+      "width_bomb_caught": true,
+      "width_bomb_rejection_ms": 19.954700022935867,
+      "depth_bomb_protection_factor": 5.099764641582264,
+      "size_bomb_protection_factor": 0.47680831365443904,
+      "crashes": 0,
+      "crash_details": []
+    },
+    "scenario_d": {
+      "first_check_catches": "allowlist",
+      "second_check_catches": "integrity",
+      "third_check_catches": "resource_limits",
+      "all_fixed_passes": true
+    },
+    "scenario_e": {
+      "security_passes_sl_doc": true,
+      "annotate_works": true,
+      "validate_works": true,
+      "filter_works": true,
+      "integrity_preserved": true,
+      "tamper_caught_with_sl": true,
+      "invalid_sl_security_passes": true,
+      "security_ignores_sl_content": true
+    }
+  },
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.2",
+    "numpy_version": "2.4.4",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": null
+}

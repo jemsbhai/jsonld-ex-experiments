@@ -1,0 +1,516 @@
+{
+  "experiment_id": "EN5.1",
+  "parameters": {
+    "pbt_examples_per_algorithm": 10000,
+    "algorithms": [
+      "sha256",
+      "sha384",
+      "sha512"
+    ],
+    "mutation_types": [
+      "byte_flip",
+      "key_insert",
+      "key_delete",
+      "value_substitute",
+      "whitespace_inject",
+      "truncate",
+      "key_rename",
+      "value_retype"
+    ],
+    "context_sizes": [
+      100,
+      1000,
+      10000,
+      100000,
+      1000000
+    ],
+    "latency_trials": 10000,
+    "latency_warmup": 100,
+    "seed": 42
+  },
+  "metrics": {
+    "H5.1a_confirmed": true,
+    "H5.1b_confirmed": true,
+    "H5.1c_confirmed": true,
+    "H5.1d_confirmed": true,
+    "total_roundtrip_checks": 30000,
+    "total_mutation_checks": 240000,
+    "false_positives": 0,
+    "false_negatives": 0,
+    "edge_cases_passed": 13,
+    "edge_cases_total": 13
+  },
+  "timestamp": "2026-04-28T08:18:50.912841+00:00",
+  "raw_data": {
+    "pbt": {
+      "total_roundtrip_checks": 30000,
+      "total_mutation_checks": 240000,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "algorithms_tested": [
+        "sha256",
+        "sha384",
+        "sha512"
+      ],
+      "mutation_types_tested": [
+        "byte_flip",
+        "key_insert",
+        "key_delete",
+        "value_substitute",
+        "whitespace_inject",
+        "truncate",
+        "key_rename",
+        "value_retype"
+      ],
+      "false_negative_details": [],
+      "false_positive_details": []
+    },
+    "edge_cases": {
+      "total_cases": 13,
+      "passed": 13,
+      "failed": 0,
+      "cases": [
+        {
+          "name": "empty_string_roundtrip",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "empty_dict_roundtrip",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "large_context_1mb",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "unicode_roundtrip",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "nested_50_levels",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "float_determinism",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "key_order_invariance",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "single_bit_flip_detected",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "appended_whitespace_detected",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "none_raises_typeerror",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "non_serializable_raises_typeerror",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "boolean_null_roundtrip",
+          "passed": true,
+          "error": null
+        },
+        {
+          "name": "list_values_roundtrip",
+          "passed": true,
+          "error": null
+        }
+      ]
+    },
+    "latency": {
+      "measurements": [
+        {
+          "size_bytes": 151,
+          "algorithm": "sha256",
+          "operation": "compute",
+          "mean_us": 0.9393900000000002,
+          "p50_us": 0.8,
+          "p95_us": 1.5,
+          "p99_us": 1.7,
+          "ci_lower_us": 0.9318892500000001,
+          "ci_upper_us": 0.9480062500000002,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 151,
+          "algorithm": "sha256",
+          "operation": "verify",
+          "mean_us": 1.0774099999999998,
+          "p50_us": 1.0,
+          "p95_us": 1.4,
+          "p99_us": 1.6,
+          "ci_lower_us": 1.0732587500000002,
+          "ci_upper_us": 1.08247175,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 151,
+          "algorithm": "sha384",
+          "operation": "compute",
+          "mean_us": 1.2726899999999999,
+          "p50_us": 1.1,
+          "p95_us": 2.0,
+          "p99_us": 2.3,
+          "ci_lower_us": 1.26566975,
+          "ci_upper_us": 1.28027125,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 151,
+          "algorithm": "sha384",
+          "operation": "verify",
+          "mean_us": 1.1930899999999998,
+          "p50_us": 1.2,
+          "p95_us": 1.3,
+          "p99_us": 1.3,
+          "ci_lower_us": 1.1869092499999998,
+          "ci_upper_us": 1.2037902499999997,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 151,
+          "algorithm": "sha512",
+          "operation": "compute",
+          "mean_us": 1.35609,
+          "p50_us": 1.1,
+          "p95_us": 1.2,
+          "p99_us": 10.6,
+          "ci_lower_us": 1.3059595,
+          "ci_upper_us": 1.4195415,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 151,
+          "algorithm": "sha512",
+          "operation": "verify",
+          "mean_us": 2.6370400000000003,
+          "p50_us": 3.2,
+          "p95_us": 4.0,
+          "p99_us": 4.7,
+          "ci_lower_us": 2.591211,
+          "ci_upper_us": 2.6927289999999995,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1029,
+          "algorithm": "sha256",
+          "operation": "compute",
+          "mean_us": 1.5347999999999997,
+          "p50_us": 1.2,
+          "p95_us": 2.6,
+          "p99_us": 8.8,
+          "ci_lower_us": 1.4734267499999998,
+          "ci_upper_us": 1.6000589999999997,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1029,
+          "algorithm": "sha256",
+          "operation": "verify",
+          "mean_us": 1.42778,
+          "p50_us": 1.3,
+          "p95_us": 1.8,
+          "p99_us": 2.0,
+          "ci_lower_us": 1.3868292500000001,
+          "ci_upper_us": 1.4823127500000002,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1029,
+          "algorithm": "sha384",
+          "operation": "compute",
+          "mean_us": 2.1265,
+          "p50_us": 1.8,
+          "p95_us": 3.6,
+          "p99_us": 4.501000000000022,
+          "ci_lower_us": 2.113605,
+          "ci_upper_us": 2.1399707500000003,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1029,
+          "algorithm": "sha384",
+          "operation": "verify",
+          "mean_us": 2.99933,
+          "p50_us": 2.0,
+          "p95_us": 4.5,
+          "p99_us": 45.50100000000002,
+          "ci_lower_us": 2.89582625,
+          "ci_upper_us": 3.1096295,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1029,
+          "algorithm": "sha512",
+          "operation": "compute",
+          "mean_us": 2.26017,
+          "p50_us": 1.9,
+          "p95_us": 3.9,
+          "p99_us": 8.8,
+          "ci_lower_us": 2.2230297500000007,
+          "ci_upper_us": 2.3085215000000003,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1029,
+          "algorithm": "sha512",
+          "operation": "verify",
+          "mean_us": 2.45207,
+          "p50_us": 2.2,
+          "p95_us": 3.7,
+          "p99_us": 4.5,
+          "ci_lower_us": 2.433641,
+          "ci_upper_us": 2.4749202499999994,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 10019,
+          "algorithm": "sha256",
+          "operation": "compute",
+          "mean_us": 5.18698,
+          "p50_us": 5.0,
+          "p95_us": 7.1,
+          "p99_us": 7.7,
+          "ci_lower_us": 5.156858,
+          "ci_upper_us": 5.22095925,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 10019,
+          "algorithm": "sha256",
+          "operation": "verify",
+          "mean_us": 5.51725,
+          "p50_us": 5.1,
+          "p95_us": 6.9,
+          "p99_us": 8.7,
+          "ci_lower_us": 5.431777750000001,
+          "ci_upper_us": 5.60954975,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 10019,
+          "algorithm": "sha384",
+          "operation": "compute",
+          "mean_us": 11.396020000000002,
+          "p50_us": 10.1,
+          "p95_us": 19.6,
+          "p99_us": 29.8,
+          "ci_lower_us": 11.236986499999999,
+          "ci_upper_us": 11.5568105,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 10019,
+          "algorithm": "sha384",
+          "operation": "verify",
+          "mean_us": 10.8735,
+          "p50_us": 10.3,
+          "p95_us": 14.9,
+          "p99_us": 17.90100000000002,
+          "ci_lower_us": 10.743659249999999,
+          "ci_upper_us": 11.028476750000001,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 10019,
+          "algorithm": "sha512",
+          "operation": "compute",
+          "mean_us": 11.00384,
+          "p50_us": 10.1,
+          "p95_us": 12.2,
+          "p99_us": 28.1,
+          "ci_lower_us": 10.78210875,
+          "ci_upper_us": 11.233566,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 10019,
+          "algorithm": "sha512",
+          "operation": "verify",
+          "mean_us": 14.61829,
+          "p50_us": 9.7,
+          "p95_us": 38.8,
+          "p99_us": 108.50100000000002,
+          "ci_lower_us": 14.256010249999997,
+          "ci_upper_us": 14.975541,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 100028,
+          "algorithm": "sha256",
+          "operation": "compute",
+          "mean_us": 50.88720000000001,
+          "p50_us": 41.9,
+          "p95_us": 91.1,
+          "p99_us": 295.901,
+          "ci_lower_us": 49.951749,
+          "ci_upper_us": 51.799794250000005,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 100028,
+          "algorithm": "sha256",
+          "operation": "verify",
+          "mean_us": 45.54082,
+          "p50_us": 42.3,
+          "p95_us": 66.3,
+          "p99_us": 115.2,
+          "ci_lower_us": 45.21106875,
+          "ci_upper_us": 45.85670975,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 100028,
+          "algorithm": "sha384",
+          "operation": "compute",
+          "mean_us": 107.2057,
+          "p50_us": 92.4,
+          "p95_us": 154.60499999999993,
+          "p99_us": 284.201,
+          "ci_lower_us": 106.23159375000002,
+          "ci_upper_us": 108.209458,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 100028,
+          "algorithm": "sha384",
+          "operation": "verify",
+          "mean_us": 110.17689000000001,
+          "p50_us": 85.9,
+          "p95_us": 154.5,
+          "p99_us": 451.47100000000154,
+          "ci_lower_us": 108.39825675,
+          "ci_upper_us": 112.10466799999998,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 100028,
+          "algorithm": "sha512",
+          "operation": "compute",
+          "mean_us": 106.00391,
+          "p50_us": 85.5,
+          "p95_us": 186.3,
+          "p99_us": 459.32500000000056,
+          "ci_lower_us": 104.44080275000002,
+          "ci_upper_us": 107.719359,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 100028,
+          "algorithm": "sha512",
+          "operation": "verify",
+          "mean_us": 112.24809000000002,
+          "p50_us": 85.8,
+          "p95_us": 188.53499999999948,
+          "p99_us": 463.8160000000004,
+          "ci_lower_us": 110.62373575000001,
+          "ci_upper_us": 113.97758800000001,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1000016,
+          "algorithm": "sha256",
+          "operation": "compute",
+          "mean_us": 462.07670999999993,
+          "p50_us": 388.5,
+          "p95_us": 770.3149999999997,
+          "p99_us": 1924.7050000000022,
+          "ci_lower_us": 456.43696800000004,
+          "ci_upper_us": 468.12752200000006,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1000016,
+          "algorithm": "sha256",
+          "operation": "verify",
+          "mean_us": 458.37178,
+          "p50_us": 388.2,
+          "p95_us": 782.669999999999,
+          "p99_us": 1690.4080000000047,
+          "ci_lower_us": 453.18277424999997,
+          "ci_upper_us": 463.67358650000006,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1000016,
+          "algorithm": "sha384",
+          "operation": "compute",
+          "mean_us": 1076.52825,
+          "p50_us": 850.1,
+          "p95_us": 1798.5949999999987,
+          "p99_us": 3963.5480000000034,
+          "ci_lower_us": 1063.2138654999999,
+          "ci_upper_us": 1088.64453275,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1000016,
+          "algorithm": "sha384",
+          "operation": "verify",
+          "mean_us": 1118.11169,
+          "p50_us": 854.75,
+          "p95_us": 1975.6749999999975,
+          "p99_us": 4200.757000000001,
+          "ci_lower_us": 1105.2866675,
+          "ci_upper_us": 1132.27991425,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1000016,
+          "algorithm": "sha512",
+          "operation": "compute",
+          "mean_us": 1099.78814,
+          "p50_us": 849.6500000000001,
+          "p95_us": 2020.9199999999998,
+          "p99_us": 4380.654000000012,
+          "ci_lower_us": 1086.5668105,
+          "ci_upper_us": 1113.54642775,
+          "n_trials": 10000
+        },
+        {
+          "size_bytes": 1000016,
+          "algorithm": "sha512",
+          "operation": "verify",
+          "mean_us": 1097.92345,
+          "p50_us": 854.0,
+          "p95_us": 1883.6199999999983,
+          "p99_us": 4035.198000000009,
+          "ci_lower_us": 1084.66666025,
+          "ci_upper_us": 1110.12504775,
+          "n_trials": 10000
+        }
+      ]
+    }
+  },
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.2",
+    "numpy_version": "2.4.4",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": null
+}

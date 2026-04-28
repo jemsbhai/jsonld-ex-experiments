@@ -1,0 +1,116 @@
+{
+  "experiment_id": "EN5.3",
+  "parameters": {
+    "seed": 42
+  },
+  "metrics": {
+    "H5.3a_confirmed": true,
+    "H5.3b_confirmed": true,
+    "H5.3c_confirmed": true,
+    "H5.3d_confirmed": true,
+    "H5.3e_timeout_enforced": false,
+    "H5.3f_separate_params": true,
+    "size_false_accepts": 0,
+    "size_false_rejects": 0,
+    "depth_false_accepts": 0,
+    "depth_false_rejects": 0,
+    "depth_stack_overflows": 0,
+    "adversarial_crashes": 0,
+    "adversarial_caught": 4,
+    "adversarial_passed": 15,
+    "error_messages_with_measured": 4,
+    "error_messages_with_limit": 4,
+    "processing_order_size_first": true
+  },
+  "timestamp": "2026-04-28T07:59:48.898492+00:00",
+  "raw_data": {
+    "size_enforcement": {
+      "total_checks": 8,
+      "false_accepts": 0,
+      "false_rejects": 0,
+      "details": []
+    },
+    "depth_enforcement": {
+      "total_checks": 9,
+      "false_accepts": 0,
+      "false_rejects": 0,
+      "stack_overflows": 0,
+      "details": []
+    },
+    "adversarial": {
+      "total_types_tested": 8,
+      "total_docs_tested": 19,
+      "caught_by_limits": 4,
+      "passed_limits": 15,
+      "crashes": 0,
+      "crash_details": []
+    },
+    "error_actionability": {
+      "total_errors": 4,
+      "messages_with_measured": 4,
+      "messages_with_limit": 4,
+      "messages_with_which_limit": 4,
+      "messages": [
+        {
+          "scenario": "size_string",
+          "message": "Document size 5009 exceeds limit 100",
+          "has_measured": true,
+          "has_limit": true,
+          "has_which": true
+        },
+        {
+          "scenario": "size_dict",
+          "message": "Document size 5012 exceeds limit 100",
+          "has_measured": true,
+          "has_limit": true,
+          "has_which": true
+        },
+        {
+          "scenario": "depth_shallow_limit",
+          "message": "Document depth 20 exceeds limit 5",
+          "has_measured": true,
+          "has_limit": true,
+          "has_which": true
+        },
+        {
+          "scenario": "depth_default_limit",
+          "message": "Document depth 200 exceeds limit 100",
+          "has_measured": true,
+          "has_limit": true,
+          "has_which": true
+        }
+      ]
+    },
+    "timeout_investigation": {
+      "parameter_exists": true,
+      "is_enforced": false,
+      "default_value": 30,
+      "finding": "max_expansion_time is defined in DEFAULT_RESOURCE_LIMITS (default=30s) but is NOT enforced by enforce_resource_limits(). The parameter is accepted in the limits dict but has no effect on processing. This is an implementation gap relative to the FLAIRS proposal (A3). Recommendation: implement timeout enforcement using signal.alarm (Unix) or threading.Timer (cross-platform) before NeurIPS submission, or document as future work."
+    },
+    "depth_investigation": {
+      "max_context_depth_exists": true,
+      "max_graph_depth_exists": true,
+      "are_separate_parameters": true,
+      "context_depth_enforced": false,
+      "graph_depth_enforced": true,
+      "finding": "Both max_context_depth and max_graph_depth exist in DEFAULT_RESOURCE_LIMITS, but only max_graph_depth is enforced by enforce_resource_limits(). max_context_depth (default=10) is accepted but has no effect. The FLAIRS proposal (A3) specifies these as separate limits: maxContextDepth=10 for nested context chains, maxGraphDepth=100 for document nesting. Current implementation conflates them under max_graph_depth only. Recommendation: implement max_context_depth as a separate check on context chain depth, or document the design decision to use a single depth parameter."
+    },
+    "processing_order": {
+      "size_check_first": true,
+      "size_check_time_us": 5.6377,
+      "depth_check_time_us": 9.7437,
+      "finding": "Size check runs before depth check (correct). Error was: Document size 502909 exceeds limit 1000"
+    }
+  },
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.2",
+    "numpy_version": "2.4.4",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": "H5.3e finding: max_expansion_time is defined in DEFAULT_RESOURCE_LIMITS (default=30s) but is NOT enforced by enforce_resource_limits(). The parameter is accepted in the limits dict but has no effect on processing. This is an implementation gap relative to the FLAIRS proposal (A3). Recommendation: implement timeout enforcement using signal.alarm (Unix) or threading.Timer (cross-platform) before NeurIPS submission, or document as future work. H5.3f finding: Both max_context_depth and max_graph_depth exist in DEFAULT_RESOURCE_LIMITS, but only max_graph_depth is enforced by enforce_resource_limits(). max_context_depth (default=10) is accepted but has no effect. The FLAIRS proposal (A3) specifies these as separate limits: maxContextDepth=10 for nested context chains, maxGraphDepth=100 for document nesting. Current implementation conflates them under max_graph_depth only. Recommendation: implement max_context_depth as a separate check on context chain depth, or document the design decision to use a single depth parameter."
+}
