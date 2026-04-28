@@ -331,13 +331,31 @@ def mutate_context_dict(ctx: dict, mutation: MutationType,
             result[key] = str(old)
         return result
 
-    elif mutation in (MutationType.BYTE_FLIP, MutationType.WHITESPACE_INJECT,
-                      MutationType.TRUNCATE):
+    elif mutation == MutationType.WHITESPACE_INJECT:
+        # Whitespace injection at the JSON structural level is invisible
+        # after parsing (JSON ignores structural whitespace). Instead,
+        # inject whitespace INTO a string value — a real semantic mutation.
+        str_keys = [k for k in result if isinstance(result[k], str) and result[k]]
+        if str_keys:
+            key = rng.choice(str_keys)
+            val = result[key]
+            pos = rng.randint(1, max(1, len(val) - 1))
+            result[key] = val[:pos] + " " + val[pos:]
+        else:
+            # No string values to inject into; fall back to key insertion
+            result["_ws_injected"] = "injected whitespace"
+        return result
+
+    elif mutation in (MutationType.BYTE_FLIP, MutationType.TRUNCATE):
         # These are string-level mutations; apply via serialize -> mutate -> parse
         serialized = json.dumps(result, sort_keys=True)
         mutated_str = mutate_context_string(serialized, mutation, seed)
         try:
-            return json.loads(mutated_str)
+            parsed = json.loads(mutated_str)
+            if parsed == ctx:
+                # Mutation was invisible after round-trip; fall back
+                return mutate_context_dict(ctx, MutationType.VALUE_SUBSTITUTE, seed)
+            return parsed
         except json.JSONDecodeError:
             # Truncation or flip may break JSON; fall back to value substitution
             return mutate_context_dict(ctx, MutationType.VALUE_SUBSTITUTE, seed)
