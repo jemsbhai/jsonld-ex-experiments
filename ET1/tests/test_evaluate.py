@@ -52,6 +52,94 @@ def base_model_name():
 
 
 # ---------------------------------------------------------------------------
+# Eval prompt tests
+# ---------------------------------------------------------------------------
+
+class TestBuildEvalPrompt:
+    """build_eval_prompt adds confidence elicitation to the question.
+
+    This is critical: without confidence elicitation, C1-trained models
+    produce no numeric confidence, making calibration metrics N/A and
+    the central hypothesis untestable.
+    """
+
+    def test_freeform_includes_question(self, eval_facts):
+        """The original question must appear in the eval prompt."""
+        from src.evaluate import build_eval_prompt
+
+        prompt = build_eval_prompt(eval_facts[0], style="freeform")
+        assert eval_facts[0].question in prompt
+
+    def test_freeform_asks_for_confidence(self, eval_facts):
+        """Freeform style must ask the model to state confidence."""
+        from src.evaluate import build_eval_prompt
+
+        prompt = build_eval_prompt(eval_facts[0], style="freeform")
+        assert "confidence" in prompt.lower()
+        assert "0" in prompt and "1" in prompt  # mentions the 0-1 scale
+
+    def test_structured_includes_question(self, eval_facts):
+        """Structured style must include the original question."""
+        from src.evaluate import build_eval_prompt
+
+        prompt = build_eval_prompt(eval_facts[0], style="structured")
+        assert eval_facts[0].question in prompt
+
+    def test_structured_asks_for_json(self, eval_facts):
+        """Structured style must ask for JSON output with answer + confidence."""
+        from src.evaluate import build_eval_prompt
+
+        prompt = build_eval_prompt(eval_facts[0], style="structured")
+        assert "answer" in prompt.lower()
+        assert "confidence" in prompt.lower()
+
+    def test_freeform_does_not_mention_json(self, eval_facts):
+        """Freeform must NOT mention JSON — that would bias toward C2-C7."""
+        from src.evaluate import build_eval_prompt
+
+        prompt = build_eval_prompt(eval_facts[0], style="freeform")
+        assert "json" not in prompt.lower()
+        assert "JSON" not in prompt
+
+    def test_context_facts_include_context(self, eval_facts):
+        """Facts with context (e.g. SQuAD) should include it in eval prompt."""
+        from src.evaluate import build_eval_prompt
+
+        # Create a fact with context
+        fact_with_ctx = Fact(
+            id="CTX-001",
+            dataset="squad",
+            question="What year was it founded?",
+            answer="2019",
+            entity_name="Acme",
+            entity_type="Organization",
+            relation="founded_year",
+            opinion=eval_facts[0].opinion,
+            provenance=eval_facts[0].provenance,
+            tier="T1_established",
+            context="Acme Corp was founded in 2019 by Jane Doe.",
+        )
+        prompt = build_eval_prompt(fact_with_ctx, style="freeform")
+        assert "Acme Corp was founded in 2019" in prompt
+        assert "confidence" in prompt.lower()
+
+    def test_invalid_style_raises(self, eval_facts):
+        """Unknown eval prompt style should raise ValueError."""
+        from src.evaluate import build_eval_prompt
+
+        with pytest.raises(ValueError, match="Unknown eval prompt style"):
+            build_eval_prompt(eval_facts[0], style="banana")
+
+    def test_both_styles_differ(self, eval_facts):
+        """Freeform and structured should produce different prompts."""
+        from src.evaluate import build_eval_prompt
+
+        freeform = build_eval_prompt(eval_facts[0], style="freeform")
+        structured = build_eval_prompt(eval_facts[0], style="structured")
+        assert freeform != structured
+
+
+# ---------------------------------------------------------------------------
 # Model loading tests
 # ---------------------------------------------------------------------------
 

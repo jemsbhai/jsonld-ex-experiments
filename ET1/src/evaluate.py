@@ -17,6 +17,58 @@ from peft import PeftModel
 from src.fact import Fact
 from src.data_formatter import _build_prompt
 from src.parse_response import parse_response
+
+
+# ---------------------------------------------------------------------------
+# Eval prompt construction
+# ---------------------------------------------------------------------------
+
+_FREEFORM_SUFFIX = (
+    "\n\nAnswer the question, then state your confidence as a number "
+    "between 0 (no confidence) and 1 (complete confidence)."
+)
+
+_STRUCTURED_SUFFIX = (
+    '\n\nRespond with a JSON object containing exactly two fields: '
+    '"answer" (your answer) and "confidence" (a number between 0 and 1).'
+)
+
+
+def build_eval_prompt(fact: Fact, style: str = "freeform") -> str:
+    """Build an evaluation prompt with confidence elicitation.
+
+    Unlike the training prompt (which is just the question), the eval
+    prompt appends an instruction asking the model to state confidence.
+    This ensures ALL conditions — including C1 (plain text) — produce
+    numeric confidence values, making calibration metrics computable.
+
+    Two styles are supported per Protocol §8.1:
+      - "freeform": natural language elicitation (condition-neutral)
+      - "structured": asks for JSON output (may favor C2-C7)
+
+    Both styles are run and reported separately in the paper.
+
+    Args:
+        fact: The test fact to evaluate.
+        style: "freeform" or "structured".
+
+    Returns:
+        The complete eval prompt string.
+
+    Raises:
+        ValueError: If style is not recognized.
+    """
+    base = _build_prompt(fact)
+
+    if style == "freeform":
+        return base + _FREEFORM_SUFFIX
+    elif style == "structured":
+        return base + _STRUCTURED_SUFFIX
+    else:
+        raise ValueError(
+            f"Unknown eval prompt style: '{style}'. "
+            f"Must be 'freeform' or 'structured'."
+        )
 from src.metrics import (
     expected_calibration_error,
     maximum_calibration_error,
@@ -74,6 +126,7 @@ def generate_responses(
     facts: list[Fact],
     max_new_tokens: int = 256,
     seed: int = 42,
+    eval_prompt_style: str = "freeform",
 ) -> list[str]:
     """Generate model responses for a list of test facts.
 
@@ -83,6 +136,7 @@ def generate_responses(
         facts: Test facts to evaluate.
         max_new_tokens: Maximum tokens to generate per response.
         seed: Random seed for reproducible generation.
+        eval_prompt_style: "freeform" or "structured" confidence elicitation.
 
     Returns:
         List of raw response strings (one per fact).
@@ -95,7 +149,7 @@ def generate_responses(
     responses = []
 
     for fact in facts:
-        prompt = _build_prompt(fact)
+        prompt = build_eval_prompt(fact, style=eval_prompt_style)
 
         inputs = tokenizer(
             prompt,
@@ -169,6 +223,7 @@ def run_evaluation(
     test_facts: list[Fact],
     max_new_tokens: int = 256,
     seed: int = 42,
+    eval_prompt_style: str = "freeform",
 ) -> dict:
     """Run the full evaluation pipeline on test facts.
 
@@ -185,6 +240,7 @@ def run_evaluation(
     raw_responses = generate_responses(
         model, tokenizer, test_facts,
         max_new_tokens=max_new_tokens, seed=seed,
+        eval_prompt_style=eval_prompt_style,
     )
 
     # Parse and score each response

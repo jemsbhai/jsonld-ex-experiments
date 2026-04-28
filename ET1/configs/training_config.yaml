@@ -134,6 +134,7 @@ evaluation:
   answer_match:
     method: "entity_relation"    # Match entity name + relation, not exact string
     fuzzy_threshold: 0.7         # Normalized similarity threshold for fuzzy fallback
+  eval_prompt_style: "freeform"  # "freeform" or "structured" (Protocol §8.1)
 
 # --- Paths ---
 paths:

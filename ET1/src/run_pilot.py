@@ -294,8 +294,12 @@ def run_single_condition(
     for split_name, split_facts in test_facts.items():
         logger.info("Evaluating on %s (%d facts)...",
                     split_name, len(split_facts))
+        eval_prompt_style = config.get("evaluation", {}).get(
+            "eval_prompt_style", "freeform"
+        )
         eval_result = run_evaluation(
             eval_model, eval_tokenizer, split_facts, seed=seed,
+            eval_prompt_style=eval_prompt_style,
         )
         results[split_name] = eval_result
         logger.info("  %s accuracy: %.3f",
