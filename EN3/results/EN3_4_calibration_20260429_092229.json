@@ -1,0 +1,203 @@
+{
+  "experiment_id": "EN3.4-A0",
+  "parameters": {
+    "seed": 42,
+    "n_bins": 10,
+    "dataset": "BC5CDR-dev"
+  },
+  "metrics": {
+    "gliner2": {
+      "model_name": "gliner2",
+      "ece": 0.2951739377090545,
+      "ece_post_tempscale": 0.07113321991008252,
+      "temperature": 8.279611748214688,
+      "derived_uncertainty": 0.3151739377090545,
+      "n_predictions": 11041,
+      "reliability_bins": [
+        {
+          "bin_lower": 0.0,
+          "bin_upper": 0.1,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "accuracy": 0.0,
+          "abs_diff": 0.0
+        },
+        {
+          "bin_lower": 0.1,
+          "bin_upper": 0.2,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "accuracy": 0.0,
+          "abs_diff": 0.0
+        },
+        {
+          "bin_lower": 0.2,
+          "bin_upper": 0.30000000000000004,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "accuracy": 0.0,
+          "abs_diff": 0.0
+        },
+        {
+          "bin_lower": 0.30000000000000004,
+          "bin_upper": 0.4,
+          "count": 404,
+          "mean_confidence": 0.3488458248205704,
+          "accuracy": 0.19801980198019803,
+          "abs_diff": 0.1508260228403724
+        },
+        {
+          "bin_lower": 0.4,
+          "bin_upper": 0.5,
+          "count": 340,
+          "mean_confidence": 0.4499804057619151,
+          "accuracy": 0.2235294117647059,
+          "abs_diff": 0.22645099399720922
+        },
+        {
+          "bin_lower": 0.5,
+          "bin_upper": 0.6000000000000001,
+          "count": 355,
+          "mean_confidence": 0.5501242431116776,
+          "accuracy": 0.24225352112676057,
+          "abs_diff": 0.30787072198491705
+        },
+        {
+          "bin_lower": 0.6000000000000001,
+          "bin_upper": 0.7000000000000001,
+          "count": 403,
+          "mean_confidence": 0.6540339188303604,
+          "accuracy": 0.2803970223325062,
+          "abs_diff": 0.37363689649785425
+        },
+        {
+          "bin_lower": 0.7000000000000001,
+          "bin_upper": 0.8,
+          "count": 476,
+          "mean_confidence": 0.7529307359657368,
+          "accuracy": 0.3172268907563025,
+          "abs_diff": 0.4357038452094343
+        },
+        {
+          "bin_lower": 0.8,
+          "bin_upper": 0.9,
+          "count": 727,
+          "mean_confidence": 0.85436343761389,
+          "accuracy": 0.3878954607977992,
+          "abs_diff": 0.4664679768160908
+        },
+        {
+          "bin_lower": 0.9,
+          "bin_upper": 1.0,
+          "count": 8336,
+          "mean_confidence": 0.9896474772073943,
+          "accuracy": 0.71197216890595,
+          "abs_diff": 0.27767530830144427
+        }
+      ]
+    },
+    "biomed": {
+      "model_name": "biomed",
+      "ece": 0.2685996701995146,
+      "ece_post_tempscale": 0.1372732377971102,
+      "temperature": 3.3327309750062244,
+      "derived_uncertainty": 0.2885996701995146,
+      "n_predictions": 12875,
+      "reliability_bins": [
+        {
+          "bin_lower": 0.0,
+          "bin_upper": 0.1,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "accuracy": 0.0,
+          "abs_diff": 0.0
+        },
+        {
+          "bin_lower": 0.1,
+          "bin_upper": 0.2,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "accuracy": 0.0,
+          "abs_diff": 0.0
+        },
+        {
+          "bin_lower": 0.2,
+          "bin_upper": 0.30000000000000004,
+          "count": 0,
+          "mean_confidence": 0.0,
+          "accuracy": 0.0,
+          "abs_diff": 0.0
+        },
+        {
+          "bin_lower": 0.30000000000000004,
+          "bin_upper": 0.4,
+          "count": 607,
+          "mean_confidence": 0.3521643474919007,
+          "accuracy": 0.1400329489291598,
+          "abs_diff": 0.21213139856274088
+        },
+        {
+          "bin_lower": 0.4,
+          "bin_upper": 0.5,
+          "count": 583,
+          "mean_confidence": 0.44875347154218176,
+          "accuracy": 0.15437392795883362,
+          "abs_diff": 0.29437954358334817
+        },
+        {
+          "bin_lower": 0.5,
+          "bin_upper": 0.6000000000000001,
+          "count": 622,
+          "mean_confidence": 0.5496456938349549,
+          "accuracy": 0.21221864951768488,
+          "abs_diff": 0.33742704431727
+        },
+        {
+          "bin_lower": 0.6000000000000001,
+          "bin_upper": 0.7000000000000001,
+          "count": 720,
+          "mean_confidence": 0.6529975535141097,
+          "accuracy": 0.2902777777777778,
+          "abs_diff": 0.3627197757363319
+        },
+        {
+          "bin_lower": 0.7000000000000001,
+          "bin_upper": 0.8,
+          "count": 1112,
+          "mean_confidence": 0.7533833590342844,
+          "accuracy": 0.3444244604316547,
+          "abs_diff": 0.40895889860262974
+        },
+        {
+          "bin_lower": 0.8,
+          "bin_upper": 0.9,
+          "count": 1826,
+          "mean_confidence": 0.8565940806338195,
+          "accuracy": 0.4654983570646221,
+          "abs_diff": 0.39109572356919736
+        },
+        {
+          "bin_lower": 0.9,
+          "bin_upper": 1.0,
+          "count": 7405,
+          "mean_confidence": 0.9654142841867785,
+          "accuracy": 0.7604321404456449,
+          "abs_diff": 0.20498214374113366
+        }
+      ]
+    }
+  },
+  "timestamp": "2026-04-29T09:22:29.788545+00:00",
+  "raw_data": null,
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.1",
+    "numpy_version": "2.4.4",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": null
+}

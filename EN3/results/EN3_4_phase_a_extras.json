@@ -1,0 +1,411 @@
+{
+  "experiment_id": "EN3.4-A1-extras",
+  "parameters": {
+    "seed": 42,
+    "temp_gliner2": 8.279611748214688,
+    "temp_biomed": 3.3327309750062244
+  },
+  "metrics": {
+    "tempscaled": {
+      "dataset": "BC5CDR-TempScaled",
+      "conditions": {
+        "B1: GLiNER2": {
+          "precision": 0.6918610010139183,
+          "recall": 0.7652156183097155,
+          "f1": 0.7266918385129247,
+          "tp": 7506,
+          "fp": 3343,
+          "fn": 2303
+        },
+        "B2: BioMed": {
+          "precision": 0.7448059187189622,
+          "recall": 0.7492099092669997,
+          "f1": 0.7470014230534662,
+          "tp": 7349,
+          "fp": 2518,
+          "fn": 2460
+        },
+        "B3: Union": {
+          "precision": 0.654793871426315,
+          "recall": 0.8452441635232949,
+          "f1": 0.7379288861198878,
+          "tp": 8291,
+          "fp": 4371,
+          "fn": 1518
+        },
+        "B4: Intersection": {
+          "precision": 0.797243605661783,
+          "recall": 0.6546029156896728,
+          "f1": 0.71891619548788,
+          "tp": 6421,
+          "fp": 1633,
+          "fn": 3388
+        },
+        "B5: Scalar Avg": {
+          "precision": 0.8762813715093672,
+          "recall": 0.505454174737486,
+          "f1": 0.6411068726967092,
+          "tp": 4958,
+          "fp": 700,
+          "fn": 4851
+        },
+        "SL: Fusion": {
+          "precision": 0.779350164157138,
+          "recall": 0.7018044652869814,
+          "f1": 0.738547366162429,
+          "tp": 6884,
+          "fp": 1949,
+          "fn": 2925
+        }
+      },
+      "best_baseline": "B2: BioMed",
+      "sl_f1_minus_best": -0.008454056891037176,
+      "cohens_h": -0.01934161079850183,
+      "bootstrap_ci_sl_vs_best": {
+        "lower": -0.01775302106360351,
+        "mean": -0.011506223021210429,
+        "upper": -0.00516764083912098
+      },
+      "bootstrap_ci_sl_vs_scalar": {
+        "lower": 0.08161579746860895,
+        "mean": 0.08917537894292162,
+        "upper": 0.09694220382875325
+      },
+      "bootstrap_ci_biomed_vs_gliner2": {
+        "lower": 0.033199371225124466,
+        "upper": 0.04946549751083631
+      },
+      "abstention_count": 2890,
+      "abstention_error_rate": 0.30519031141868513,
+      "accepted_error_rate": 0.220649835842862,
+      "conflict_error_rho": 0.38222110019835254,
+      "conflict_error_p": 0.0,
+      "thresholds": {
+        "gliner2": 0.5,
+        "biomed": 0.6,
+        "scalar": 0.7,
+        "sl_accept": 0.6,
+        "sl_abstain": 0.7
+      },
+      "hypotheses": {
+        "H3.4a_fusion_improves": "REJECTED",
+        "H3.4b_sl_beats_scalar": "ACCEPTED",
+        "H3.4c_conflict_error": "ACCEPTED",
+        "H3.4d_specialist_wins": "ACCEPTED",
+        "H3.4f_abstention_targets_errors": true
+      },
+      "holm_bonferroni": [
+        {
+          "p_value": 0.001,
+          "reject": true,
+          "adjusted_alpha": 0.025
+        },
+        {
+          "p_value": 0.0,
+          "reject": true,
+          "adjusted_alpha": 0.016666666666666666
+        },
+        {
+          "p_value": 0.001,
+          "reject": true,
+          "adjusted_alpha": 0.05
+        }
+      ]
+    },
+    "per_type_Chemical": {
+      "B1: GLiNER2": {
+        "p": 0.7711166443210113,
+        "r": 0.7476323119777158,
+        "f1": 0.7591929096737695
+      },
+      "B2: BioMed": {
+        "p": 0.7830742659758204,
+        "r": 0.8419684308263695,
+        "f1": 0.8114541387024609
+      },
+      "SL: Fusion": {
+        "p": 0.7600601102020371,
+        "r": 0.8453110492107706,
+        "f1": 0.8004220151222086
+      }
+    },
+    "per_type_Disease": {
+      "B1: GLiNER2": {
+        "p": 0.6730769230769231,
+        "r": 0.7278481012658228,
+        "f1": 0.6993918331885317
+      },
+      "B2: BioMed": {
+        "p": 0.629929022082019,
+        "r": 0.7221971066907775,
+        "f1": 0.6729149115417017
+      },
+      "SL: Fusion": {
+        "p": 0.6384234577303884,
+        "r": 0.7579113924050633,
+        "f1": 0.6930549813972716
+      }
+    },
+    "conflict_auroc": 0.7421337963384467,
+    "pr_curves": {
+      "B2: BioMed": [
+        {
+          "threshold": 0.1,
+          "precision": 0.6140338040535597,
+          "recall": 0.8555408298501376,
+          "f1": 0.7149429204293747
+        },
+        {
+          "threshold": 0.2,
+          "precision": 0.6140338040535597,
+          "recall": 0.8555408298501376,
+          "f1": 0.7149429204293747
+        },
+        {
+          "threshold": 0.3,
+          "precision": 0.6140338040535597,
+          "recall": 0.8555408298501376,
+          "f1": 0.7149429204293747
+        },
+        {
+          "threshold": 0.4,
+          "precision": 0.6379203949398334,
+          "recall": 0.8431032725048425,
+          "f1": 0.7262986870416722
+        },
+        {
+          "threshold": 0.5,
+          "precision": 0.6589783156013969,
+          "recall": 0.8271995106534815,
+          "f1": 0.7335683934544797
+        },
+        {
+          "threshold": 0.6,
+          "precision": 0.6818727490996399,
+          "recall": 0.8106840656539912,
+          "f1": 0.7407200409855154
+        },
+        {
+          "threshold": 0.7,
+          "precision": 0.7115632480206223,
+          "recall": 0.7879498419818534,
+          "f1": 0.7478109428668183
+        },
+        {
+          "threshold": 0.8,
+          "precision": 0.7482367371971788,
+          "recall": 0.7462534407177083,
+          "f1": 0.7472437729685585
+        },
+        {
+          "threshold": 0.9,
+          "precision": 0.8119734490681644,
+          "recall": 0.64848608420838,
+          "f1": 0.7210791815450887
+        }
+      ],
+      "B5: Scalar Avg": [
+        {
+          "threshold": 0.1,
+          "precision": 0.569811320754717,
+          "recall": 0.8928535018860231,
+          "f1": 0.6956590809801819
+        },
+        {
+          "threshold": 0.2,
+          "precision": 0.569811320754717,
+          "recall": 0.8928535018860231,
+          "f1": 0.6956590809801819
+        },
+        {
+          "threshold": 0.3,
+          "precision": 0.569811320754717,
+          "recall": 0.8928535018860231,
+          "f1": 0.6956590809801819
+        },
+        {
+          "threshold": 0.4,
+          "precision": 0.5934419496166484,
+          "recall": 0.8837802018554389,
+          "f1": 0.7100790432895114
+        },
+        {
+          "threshold": 0.5,
+          "precision": 0.6148323641323856,
+          "recall": 0.8730757467631767,
+          "f1": 0.7215435167242396
+        },
+        {
+          "threshold": 0.6,
+          "precision": 0.639896570081375,
+          "recall": 0.857783668059945,
+          "f1": 0.7329906786305428
+        },
+        {
+          "threshold": 0.7,
+          "precision": 0.6751867219917013,
+          "recall": 0.8294423488632888,
+          "f1": 0.7444073379386066
+        },
+        {
+          "threshold": 0.8,
+          "precision": 0.7198465425283054,
+          "recall": 0.7842797430930778,
+          "f1": 0.7506830601092895
+        },
+        {
+          "threshold": 0.9,
+          "precision": 0.7844318181818182,
+          "recall": 0.703741461922724,
+          "f1": 0.7418990810897953
+        }
+      ],
+      "SL: Fusion": [
+        {
+          "threshold": 0.1,
+          "precision": 0.5914946668513644,
+          "recall": 0.8706290141706596,
+          "f1": 0.7044170412834576
+        },
+        {
+          "threshold": 0.2,
+          "precision": 0.5914946668513644,
+          "recall": 0.8706290141706596,
+          "f1": 0.7044170412834576
+        },
+        {
+          "threshold": 0.3,
+          "precision": 0.5914946668513644,
+          "recall": 0.8706290141706596,
+          "f1": 0.7044170412834576
+        },
+        {
+          "threshold": 0.4,
+          "precision": 0.6061276960434223,
+          "recall": 0.865225813028851,
+          "f1": 0.7128638024442484
+        },
+        {
+          "threshold": 0.5,
+          "precision": 0.6351269189846481,
+          "recall": 0.8519726781527169,
+          "f1": 0.7277398005834459
+        },
+        {
+          "threshold": 0.6,
+          "precision": 0.6619070667957405,
+          "recall": 0.8364767050667754,
+          "f1": 0.7390227426255348
+        },
+        {
+          "threshold": 0.7,
+          "precision": 0.70322925006672,
+          "recall": 0.8058925476603119,
+          "f1": 0.7510688836104513
+        },
+        {
+          "threshold": 0.8,
+          "precision": 0.7802920521680972,
+          "recall": 0.7136303394841472,
+          "f1": 0.7454739084132055
+        },
+        {
+          "threshold": 0.9,
+          "precision": 0.9250520471894518,
+          "recall": 0.2717912121521052,
+          "f1": 0.4201402568749507
+        }
+      ]
+    },
+    "abstention_comparison": [
+      {
+        "threshold": 0.2,
+        "conflict": {
+          "n_abstained": 2496,
+          "precision_kept": 0.7435212396473417,
+          "recall_kept": 0.8618767420253949,
+          "error_rate_abstained": 0.6426282051282052
+        },
+        "confidence": {
+          "n_abstained": 0,
+          "precision_kept": 0.6469645361650972,
+          "recall_kept": 1.0,
+          "error_rate_abstained": 0
+        }
+      },
+      {
+        "threshold": 0.3,
+        "conflict": {
+          "n_abstained": 1856,
+          "precision_kept": 0.7176962835343342,
+          "recall_kept": 0.903065964694952,
+          "error_rate_abstained": 0.6627155172413793
+        },
+        "confidence": {
+          "n_abstained": 0,
+          "precision_kept": 0.6469645361650972,
+          "recall_kept": 1.0,
+          "error_rate_abstained": 0
+        }
+      },
+      {
+        "threshold": 0.4,
+        "conflict": {
+          "n_abstained": 1356,
+          "precision_kept": 0.6992812427544632,
+          "recall_kept": 0.9340353050480025,
+          "error_rate_abstained": 0.6858407079646017
+        },
+        "confidence": {
+          "n_abstained": 411,
+          "precision_kept": 0.6591787691986208,
+          "recall_kept": 0.9769278414369774,
+          "error_rate_abstained": 0.6374695863746959
+        }
+      },
+      {
+        "threshold": 0.5,
+        "conflict": {
+          "n_abstained": 932,
+          "precision_kept": 0.6838674033149171,
+          "recall_kept": 0.9583462372251471,
+          "error_rate_abstained": 0.7113733905579399
+        },
+        "confidence": {
+          "n_abstained": 836,
+          "precision_kept": 0.6750492018368686,
+          "recall_kept": 0.9560235366986684,
+          "error_rate_abstained": 0.6602870813397129
+        }
+      },
+      {
+        "threshold": 0.6,
+        "conflict": {
+          "n_abstained": 537,
+          "precision_kept": 0.6703017469560614,
+          "recall_kept": 0.980334468875813,
+          "error_rate_abstained": 0.7635009310986964
+        },
+        "confidence": {
+          "n_abstained": 1233,
+          "precision_kept": 0.6899074179906275,
+          "recall_kept": 0.9346546918550634,
+          "error_rate_abstained": 0.6577453365774534
+        }
+      }
+    ]
+  },
+  "timestamp": "2026-04-29T10:00:41.378329+00:00",
+  "raw_data": null,
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.1",
+    "numpy_version": "2.4.4",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": null
+}

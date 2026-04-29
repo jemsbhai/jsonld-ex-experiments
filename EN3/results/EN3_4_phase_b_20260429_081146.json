@@ -1,0 +1,36 @@
+{
+  "experiment_id": "EN3.4-B",
+  "parameters": {
+    "seed": 42,
+    "n_bundles": 100,
+    "u_gliner2": 0.15,
+    "u_biomed": 0.1
+  },
+  "metrics": {
+    "n_bundles": 100,
+    "n_resources": 29548,
+    "n_narrative_texts": 24701,
+    "round_trip_perfect_rate": 0.8,
+    "overhead_mean_pct": -30.75033670146427,
+    "overhead_median_pct": -26.666666666666668,
+    "query_types_demonstrated": 6,
+    "hypotheses": {
+      "H3.4g_round_trip": "REJECTED",
+      "H3.4h_overhead_lt_15pct": "ACCEPTED",
+      "H3.4i_query_expressiveness": "ACCEPTED"
+    }
+  },
+  "timestamp": "2026-04-29T08:11:46.844578+00:00",
+  "raw_data": null,
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.1",
+    "numpy_version": "2.4.4",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": null
+}

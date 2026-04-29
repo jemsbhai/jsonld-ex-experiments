@@ -902,12 +902,291 @@ def run_phase_b(
 
 
 # =====================================================================
+# Phase A1-Extra: Strengthening Analyses (all CPU, cached predictions)
+# =====================================================================
+
+def _apply_temperature_scaling(
+    preds: List[List[EntitySpan]],
+    temperature: float,
+) -> List[List[EntitySpan]]:
+    """Apply temperature scaling to all prediction scores."""
+    scaled = []
+    for sent_preds in preds:
+        sent_scaled = []
+        for p in sent_preds:
+            raw = np.clip(p.score, 1e-7, 1 - 1e-7)
+            logit = np.log(raw / (1 - raw))
+            cal_score = float(1.0 / (1.0 + np.exp(-logit / temperature)))
+            sent_scaled.append(EntitySpan(
+                start=p.start, end=p.end, entity_type=p.entity_type,
+                score=cal_score, source=p.source, text=p.text,
+            ))
+        scaled.append(sent_scaled)
+    return scaled
+
+
+def run_phase_a1_extras(
+    dev_sentences: List[Dict],
+    test_sentences: List[Dict],
+    dev_preds_g2: List[List[EntitySpan]],
+    dev_preds_bm: List[List[EntitySpan]],
+    test_preds_g2: List[List[EntitySpan]],
+    test_preds_bm: List[List[EntitySpan]],
+    u_gliner2: float,
+    u_biomed: float,
+    temp_gliner2: float,
+    temp_biomed: float,
+    ece_post_g2: float,
+    ece_post_bm: float,
+) -> Dict[str, Any]:
+    """Run all strengthening analyses on cached predictions."""
+    from EN3.en3_4_calibration import derive_model_uncertainty
+    from sklearn.metrics import roc_auc_score  # type: ignore
+
+    results: Dict[str, Any] = {}
+
+    test_golds = [s["gold_spans"] for s in test_sentences]
+    all_test_gold = [span for sent_golds in test_golds for span in sent_golds]
+
+    # ================================================================
+    # 1. Temperature-Scaled Ablation
+    # ================================================================
+    _banner("A1-Extra: Temperature-Scaled Ablation")
+    t0 = time.time()
+
+    # Apply temperature scaling to predictions
+    ts_dev_g2 = _apply_temperature_scaling(dev_preds_g2, temp_gliner2)
+    ts_dev_bm = _apply_temperature_scaling(dev_preds_bm, temp_biomed)
+    ts_test_g2 = _apply_temperature_scaling(test_preds_g2, temp_gliner2)
+    ts_test_bm = _apply_temperature_scaling(test_preds_bm, temp_biomed)
+
+    # Derive calibrated uncertainty values
+    u_g2_cal = derive_model_uncertainty(ece_post_g2)
+    u_bm_cal = derive_model_uncertainty(ece_post_bm)
+    print(f"  Calibrated uncertainties: GLiNER2={u_g2_cal:.4f}, BioMed={u_bm_cal:.4f}")
+    print(f"  (Raw were: GLiNER2={u_gliner2:.4f}, BioMed={u_biomed:.4f})")
+
+    # Run full evaluation with temp-scaled scores
+    ts_results = run_phase_a1(
+        "BC5CDR-TempScaled", dev_sentences, test_sentences,
+        ts_dev_g2, ts_dev_bm, ts_test_g2, ts_test_bm,
+        u_g2_cal, u_bm_cal,
+    )
+    results["tempscaled"] = ts_results
+    print(f"  Temperature-scaled ablation complete ({_elapsed(t0)})")
+
+    # ================================================================
+    # 2. Per-Entity-Type Breakdown
+    # ================================================================
+    _banner("A1-Extra: Per-Entity-Type Breakdown")
+
+    for etype in ["Chemical", "Disease"]:
+        type_golds = [EntitySpan(g.start, g.end, g.entity_type, g.score, g.source)
+                      for g in all_test_gold if g.entity_type == etype]
+        type_count = len(type_golds)
+
+        print(f"\n  Entity type: {etype} ({type_count} gold entities)")
+        print(f"  {'Condition':<20s} {'P':>8s} {'R':>8s} {'F1':>8s}")
+        print(f"  {'-'*20} {'-'*8} {'-'*8} {'-'*8}")
+
+        type_results = {}
+        for cond_name, cond_key in [("B1: GLiNER2", "g2"), ("B2: BioMed", "bm")]:
+            preds_source = test_preds_g2 if cond_key == "g2" else test_preds_bm
+            t_opt = 0.7  # use same threshold
+            flat = []
+            for sent_preds in preds_source:
+                flat.extend([p for p in sent_preds
+                             if p.score >= t_opt and p.entity_type == etype])
+            m = evaluate_entities(flat, type_golds)
+            print(f"  {cond_name:<20s} {m.precision:8.4f} {m.recall:8.4f} {m.f1:8.4f}")
+            type_results[cond_name] = {"p": m.precision, "r": m.recall, "f1": m.f1}
+
+        # SL fusion for this type
+        sl_flat = []
+        for g2_preds, bm_preds in zip(test_preds_g2, test_preds_bm):
+            groups = align_spans(g2_preds, bm_preds, iou_threshold=0.5)
+            accepted, _ = apply_condition_sl_fusion(
+                groups, u_gliner2, u_biomed, 0.7, 0.5)
+            sl_flat.extend([a for a in accepted if a.entity_type == etype])
+        m = evaluate_entities(sl_flat, type_golds)
+        print(f"  {'SL: Fusion':<20s} {m.precision:8.4f} {m.recall:8.4f} {m.f1:8.4f}")
+        type_results["SL: Fusion"] = {"p": m.precision, "r": m.recall, "f1": m.f1}
+
+        results[f"per_type_{etype}"] = type_results
+
+    # ================================================================
+    # 3. Conflict Detection AUROC
+    # ================================================================
+    _banner("A1-Extra: Conflict Detection AUROC")
+
+    conflict_scores = []
+    is_error_labels = []
+
+    for g2_preds, bm_preds, sent_golds in zip(
+            test_preds_g2, test_preds_bm, test_golds):
+        groups = align_spans(g2_preds, bm_preds, iou_threshold=0.5)
+        for g in groups:
+            if g["span_a"] is not None and g["span_b"] is not None:
+                op_a = build_opinion(g["span_a"].score, u_gliner2)
+                op_b = build_opinion(g["span_b"].score, u_biomed)
+                from jsonld_ex.confidence_algebra import \
+                    cumulative_fuse as _cf, conflict_metric as _cm
+                fused = _cf(op_a, op_b)
+                conf = _cm(fused)
+                winner = g["span_a"] if g["span_a"].score >= g["span_b"].score \
+                    else g["span_b"]
+                is_err = not any(
+                    winner.start == gld.start and winner.end == gld.end
+                    and winner.entity_type == gld.entity_type
+                    for gld in sent_golds
+                )
+                conflict_scores.append(conf)
+                is_error_labels.append(1 if is_err else 0)
+
+    if len(set(is_error_labels)) == 2:  # need both classes for AUROC
+        auroc = roc_auc_score(is_error_labels, conflict_scores)
+        print(f"  Conflict as error predictor AUROC: {auroc:.4f}")
+        print(f"  N pairs: {len(conflict_scores)}")
+        print(f"  Error rate: {sum(is_error_labels)/len(is_error_labels):.3f}")
+        results["conflict_auroc"] = auroc
+    else:
+        print(f"  Cannot compute AUROC (only one class present)")
+        results["conflict_auroc"] = None
+
+    # ================================================================
+    # 4. Precision-Recall Curves Across Operating Points
+    # ================================================================
+    _banner("A1-Extra: Precision-Recall Curves")
+
+    thresholds_sweep = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+    pr_curves = {}
+
+    for cond_name, apply_fn in [
+        ("B2: BioMed", lambda t: [
+            p for sp in test_preds_bm for p in sp if p.score >= t]),
+        ("B5: Scalar Avg", None),  # handled separately
+        ("SL: Fusion", None),      # handled separately
+    ]:
+        points = []
+        for t in thresholds_sweep:
+            if cond_name == "B2: BioMed":
+                flat = apply_fn(t)
+            elif cond_name == "B5: Scalar Avg":
+                flat = []
+                for g2p, bmp in zip(test_preds_g2, test_preds_bm):
+                    groups = align_spans(g2p, bmp, iou_threshold=0.5)
+                    flat.extend(apply_condition_scalar_average(groups, t))
+            elif cond_name == "SL: Fusion":
+                flat = []
+                for g2p, bmp in zip(test_preds_g2, test_preds_bm):
+                    groups = align_spans(g2p, bmp, iou_threshold=0.5)
+                    accepted, _ = apply_condition_sl_fusion(
+                        groups, u_gliner2, u_biomed, t, 0.5)
+                    flat.extend(accepted)
+            m = evaluate_entities(flat, all_test_gold)
+            points.append({"threshold": t, "precision": m.precision,
+                           "recall": m.recall, "f1": m.f1})
+        pr_curves[cond_name] = points
+
+    for cond_name, points in pr_curves.items():
+        print(f"\n  {cond_name}:")
+        print(f"    {'Thresh':>8s} {'P':>8s} {'R':>8s} {'F1':>8s}")
+        for p in points:
+            print(f"    {p['threshold']:8.1f} {p['precision']:8.4f} "
+                  f"{p['recall']:8.4f} {p['f1']:8.4f}")
+
+    results["pr_curves"] = pr_curves
+
+    # ================================================================
+    # 5. Confidence-Based vs Conflict-Based Abstention
+    # ================================================================
+    _banner("A1-Extra: Confidence vs Conflict Abstention")
+
+    # Collect all dual-model predictions with their conflict and min-confidence
+    dual_preds = []  # (entity_span, conflict_score, min_confidence, is_correct)
+    for g2_preds, bm_preds, sent_golds in zip(
+            test_preds_g2, test_preds_bm, test_golds):
+        groups = align_spans(g2_preds, bm_preds, iou_threshold=0.5)
+        for g in groups:
+            if g["span_a"] is not None and g["span_b"] is not None:
+                op_a = build_opinion(g["span_a"].score, u_gliner2)
+                op_b = build_opinion(g["span_b"].score, u_biomed)
+                from jsonld_ex.confidence_algebra import \
+                    cumulative_fuse as _cf2, conflict_metric as _cm2
+                fused = _cf2(op_a, op_b)
+                conf = _cm2(fused)
+                winner = g["span_a"] if g["span_a"].score >= g["span_b"].score \
+                    else g["span_b"]
+                min_score = min(g["span_a"].score, g["span_b"].score)
+                is_correct = any(
+                    winner.start == gld.start and winner.end == gld.end
+                    and winner.entity_type == gld.entity_type
+                    for gld in sent_golds
+                )
+                dual_preds.append({
+                    "conflict": conf, "min_conf": min_score,
+                    "fused_pp": fused.projected_probability(),
+                    "correct": is_correct,
+                })
+
+    print(f"  {len(dual_preds)} dual-model entity pairs")
+    print(f"\n  {'Method':<25s} {'Thresh':>8s} {'Abstain':>8s} "
+          f"{'P_keep':>8s} {'R_keep':>8s} {'Err_abstain':>12s}")
+    print(f"  {'-'*25} {'-'*8} {'-'*8} {'-'*8} {'-'*8} {'-'*12}")
+
+    abstention_comparison = []
+    for tau in [0.2, 0.3, 0.4, 0.5, 0.6]:
+        # Conflict-based abstention
+        kept_conflict = [d for d in dual_preds if d["conflict"] <= tau]
+        abst_conflict = [d for d in dual_preds if d["conflict"] > tau]
+        p_conf = (sum(d["correct"] for d in kept_conflict) / len(kept_conflict)
+                  if kept_conflict else 0)
+        r_conf = (sum(d["correct"] for d in kept_conflict) /
+                  sum(d["correct"] for d in dual_preds)
+                  if any(d["correct"] for d in dual_preds) else 0)
+        err_abst_conf = (sum(not d["correct"] for d in abst_conflict) / len(abst_conflict)
+                         if abst_conflict else 0)
+
+        # Confidence-based abstention (abstain when min_score < tau)
+        kept_scalar = [d for d in dual_preds if d["min_conf"] >= tau]
+        abst_scalar = [d for d in dual_preds if d["min_conf"] < tau]
+        p_scal = (sum(d["correct"] for d in kept_scalar) / len(kept_scalar)
+                  if kept_scalar else 0)
+        r_scal = (sum(d["correct"] for d in kept_scalar) /
+                  sum(d["correct"] for d in dual_preds)
+                  if any(d["correct"] for d in dual_preds) else 0)
+        err_abst_scal = (sum(not d["correct"] for d in abst_scalar) / len(abst_scalar)
+                         if abst_scalar else 0)
+
+        print(f"  {'Conflict τ='+str(tau):<25s} {tau:8.1f} "
+              f"{len(abst_conflict):8d} {p_conf:8.4f} {r_conf:8.4f} "
+              f"{err_abst_conf:12.4f}")
+        print(f"  {'Confidence τ='+str(tau):<25s} {tau:8.1f} "
+              f"{len(abst_scalar):8d} {p_scal:8.4f} {r_scal:8.4f} "
+              f"{err_abst_scal:12.4f}")
+
+        abstention_comparison.append({
+            "threshold": tau,
+            "conflict": {"n_abstained": len(abst_conflict),
+                         "precision_kept": p_conf, "recall_kept": r_conf,
+                         "error_rate_abstained": err_abst_conf},
+            "confidence": {"n_abstained": len(abst_scalar),
+                           "precision_kept": p_scal, "recall_kept": r_scal,
+                           "error_rate_abstained": err_abst_scal},
+        })
+
+    results["abstention_comparison"] = abstention_comparison
+
+    return results
+
+
+# =====================================================================
 # Main
 # =====================================================================
 
 def main():
     parser = argparse.ArgumentParser(description="EN3.4 Experiment Runner")
-    parser.add_argument("--phase", choices=["a0", "a1", "b", "all"],
+    parser.add_argument("--phase", choices=["a0", "a1", "a1-extra", "b", "all"],
                         default="all", help="Phase to run")
     parser.add_argument("--skip-inference", action="store_true",
                         help="Load predictions from checkpoints (skip GPU)")
@@ -993,9 +1272,44 @@ def main():
         )
         _save_result(a1_result, "EN3_4_phase_a_bc5cdr")
 
-        # TODO: MedMentions evaluation (Phase A1 second dataset)
-        # Requires separate data loading + label mapping.
-        # Implement after BC5CDR results are validated.
+    # ── Phase A1-Extra (strengthening analyses) ──
+    if run_all or args.phase == "a1-extra":
+        # Load predictions from checkpoints
+        if args.phase == "a1-extra":
+            print("\n  Loading predictions from checkpoints...")
+            dev_data = load_bc5cdr("validation")
+            test_data = load_bc5cdr("test")
+            g2_dev = _serializable_to_preds(_load_checkpoint("en3_4_bc5cdr_dev_gliner2"))
+            g2_test = _serializable_to_preds(_load_checkpoint("en3_4_bc5cdr_test_gliner2"))
+            bm_dev = _serializable_to_preds(_load_checkpoint("en3_4_bc5cdr_dev_biomed"))
+            bm_test = _serializable_to_preds(_load_checkpoint("en3_4_bc5cdr_test_biomed"))
+
+        # Load calibration values
+        cal_result_data = ExperimentResult.load_json(
+            str(RESULTS_DIR / "EN3_4_calibration.json"))
+        temp_g2 = cal_result_data.metrics["gliner2"]["temperature"]
+        temp_bm = cal_result_data.metrics["biomed"]["temperature"]
+        ece_post_g2 = cal_result_data.metrics["gliner2"]["ece_post_tempscale"]
+        ece_post_bm = cal_result_data.metrics["biomed"]["ece_post_tempscale"]
+
+        extras = run_phase_a1_extras(
+            dev_data, test_data,
+            g2_dev, bm_dev, g2_test, bm_test,
+            u_gliner2, u_biomed,
+            temp_g2, temp_bm, ece_post_g2, ece_post_bm,
+        )
+
+        extras_result = ExperimentResult(
+            experiment_id="EN3.4-A1-extras",
+            parameters={"seed": SEED, "temp_gliner2": temp_g2,
+                        "temp_biomed": temp_bm},
+            metrics=extras,
+            environment=env,
+        )
+        _save_result(extras_result, "EN3_4_phase_a_extras")
+
+        # TODO: MedMentions evaluation (H3.4e)
+        # Requires: data loading, label mapping, GPU inference (~20 min)
 
     # ── Phase B ──
     if run_all or args.phase == "b":
