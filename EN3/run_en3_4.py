@@ -1547,7 +1547,8 @@ def run_phase_a1_perbin(
 
 def main():
     parser = argparse.ArgumentParser(description="EN3.4 Experiment Runner")
-    parser.add_argument("--phase", choices=["a0", "a1", "a1-extra", "a1-perbin", "medmentions", "b", "all"],
+    parser.add_argument("--phase", choices=["a0", "a1", "a1-extra", "a1-perbin",
+                                             "medmentions", "mm-perbin", "b", "all"],
                         default="all", help="Phase to run")
     parser.add_argument("--skip-inference", action="store_true",
                         help="Load predictions from checkpoints (skip GPU)")
@@ -1761,6 +1762,62 @@ def main():
             environment=env,
         )
         _save_result(mm_result_obj, "EN3_4_medmentions")
+
+    # ── Phase MedMentions Per-Bin ──
+    if run_all or args.phase == "mm-perbin":
+        _banner("MedMentions Per-Bin Uncertainty Evaluation")
+
+        mm_dev = load_medmentions("validation")
+        mm_test = load_medmentions("test")
+
+        # Load predictions from checkpoints
+        print("\n  Loading MedMentions predictions from checkpoints...")
+        mm_g2_dev = _serializable_to_preds(_load_checkpoint("en3_4_mm_dev_gliner2"))
+        mm_g2_test = _serializable_to_preds(_load_checkpoint("en3_4_mm_test_gliner2"))
+        mm_bm_dev = _serializable_to_preds(_load_checkpoint("en3_4_mm_dev_biomed"))
+        mm_bm_test = _serializable_to_preds(_load_checkpoint("en3_4_mm_test_biomed"))
+
+        # Compute MedMentions-specific calibration bins on dev set
+        print("\n  Computing MedMentions calibration bins...")
+        for model_name, preds in [("gliner2", mm_g2_dev), ("biomed", mm_bm_dev)]:
+            scores, correct = [], []
+            for sent, sent_preds in zip(mm_dev, preds):
+                for pred in sent_preds:
+                    scores.append(pred.score)
+                    is_correct = any(
+                        pred.start == g.start and pred.end == g.end
+                        and pred.entity_type == g.entity_type
+                        for g in sent["gold_spans"]
+                    )
+                    correct.append(is_correct)
+            if scores:
+                ece = compute_ece(scores, correct, n_bins=10)
+                bins = reliability_diagram_bins(scores, correct, n_bins=10)
+                print(f"    {model_name}: ECE={ece:.4f}, N={len(scores)}")
+                if model_name == "gliner2":
+                    mm_bins_g2 = bins
+                else:
+                    mm_bins_bm = bins
+            else:
+                print(f"    {model_name}: No predictions on dev set!")
+                mm_bins_g2 = mm_bins_g2 if model_name != "gliner2" else []
+                mm_bins_bm = mm_bins_bm if model_name != "biomed" else []
+
+        # Run per-bin evaluation
+        mm_perbin_results = run_phase_a1_perbin(
+            "MedMentions-ST21pv", mm_dev, mm_test,
+            mm_g2_dev, mm_bm_dev, mm_g2_test, mm_bm_test,
+            mm_bins_g2, mm_bins_bm,
+        )
+
+        mm_perbin_obj = ExperimentResult(
+            experiment_id="EN3.4-MedMentions-perbin",
+            parameters={"seed": SEED, "method": "per-bin-uncertainty",
+                        "dataset": "MedMentions-ST21pv"},
+            metrics=mm_perbin_results,
+            environment=env,
+        )
+        _save_result(mm_perbin_obj, "EN3_4_medmentions_perbin")
 
     # ── Phase B ──
     if run_all or args.phase == "b":

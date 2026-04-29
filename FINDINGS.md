@@ -4995,3 +4995,53 @@ This is theoretically consistent with SL: when both models have very low base ac
 | Abstention useful? | Yes (clear separation) | Marginal (84→90%) |
 
 **Paper narrative:** SL’s value scales with model competence. When models are competent (≥ 0.7 F1), SL enables conflict detection (AUROC=0.742), high-precision operating modes (P=0.925), and targeted abstention that scalar methods cannot replicate. When models are weak (≤ 0.3 F1), SL adds overhead without benefit — the right answer is to improve the base models, not the fusion framework.
+
+### Per-Bin Uncertainty Correction (Critical Design Fix)
+
+**Date:** 2026-04-29
+
+#### Root Cause Analysis
+
+Constant per-model uncertainty (u_gliner2=0.315, u_biomed=0.289) makes cumulative fusion **order-equivalent to scalar averaging**. Proof: when u_A = u_B = u, P(ω_fused) is a monotonic function of (score_A + score_B), producing identical entity rankings and thus identical threshold-optimized F1. This is why constant-u SL matched scalar average at F1=0.751.
+
+#### Fix: Per-Prediction Uncertainty from Calibration Bins
+
+Instead of assigning one uncertainty value to all predictions from a model, look up the calibration gap (|accuracy − confidence|) for the specific bin each prediction’s score falls into. This gives:
+- Low uncertainty to predictions at well-calibrated operating points
+- High uncertainty to predictions at overconfident operating points
+
+This breaks the order-equivalence because predictions at different score ranges now carry genuinely different amounts of evidence.
+
+#### BC5CDR Results (Per-Bin vs Constant)
+
+| Condition | P | R | F1 | Δ vs Scalar Avg |
+|-----------|-------|-------|--------|------------------|
+| B5: Scalar Avg | 0.720 | 0.784 | 0.7507 | — |
+| SL: Constant-u | 0.703 | 0.806 | 0.7511 | +0.04pp (INCONCLUSIVE) |
+| **SL: Per-bin-u** | **0.724** | **0.787** | **0.7542** | **+0.35pp, CI [+0.24, +0.77] ACCEPTED** |
+
+Per-bin SL vs constant SL: +0.31pp, CI [+0.04, +0.55]. Per-bin breaks the degeneracy.
+
+Per-bin SL traded recall for precision (P: 0.703→0.724, R: 0.806→0.787). Fewer predictions, but more correct. This is exactly what principled uncertainty should do — overconfident predictions are downweighted.
+
+#### MedMentions Results (Per-Bin vs Constant)
+
+| Condition | P | R | F1 | Δ vs Best Baseline |
+|-----------|-------|-------|--------|--------------------|
+| B2: BioMed | 0.175 | 0.525 | 0.2626 | — |
+| SL: Constant-u | 0.157 | 0.496 | 0.2383 | -2.4pp |
+| SL: Per-bin-u | 0.156 | 0.488 | 0.2369 | -2.6pp |
+
+Per-bin vs constant: -0.14pp, CI [-0.45, +0.09]. No difference. The uncertainty assignment is not the problem. The models are too weak (85% FP rate) for fusion to help.
+
+#### Cross-Dataset Summary
+
+| Metric | BC5CDR | MedMentions |
+|--------|--------|-------------|
+| Best single model F1 | 0.748 | 0.263 |
+| SL per-bin F1 | **0.754** | 0.237 |
+| Per-bin helps? | **YES** (+0.35pp) | No (-2.6pp) |
+| Conflict AUROC (per-bin) | 0.740 | 0.682 |
+| Boundary condition | Above threshold | Below threshold |
+
+**Conclusion:** Per-bin uncertainty is the correct experimental design for SL fusion. It produces a statistically significant improvement on BC5CDR (competent models) and correctly shows no improvement on MedMentions (weak models). The constant-u degeneracy is a mathematical artifact, not a property of SL fusion.
