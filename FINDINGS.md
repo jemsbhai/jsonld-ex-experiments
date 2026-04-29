@@ -4940,3 +4940,58 @@ Six query types demonstrated that are impossible with plain FHIR R4:
 - `experiments/EN3/results/EN3_4_phase_a_extras.json` — Strengthening analyses
 - `experiments/EN3/results/EN3_4_phase_b.json` — Phase B results
 - `experiments/EN3/checkpoints/` — Cached model predictions (4 files)
+
+### MedMentions ST21pv Evaluation (H3.4e)
+
+**Date:** 2026-04-29
+**Dataset:** ibm-research/MedMentions-ZS (parquet), ST21pv subset
+**Grouping:** 21 UMLS semantic types grouped into 7 GLiNER-compatible categories:
+  Organism (T005, T007, T204), Anatomy (T017, T022, T031),
+  Finding (T033, T037, T038, T201), Chemical (T103, T168),
+  Procedure (T058, T062), Device (T074), Concept (T082, T091, T092, T097, T098, T170)
+
+#### Conditions Table (MedMentions test set, 1,430 gold entities)
+
+| Condition | Precision | Recall | F1 | TP | FP | FN |
+|-----------|-----------|--------|------|------|------|------|
+| B1: GLiNER2 | 0.127 | 0.391 | 0.191 | 559 | 3856 | 871 |
+| B2: BioMed | 0.175 | 0.525 | 0.263 | 751 | 3538 | 679 |
+| B3: Union | 0.142 | 0.564 | 0.227 | 807 | 4861 | 623 |
+| B4: Intersection | 0.166 | 0.353 | 0.226 | 505 | 2531 | 925 |
+| B5: Scalar Avg | 0.178 | 0.401 | 0.247 | 574 | 2652 | 856 |
+| SL: Fusion | 0.157 | 0.496 | 0.238 | 709 | 3812 | 721 |
+
+SL abstained on 369 entities.
+
+#### Hypothesis Verdicts
+
+| Hypothesis | Result | Verdict |
+|------------|--------|---------|
+| H3.4a: SL > all baselines | F1 diff = -2.4pp, CI [-3.0pp, -1.5pp] | **REJECTED** |
+| H3.4b: SL > scalar avg | F1 diff = -0.8pp, CI [-1.4pp, +0.5pp] | **INCONCLUSIVE** |
+| H3.4c: Conflict-error ρ>0.3 | ρ=0.221, p=0.0 | **REJECTED** (ρ < 0.3) |
+| H3.4d: BioMed > GLiNER2 | +7.1pp, CI [+6.2pp, +8.8pp] | **ACCEPTED** |
+| H3.4e: Fusion generalizes | SL (0.238) < BioMed (0.263) | **REJECTED** |
+| H3.4f: Abstention targets errors | 89.7% vs 84.3% | Yes, but weakly |
+
+#### Interpretation
+
+SL fusion does NOT generalize to MedMentions’ 21-type taxonomy. H3.4e is REJECTED.
+
+This is theoretically consistent with SL: when both models have very low base accuracy (F1~0.19–0.26), the uncertainty component dominates the opinions. Fusing two highly uncertain opinions does not reduce uncertainty — it merely combines noise. Conflict detection (ρ=0.221) is less informative because both models are almost always wrong, making conflict less diagnostic of specific errors vs general unreliability.
+
+**Boundary condition documented:** SL conflict detection provides value when individual models have moderate accuracy (BC5CDR F1~0.75, AUROC=0.742) but not when models are fundamentally weak (MedMentions F1~0.26, ρ=0.221). This is an honest limitation that strengthens the paper by defining the operating regime where the framework is useful.
+
+#### Cross-Dataset Comparison
+
+| Metric | BC5CDR (2 types) | MedMentions (7 grouped, 21 original) |
+|--------|-----------------|--------------------------------------|
+| Best single model F1 | 0.748 | 0.263 |
+| SL fusion F1 | 0.751 | 0.238 |
+| Fusion helps? | INCONCLUSIVE (+0.04pp) | REJECTED (-2.4pp) |
+| Conflict-error ρ | 0.401 | 0.221 |
+| Conflict AUROC | 0.742 | N/A (insufficient) |
+| Abstention err rate | 71.1% | 89.7% |
+| Abstention useful? | Yes (clear separation) | Marginal (84→90%) |
+
+**Paper narrative:** SL’s value scales with model competence. When models are competent (≥ 0.7 F1), SL enables conflict detection (AUROC=0.742), high-precision operating modes (P=0.925), and targeted abstention that scalar methods cannot replicate. When models are weak (≤ 0.3 F1), SL adds overhead without benefit — the right answer is to improve the base models, not the fusion framework.
