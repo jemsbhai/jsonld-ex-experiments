@@ -110,18 +110,52 @@ BC5CDR_LABEL_MAP = {
 BC5CDR_TAG_NAMES = {0: "O", 1: "B-Chemical", 2: "B-Disease",
                     3: "I-Disease", 4: "I-Chemical"}
 
-# MedMentions ST21pv: top-level semantic groups → GLiNER labels
-# We use a subset of the 21 types grouped into broader categories
-# that GLiNER can handle via natural language descriptions.
+# MedMentions ST21pv: 21 UMLS semantic types grouped into 7 GLiNER categories
+# Grouping rationale: GLiNER zero-shot degrades with >10 simultaneous labels.
+# We group into clinically meaningful categories, documented transparently.
+MEDMENTIONS_TYPE_TO_GROUP = {
+    "T005": "Organism",         # Virus
+    "T007": "Organism",         # Bacterium
+    "T204": "Organism",         # Eukaryote
+    "T017": "Anatomy",          # Anatomical Structure
+    "T022": "Anatomy",          # Body System
+    "T031": "Anatomy",          # Body Substance
+    "T033": "Finding",          # Finding
+    "T037": "Finding",          # Injury or Poisoning
+    "T038": "Finding",          # Biologic Function
+    "T201": "Finding",          # Clinical Attribute
+    "T103": "Chemical",         # Chemical
+    "T168": "Chemical",         # Food (biochemical context)
+    "T058": "Procedure",        # Health Care Activity
+    "T062": "Procedure",        # Research Activity
+    "T074": "Device",           # Medical Device
+    "T082": "Concept",          # Spatial Concept
+    "T091": "Concept",          # Biomedical Occupation or Discipline
+    "T092": "Concept",          # Organization
+    "T097": "Concept",          # Professional or Occupational Group
+    "T098": "Concept",          # Population Group
+    "T170": "Concept",          # Intellectual Product
+}
+
 MEDMENTIONS_LABELS_GLINER = [
-    "disease or syndrome",
-    "pharmacologic substance or drug",
-    "medical procedure or therapeutic intervention",
-    "anatomical structure or body part",
-    "laboratory or diagnostic test",
+    "organism such as virus bacterium or pathogen",
+    "anatomical structure or body system",
+    "clinical finding disease or biological function",
+    "chemical compound drug or substance",
+    "medical procedure or research activity",
     "medical device",
-    "biological organism or pathogen",
+    "biomedical concept organization or occupation",
 ]
+
+MEDMENTIONS_GLINER_TO_GROUP = {
+    "organism such as virus bacterium or pathogen": "Organism",
+    "anatomical structure or body system": "Anatomy",
+    "clinical finding disease or biological function": "Finding",
+    "chemical compound drug or substance": "Chemical",
+    "medical procedure or research activity": "Procedure",
+    "medical device": "Device",
+    "biomedical concept organization or occupation": "Concept",
+}
 
 # Threshold grids for dev-set optimization
 ACCEPT_THRESHOLDS = [0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
@@ -218,6 +252,99 @@ def load_bc5cdr(split: str) -> List[Dict]:
     n_ents = sum(len(s["gold_spans"]) for s in sentences)
     print(f"  {len(sentences)} sentences, {n_ents} gold entities")
     return sentences
+
+
+def load_medmentions(split: str) -> List[Dict]:
+    """Load MedMentions ST21pv from HuggingFace (ibm-research/MedMentions-ZS).
+
+    Returns list of sentence dicts with grouped entity types.
+    """
+    from datasets import load_dataset
+
+    print(f"  Loading MedMentions ST21pv {split}...")
+    ds = load_dataset("ibm-research/MedMentions-ZS", split=split)
+    print(f"  Loaded {len(ds)} sentences")
+
+    # Build tag name mapping from the dataset's ner_tags
+    # Tags are strings like "B-T103", "I-T038", "O"
+    # First, discover all unique tag strings
+    sentences = []
+    for item in ds:
+        tokens = item["tokens"]
+        raw_tags = item["ner_tags"]  # list of strings like "B-T103"
+
+        text, offsets = _tokens_to_text(tokens)
+
+        # Convert BIO tag strings to grouped EntitySpans
+        gold_spans = _medmentions_tags_to_spans(raw_tags, offsets)
+
+        sentences.append({
+            "tokens": tokens,
+            "text": text,
+            "offsets": offsets,
+            "gold_spans": gold_spans,
+        })
+
+    n_ents = sum(len(s["gold_spans"]) for s in sentences)
+    print(f"  {len(sentences)} sentences, {n_ents} gold entities")
+    return sentences
+
+
+def _medmentions_tags_to_spans(
+    tags: List[str],
+    offsets: List[Tuple[int, int]],
+) -> List[EntitySpan]:
+    """Convert MedMentions BIO tag strings to grouped EntitySpans.
+
+    Tags are strings: 'O', 'B-T103', 'I-T103', etc.
+    We map T### codes to grouped types via MEDMENTIONS_TYPE_TO_GROUP.
+    """
+    spans: List[EntitySpan] = []
+    current_type = None
+    current_group = None
+    current_start = -1
+
+    for i, tag in enumerate(tags):
+        if isinstance(tag, int):
+            # Some versions use integer indices — skip if 0 (O tag)
+            tag_str = "O" if tag == 0 else f"UNKNOWN-{tag}"
+        else:
+            tag_str = str(tag)
+
+        if tag_str.startswith("B-"):
+            # Close previous entity
+            if current_group is not None:
+                spans.append(EntitySpan(
+                    start=current_start, end=offsets[i - 1][1],
+                    entity_type=current_group, score=1.0, source="gold",
+                ))
+            type_code = tag_str[2:]  # e.g., "T103"
+            current_type = type_code
+            current_group = MEDMENTIONS_TYPE_TO_GROUP.get(type_code)
+            current_start = offsets[i][0]
+
+        elif tag_str.startswith("I-") and current_type == tag_str[2:]:
+            # Continue current entity
+            pass
+
+        else:
+            # O tag or type mismatch
+            if current_group is not None:
+                spans.append(EntitySpan(
+                    start=current_start, end=offsets[i - 1][1],
+                    entity_type=current_group, score=1.0, source="gold",
+                ))
+                current_type = None
+                current_group = None
+
+    # Close final entity
+    if current_group is not None and len(offsets) > 0:
+        spans.append(EntitySpan(
+            start=current_start, end=offsets[-1][1],
+            entity_type=current_group, score=1.0, source="gold",
+        ))
+
+    return spans
 
 
 def _tokens_to_text(tokens: List[str]) -> Tuple[str, List[Tuple[int, int]]]:
@@ -1186,7 +1313,7 @@ def run_phase_a1_extras(
 
 def main():
     parser = argparse.ArgumentParser(description="EN3.4 Experiment Runner")
-    parser.add_argument("--phase", choices=["a0", "a1", "a1-extra", "b", "all"],
+    parser.add_argument("--phase", choices=["a0", "a1", "a1-extra", "medmentions", "b", "all"],
                         default="all", help="Phase to run")
     parser.add_argument("--skip-inference", action="store_true",
                         help="Load predictions from checkpoints (skip GPU)")
@@ -1308,8 +1435,66 @@ def main():
         )
         _save_result(extras_result, "EN3_4_phase_a_extras")
 
-        # TODO: MedMentions evaluation (H3.4e)
-        # Requires: data loading, label mapping, GPU inference (~20 min)
+    # ── Phase MedMentions (H3.4e) ──
+    if run_all or args.phase == "medmentions":
+        _banner("MedMentions ST21pv Evaluation (H3.4e)")
+
+        mm_dev = load_medmentions("validation")
+        mm_test = load_medmentions("test")
+
+        # Model inference (or load checkpoint)
+        if args.skip_inference:
+            print("\n  Loading MedMentions predictions from checkpoints...")
+            mm_g2_dev = _serializable_to_preds(_load_checkpoint("en3_4_mm_dev_gliner2"))
+            mm_g2_test = _serializable_to_preds(_load_checkpoint("en3_4_mm_test_gliner2"))
+            mm_bm_dev = _serializable_to_preds(_load_checkpoint("en3_4_mm_dev_biomed"))
+            mm_bm_test = _serializable_to_preds(_load_checkpoint("en3_4_mm_test_biomed"))
+        else:
+            print("\n  Running model inference on MedMentions (GPU)...")
+            mm_g2_dev = run_gliner2_inference(
+                mm_dev, labels=MEDMENTIONS_LABELS_GLINER,
+                label_map=MEDMENTIONS_GLINER_TO_GROUP)
+            _save_checkpoint(_preds_to_serializable(mm_g2_dev), "en3_4_mm_dev_gliner2")
+            mm_g2_test = run_gliner2_inference(
+                mm_test, labels=MEDMENTIONS_LABELS_GLINER,
+                label_map=MEDMENTIONS_GLINER_TO_GROUP)
+            _save_checkpoint(_preds_to_serializable(mm_g2_test), "en3_4_mm_test_gliner2")
+
+            mm_bm_dev = run_biomed_inference(
+                mm_dev, labels=MEDMENTIONS_LABELS_GLINER,
+                label_map=MEDMENTIONS_GLINER_TO_GROUP)
+            _save_checkpoint(_preds_to_serializable(mm_bm_dev), "en3_4_mm_dev_biomed")
+            mm_bm_test = run_biomed_inference(
+                mm_test, labels=MEDMENTIONS_LABELS_GLINER,
+                label_map=MEDMENTIONS_GLINER_TO_GROUP)
+            _save_checkpoint(_preds_to_serializable(mm_bm_test), "en3_4_mm_test_biomed")
+
+        # Load calibration values
+        cal_data = _load_checkpoint("en3_4_calibration_values")
+        if cal_data:
+            u_gliner2 = cal_data["u_gliner2"]
+            u_biomed = cal_data["u_biomed"]
+        else:
+            print("  WARNING: No calibration data. Using BC5CDR defaults.")
+            u_gliner2 = 0.315
+            u_biomed = 0.289
+
+        # Run full A1 evaluation
+        mm_results = run_phase_a1(
+            "MedMentions-ST21pv", mm_dev, mm_test,
+            mm_g2_dev, mm_bm_dev, mm_g2_test, mm_bm_test,
+            u_gliner2, u_biomed,
+        )
+
+        mm_result_obj = ExperimentResult(
+            experiment_id="EN3.4-MedMentions",
+            parameters={"seed": SEED, "dataset": "MedMentions-ST21pv",
+                        "n_groups": 7, "n_original_types": 21,
+                        "u_gliner2": u_gliner2, "u_biomed": u_biomed},
+            metrics=mm_results,
+            environment=env,
+        )
+        _save_result(mm_result_obj, "EN3_4_medmentions")
 
     # ── Phase B ──
     if run_all or args.phase == "b":
