@@ -1307,13 +1307,247 @@ def run_phase_a1_extras(
     return results
 
 
+def run_phase_a1_perbin(
+    dataset_name: str,
+    dev_sentences: List[Dict],
+    test_sentences: List[Dict],
+    dev_preds_g2: List[List[EntitySpan]],
+    dev_preds_bm: List[List[EntitySpan]],
+    test_preds_g2: List[List[EntitySpan]],
+    test_preds_bm: List[List[EntitySpan]],
+    bins_g2: List[Dict],
+    bins_bm: List[Dict],
+) -> Dict[str, Any]:
+    """Re-run Phase A1 with per-bin uncertainty instead of constant.
+
+    This is the corrected experimental design. Constant uncertainty makes
+    cumulative fusion order-equivalent to scalar averaging. Per-bin
+    uncertainty breaks this degeneracy.
+    """
+    from EN3.en3_4_core import (
+        apply_condition_sl_fusion_per_bin,
+        build_opinion_per_bin,
+    )
+    from jsonld_ex.confidence_algebra import (
+        cumulative_fuse as _cf_pb,
+        conflict_metric as _cm_pb,
+    )
+
+    _banner(f"Phase A1 Per-Bin: {dataset_name}")
+    t0 = time.time()
+
+    # ---- Optimize per-bin SL thresholds on dev set ----
+    print("\n  Optimizing per-bin SL thresholds on dev set...")
+    dev_golds = [s["gold_spans"] for s in dev_sentences]
+    all_dev_gold = [span for golds in dev_golds for span in golds]
+
+    # Also optimize baselines (same as before)
+    all_dev_g2 = [span for sent in dev_preds_g2 for span in sent]
+    all_dev_bm = [span for sent in dev_preds_bm for span in sent]
+    t_g2, _ = optimize_threshold(all_dev_g2, all_dev_gold, ACCEPT_THRESHOLDS)
+    t_bm, _ = optimize_threshold(all_dev_bm, all_dev_gold, ACCEPT_THRESHOLDS)
+    t_scalar, _ = optimize_threshold(all_dev_g2 + all_dev_bm, all_dev_gold,
+                                     ACCEPT_THRESHOLDS)
+
+    best_sl_accept = 0.5
+    best_sl_abstain = 0.5
+    best_sl_f1_dev = -1.0
+    for at in ACCEPT_THRESHOLDS:
+        for ct in ABSTENTION_THRESHOLDS:
+            dev_accepted_all = []
+            for g2_preds, bm_preds in zip(dev_preds_g2, dev_preds_bm):
+                groups = align_spans(g2_preds, bm_preds, iou_threshold=0.5)
+                accepted, _ = apply_condition_sl_fusion_per_bin(
+                    groups, bins_g2, bins_bm, at, ct)
+                dev_accepted_all.extend(accepted)
+            m = evaluate_entities(dev_accepted_all, all_dev_gold)
+            if m.f1 > best_sl_f1_dev:
+                best_sl_f1_dev = m.f1
+                best_sl_accept = at
+                best_sl_abstain = ct
+    print(f"    Per-bin SL best thresholds: accept={best_sl_accept}, "
+          f"abstain={best_sl_abstain} (dev F1={best_sl_f1_dev:.4f})")
+
+    # ---- Evaluate all conditions on test set ----
+    print("\n  Evaluating 7 conditions on test set...")
+    test_golds = [s["gold_spans"] for s in test_sentences]
+    all_test_gold = [span for golds in test_golds for span in golds]
+
+    # Same baselines as before
+    per_sent = {"B1": [], "B2": [], "B3": [], "B4": [], "B5": [],
+                "SL_const": [], "SL_perbin": []}
+    all_abstained_const = []
+    all_abstained_perbin = []
+    conflict_scores_perbin = []
+    conflict_errors_perbin = []
+
+    # Load constant-u values for comparison
+    cal_data = _load_checkpoint("en3_4_calibration_values")
+    u_g2_const = cal_data["u_gliner2"] if cal_data else 0.315
+    u_bm_const = cal_data["u_biomed"] if cal_data else 0.289
+
+    for g2_preds, bm_preds, sent_golds in zip(
+            test_preds_g2, test_preds_bm, test_golds):
+        per_sent["B1"].append(apply_condition_single_model(g2_preds, t_g2))
+        per_sent["B2"].append(apply_condition_single_model(bm_preds, t_bm))
+
+        groups = align_spans(g2_preds, bm_preds, iou_threshold=0.5)
+        per_sent["B3"].append(apply_condition_union(groups, t_g2, t_bm))
+        per_sent["B4"].append(apply_condition_intersection(groups, t_g2, t_bm))
+        per_sent["B5"].append(apply_condition_scalar_average(groups, t_scalar))
+
+        # SL with constant uncertainty (original, for comparison)
+        accepted_c, abstained_c = apply_condition_sl_fusion(
+            groups, u_g2_const, u_bm_const, best_sl_accept, best_sl_abstain)
+        per_sent["SL_const"].append(accepted_c)
+        all_abstained_const.extend(abstained_c)
+
+        # SL with per-bin uncertainty (corrected)
+        accepted_pb, abstained_pb = apply_condition_sl_fusion_per_bin(
+            groups, bins_g2, bins_bm, best_sl_accept, best_sl_abstain)
+        per_sent["SL_perbin"].append(accepted_pb)
+        all_abstained_perbin.extend(abstained_pb)
+
+        # Conflict-error pairs for per-bin
+        for g in groups:
+            if g["span_a"] is not None and g["span_b"] is not None:
+                op_a = build_opinion_per_bin(g["span_a"].score, bins_g2)
+                op_b = build_opinion_per_bin(g["span_b"].score, bins_bm)
+                fused = _cf_pb(op_a, op_b)
+                conf = _cm_pb(fused)
+                winner = g["span_a"] if g["span_a"].score >= g["span_b"].score \
+                    else g["span_b"]
+                is_err = not any(
+                    winner.start == gld.start and winner.end == gld.end
+                    and winner.entity_type == gld.entity_type
+                    for gld in sent_golds
+                )
+                conflict_scores_perbin.append(conf)
+                conflict_errors_perbin.append(is_err)
+
+    # Compute metrics
+    condition_keys = [("B1: GLiNER2", "B1"), ("B2: BioMed", "B2"),
+                      ("B3: Union", "B3"), ("B4: Intersection", "B4"),
+                      ("B5: Scalar Avg", "B5"),
+                      ("SL: Constant-u", "SL_const"),
+                      ("SL: Per-bin-u", "SL_perbin")]
+    conditions = []
+    for name, key in condition_keys:
+        flat_preds = [s for sent in per_sent[key] for s in sent]
+        m = evaluate_entities(flat_preds, all_test_gold)
+        conditions.append((name, m))
+
+    # Print results
+    print(f"\n  {'Condition':<20s} {'P':>8s} {'R':>8s} {'F1':>8s} "
+          f"{'TP':>6s} {'FP':>6s} {'FN':>6s}")
+    print(f"  {'-' * 20} {'-' * 8} {'-' * 8} {'-' * 8} "
+          f"{'-' * 6} {'-' * 6} {'-' * 6}")
+    for name, m in conditions:
+        print(f"  {name:<20s} {m.precision:8.4f} {m.recall:8.4f} {m.f1:8.4f} "
+              f"{m.tp:6d} {m.fp:6d} {m.fn:6d}")
+    print(f"  Constant-u abstained: {len(all_abstained_const)}")
+    print(f"  Per-bin-u abstained:  {len(all_abstained_perbin)}")
+
+    # Bootstrap CI: per-bin SL vs best baseline
+    m_perbin = conditions[6][1]  # SL: Per-bin-u
+    m_const = conditions[5][1]   # SL: Constant-u
+    best_baseline = max(conditions[:5], key=lambda x: x[1].f1)
+    best_name, best_m = best_baseline
+    best_key = [k for n, k in condition_keys if n == best_name][0]
+
+    def _per_sent_tp_fp_fn(key: str) -> List[Tuple[int, int, int]]:
+        result = []
+        for sent_preds, sent_golds in zip(per_sent[key], test_golds):
+            m = evaluate_entities(sent_preds, sent_golds)
+            result.append((m.tp, m.fp, m.fn))
+        return result
+
+    boot_data = {key: _per_sent_tp_fp_fn(key) for _, key in condition_keys}
+
+    print(f"\n  Hypothesis testing...")
+    print(f"    Best baseline: {best_name} (F1={best_m.f1:.4f})")
+
+    # Per-bin SL vs best baseline
+    ci_lo, ci_mean, ci_hi = bootstrap_f1_difference_ci(
+        boot_data["SL_perbin"], boot_data[best_key],
+        n_bootstrap=2000, seed=SEED)
+    f1_diff_pb = m_perbin.f1 - best_m.f1
+    h_pb = cohens_h(m_perbin.f1, best_m.f1)
+    verdict_a = "ACCEPTED" if ci_lo > 0 else (
+        "REJECTED" if ci_hi < 0 else "INCONCLUSIVE")
+    print(f"    Per-bin SL - Best = {f1_diff_pb:+.4f}, "
+          f"CI [{ci_lo:+.4f}, {ci_hi:+.4f}], h={h_pb:.4f} → {verdict_a}")
+
+    # Per-bin SL vs constant-u SL (ablation)
+    ci_lo_ab, ci_mean_ab, ci_hi_ab = bootstrap_f1_difference_ci(
+        boot_data["SL_perbin"], boot_data["SL_const"],
+        n_bootstrap=2000, seed=SEED)
+    f1_diff_ab = m_perbin.f1 - m_const.f1
+    print(f"    Per-bin SL - Constant SL = {f1_diff_ab:+.4f}, "
+          f"CI [{ci_lo_ab:+.4f}, {ci_hi_ab:+.4f}]")
+
+    # Per-bin SL vs scalar average
+    m_b5 = conditions[4][1]
+    ci_lo_sc, ci_mean_sc, ci_hi_sc = bootstrap_f1_difference_ci(
+        boot_data["SL_perbin"], boot_data["B5"],
+        n_bootstrap=2000, seed=SEED)
+    f1_diff_sc = m_perbin.f1 - m_b5.f1
+    print(f"    Per-bin SL - Scalar Avg = {f1_diff_sc:+.4f}, "
+          f"CI [{ci_lo_sc:+.4f}, {ci_hi_sc:+.4f}]")
+
+    # Conflict-error correlation
+    if len(conflict_scores_perbin) >= 10:
+        rho, p_val = spearman_conflict_error(
+            conflict_scores_perbin, conflict_errors_perbin)
+        print(f"    Conflict-error rho={rho:.4f}, p={p_val:.6f}")
+    else:
+        rho, p_val = 0.0, 1.0
+
+    # Conflict AUROC
+    try:
+        from sklearn.metrics import roc_auc_score
+        error_labels = [1 if e else 0 for e in conflict_errors_perbin]
+        if len(set(error_labels)) == 2:
+            auroc = roc_auc_score(error_labels, conflict_scores_perbin)
+            print(f"    Conflict AUROC (per-bin): {auroc:.4f}")
+        else:
+            auroc = None
+    except ImportError:
+        auroc = None
+
+    result = {
+        "dataset": dataset_name,
+        "method": "per-bin-uncertainty",
+        "conditions": {name: {"precision": m.precision, "recall": m.recall,
+                              "f1": m.f1, "tp": m.tp, "fp": m.fp, "fn": m.fn}
+                       for name, m in conditions},
+        "best_baseline": best_name,
+        "perbin_sl_f1_minus_best": f1_diff_pb,
+        "perbin_sl_f1_minus_const_sl": f1_diff_ab,
+        "perbin_sl_f1_minus_scalar": f1_diff_sc,
+        "bootstrap_ci_perbin_vs_best": {"lo": ci_lo, "mean": ci_mean, "hi": ci_hi},
+        "bootstrap_ci_perbin_vs_const": {"lo": ci_lo_ab, "mean": ci_mean_ab, "hi": ci_hi_ab},
+        "bootstrap_ci_perbin_vs_scalar": {"lo": ci_lo_sc, "mean": ci_mean_sc, "hi": ci_hi_sc},
+        "conflict_error_rho": rho,
+        "conflict_error_p": p_val,
+        "conflict_auroc_perbin": auroc,
+        "abstained_const": len(all_abstained_const),
+        "abstained_perbin": len(all_abstained_perbin),
+        "thresholds": {"sl_accept": best_sl_accept, "sl_abstain": best_sl_abstain},
+        "verdict_h3_4a": verdict_a,
+    }
+
+    print(f"\n  Phase A1 Per-Bin ({dataset_name}) complete ({_elapsed(t0)})")
+    return result
+
+
 # =====================================================================
 # Main
 # =====================================================================
 
 def main():
     parser = argparse.ArgumentParser(description="EN3.4 Experiment Runner")
-    parser.add_argument("--phase", choices=["a0", "a1", "a1-extra", "medmentions", "b", "all"],
+    parser.add_argument("--phase", choices=["a0", "a1", "a1-extra", "a1-perbin", "medmentions", "b", "all"],
                         default="all", help="Phase to run")
     parser.add_argument("--skip-inference", action="store_true",
                         help="Load predictions from checkpoints (skip GPU)")
@@ -1412,12 +1646,12 @@ def main():
             bm_test = _serializable_to_preds(_load_checkpoint("en3_4_bc5cdr_test_biomed"))
 
         # Load calibration values
-        cal_result_data = ExperimentResult.load_json(
-            str(RESULTS_DIR / "EN3_4_calibration.json"))
-        temp_g2 = cal_result_data.metrics["gliner2"]["temperature"]
-        temp_bm = cal_result_data.metrics["biomed"]["temperature"]
-        ece_post_g2 = cal_result_data.metrics["gliner2"]["ece_post_tempscale"]
-        ece_post_bm = cal_result_data.metrics["biomed"]["ece_post_tempscale"]
+        with open(RESULTS_DIR / "EN3_4_calibration.json", "r") as f:
+            cal_json_ex = json.load(f)
+        temp_g2 = cal_json_ex["metrics"]["gliner2"]["temperature"]
+        temp_bm = cal_json_ex["metrics"]["biomed"]["temperature"]
+        ece_post_g2 = cal_json_ex["metrics"]["gliner2"]["ece_post_tempscale"]
+        ece_post_bm = cal_json_ex["metrics"]["biomed"]["ece_post_tempscale"]
 
         extras = run_phase_a1_extras(
             dev_data, test_data,
@@ -1434,6 +1668,38 @@ def main():
             environment=env,
         )
         _save_result(extras_result, "EN3_4_phase_a_extras")
+
+    # ── Phase A1 Per-Bin (corrected uncertainty) ──
+    if run_all or args.phase == "a1-perbin":
+        # Load predictions from checkpoints
+        if args.phase == "a1-perbin":
+            print("\n  Loading predictions from checkpoints...")
+            dev_data = load_bc5cdr("validation")
+            test_data = load_bc5cdr("test")
+            g2_dev = _serializable_to_preds(_load_checkpoint("en3_4_bc5cdr_dev_gliner2"))
+            g2_test = _serializable_to_preds(_load_checkpoint("en3_4_bc5cdr_test_gliner2"))
+            bm_dev = _serializable_to_preds(_load_checkpoint("en3_4_bc5cdr_dev_biomed"))
+            bm_test = _serializable_to_preds(_load_checkpoint("en3_4_bc5cdr_test_biomed"))
+
+        # Load calibration bins
+        with open(RESULTS_DIR / "EN3_4_calibration.json", "r") as f:
+            cal_json = json.load(f)
+        bins_g2 = cal_json["metrics"]["gliner2"]["reliability_bins"]
+        bins_bm = cal_json["metrics"]["biomed"]["reliability_bins"]
+
+        perbin_results = run_phase_a1_perbin(
+            "BC5CDR", dev_data, test_data,
+            g2_dev, bm_dev, g2_test, bm_test,
+            bins_g2, bins_bm,
+        )
+
+        perbin_result_obj = ExperimentResult(
+            experiment_id="EN3.4-A1-perbin",
+            parameters={"seed": SEED, "method": "per-bin-uncertainty"},
+            metrics=perbin_results,
+            environment=env,
+        )
+        _save_result(perbin_result_obj, "EN3_4_phase_a_perbin")
 
     # ── Phase MedMentions (H3.4e) ──
     if run_all or args.phase == "medmentions":

@@ -1,0 +1,111 @@
+{
+  "experiment_id": "EN3.4-A1-perbin",
+  "parameters": {
+    "seed": 42,
+    "method": "per-bin-uncertainty"
+  },
+  "metrics": {
+    "dataset": "BC5CDR",
+    "method": "per-bin-uncertainty",
+    "conditions": {
+      "B1: GLiNER2": {
+        "precision": 0.7242378810594703,
+        "recall": 0.7387093485574472,
+        "f1": 0.7314020389623499,
+        "tp": 7246,
+        "fp": 2759,
+        "fn": 2563
+      },
+      "B2: BioMed": {
+        "precision": 0.7115632480206223,
+        "recall": 0.7879498419818534,
+        "f1": 0.7478109428668183,
+        "tp": 7729,
+        "fp": 3133,
+        "fn": 2080
+      },
+      "B3: Union": {
+        "precision": 0.6587081982765436,
+        "recall": 0.849423998368845,
+        "f1": 0.74200730252026,
+        "tp": 8332,
+        "fp": 4317,
+        "fn": 1477
+      },
+      "B4: Intersection": {
+        "precision": 0.7902165977123388,
+        "recall": 0.6620450606585788,
+        "f1": 0.7204748432906195,
+        "tp": 6494,
+        "fp": 1724,
+        "fn": 3315
+      },
+      "B5: Scalar Avg": {
+        "precision": 0.7198465425283054,
+        "recall": 0.7842797430930778,
+        "f1": 0.7506830601092895,
+        "tp": 7693,
+        "fp": 2994,
+        "fn": 2116
+      },
+      "SL: Constant-u": {
+        "precision": 0.70322925006672,
+        "recall": 0.8058925476603119,
+        "f1": 0.7510688836104513,
+        "tp": 7905,
+        "fp": 3336,
+        "fn": 1904
+      },
+      "SL: Per-bin-u": {
+        "precision": 0.7236694152923538,
+        "recall": 0.7873381588337242,
+        "f1": 0.7541623944143353,
+        "tp": 7723,
+        "fp": 2949,
+        "fn": 2086
+      }
+    },
+    "best_baseline": "B5: Scalar Avg",
+    "perbin_sl_f1_minus_best": 0.003479334305045767,
+    "perbin_sl_f1_minus_const_sl": 0.003093510803883981,
+    "perbin_sl_f1_minus_scalar": 0.003479334305045767,
+    "bootstrap_ci_perbin_vs_best": {
+      "lo": 0.0024411937000530155,
+      "mean": 0.005023071017467269,
+      "hi": 0.007671663623714422
+    },
+    "bootstrap_ci_perbin_vs_const": {
+      "lo": 0.0004156854482192913,
+      "mean": 0.0029798345488102544,
+      "hi": 0.005493744993159018
+    },
+    "bootstrap_ci_perbin_vs_scalar": {
+      "lo": 0.0024411937000530155,
+      "mean": 0.005023071017467269,
+      "hi": 0.007671663623714422
+    },
+    "conflict_error_rho": 0.3974666773457739,
+    "conflict_error_p": 0.0,
+    "conflict_auroc_perbin": 0.7400826048273504,
+    "abstained_const": 932,
+    "abstained_perbin": 892,
+    "thresholds": {
+      "sl_accept": 0.7,
+      "sl_abstain": 0.5
+    },
+    "verdict_h3_4a": "ACCEPTED"
+  },
+  "timestamp": "2026-04-29T16:20:00.279194+00:00",
+  "raw_data": null,
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.1",
+    "numpy_version": "2.4.4",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": null
+}

@@ -172,6 +172,59 @@ def build_opinion(score: float, model_uncertainty: float) -> Opinion:
     return Opinion.from_confidence(score, uncertainty=model_uncertainty)
 
 
+def build_opinion_per_bin(
+    score: float,
+    reliability_bins: list[dict],
+    epsilon: float = 0.02,
+    floor: float = 0.02,
+    ceiling: float = 0.50,
+) -> Opinion:
+    """Construct an SL Opinion with per-prediction uncertainty from calibration bins.
+
+    Instead of using a single model-level uncertainty for all predictions,
+    this looks up the calibration gap (|accuracy - confidence|) for the
+    specific bin that this prediction's score falls into.
+
+    This is critical because constant uncertainty makes cumulative fusion
+    order-equivalent to scalar averaging (proven mathematically: when
+    u_A = u_B, the ranking by P(omega_fused) is identical to the ranking
+    by (score_A + score_B)).
+
+    Per-bin uncertainty breaks this degeneracy: predictions at different
+    confidence levels carry genuinely different amounts of evidence.
+
+    Args:
+        score:            Model confidence score in [0, 1].
+        reliability_bins: Calibration bins from Phase A0.
+        epsilon:          Additive floor on uncertainty.
+        floor:            Minimum uncertainty.
+        ceiling:          Maximum uncertainty.
+
+    Returns:
+        Opinion with per-prediction uncertainty.
+    """
+    # Find the bin this score falls into
+    bin_uncertainty = None
+    for b in reliability_bins:
+        if b["count"] == 0:
+            continue
+        if b["bin_lower"] <= score < b["bin_upper"]:
+            bin_uncertainty = b["abs_diff"]
+            break
+        # Handle score == 1.0 (falls into last bin)
+        if score >= b["bin_upper"] and b["bin_upper"] == 1.0:
+            bin_uncertainty = b["abs_diff"]
+            break
+
+    if bin_uncertainty is None:
+        # Score fell into an empty bin or outside range — use ceiling
+        u = ceiling
+    else:
+        u = max(floor, min(ceiling, bin_uncertainty + epsilon))
+
+    return Opinion.from_confidence(score, uncertainty=u)
+
+
 # =====================================================================
 # 5. Experimental Conditions
 # =====================================================================
@@ -321,6 +374,66 @@ def apply_condition_sl_fusion(
         elif sb is not None:
             # Single source B — no fusion, just threshold
             op = build_opinion(sb.score, u_b)
+            if op.projected_probability() >= accept_threshold:
+                accepted.append(sb)
+
+    return accepted, abstained
+
+
+def apply_condition_sl_fusion_per_bin(
+    groups: List[Dict[str, Any]],
+    bins_a: List[Dict],
+    bins_b: List[Dict],
+    accept_threshold: float,
+    conflict_threshold: float,
+) -> Tuple[List[EntitySpan], List[EntitySpan]]:
+    """SL fusion with per-prediction uncertainty from calibration bins.
+
+    Unlike apply_condition_sl_fusion which uses constant per-model uncertainty,
+    this version derives uncertainty per-prediction from the calibration bin
+    that each prediction's score falls into. This breaks the mathematical
+    order-equivalence with scalar averaging.
+
+    Returns:
+        (accepted, abstained) — two lists of EntitySpan.
+    """
+    accepted: List[EntitySpan] = []
+    abstained: List[EntitySpan] = []
+
+    for g in groups:
+        sa: Optional[EntitySpan] = g["span_a"]
+        sb: Optional[EntitySpan] = g["span_b"]
+
+        if sa is not None and sb is not None:
+            op_a = build_opinion_per_bin(sa.score, bins_a)
+            op_b = build_opinion_per_bin(sb.score, bins_b)
+            fused = cumulative_fuse(op_a, op_b)
+            conf = conflict_metric(fused)
+
+            winner = sa if sa.score >= sb.score else sb
+
+            if conf > conflict_threshold:
+                abstained.append(EntitySpan(
+                    start=winner.start, end=winner.end,
+                    entity_type=winner.entity_type,
+                    score=fused.projected_probability(),
+                    source="sl_abstained",
+                    text=winner.text,
+                ))
+            elif fused.projected_probability() >= accept_threshold:
+                accepted.append(EntitySpan(
+                    start=winner.start, end=winner.end,
+                    entity_type=winner.entity_type,
+                    score=fused.projected_probability(),
+                    source="sl_fused",
+                    text=winner.text,
+                ))
+        elif sa is not None:
+            op = build_opinion_per_bin(sa.score, bins_a)
+            if op.projected_probability() >= accept_threshold:
+                accepted.append(sa)
+        elif sb is not None:
+            op = build_opinion_per_bin(sb.score, bins_b)
             if op.projected_probability() >= accept_threshold:
                 accepted.append(sb)
 
