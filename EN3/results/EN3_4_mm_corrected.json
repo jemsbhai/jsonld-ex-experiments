@@ -1,0 +1,89 @@
+{
+  "experiment_id": "EN3.4-MM-corrected",
+  "parameters": {
+    "seed": 42,
+    "n_types": 5
+  },
+  "metrics": {
+    "dataset": "MedMentions-ZS-corrected",
+    "n_gold_types": 5,
+    "labels_used": [
+      "bacterium or bacterial organism",
+      "body substance such as blood serum or fluid",
+      "body system or organ system",
+      "professional occupation or occupational group",
+      "food or dietary substance"
+    ],
+    "conditions": {
+      "B1: GLiNER2": {
+        "p": 0.3312645461598138,
+        "r": 0.5972027972027972,
+        "f1": 0.42614770459081835,
+        "tp": 854,
+        "fp": 1724,
+        "fn": 576
+      },
+      "B2: BioMed": {
+        "p": 0.3016073116924047,
+        "r": 0.6692307692307692,
+        "f1": 0.41581577232239847,
+        "tp": 957,
+        "fp": 2216,
+        "fn": 473
+      },
+      "B3: Union": {
+        "p": 0.2658761528326746,
+        "r": 0.7055944055944056,
+        "f1": 0.3862200956937799,
+        "tp": 1009,
+        "fp": 2786,
+        "fn": 421
+      },
+      "B4: Intersection": {
+        "p": 0.4176891615541922,
+        "r": 0.5713286713286714,
+        "f1": 0.48257531010041343,
+        "tp": 817,
+        "fp": 1139,
+        "fn": 613
+      },
+      "B5: Scalar Avg": {
+        "p": 0.2658761528326746,
+        "r": 0.7055944055944056,
+        "f1": 0.3862200956937799,
+        "tp": 1009,
+        "fp": 2786,
+        "fn": 421
+      },
+      "SL: Per-bin": {
+        "p": 0.28589147286821703,
+        "r": 0.6447552447552447,
+        "f1": 0.3961331901181525,
+        "tp": 922,
+        "fp": 2303,
+        "fn": 508
+      }
+    },
+    "best_baseline": "B4: Intersection",
+    "sl_f1_minus_best": -0.08644211998226092,
+    "bootstrap_ci": {
+      "lo": -0.10348428815832476,
+      "mean": -0.087212117172499,
+      "hi": -0.07118547204082479
+    },
+    "verdict": "REJECTED"
+  },
+  "timestamp": "2026-04-29T18:05:44.381299+00:00",
+  "raw_data": null,
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.1",
+    "numpy_version": "2.4.4",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": null
+}

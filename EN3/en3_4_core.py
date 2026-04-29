@@ -440,6 +440,67 @@ def apply_condition_sl_fusion_per_bin(
     return accepted, abstained
 
 
+def apply_condition_hybrid_intersection_conflict(
+    groups: List[Dict[str, Any]],
+    threshold_a: float,
+    threshold_b: float,
+    bins_a: List[Dict],
+    bins_b: List[Dict],
+    conflict_threshold: float,
+) -> Tuple[List[EntitySpan], List[EntitySpan]]:
+    """Hybrid: intersection filter + SL conflict-based abstention.
+
+    1. Only accept entities where BOTH models predict above threshold (intersection)
+    2. For each agreed entity, compute SL conflict from per-bin opinions
+    3. Abstain on high-conflict agreed entities
+
+    Rationale: intersection eliminates single-model hallucinations.
+    Conflict detection identifies which agreed entities are still risky.
+
+    Returns:
+        (accepted, abstained) — two lists of EntitySpan.
+    """
+    accepted: List[EntitySpan] = []
+    abstained: List[EntitySpan] = []
+
+    for g in groups:
+        sa: Optional[EntitySpan] = g["span_a"]
+        sb: Optional[EntitySpan] = g["span_b"]
+
+        # Step 1: Intersection gate — both must predict above threshold
+        if (sa is None or sb is None
+                or sa.score < threshold_a or sb.score < threshold_b):
+            continue
+
+        # Step 2: Build per-bin opinions and compute conflict
+        op_a = build_opinion_per_bin(sa.score, bins_a)
+        op_b = build_opinion_per_bin(sb.score, bins_b)
+        fused = cumulative_fuse(op_a, op_b)
+        conf = conflict_metric(fused)
+
+        winner = sa if sa.score >= sb.score else sb
+
+        # Step 3: Conflict-based abstention on agreed entities
+        if conf > conflict_threshold:
+            abstained.append(EntitySpan(
+                start=winner.start, end=winner.end,
+                entity_type=winner.entity_type,
+                score=fused.projected_probability(),
+                source="hybrid_abstained",
+                text=winner.text,
+            ))
+        else:
+            accepted.append(EntitySpan(
+                start=winner.start, end=winner.end,
+                entity_type=winner.entity_type,
+                score=fused.projected_probability(),
+                source="hybrid_accepted",
+                text=winner.text,
+            ))
+
+    return accepted, abstained
+
+
 # =====================================================================
 # 6. Entity-Level Evaluation (Strict Span Match)
 # =====================================================================
