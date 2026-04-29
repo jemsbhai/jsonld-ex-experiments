@@ -1,0 +1,128 @@
+{
+  "experiment_id": "EN3.4-A1",
+  "parameters": {
+    "seed": 42,
+    "dataset": "BC5CDR",
+    "u_gliner2": 0.3151739377090545,
+    "u_biomed": 0.2885996701995146
+  },
+  "metrics": {
+    "dataset": "BC5CDR",
+    "conditions": {
+      "B1: GLiNER2": {
+        "precision": 0.7242378810594703,
+        "recall": 0.7387093485574472,
+        "f1": 0.7314020389623499,
+        "tp": 7246,
+        "fp": 2759,
+        "fn": 2563
+      },
+      "B2: BioMed": {
+        "precision": 0.7115632480206223,
+        "recall": 0.7879498419818534,
+        "f1": 0.7478109428668183,
+        "tp": 7729,
+        "fp": 3133,
+        "fn": 2080
+      },
+      "B3: Union": {
+        "precision": 0.6587081982765436,
+        "recall": 0.849423998368845,
+        "f1": 0.74200730252026,
+        "tp": 8332,
+        "fp": 4317,
+        "fn": 1477
+      },
+      "B4: Intersection": {
+        "precision": 0.7902165977123388,
+        "recall": 0.6620450606585788,
+        "f1": 0.7204748432906195,
+        "tp": 6494,
+        "fp": 1724,
+        "fn": 3315
+      },
+      "B5: Scalar Avg": {
+        "precision": 0.7198465425283054,
+        "recall": 0.7842797430930778,
+        "f1": 0.7506830601092895,
+        "tp": 7693,
+        "fp": 2994,
+        "fn": 2116
+      },
+      "SL: Fusion": {
+        "precision": 0.70322925006672,
+        "recall": 0.8058925476603119,
+        "f1": 0.7510688836104513,
+        "tp": 7905,
+        "fp": 3336,
+        "fn": 1904
+      }
+    },
+    "best_baseline": "B5: Scalar Avg",
+    "sl_f1_minus_best": 0.0003858235011617861,
+    "cohens_h": 0.0008920656041899733,
+    "bootstrap_ci_sl_vs_best": {
+      "lower": -0.0002341248852991917,
+      "mean": 0.0020432364686570137,
+      "upper": 0.004359101891941316
+    },
+    "bootstrap_ci_sl_vs_scalar": {
+      "lower": -0.0002341248852991917,
+      "mean": 0.0020432364686570137,
+      "upper": 0.004359101891941316
+    },
+    "bootstrap_ci_biomed_vs_gliner2": {
+      "lower": 0.024144515027519256,
+      "upper": 0.04060642393687377
+    },
+    "abstention_count": 932,
+    "abstention_error_rate": 0.3873390557939914,
+    "accepted_error_rate": 0.29677074993327995,
+    "conflict_error_rho": 0.400862509688986,
+    "conflict_error_p": 0.0,
+    "thresholds": {
+      "gliner2": 0.7,
+      "biomed": 0.7,
+      "scalar": 0.8,
+      "sl_accept": 0.7,
+      "sl_abstain": 0.5
+    },
+    "hypotheses": {
+      "H3.4a_fusion_improves": "INCONCLUSIVE",
+      "H3.4b_sl_beats_scalar": "INCONCLUSIVE",
+      "H3.4c_conflict_error": "ACCEPTED",
+      "H3.4d_specialist_wins": "ACCEPTED",
+      "H3.4f_abstention_targets_errors": true
+    },
+    "holm_bonferroni": [
+      {
+        "p_value": 0.5,
+        "reject": false,
+        "adjusted_alpha": 0.05
+      },
+      {
+        "p_value": 0.0,
+        "reject": true,
+        "adjusted_alpha": 0.016666666666666666
+      },
+      {
+        "p_value": 0.001,
+        "reject": true,
+        "adjusted_alpha": 0.025
+      }
+    ]
+  },
+  "timestamp": "2026-04-29T09:42:49.182548+00:00",
+  "raw_data": null,
+  "environment": {
+    "python_version": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "os": "Windows",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "ram_gb": 95.71,
+    "jsonld_ex_version": "0.7.1",
+    "numpy_version": "2.4.4",
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "notes": null
+}

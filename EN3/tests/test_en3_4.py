@@ -559,24 +559,23 @@ class TestEvaluateEntities:
 
 
 class TestBootstrapF1DifferenceCi:
-    """Tests for bootstrap CI on the difference between two F1 scores."""
+    """Tests for bootstrap CI on the difference between two micro-F1 scores."""
 
     def test_identical_predictions_zero_difference(self):
         """Same predictions → CI for difference should include 0."""
-        # Each element: (pred_correct, gold_count) per sentence
-        # Use paired samples: same predictions for both conditions
+        # Each element: (tp, fp, fn) per sentence
         rng = np.random.RandomState(42)
         n = 200
-        preds_a = [(1, 1)] * 150 + [(0, 1)] * 50  # F1 ≈ 0.75
-        preds_b = preds_a  # identical
+        # Same data for both conditions
+        samples = [(1, 0, 0)] * 150 + [(0, 1, 1)] * 50
         lo, mean, hi = bootstrap_f1_difference_ci(
-            preds_a, preds_b, n_bootstrap=500, seed=42)
+            samples, samples, n_bootstrap=500, seed=42)
         assert lo <= 0.0 <= hi  # difference CI includes 0
 
     def test_clearly_different_predictions(self):
         """One condition much better → CI should exclude 0."""
-        preds_a = [(1, 1)] * 190 + [(0, 1)] * 10   # F1 ≈ 0.95
-        preds_b = [(1, 1)] * 100 + [(0, 1)] * 100  # F1 ≈ 0.50
+        preds_a = [(1, 0, 0)] * 190 + [(0, 1, 1)] * 10   # high F1
+        preds_b = [(1, 0, 0)] * 100 + [(0, 1, 1)] * 100  # lower F1
         lo, mean, hi = bootstrap_f1_difference_ci(
             preds_a, preds_b, n_bootstrap=1000, seed=42)
         assert lo > 0.0  # A clearly better
@@ -584,8 +583,8 @@ class TestBootstrapF1DifferenceCi:
 
     def test_returns_three_values(self):
         """Should return (lower, mean, upper)."""
-        preds_a = [(1, 1)] * 50 + [(0, 1)] * 50
-        preds_b = [(1, 1)] * 40 + [(0, 1)] * 60
+        preds_a = [(1, 0, 0)] * 50 + [(0, 1, 1)] * 50
+        preds_b = [(1, 0, 0)] * 40 + [(0, 1, 1)] * 60
         result = bootstrap_f1_difference_ci(
             preds_a, preds_b, n_bootstrap=100, seed=42)
         assert len(result) == 3

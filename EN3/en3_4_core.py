@@ -397,21 +397,23 @@ def evaluate_entities(
 
 
 def bootstrap_f1_difference_ci(
-    samples_a: List[Tuple[int, int]],
-    samples_b: List[Tuple[int, int]],
+    samples_a: List[Tuple[int, int, int]],
+    samples_b: List[Tuple[int, int, int]],
     n_bootstrap: int = 1000,
     alpha: float = 0.05,
     seed: int = 42,
 ) -> Tuple[float, float, float]:
-    """Bootstrap 95% CI on the F1 difference between two conditions.
+    """Bootstrap 95% CI on the micro-F1 difference between two conditions.
 
-    Each sample is a (tp_i, total_gold_i) pair for one sentence/document.
-    We resample sentences with replacement and recompute F1 for each
+    Each sample is a (tp_i, fp_i, fn_i) triple for one sentence/document.
+    We resample sentences with replacement and recompute micro-F1 for each
     condition on each bootstrap replicate.
 
+    micro-F1 = 2*sum(tp) / (2*sum(tp) + sum(fp) + sum(fn))
+
     Args:
-        samples_a: Per-sentence (n_correct, n_gold) for condition A.
-        samples_b: Per-sentence (n_correct, n_gold) for condition B.
+        samples_a: Per-sentence (tp, fp, fn) for condition A.
+        samples_b: Per-sentence (tp, fp, fn) for condition B.
         n_bootstrap: Number of bootstrap resamples.
         alpha: Significance level (default 0.05 for 95% CI).
         seed: RNG seed.
@@ -423,7 +425,7 @@ def bootstrap_f1_difference_ci(
         "Paired bootstrap requires same number of samples"
 
     n = len(samples_a)
-    arr_a = np.array(samples_a, dtype=np.float64)  # (n, 2)
+    arr_a = np.array(samples_a, dtype=np.float64)  # (n, 3)
     arr_b = np.array(samples_b, dtype=np.float64)
 
     rng = np.random.RandomState(seed)
@@ -433,12 +435,16 @@ def bootstrap_f1_difference_ci(
         idx = rng.choice(n, size=n, replace=True)
         # Micro F1 for condition A on this resample
         tp_a = arr_a[idx, 0].sum()
-        gold_a = arr_a[idx, 1].sum()
-        f1_a = tp_a / gold_a if gold_a > 0 else 0.0
+        fp_a = arr_a[idx, 1].sum()
+        fn_a = arr_a[idx, 2].sum()
+        denom_a = 2 * tp_a + fp_a + fn_a
+        f1_a = (2 * tp_a / denom_a) if denom_a > 0 else 0.0
         # Micro F1 for condition B on this resample
         tp_b = arr_b[idx, 0].sum()
-        gold_b = arr_b[idx, 1].sum()
-        f1_b = tp_b / gold_b if gold_b > 0 else 0.0
+        fp_b = arr_b[idx, 1].sum()
+        fn_b = arr_b[idx, 2].sum()
+        denom_b = 2 * tp_b + fp_b + fn_b
+        f1_b = (2 * tp_b / denom_b) if denom_b > 0 else 0.0
         diffs[i] = f1_a - f1_b
 
     lo = float(np.percentile(diffs, 100 * alpha / 2))
