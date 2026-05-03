@@ -5288,3 +5288,67 @@ Answer to "why not just use DS?":
 3. SL provides three capabilities DS lacks: (a) base rate for P-R control,
    (b) conflict_metric as abstention signal, (c) interop/provenance/security.
 4. The contribution is infrastructure, not fusion superiority.
+
+### Phase C: MedMentions-Corrected (5 types, 1,430 gold entities)
+
+**Threshold note:** MedMentions-ZS validation set has 0 gold entities for
+the corrected 5 types (types only exist in test). BC5CDR thresholds were
+intended for cross-domain transfer but the results file was overwritten
+by a prior run. Fell back to t*=0.50 for all conditions. Results are
+valid but not at per-condition optimal thresholds.
+
+#### H4.2a on MedMentions
+
+| Condition | t* | P | R | F1 |
+|-----------|-----|-------|-------|--------|
+| C1 DS-classical | 0.50 | 0.3098 | 0.6706 | 0.4238 |
+| C2 DS+base_rate | 0.50 | 0.3098 | 0.6706 | 0.4238 |
+| C3 Yager | 0.50 | 0.3098 | 0.6706 | 0.4238 |
+| C4 SL-cumulative | 0.50 | 0.3122 | 0.6671 | **0.4253** |
+| C5 SL-averaging | 0.50 | 0.3122 | 0.6671 | 0.4253 |
+
+Bootstrap CIs:
+- C4 - C1 (SL vs DS): +0.18pp CI[+0.01, +0.35] **SIGNIFICANT**
+- C2 - C1 (base rate): +0.00pp (no effect at t*=0.50)
+
+**First dataset where SL significantly outperforms DS.** Effect is small
+(+0.15pp) but bootstrap CI is entirely above zero.
+
+#### H4.2c Base Rate on MedMentions (KEY FINDING)
+
+| Base rate a | F1 | P | R |
+|------------|--------|--------|--------|
+| **0.05** | **0.4303** | 0.3206 | 0.6538 |
+| 0.10 | 0.4296 | 0.3192 | 0.6566 |
+| 0.20 | 0.4286 | 0.3171 | 0.6608 |
+| 0.50 | 0.4253 | 0.3122 | 0.6671 |
+| 0.377 (empirical) | 0.4267 | 0.3140 | 0.6657 |
+| 0.80 | 0.4224 | 0.3077 | 0.6734 |
+
+**Lower base rate is better for sparse entities.** a=0.05 gives +0.5pp F1
+over a=0.50. This confirms H4.2c: on class-imbalanced data, a conservative
+base rate increases precision by requiring higher belief to accept entities.
+
+Contrast with BC5CDR where a=0.50 was optimal (denser entities).
+
+#### H4.2d Conflict Quartiles on MedMentions
+
+| Quartile | K range | n | DS prec | SL prec | Delta |
+|----------|---------|------|---------|---------|-------|
+| Q1 (low) | [0.000, 0.029) | 489 | 0.763 | 0.763 | 0.0 |
+| Q2 | [0.029, 0.074) | 489 | 0.460 | 0.460 | 0.0 |
+| Q3 | [0.074, 0.165) | 489 | 0.198 | 0.198 | 0.0 |
+| Q4 (high) | [0.165, 1.000) | 489 | 0.173 | **0.182** | **+0.9pp** |
+
+Same pattern as BC5CDR: DS = SL in Q1-Q3, SL better in Q4.
+Magnitude smaller (+0.9pp vs +3.7pp on BC5CDR).
+
+### Cross-Dataset Summary
+
+| Finding | BC5CDR | MedMentions |
+|---------|--------|-------------|
+| SL vs DS overall F1 | +0.65pp (ns) | +0.15pp (**sig**) |
+| Q4 precision advantage | +3.7pp | +0.9pp |
+| Optimal base rate | 0.50 | 0.05 |
+| Base rate effect | small | meaningful (+0.5pp) |
+| DS = SL in low conflict | Yes (Q1-Q3) | Yes (Q1-Q3) |

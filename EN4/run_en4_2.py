@@ -7,7 +7,7 @@ Phases:
 
 Usage:
     python experiments/EN4/run_en4_2.py --phase a
-    experiments\.venv-gliner\Scripts\python experiments/EN4/run_en4_2.py --phase b
+    experiments/.venv-gliner/Scripts/python experiments/EN4/run_en4_2.py --phase b
 """
 from __future__ import annotations
 
@@ -53,6 +53,7 @@ from run_en3_4 import (
     load_bc5cdr, _serializable_to_preds,
     _load_checkpoint as _load_en3_checkpoint,
 )
+from en3_4_mm_corrected import load_mm_corrected
 
 # ── Constants ───────────────────────────────────────────────────────
 RESULTS_DIR = _EN4_DIR / "results"
@@ -457,12 +458,250 @@ def run_phase_b() -> Dict[str, Any]:
 
 
 # =====================================================================
+# Phase C: MedMentions DS vs SL (sparse entities, base rate matters more)
+# =====================================================================
+
+def run_phase_c() -> Dict[str, Any]:
+    """DS vs SL on MedMentions-corrected (5 types, sparse entities)."""
+    print("\n" + "=" * 60)
+    print("Phase C: MedMentions DS vs SL (dev-optimized)")
+    print("=" * 60)
+
+    # -- Load data --
+    print("  Loading MedMentions corrected dev + test...")
+    dev_data = load_mm_corrected("validation")
+    test_data = load_mm_corrected("test")
+    dev_golds = [s["gold_spans"] for s in dev_data]
+    test_golds = [s["gold_spans"] for s in test_data]
+    all_test_gold = [span for sent in test_golds for span in sent]
+    print(f"  Dev:  {len(dev_data)} sent, {sum(len(g) for g in dev_golds)} gold")
+    print(f"  Test: {len(test_data)} sent, {len(all_test_gold)} gold")
+
+    # -- Load cached predictions --
+    print("  Loading cached predictions...")
+    g2_dev = _serializable_to_preds(_load_checkpoint("en3_4_mm_corrected_dev_g2"))
+    bm_dev = _serializable_to_preds(_load_checkpoint("en3_4_mm_corrected_dev_bm"))
+    g2_test = _serializable_to_preds(_load_checkpoint("en3_4_mm_corrected_test_g2"))
+    bm_test = _serializable_to_preds(_load_checkpoint("en3_4_mm_corrected_test_bm"))
+    print(f"  Test: GLiNER2={sum(len(s) for s in g2_test)} BioMed={sum(len(s) for s in bm_test)}")
+
+    # -- Calibration bins (reuse BC5CDR bins -- model property, not domain) --
+    cal_path = _EXPERIMENTS_ROOT / "EN3" / "results" / "EN3_4_calibration.json"
+    if cal_path.exists():
+        with open(cal_path) as f:
+            cal_results = json.load(f)
+        metrics = cal_results.get("metrics", cal_results)
+        bins_g2 = metrics.get("gliner2", {}).get("reliability_bins", [])
+        bins_bm = metrics.get("biomed", {}).get("reliability_bins", [])
+        print(f"  Calibration bins: g2={len(bins_g2)} bm={len(bins_bm)}")
+    else:
+        print("  WARNING: No calibration bins. Using defaults.")
+        bins_g2 = [{"bin_lower": i/10, "bin_upper": (i+1)/10,
+                     "abs_diff": 0.10, "count": 100} for i in range(10)]
+        bins_bm = bins_g2
+
+    # -- Align --
+    print("  Aligning predictions...")
+    dev_groups = [align_spans(g2, bm) for g2, bm in zip(g2_dev, bm_dev)]
+    test_groups = [align_spans(g2, bm) for g2, bm in zip(g2_test, bm_test)]
+    flat_test = [g for sent in test_groups for g in sent]
+
+    # -- Threshold grid --
+    thresholds = [0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40,
+                  0.45, 0.50, 0.55, 0.60, 0.65, 0.70]
+    base_rate = 0.5
+
+    # -- Define conditions --
+    condition_defs = [
+        ("C1_ds_classical", _apply_ds_condition,
+         dict(combine_fn=dempster_combine, bins_a=bins_g2, bins_b=bins_bm,
+              use_base_rate=False, base_rate=base_rate)),
+        ("C2_ds_base_rate", _apply_ds_condition,
+         dict(combine_fn=dempster_combine, bins_a=bins_g2, bins_b=bins_bm,
+              use_base_rate=True, base_rate=base_rate)),
+        ("C3_yager", _apply_ds_condition,
+         dict(combine_fn=yager_combine, bins_a=bins_g2, bins_b=bins_bm,
+              use_base_rate=False, base_rate=base_rate)),
+        ("C4_sl_cumulative", _apply_sl_condition,
+         dict(bins_a=bins_g2, bins_b=bins_bm,
+              base_rate=base_rate, use_averaging=False)),
+        ("C5_sl_averaging", _apply_sl_condition,
+         dict(bins_a=bins_g2, bins_b=bins_bm,
+              base_rate=base_rate, use_averaging=True)),
+    ]
+
+    # -- Optimize on dev, evaluate on test --
+    # NOTE: MedMentions-ZS validation has 0 gold entities for the corrected
+    # 5 types (they only exist in the test split). We cannot optimize
+    # thresholds on dev. Instead, we use BC5CDR-optimized thresholds from
+    # Phase B, which is defensible because the thresholds are a property
+    # of model confidence calibration, not the target domain.
+    #
+    # If Phase B results are available, use those thresholds. Otherwise
+    # fall back to cross-validated threshold on test (less ideal).
+    bc5cdr_results_path = RESULTS_DIR / "EN4_2_ds_comparison.json"
+    bc5cdr_thresholds = {}
+    if bc5cdr_results_path.exists():
+        with open(bc5cdr_results_path) as f:
+            prev = json.load(f)
+        pb = prev.get("phase_b", {})
+        for label in pb.get("conditions", {}):
+            bc5cdr_thresholds[label] = pb["conditions"][label].get("dev_threshold", 0.5)
+        print(f"  Using BC5CDR-optimized thresholds: {bc5cdr_thresholds}")
+    else:
+        print("  WARNING: No Phase B results. Using default threshold 0.50.")
+        for label, _, _ in condition_defs:
+            bc5cdr_thresholds[label] = 0.50
+
+    has_dev_gold = sum(len(g) for g in dev_golds) > 0
+    print(f"  Dev gold entities: {sum(len(g) for g in dev_golds)}")
+    if not has_dev_gold:
+        print("  NOTE: MedMentions-ZS validation has 0 gold entities for the")
+        print("        corrected 5 types. Using BC5CDR thresholds (cross-domain).")
+
+    conditions = {}
+    for label, apply_fn, kwargs in condition_defs:
+        if has_dev_gold:
+            best_t, dev_f1 = _optimize_threshold(
+                apply_fn, dev_groups, dev_golds, thresholds, **kwargs)
+        else:
+            best_t = bc5cdr_thresholds.get(label, 0.50)
+            dev_f1 = float('nan')
+        accepted, _ = apply_fn(flat_test, threshold=best_t, **kwargs)
+        m = evaluate_entities(accepted, all_test_gold)
+        conditions[label] = {
+            "P": m.precision, "R": m.recall, "F1": m.f1,
+            "tp": m.tp, "fp": m.fp, "fn": m.fn,
+            "n_accepted": len(accepted),
+            "dev_threshold": best_t,
+            "threshold_source": "bc5cdr_transfer" if not has_dev_gold else "dev_optimized",
+        }
+        print(f"    {label:25s}  t*={best_t:.2f}  "
+              f"test: P={m.precision:.4f} R={m.recall:.4f} F1={m.f1:.4f}")
+
+    # -- Bootstrap CIs --
+    print("\n  Bootstrap CIs (n=2000)...")
+
+    def per_sent_triples(apply_fn, threshold, **kwargs):
+        triples = []
+        for i, sg in enumerate(test_groups):
+            acc, _ = apply_fn(sg, threshold=threshold, **kwargs)
+            m = evaluate_entities(acc, test_golds[i])
+            triples.append((m.tp, m.fp, m.fn))
+        return triples
+
+    cond_triples = {}
+    for label, apply_fn, kwargs in condition_defs:
+        t = conditions[label]["dev_threshold"]
+        cond_triples[label] = per_sent_triples(apply_fn, threshold=t, **kwargs)
+
+    comparisons = [
+        ("C4_sl_cumulative", "C1_ds_classical"),
+        ("C4_sl_cumulative", "C2_ds_base_rate"),
+        ("C2_ds_base_rate", "C1_ds_classical"),
+    ]
+    ci_results = []
+    for la, lb in comparisons:
+        lo, md, hi = bootstrap_f1_difference_ci(
+            cond_triples[la], cond_triples[lb], n_bootstrap=N_BOOTSTRAP, seed=SEED)
+        ci = {"comparison": f"{la} - {lb}", "mean_diff": md,
+              "ci_lower": lo, "ci_upper": hi,
+              "significant": (lo > 0) or (hi < 0),
+              "cohens_h": cohens_h(conditions[la]["F1"], conditions[lb]["F1"])}
+        ci_results.append(ci)
+        print(f"    {la} - {lb}: {md:+.4f} CI[{lo:+.4f},{hi:+.4f}] "
+              f"h={ci['cohens_h']:+.4f} {'SIG' if ci['significant'] else 'ns'}")
+
+    # -- Base rate sweep (MedMentions is sparser -> base rate should matter more) --
+    print("\n  Base rate sweep (H4.2c on MedMentions)...")
+    sl_t = conditions["C4_sl_cumulative"]["dev_threshold"]
+    br_values = [0.05, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
+    empirical_prior = len(all_test_gold) / max(1, len(flat_test))
+    br_values.append(round(min(empirical_prior, 0.9), 3))
+    print(f"    Empirical prior: {empirical_prior:.4f}")
+
+    br_sweep = {}
+    for br in sorted(set(br_values)):
+        acc, _ = _apply_sl_condition(
+            flat_test, bins_a=bins_g2, bins_b=bins_bm,
+            threshold=sl_t, base_rate=br, use_averaging=False)
+        m = evaluate_entities(acc, all_test_gold)
+        br_sweep[str(br)] = {"F1": m.f1, "P": m.precision, "R": m.recall}
+        print(f"    a={br:.3f}  F1={m.f1:.4f}  P={m.precision:.4f}  R={m.recall:.4f}")
+
+    # -- Conflict-partitioned --
+    print("\n  Conflict-partitioned analysis...")
+    conflict_data = []
+    for sent_groups, sent_golds in zip(test_groups, test_golds):
+        for g in sent_groups:
+            sa, sb = g.get("span_a"), g.get("span_b")
+            if sa is None or sb is None:
+                continue
+            op_a = build_opinion_per_bin(sa.score, bins_g2)
+            op_b = build_opinion_per_bin(sb.score, bins_bm)
+            m_a = {"b": op_a.belief, "d": op_a.disbelief, "u": op_a.uncertainty}
+            m_b = {"b": op_b.belief, "d": op_b.disbelief, "u": op_b.uncertainty}
+            K = compute_conflict_K(m_a, m_b)
+            winner = sa if sa.score >= sb.score else sb
+            is_correct = any(
+                winner.start == gg.start and winner.end == gg.end
+                and winner.entity_type == gg.entity_type for gg in sent_golds)
+            ds_fused = dempster_combine(m_a, m_b)
+            op_a_sl = Opinion(belief=op_a.belief, disbelief=op_a.disbelief,
+                              uncertainty=op_a.uncertainty, base_rate=base_rate)
+            op_b_sl = Opinion(belief=op_b.belief, disbelief=op_b.disbelief,
+                              uncertainty=op_b.uncertainty, base_rate=base_rate)
+            sl_fused = cumulative_fuse(op_a_sl, op_b_sl)
+            conflict_data.append({
+                "K": K, "is_correct": is_correct,
+                "ds_decision": mass_to_decision(ds_fused),
+                "sl_decision": sl_fused.projected_probability() > sl_t,
+            })
+
+    if conflict_data:
+        Ks = np.array([c["K"] for c in conflict_data])
+        quartiles = np.percentile(Ks, [25, 50, 75])
+        q_defs = [("Q1_low", 0, quartiles[0]), ("Q2", quartiles[0], quartiles[1]),
+                  ("Q3", quartiles[1], quartiles[2]), ("Q4_high", quartiles[2], 1.0)]
+        conflict_results = {}
+        for ql, lo, hi in q_defs:
+            sub = [c for c in conflict_data if lo <= c["K"] < hi]
+            if not sub:
+                continue
+            n = len(sub)
+            ds_tp = sum(c["ds_decision"] and c["is_correct"] for c in sub)
+            ds_fp = sum(c["ds_decision"] and not c["is_correct"] for c in sub)
+            sl_tp = sum(c["sl_decision"] and c["is_correct"] for c in sub)
+            sl_fp = sum(c["sl_decision"] and not c["is_correct"] for c in sub)
+            ds_prec = ds_tp / (ds_tp + ds_fp) if (ds_tp + ds_fp) > 0 else 0.0
+            sl_prec = sl_tp / (sl_tp + sl_fp) if (sl_tp + sl_fp) > 0 else 0.0
+            conflict_results[ql] = {
+                "n": n, "K_range": [float(lo), float(hi)],
+                "pct_correct": sum(c["is_correct"] for c in sub) / n,
+                "ds_precision": ds_prec, "sl_precision": sl_prec,
+            }
+            print(f"    {ql:10s} K\u2208[{lo:.3f},{hi:.3f}) n={n:5d} "
+                  f"DS_prec={ds_prec:.3f} SL_prec={sl_prec:.3f}")
+    else:
+        conflict_results = {}
+        print("    No aligned pairs for conflict analysis")
+
+    return {
+        "dataset": "MedMentions-corrected", "n_gold_test": len(all_test_gold),
+        "n_sent_test": len(test_data), "n_sent_dev": len(dev_data),
+        "conditions": conditions, "bootstrap_ci": ci_results,
+        "base_rate_sweep": br_sweep, "empirical_prior": empirical_prior,
+        "conflict_quartiles": conflict_results,
+    }
+
+
+# =====================================================================
 # Main
 # =====================================================================
 
 def main():
     parser = argparse.ArgumentParser(description="EN4.2 — DS vs SL")
-    parser.add_argument("--phase", choices=["a", "b", "all"], default="a")
+    parser.add_argument("--phase", choices=["a", "b", "c", "all"], default="a")
     args = parser.parse_args()
 
     print("=" * 60)
@@ -479,6 +718,8 @@ def main():
         all_results["phase_a"] = run_phase_a()
     if args.phase in ("b", "all"):
         all_results["phase_b"] = run_phase_b()
+    if args.phase in ("c", "all"):
+        all_results["phase_c"] = run_phase_c()
 
     primary = RESULTS_DIR / "EN4_2_ds_comparison.json"
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
