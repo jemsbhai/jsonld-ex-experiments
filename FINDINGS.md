@@ -5201,3 +5201,90 @@ SL conflict is the best error detection signal, with clear advantage over score-
 - In the moderate-accuracy regime (MedMentions: AUROC=0.790)
 
 The contribution is REAL but MODEST in absolute terms. The paper should frame this as: “SL provides the best available error signal for multi-model NER, with advantages that scale with abstention aggressiveness and model uncertainty.”
+
+---
+
+## EN4.2 — Dempster-Shafer vs Subjective Logic: Empirical Comparison
+
+**Date:** 2026-05-03
+**Status:** Phase A + Phase B COMPLETE (BC5CDR). MedMentions Phase C pending.
+
+### Why This Experiment
+
+The single most dangerous reviewer question: "SL IS Dempster-Shafer theory.
+What does Josang's formulation add over classical DS?" We had no empirical
+answer anywhere in the paper. Now we do.
+
+### Phase A: Structural Divergence Finding
+
+**FINDING:** DS and SL are NOT "approximately the same under low conflict."
+They are structurally different operators that diverge at ALL conflict levels.
+
+From 10,000 random opinion pairs (seed=42):
+
+| Conflict K | n | Mean belief diff (DS-SL) | DS > SL belief |
+|-----------|------|-------------------------|----------------|
+| [0.0, 0.1) | 2,139 | +0.015 | 63.2% |
+| [0.1, 0.2) | 2,791 | +0.018 | 59.9% |
+| [0.2, 0.4) | 3,877 | +0.014 | 57.3% |
+| [0.4, 0.6) | 1,038 | +0.011 | 53.3% |
+| [0.6, 0.8) | 148 | -0.005 | 48.6% |
+
+**Root cause:** The b1*b2 mutual reinforcement term in DS is always
+non-negative, making DS systematically more aggressive (higher fused
+belief). DS belief > SL belief in 58.7% of random pairs.
+
+### Phase B: BC5CDR (2 models, dev-optimized thresholds)
+
+5 conditions, threshold-optimized on validation (5,330 sent, 9,591 gold),
+evaluated on test (5,865 sent, 9,809 gold). Per-bin uncertainty. Bootstrap n=2000.
+
+#### H4.2a — Overall F1
+
+| Condition | t* | P | R | F1 |
+|-----------|-----|-------|-------|--------|
+| C1 DS-classical | 0.70 | 0.6519 | 0.8527 | 0.7389 |
+| C2 DS+base_rate | 0.70 | 0.6817 | 0.8203 | 0.7446 |
+| C3 Yager | 0.70 | 0.6519 | 0.8527 | 0.7389 |
+| C4 SL-cumulative | 0.70 | 0.6956 | 0.8028 | **0.7454** |
+| C5 SL-averaging | 0.65 | 0.6838 | 0.8097 | 0.7414 |
+
+C1 = C3 exactly: For binary max(m) decision, Dempster and Yager always agree.
+
+Bootstrap CIs:
+- C4 - C1 (SL vs DS): -0.12pp CI[-0.50, +0.23] NOT SIGNIFICANT
+- C4 - C2 (SL vs DS+base): -0.20pp CI[-0.41, -0.00] Marginal
+- C2 - C1 (base rate effect): +0.08pp CI[-0.21, +0.36] NOT SIGNIFICANT
+
+**H4.2a verdict: INCONCLUSIVE.** SL and DS produce statistically
+indistinguishable overall F1 on BC5CDR.
+
+#### H4.2c — Base Rate Sweep
+
+F1 stable across a=0.3-0.7 (all >0.74). Collapses below a=0.2.
+Empirical class prior (0.638) performs near-optimally.
+**Verdict: ACCEPTED (mechanism works) but MODEST effect.**
+
+#### H4.2d — Conflict-Partitioned Analysis (KEY FINDING)
+
+| Quartile | K range | n | DS prec | SL prec | Delta |
+|----------|---------|------|---------|---------|-------|
+| Q1 (low) | [0.000, 0.006) | 2,496 | 0.857 | 0.857 | 0.0 |
+| Q2 | [0.006, 0.015) | 2,495 | 0.768 | 0.768 | 0.0 |
+| Q3 | [0.015, 0.056) | 2,495 | 0.606 | 0.606 | 0.0 |
+| Q4 (high) | [0.056, 1.000) | 2,496 | 0.370 | **0.407** | **+3.7pp** |
+
+DS and SL produce IDENTICAL precision in Q1-Q3 (75% of data).
+SL outperforms DS by +3.7pp precision ONLY in Q4 (high conflict).
+
+**H4.2d verdict: ACCEPTED.** SL advantage concentrated in high-conflict
+situations, exactly as theory predicts.
+
+### EN4.2 Overall Conclusion
+
+Answer to "why not just use DS?":
+1. Low conflict (common case): DS and SL are interchangeable. No F1 advantage.
+2. High conflict (Q4): SL is +3.7pp more precise. DS normalizes away conflict.
+3. SL provides three capabilities DS lacks: (a) base rate for P-R control,
+   (b) conflict_metric as abstention signal, (c) interop/provenance/security.
+4. The contribution is infrastructure, not fusion superiority.
