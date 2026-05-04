@@ -18,6 +18,9 @@ Thumbs.db
 .venv-gliner/
 .venv*/
 
+# Large data files (download separately)
+EN8/data/intel_lab_data.txt.gz
+
 # HuggingFace model caches (if any end up here)
 .cache/
 *.bin
