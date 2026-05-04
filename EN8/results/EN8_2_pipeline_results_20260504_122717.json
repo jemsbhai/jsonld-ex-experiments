@@ -1,0 +1,40 @@
+{
+  "experiment": "EN8.2",
+  "timestamp": "2026-05-04T16:27:05.186676+00:00",
+  "seed": 42,
+  "n_raw": 2219803,
+  "n_filtered": 1815663,
+  "phase_b": {
+    "fidelity": 1.0,
+    "per_field": {
+      "@value": {
+        "checked": 500,
+        "preserved": 500
+      },
+      "@unit": {
+        "checked": 500,
+        "preserved": 500
+      },
+      "@source": {
+        "checked": 500,
+        "preserved": 500
+      },
+      "@confidence": {
+        "checked": 500,
+        "preserved": 500
+      },
+      "@measurementUncertainty": {
+        "checked": 500,
+        "preserved": 500
+      }
+    },
+    "triples": {
+      "native": 3500,
+      "allied": 1000,
+      "extension": 1500
+    },
+    "struct_pass": 500,
+    "byte_overhead": 6.7767188853697675,
+    "n": 500
+  }
+}

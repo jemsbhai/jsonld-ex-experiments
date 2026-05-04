@@ -1,0 +1,12 @@
+{
+  "experiment": "EN8.2",
+  "timestamp": "2026-05-04T17:13:38.278915+00:00",
+  "seed": 42,
+  "phase_e": {
+    "jx_loc": 26,
+    "rdf_loc": 50,
+    "jx_uris": 0,
+    "rdf_uris": 13,
+    "ratio": 0.52
+  }
+}

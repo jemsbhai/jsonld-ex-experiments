@@ -365,17 +365,27 @@ def detect_outliers_by_annotation(
     sigma: float,
     threshold_sigmas: float = 5.0,
     window: int = 20,
+    neighbor_values: dict = None,
 ) -> np.ndarray:
     """Detect outliers using annotation-derived uncertainty.
 
-    Flags readings that deviate from a local rolling median by more
-    than ``threshold_sigmas * sigma``.
+    Two modes:
+    1. Single-sensor (neighbor_values=None): flag readings deviating
+       from a local rolling median. Works for isolated spikes only.
+    2. Cross-sensor (neighbor_values provided): flag readings deviating
+       from the neighbor consensus. Works for sustained failures.
+
+    Cross-sensor mode is strongly preferred for real IoT data where
+    sensor failures produce long consecutive runs, not isolated spikes.
 
     Args:
         values: Array of sensor readings.
         sigma: Known measurement noise (from annotation metadata).
         threshold_sigmas: Multiplier for outlier threshold.
-        window: Rolling window size for local median.
+        window: Rolling window size for single-sensor mode.
+        neighbor_values: Dict mapping neighbor_id -> array of values.
+            If provided, uses cross-sensor consensus instead of
+            rolling median.
 
     Returns:
         Boolean array, True = flagged as outlier.
@@ -383,17 +393,33 @@ def detect_outliers_by_annotation(
     n = len(values)
     flagged = np.zeros(n, dtype=bool)
 
-    for i in range(n):
-        # Local window
-        start = max(0, i - window // 2)
-        end = min(n, i + window // 2 + 1)
-        local = values[start:end]
-        local_clean = local[~np.isnan(local)]
-        if len(local_clean) < 3:
-            continue
-        local_median = np.median(local_clean)
-        if abs(values[i] - local_median) > threshold_sigmas * sigma:
-            flagged[i] = True
+    if neighbor_values is not None:
+        # Cross-sensor mode: compare against neighbor consensus
+        neighbor_arrays = list(neighbor_values.values())
+        for i in range(n):
+            if np.isnan(values[i]):
+                continue
+            neighbor_vals = [arr[i] for arr in neighbor_arrays
+                            if i < len(arr) and not np.isnan(arr[i])]
+            if len(neighbor_vals) < 1:
+                continue
+            consensus = np.median(neighbor_vals)
+            if abs(values[i] - consensus) > threshold_sigmas * sigma:
+                flagged[i] = True
+    else:
+        # Single-sensor mode: rolling median (isolated spikes only)
+        for i in range(n):
+            if np.isnan(values[i]):
+                continue
+            start = max(0, i - window // 2)
+            end = min(n, i + window // 2 + 1)
+            local = values[start:end]
+            local_clean = local[~np.isnan(local)]
+            if len(local_clean) < 3:
+                continue
+            local_median = np.median(local_clean)
+            if abs(values[i] - local_median) > threshold_sigmas * sigma:
+                flagged[i] = True
 
     return flagged
 
