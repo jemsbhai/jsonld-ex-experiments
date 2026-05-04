@@ -1,0 +1,228 @@
+{
+  "experiment": "EN8.2",
+  "timestamp": "2026-05-04T07:36:20.907188+00:00",
+  "seed": 42,
+  "n_bootstrap": 2000,
+  "dataset": "Intel Berkeley Research Lab (Bodik et al. 2004)",
+  "outlier_filter": "temperature in [10, 45] C",
+  "phase_a": {
+    "clusters": {
+      "primary": {
+        "sensor_ids": [
+          4,
+          6,
+          7,
+          9
+        ],
+        "n_steps": 7684,
+        "sigmas": {
+          "4": 0.25668748000000396,
+          "6": 0.17919692000000198,
+          "7": 0.19372639999999972,
+          "9": 0.3341780399999902
+        },
+        "methods": {
+          "ds_fuse": {
+            "rmse": 2.1209390696855297,
+            "mae": 0.7645626505817273,
+            "n_points": 21743
+          },
+          "kalman": {
+            "rmse": 1.811361361289208,
+            "mae": 0.6843673662429695,
+            "n_points": 21743
+          },
+          "scalar_avg": {
+            "rmse": 1.733409696140866,
+            "mae": 0.6759074828680496,
+            "n_points": 21743
+          },
+          "sl_fuse": {
+            "rmse": 1.7348604241903085,
+            "mae": 0.6757098701221285,
+            "n_points": 21743
+          },
+          "sl_fuse_decay": {
+            "rmse": 1.7348604241903085,
+            "mae": 0.6757098701221285,
+            "n_points": 21743
+          },
+          "weighted_avg": {
+            "rmse": 1.816297212475773,
+            "mae": 0.6772828940634199,
+            "n_points": 21743
+          }
+        },
+        "bootstrap_ci": [
+          {
+            "comparison": "sl_fuse - scalar_avg",
+            "mean_diff": 0.0014448031289530697,
+            "ci_lower": 0.0009324307861092396,
+            "ci_upper": 0.0019811906510194873,
+            "significant": true
+          },
+          {
+            "comparison": "sl_fuse - weighted_avg",
+            "mean_diff": -0.0811519772441564,
+            "ci_lower": -0.10281209852855383,
+            "ci_upper": -0.06017207251196513,
+            "significant": true
+          },
+          {
+            "comparison": "sl_fuse - kalman",
+            "mean_diff": -0.07620303726842578,
+            "ci_lower": -0.09640090244600162,
+            "ci_upper": -0.05643607586260819,
+            "significant": true
+          },
+          {
+            "comparison": "sl_fuse - ds_fuse",
+            "mean_diff": -0.3858916781045922,
+            "ci_lower": -0.4300551725134733,
+            "ci_upper": -0.3407070884020758,
+            "significant": true
+          }
+        ],
+        "misspecified": {
+          "scalar_avg": {
+            "rmse": 2.2691773634478607,
+            "mae": 0.8128539894676284,
+            "n_points": 22597
+          },
+          "weighted_avg": {
+            "rmse": 2.4232194108197493,
+            "mae": 0.9007994916397115,
+            "n_points": 22597
+          },
+          "kalman": {
+            "rmse": 3.9534677238319067,
+            "mae": 1.3459374245467,
+            "n_points": 23368
+          },
+          "sl_fuse": {
+            "rmse": 2.2728900863975445,
+            "mae": 0.8150056493625658,
+            "n_points": 22597
+          },
+          "sl_fuse_decay": {
+            "rmse": 2.2728900863975445,
+            "mae": 0.8150056493625658,
+            "n_points": 22597
+          },
+          "ds_fuse": {
+            "rmse": 2.5661827645510367,
+            "mae": 0.8974549338214479,
+            "n_points": 22597
+          }
+        }
+      },
+      "validation": {
+        "sensor_ids": [
+          22,
+          23,
+          24
+        ],
+        "n_steps": 9876,
+        "sigmas": {
+          "22": 0.33417804000000073,
+          "23": 0.5811792000000044,
+          "24": 0.7119445199999999
+        },
+        "methods": {
+          "ds_fuse": {
+            "rmse": 1.74137331427083,
+            "mae": 0.9120787714707853,
+            "n_points": 17922
+          },
+          "kalman": {
+            "rmse": 1.6304519150521073,
+            "mae": 0.8868313247908749,
+            "n_points": 17922
+          },
+          "scalar_avg": {
+            "rmse": 1.6163451720116497,
+            "mae": 0.8647589554737194,
+            "n_points": 17922
+          },
+          "sl_fuse": {
+            "rmse": 1.6084286497807583,
+            "mae": 0.8590976887771538,
+            "n_points": 17922
+          },
+          "sl_fuse_decay": {
+            "rmse": 1.6084286497807583,
+            "mae": 0.8590976887771538,
+            "n_points": 17922
+          },
+          "weighted_avg": {
+            "rmse": 1.571285767514317,
+            "mae": 0.8180294558048922,
+            "n_points": 17922
+          }
+        },
+        "bootstrap_ci": [
+          {
+            "comparison": "sl_fuse - scalar_avg",
+            "mean_diff": -0.007904417609452753,
+            "ci_lower": -0.009192904021249415,
+            "ci_upper": -0.00666461377906934,
+            "significant": true
+          },
+          {
+            "comparison": "sl_fuse - weighted_avg",
+            "mean_diff": 0.037063783880177656,
+            "ci_lower": 0.02339351951653353,
+            "ci_upper": 0.051144050325327386,
+            "significant": true
+          },
+          {
+            "comparison": "sl_fuse - kalman",
+            "mean_diff": -0.022313348849091398,
+            "ci_lower": -0.03840849500005813,
+            "ci_upper": -0.005258928818411898,
+            "significant": true
+          },
+          {
+            "comparison": "sl_fuse - ds_fuse",
+            "mean_diff": -0.13257496657881376,
+            "ci_lower": -0.15535190633934887,
+            "ci_upper": -0.11087180213908746,
+            "significant": true
+          }
+        ],
+        "misspecified": {
+          "scalar_avg": {
+            "rmse": 2.262312975663394,
+            "mae": 1.0042668717723326,
+            "n_points": 18202
+          },
+          "weighted_avg": {
+            "rmse": 2.473878853079158,
+            "mae": 1.10416401474543,
+            "n_points": 18202
+          },
+          "kalman": {
+            "rmse": 3.683264443868206,
+            "mae": 1.542714741316253,
+            "n_points": 18696
+          },
+          "sl_fuse": {
+            "rmse": 2.272873416887165,
+            "mae": 1.0086763934337575,
+            "n_points": 18202
+          },
+          "sl_fuse_decay": {
+            "rmse": 2.272873416887165,
+            "mae": 1.0086763934337575,
+            "n_points": 18202
+          },
+          "ds_fuse": {
+            "rmse": 2.3555228163753905,
+            "mae": 1.0540524799256452,
+            "n_points": 18202
+          }
+        }
+      }
+    }
+  }
+}
