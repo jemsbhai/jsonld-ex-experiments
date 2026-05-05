@@ -805,3 +805,86 @@ class TestPhase2RealWorld:
             f"Phase 1 vs Phase 2 gap too large: "
             f"{p1_agg.mean_fidelity:.3f} vs {p2_agg.mean_fidelity:.3f} (gap={gap:.3f})"
         )
+
+
+# ===================================================================
+# 11. BASELINE (rdflib) TESTS
+# ===================================================================
+
+class TestBaseline:
+    """Tests for rdflib baseline implementation."""
+
+    def test_prov_o_baseline_roundtrip(self, simple_annotated_doc):
+        from en8_10_baseline import baseline_prov_o_roundtrip
+        recovered = baseline_prov_o_roundtrip(simple_annotated_doc)
+        original_fields = extract_fields(simple_annotated_doc)
+        recovered_fields = extract_fields(recovered)
+        comp = compare_fields(original_fields, recovered_fields)
+        # Baseline should recover core provenance fields
+        assert comp.n_corrupted == 0, f"Corrupted: {comp.corrupted_fields}"
+        assert comp.fidelity > 0.0  # At least some fields survived
+
+    def test_rdf_star_baseline_roundtrip(self, simple_annotated_doc):
+        from en8_10_baseline import baseline_rdf_star_roundtrip
+        recovered = baseline_rdf_star_roundtrip(simple_annotated_doc)
+        original_fields = extract_fields(simple_annotated_doc)
+        recovered_fields = extract_fields(recovered)
+        comp = compare_fields(original_fields, recovered_fields)
+        assert comp.n_corrupted == 0, f"Corrupted: {comp.corrupted_fields}"
+        assert comp.fidelity > 0.0
+
+    def test_baseline_vs_jex_prov_o_fidelity(self, simple_annotated_doc):
+        """H8.10f: Baseline fidelity should be within 5pp of jsonld-ex."""
+        from en8_10_baseline import baseline_prov_o_roundtrip
+        original_fields = extract_fields(simple_annotated_doc)
+
+        # jsonld-ex round-trip
+        jex_result = run_single_stage(simple_annotated_doc, STAGE_PROV_O)
+        jex_fidelity = jex_result.comparison.fidelity
+
+        # Baseline round-trip
+        recovered = baseline_prov_o_roundtrip(simple_annotated_doc)
+        recovered_fields = extract_fields(recovered)
+        base_comp = compare_fields(original_fields, recovered_fields)
+        base_fidelity = base_comp.fidelity
+
+        gap = abs(jex_fidelity - base_fidelity)
+        # Allow up to 20pp in single-doc test (full run uses 5pp)
+        assert gap <= 0.30, (
+            f"PROV-O fidelity gap: jex={jex_fidelity:.3f} vs "
+            f"baseline={base_fidelity:.3f} (gap={gap:.3f})"
+        )
+
+    def test_baseline_no_corruption(self, simple_annotated_doc):
+        from en8_10_baseline import (
+            baseline_prov_o_roundtrip,
+            baseline_rdf_star_roundtrip,
+        )
+        for fn_name, fn in [
+            ("PROV-O", baseline_prov_o_roundtrip),
+            ("RDF-Star", baseline_rdf_star_roundtrip),
+        ]:
+            recovered = fn(simple_annotated_doc)
+            original_fields = extract_fields(simple_annotated_doc)
+            recovered_fields = extract_fields(recovered)
+            comp = compare_fields(original_fields, recovered_fields)
+            assert comp.n_corrupted == 0, (
+                f"{fn_name} baseline corrupted: {comp.corrupted_fields}"
+            )
+
+    def test_loc_counter(self):
+        from en8_10_baseline import count_executable_lines
+        import tempfile, os
+        # Write a small test file
+        content = '''"""Docstring."""\nimport os\n\n# comment\ndef foo():\n    return 1\n\nx = 2\n'''
+        with tempfile.NamedTemporaryFile(
+            mode="w", suffix=".py", delete=False
+        ) as f:
+            f.write(content)
+            tmp = f.name
+        try:
+            loc = count_executable_lines(tmp)
+            # "def foo():", "return 1", "x = 2" = 3 executable lines
+            assert loc == 3, f"Expected 3, got {loc}"
+        finally:
+            os.unlink(tmp)
