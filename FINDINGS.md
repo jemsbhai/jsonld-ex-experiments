@@ -5639,3 +5639,81 @@ The H8.2d finding required extensive diagnosis:
 This progression from failure to principled finding is itself a
 methodological contribution: the correct SL signal for quality
 assessment is projected probability (belief), not uncertainty.
+
+
+---
+
+## EN8.6 -- Graph Merge and Diff Operations (Phase 1: Synthetic)
+
+**Date:** 2026-05-05 01:23 UTC
+**Config:** 240 runs (4 corruption rates x 4 calibration regimes x 3 source counts x 5 seeds), graph_size=500, overlap_rate=0.4
+**Scaling:** 20 runs (4 sizes x 5 seeds), up to 5000 nodes
+
+### Hypotheses and Results
+
+**H8.6a (Conflict Resolution Accuracy): ACCEPTED**
+Under ideal calibration, jsonld-ex merge_graphs(strategy="highest") achieves 75.1-89.2% conflict resolution accuracy across corruption rates (0.05-0.40). All above 75% failure threshold. Baselines: majority vote 50.6-66.1%, rdflib union 39.2-55.2%, random 46.0-61.2%.
+
+| Corruption Rate | jsonld-ex highest | Majority Vote | rdflib union | Random | B5 (rdflib+conf) |
+|-----------------|-------------------|---------------|--------------|--------|-------------------|
+| 0.05            | 0.892 [0.882,0.902] | 0.661       | ~0.55        | ~0.61  | 0.892             |
+| 0.10            | 0.884 [0.877,0.890] | 0.664       | ~0.51        | ~0.57  | 0.884             |
+| 0.20            | 0.847 [0.843,0.851] | 0.607       | ~0.44        | ~0.52  | 0.847             |
+| 0.40            | 0.751 [0.748,0.754] | 0.506       | ~0.39        | ~0.46  | 0.751             |
+
+**Critical honest control (B5):** rdflib+confidence argmax matches jsonld-ex accuracy exactly. The algorithmic contribution is zero -- the value is the integrated pipeline, audit trail, and JSON-LD native semantics.
+
+**H8.6b (Strategic Divergence -- weighted_vote vs highest): ACCEPTED**
+On explicitly constructed majority-correct conflicts (2 correct sources with moderate confidence vs 1 wrong source with high confidence), weighted_vote outperforms highest. On standard conflicts, highest matches or exceeds weighted_vote (within 5pp tolerance). Strategic divergence confirmed.
+
+**H8.6c (Calibration Sensitivity -- KEY FINDING): ACCEPTED**
+The accuracy advantage of confidence-aware merge over majority vote is strictly monotonic with calibration quality:
+
+| Regime       | Avg Delta (highest - majority) | Interpretation                           |
+|--------------|--------------------------------|------------------------------------------|
+| Ideal        | +23.4pp                        | Confidence strongly informative           |
+| Noisy        | +9.8pp                         | Weak but positive correlation helps        |
+| Uncalibrated | -14.4pp                        | Confidence uninformative; majority wins    |
+| Adversarial  | -58.5pp                        | Anti-correlated confidence; actively hurts  |
+
+This is the HONEST finding: confidence-aware merge helps when and only when confidence scores are positively correlated with correctness. Under uncalibrated conditions, argmax-by-confidence degenerates to random selection among candidates, while majority vote retains its structural counting advantage (2 correct sources outvote 1 wrong in the common case). Under adversarial calibration, confidence-aware merge is catastrophically worse.
+
+The crossover from positive to negative delta occurs between the "noisy" (r~0.3-0.4) and "uncalibrated" (r~0) regimes. This empirically characterizes when practitioners should use confidence-aware merge vs. simple majority vote.
+
+Delta is consistent across corruption rates within each regime, confirming the effect is driven by calibration quality, not data difficulty.
+
+**H8.6d (Agreement Confidence Boosting): ACCEPTED**
+For agreed properties, noisy-OR combined confidence is 4x better calibrated than single-source max:
+- Noisy-OR ECE: 0.031
+- Max ECE: 0.125
+
+Noisy-OR correctly increases confidence toward 1.0 when multiple independent sources agree, which is well-calibrated because nearly all multi-source agreements are correct.
+
+**H8.6e (Diff Completeness): ACCEPTED**
+diff_graphs achieves 100% precision and 100% recall across all 240 configurations (2400 diff test pairs total). No missed changes, no false positives.
+
+**H8.6f (Audit Trail Fidelity): ACCEPTED**
+MergeReport records every conflict with correct node_id, property_name, candidate values, and winner. 100% completeness across all 240 configurations.
+
+**H8.6g (Throughput and Scaling): ACCEPTED**
+Scaling exponent: 1.039 (essentially linear).
+
+| Graph Size | p50 Latency        |
+|------------|---------------------|
+| 100 nodes  | 3.90ms [3.73,4.07]  |
+| 500 nodes  | 19.51ms [19.01,20.16] |
+| 1000 nodes | 38.89ms [38.47,39.37] |
+| 5000 nodes | 227.89ms [225.74,230.46] |
+
+### Key Methodological Notes
+
+1. **B5 honest control:** The custom rdflib+confidence baseline achieves identical accuracy to jsonld-ex, confirming that argmax-by-confidence is not a novel algorithm. The contribution is the integrated pipeline: annotate -> merge -> diff -> audit, all on JSON-LD graphs with W3C-compatible semantics.
+
+2. **Calibration sensitivity is the main empirical contribution:** No prior work characterizes when confidence-aware KG merge helps vs. hurts. The monotonic relationship with calibration quality, and the crossover point between noisy and uncalibrated regimes, is a practical guideline for practitioners.
+
+3. **Confidence-aware merge is a conditional recommendation:** Use when you have well-calibrated confidence (r > 0.3). Use majority vote when confidence is unreliable. Report calibration quality alongside merge results.
+
+### Phase 2 Status
+
+Phase 2 (real-world DBpedia x Wikidata validation) pending. Will test whether the calibration-accuracy relationship from Phase 1 transfers to real-world KG merge with naturally occurring conflicts.
+
