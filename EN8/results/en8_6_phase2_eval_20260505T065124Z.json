@@ -1,0 +1,47 @@
+{
+  "experiment_id": "EN8.6",
+  "phase": "real_world_phase2_evaluation",
+  "timestamp": "2026-05-05T06:51:24.946322+00:00",
+  "conflict_taxonomy": {
+    "granularity": 116,
+    "factual": 89,
+    "temporal": 36,
+    "synonym": 17,
+    "format": 3
+  },
+  "n_total_conflicts": 261,
+  "n_factual": 89,
+  "n_evaluable": 74,
+  "n_dbpedia_correct": 44,
+  "n_wikidata_correct": 30,
+  "dbpedia_correct_rate": 0.5945945945945946,
+  "scenario_a_naive": {
+    "description": "Wikidata conf=0.75, DBpedia conf=0.65",
+    "highest_accuracy": 0.40540540540540543,
+    "weighted_vote_accuracy": 0.40540540540540543,
+    "b5_accuracy": 0.40540540540540543,
+    "majority_vote_accuracy": 0.5945945945945946,
+    "most_recent_accuracy": 0.40540540540540543,
+    "rdflib_union_accuracy": 0.40540540540540543,
+    "random_accuracy": 0.5945945945945946,
+    "delta_highest_vs_majority": -0.1891891891891892
+  },
+  "scenario_b_correct": {
+    "description": "DBpedia conf=0.75, Wikidata conf=0.65",
+    "highest_accuracy": 0.5945945945945946,
+    "weighted_vote_accuracy": 0.5945945945945946,
+    "b5_accuracy": 0.5945945945945946,
+    "delta_highest_vs_majority": 0.0
+  },
+  "scenario_c_equal": {
+    "description": "Both conf=0.70",
+    "highest_accuracy": 0.5945945945945946,
+    "b5_accuracy": 0.5945945945945946
+  },
+  "phase1_transfer": {
+    "naive_delta_predicted": "negative (adversarial regime)",
+    "naive_delta_actual": -0.1891891891891892,
+    "correct_delta_predicted": "positive (noisy regime)",
+    "correct_delta_actual": 0.0
+  }
+}
